@@ -7,7 +7,7 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
-        applicationId "com.badcompany.pitak"
+        applicationId "com.badcompany.pitakpass"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
@@ -46,10 +46,10 @@ android {
 }
 
 dependencies {
-    implementation project(":data")
-    implementation project(":domain")
-    implementation project(":core")
-    implementation project(":remote")
+//    implementation project(":data")
+//    implementation project(":domain")
+//    implementation project(":core")
+//    implementation project(":remote")
 //    implementation project (":Autocomplete-master")
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

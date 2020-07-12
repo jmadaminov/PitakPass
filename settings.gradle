@@ -1,2 +1,2 @@
-include ':app', ':domain', ':data', ':core', ':remote'
-rootProject.name = 'Pitak'
+include ':app'
+rootProject.name = 'PitakPass'
