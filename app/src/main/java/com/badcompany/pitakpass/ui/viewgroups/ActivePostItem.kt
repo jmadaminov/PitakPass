@@ -2,7 +2,7 @@ package com.badcompany.pitakpass.ui.viewgroups
 
 import android.view.View
 import android.widget.ProgressBar
-import com.badcompany.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder

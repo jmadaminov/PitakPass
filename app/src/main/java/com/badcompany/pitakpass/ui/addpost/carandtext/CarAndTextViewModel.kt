@@ -1,9 +1,9 @@
 package com.badcompany.pitakpass.ui.addpost.carandtext
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.CarDetails
-import com.badcompany.domain.usecases.GetCars
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.CarDetails
+import com.badcompany.pitakpass.domain.usecases.GetCars
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.AppPreferences
 import com.badcompany.pitakpass.util.SingleLiveEvent

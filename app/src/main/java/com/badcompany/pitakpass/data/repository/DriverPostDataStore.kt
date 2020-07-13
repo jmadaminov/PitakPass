@@ -1,8 +1,8 @@
-package com.badcompany.data.repository
+package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.DriverPostEntity
-import com.badcompany.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.DriverPostEntity
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 
 
 interface DriverPostDataStore {

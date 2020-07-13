@@ -1,7 +1,7 @@
-package com.badcompany.data.mapper
+package com.badcompany.pitakpass.data.mapper
 
-import com.badcompany.data.model.*
-import com.badcompany.domain.domainmodel.*
+import com.badcompany.pitakpass.data.model.*
+import com.badcompany.pitakpass.domain.domainmodel.*
 import javax.inject.Inject
 
 

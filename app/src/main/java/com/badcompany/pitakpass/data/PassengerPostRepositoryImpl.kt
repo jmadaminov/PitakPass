@@ -1,14 +1,14 @@
-package com.badcompany.data
+package com.badcompany.pitakpass.data
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.mapper.FilterMapper
-import com.badcompany.data.mapper.PassengerPostMapper
-import com.badcompany.data.source.PassengerPostDataStoreFactory
-import com.badcompany.domain.domainmodel.Filter
-import com.badcompany.domain.domainmodel.PassengerPost
-import com.badcompany.domain.repository.PassengerPostRepository
-import com.badcompany.domain.repository.PlaceRepository
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.mapper.FilterMapper
+import com.badcompany.pitakpass.data.mapper.PassengerPostMapper
+import com.badcompany.pitakpass.data.source.PassengerPostDataStoreFactory
+import com.badcompany.pitakpass.domain.domainmodel.Filter
+import com.badcompany.pitakpass.domain.domainmodel.PassengerPost
+import com.badcompany.pitakpass.domain.repository.PassengerPostRepository
+import com.badcompany.pitakpass.domain.repository.PlaceRepository
 import javax.inject.Inject
 
 /**

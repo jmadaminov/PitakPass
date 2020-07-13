@@ -1,8 +1,8 @@
-package com.badcompany.domain.repository
+package com.badcompany.pitakpass.domain.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Filter
-import com.badcompany.domain.domainmodel.PassengerPost
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Filter
+import com.badcompany.pitakpass.domain.domainmodel.PassengerPost
 
 interface PassengerPostRepository {
 

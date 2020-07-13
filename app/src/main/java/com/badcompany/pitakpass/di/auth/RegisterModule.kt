@@ -1,18 +1,18 @@
 package com.badcompany.pitakpass.di.auth
 
-import com.badcompany.data.UserRepositoryImpl
-import com.badcompany.data.mapper.AuthMapper
-import com.badcompany.data.mapper.UserCredentialsMapper
-import com.badcompany.data.mapper.UserMapper
-import com.badcompany.data.repository.UserRemote
-import com.badcompany.data.source.UserDataStoreFactory
-import com.badcompany.data.source.UserRemoteDataStore
-import com.badcompany.domain.repository.UserRepository
-import com.badcompany.domain.usecases.RegisterUser
+import com.badcompany.pitakpass.data.UserRepositoryImpl
+import com.badcompany.pitakpass.data.mapper.AuthMapper
+import com.badcompany.pitakpass.data.mapper.UserCredentialsMapper
+import com.badcompany.pitakpass.data.mapper.UserMapper
+import com.badcompany.pitakpass.data.repository.UserRemote
+import com.badcompany.pitakpass.data.source.UserDataStoreFactory
+import com.badcompany.pitakpass.data.source.UserRemoteDataStore
+import com.badcompany.pitakpass.domain.repository.UserRepository
+import com.badcompany.pitakpass.domain.usecases.RegisterUser
 import com.badcompany.pitakpass.BuildConfig
-import com.badcompany.remote.ApiService
-import com.badcompany.remote.ApiServiceFactory
-import com.badcompany.remote.UserRemoteImpl
+import com.badcompany.pitakpass.remote.ApiService
+import com.badcompany.pitakpass.remote.ApiServiceFactory
+import com.badcompany.pitakpass.remote.UserRemoteImpl
 import dagger.Module
 import dagger.Provides
 
@@ -74,32 +74,32 @@ object RegisterModule {
     @AuthScope
     @JvmStatic
     fun provideUserRemote(apiService: ApiService,
-                          userCredMapper: com.badcompany.remote.mapper.UserCredentialsMapper,
-                          userMapper: com.badcompany.remote.mapper.UserMapper,
-                          authMapper: com.badcompany.remote.mapper.AuthMapper): UserRemote {
+                          userCredMapper: com.badcompany.pitakpass.remote.mapper.UserCredentialsMapper,
+                          userMapper: com.badcompany.pitakpass.remote.mapper.UserMapper,
+                          authMapper: com.badcompany.pitakpass.remote.mapper.AuthMapper): UserRemote {
         return UserRemoteImpl(apiService, userCredMapper, userMapper, authMapper)
     }
 
     @AuthScope
     @Provides
     @JvmStatic
-    fun provideRemoteUserCredentialsMapper(): com.badcompany.remote.mapper.UserCredentialsMapper {
-        return com.badcompany.remote.mapper.UserCredentialsMapper()
+    fun provideRemoteUserCredentialsMapper(): com.badcompany.pitakpass.remote.mapper.UserCredentialsMapper {
+        return com.badcompany.pitakpass.remote.mapper.UserCredentialsMapper()
     }
 
     @AuthScope
     @Provides
     @JvmStatic
-    fun provideRemoteUserMapper(): com.badcompany.remote.mapper.UserMapper {
-        return com.badcompany.remote.mapper.UserMapper()
+    fun provideRemoteUserMapper(): com.badcompany.pitakpass.remote.mapper.UserMapper {
+        return com.badcompany.pitakpass.remote.mapper.UserMapper()
     }
 
 
     @AuthScope
     @Provides
     @JvmStatic
-    fun provideRemoteAuthMapper(): com.badcompany.remote.mapper.AuthMapper {
-        return com.badcompany.remote.mapper.AuthMapper()
+    fun provideRemoteAuthMapper(): com.badcompany.pitakpass.remote.mapper.AuthMapper {
+        return com.badcompany.pitakpass.remote.mapper.AuthMapper()
     }
 
 //    @Provides

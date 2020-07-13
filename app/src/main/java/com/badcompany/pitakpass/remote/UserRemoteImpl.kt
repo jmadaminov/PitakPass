@@ -1,15 +1,15 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.AuthEntity
-import com.badcompany.data.model.UserCredentialsEntity
-import com.badcompany.data.model.UserEntity
-import com.badcompany.data.repository.UserRemote
-import com.badcompany.remote.mapper.AuthMapper
-import com.badcompany.remote.mapper.UserCredentialsMapper
-import com.badcompany.remote.mapper.UserMapper
-import com.badcompany.remote.model.LoginRequest
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.AuthEntity
+import com.badcompany.pitakpass.data.model.UserCredentialsEntity
+import com.badcompany.pitakpass.data.model.UserEntity
+import com.badcompany.pitakpass.data.repository.UserRemote
+import com.badcompany.pitakpass.remote.mapper.AuthMapper
+import com.badcompany.pitakpass.remote.mapper.UserCredentialsMapper
+import com.badcompany.pitakpass.remote.mapper.UserMapper
+import com.badcompany.pitakpass.remote.model.LoginRequest
 import javax.inject.Inject
 
 /**

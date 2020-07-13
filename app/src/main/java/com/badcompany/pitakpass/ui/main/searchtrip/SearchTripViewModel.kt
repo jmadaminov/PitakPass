@@ -1,11 +1,11 @@
 package com.badcompany.pitakpass.ui.main.searchtrip
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Filter
-import com.badcompany.domain.domainmodel.PassengerPost
-import com.badcompany.domain.usecases.GetPassengerPostWithFilter
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Filter
+import com.badcompany.pitakpass.domain.domainmodel.PassengerPost
+import com.badcompany.pitakpass.domain.usecases.GetPassengerPostWithFilter
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.AppPreferences
 import com.badcompany.pitakpass.util.SingleLiveEvent

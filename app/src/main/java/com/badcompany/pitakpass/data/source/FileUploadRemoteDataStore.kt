@@ -1,8 +1,8 @@
-package com.badcompany.data.source
+package com.badcompany.pitakpass.data.source
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.PhotoEntity
-import com.badcompany.data.repository.*
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.PhotoEntity
+import com.badcompany.pitakpass.data.repository.*
 import java.io.File
 import javax.inject.Inject
 

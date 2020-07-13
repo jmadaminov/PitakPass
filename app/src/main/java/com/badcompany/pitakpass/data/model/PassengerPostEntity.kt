@@ -1,6 +1,6 @@
-package com.badcompany.data.model
+package com.badcompany.pitakpass.data.model
 
-import com.badcompany.core.Constants
+import com.badcompany.pitakpass.util.Constants
 
 /**
  * Representation for a [PassengerPostEntity] fetched from the API

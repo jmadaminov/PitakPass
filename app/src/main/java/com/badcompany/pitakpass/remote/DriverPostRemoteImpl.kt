@@ -1,11 +1,11 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.DriverPostEntity
-import com.badcompany.data.repository.DriverPostRemote
-import com.badcompany.remote.mapper.DriverPostMapper
-import com.badcompany.remote.model.HistoryPostRequest
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.DriverPostEntity
+import com.badcompany.pitakpass.data.repository.DriverPostRemote
+import com.badcompany.pitakpass.remote.mapper.DriverPostMapper
+import com.badcompany.pitakpass.remote.model.HistoryPostRequest
 import javax.inject.Inject
 
 /**

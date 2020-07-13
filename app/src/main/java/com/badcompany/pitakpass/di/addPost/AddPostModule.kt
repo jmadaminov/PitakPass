@@ -1,22 +1,22 @@
 package com.badcompany.pitakpass.di.addPost
 
-import com.badcompany.data.DriverPostRepositoryImpl
-import com.badcompany.data.PlaceRepositoryImpl
-import com.badcompany.data.mapper.DriverPostMapper
-import com.badcompany.data.mapper.PlaceMapper
-import com.badcompany.data.repository.PlaceRemote
-import com.badcompany.data.repository.DriverPostRemote
-import com.badcompany.data.source.DriverPostDataStoreFactory
-import com.badcompany.data.source.DriverPostRemoteDataStore
-import com.badcompany.data.source.PlaceDataStoreFactory
-import com.badcompany.data.source.PlaceRemoteDataStore
-import com.badcompany.domain.repository.DriverPostRepository
-import com.badcompany.domain.repository.PlaceRepository
-import com.badcompany.domain.usecases.CreateDriverPost
-import com.badcompany.domain.usecases.GetPlacesFeed
-import com.badcompany.remote.ApiService
-import com.badcompany.remote.DriverPostRemoteImpl
-import com.badcompany.remote.PlaceRemoteImpl
+import com.badcompany.pitakpass.data.DriverPostRepositoryImpl
+import com.badcompany.pitakpass.data.PlaceRepositoryImpl
+import com.badcompany.pitakpass.data.mapper.DriverPostMapper
+import com.badcompany.pitakpass.data.mapper.PlaceMapper
+import com.badcompany.pitakpass.data.repository.PlaceRemote
+import com.badcompany.pitakpass.data.repository.DriverPostRemote
+import com.badcompany.pitakpass.data.source.DriverPostDataStoreFactory
+import com.badcompany.pitakpass.data.source.DriverPostRemoteDataStore
+import com.badcompany.pitakpass.data.source.PlaceDataStoreFactory
+import com.badcompany.pitakpass.data.source.PlaceRemoteDataStore
+import com.badcompany.pitakpass.domain.repository.DriverPostRepository
+import com.badcompany.pitakpass.domain.repository.PlaceRepository
+import com.badcompany.pitakpass.domain.usecases.CreateDriverPost
+import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
+import com.badcompany.pitakpass.remote.ApiService
+import com.badcompany.pitakpass.remote.DriverPostRemoteImpl
+import com.badcompany.pitakpass.remote.PlaceRemoteImpl
 import dagger.Module
 import dagger.Provides
 
@@ -100,7 +100,7 @@ object AddPostModule {
     @AddPostScope
     @JvmStatic
     fun providePlaceRemote(apiService: ApiService,
-                           placeMapper: com.badcompany.remote.mapper.PlaceMapper): PlaceRemote {
+                           placeMapper: com.badcompany.pitakpass.remote.mapper.PlaceMapper): PlaceRemote {
         return PlaceRemoteImpl(apiService, placeMapper)
     }
 
@@ -109,22 +109,22 @@ object AddPostModule {
     @AddPostScope
     @JvmStatic
     fun provideDriverPostRemote(apiService: ApiService,
-                                driverPostMapper: com.badcompany.remote.mapper.DriverPostMapper): DriverPostRemote {
+                                driverPostMapper: com.badcompany.pitakpass.remote.mapper.DriverPostMapper): DriverPostRemote {
         return DriverPostRemoteImpl(apiService, driverPostMapper)
     }
 
     @AddPostScope
     @Provides
     @JvmStatic
-    fun provideRemotePlaceMapper(): com.badcompany.remote.mapper.PlaceMapper {
-        return com.badcompany.remote.mapper.PlaceMapper()
+    fun provideRemotePlaceMapper(): com.badcompany.pitakpass.remote.mapper.PlaceMapper {
+        return com.badcompany.pitakpass.remote.mapper.PlaceMapper()
     }
 
     @AddPostScope
     @Provides
     @JvmStatic
-    fun provideRemoteDriverPostMapper(): com.badcompany.remote.mapper.DriverPostMapper {
-        return com.badcompany.remote.mapper.DriverPostMapper()
+    fun provideRemoteDriverPostMapper(): com.badcompany.pitakpass.remote.mapper.DriverPostMapper {
+        return com.badcompany.pitakpass.remote.mapper.DriverPostMapper()
     }
 
 

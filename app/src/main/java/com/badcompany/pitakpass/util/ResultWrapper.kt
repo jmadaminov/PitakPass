@@ -1,4 +1,4 @@
-package com.badcompany.pitak.util
+package com.badcompany.pitakpass.util
 
 sealed class ResultWrapper<out V> {
     data class Success<out V>(val value: V) : ResultWrapper<V>()

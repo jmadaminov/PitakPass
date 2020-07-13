@@ -10,11 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.badcompany.core.Constants
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.core.exhaustive
-import com.badcompany.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.exhaustive
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener

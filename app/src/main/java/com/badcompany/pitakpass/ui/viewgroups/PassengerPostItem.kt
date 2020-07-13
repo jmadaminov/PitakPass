@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.viewgroups
 
 import android.view.View
-import com.badcompany.domain.domainmodel.PassengerPost
+import com.badcompany.pitakpass.domain.domainmodel.PassengerPost
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addcar.MyItemClickListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder

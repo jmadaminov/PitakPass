@@ -1,18 +1,18 @@
-package com.badcompany.data
+package com.badcompany.pitakpass.data
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.mapper.CarColorMapper
-import com.badcompany.data.mapper.CarDetailsMapper
-import com.badcompany.data.mapper.CarMapper
-import com.badcompany.data.mapper.CarModelMapper
-import com.badcompany.data.source.CarDataStoreFactory
-import com.badcompany.domain.domainmodel.Car
-import com.badcompany.domain.domainmodel.CarColorBody
-import com.badcompany.domain.domainmodel.CarDetails
-import com.badcompany.domain.domainmodel.CarModelBody
-import com.badcompany.domain.repository.CarRepository
-import com.badcompany.domain.repository.UserRepository
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.mapper.CarColorMapper
+import com.badcompany.pitakpass.data.mapper.CarDetailsMapper
+import com.badcompany.pitakpass.data.mapper.CarMapper
+import com.badcompany.pitakpass.data.mapper.CarModelMapper
+import com.badcompany.pitakpass.data.source.CarDataStoreFactory
+import com.badcompany.pitakpass.domain.domainmodel.Car
+import com.badcompany.pitakpass.domain.domainmodel.CarColorBody
+import com.badcompany.pitakpass.domain.domainmodel.CarDetails
+import com.badcompany.pitakpass.domain.domainmodel.CarModelBody
+import com.badcompany.pitakpass.domain.repository.CarRepository
+import com.badcompany.pitakpass.domain.repository.UserRepository
 import javax.inject.Inject
 
 /**

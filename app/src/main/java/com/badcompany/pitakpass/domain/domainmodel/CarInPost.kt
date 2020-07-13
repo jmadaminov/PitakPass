@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 /**
  * Representation for a [CarInPost] fetched from the API

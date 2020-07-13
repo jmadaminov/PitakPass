@@ -1,13 +1,13 @@
-package com.badcompany.data.source
+package com.badcompany.pitakpass.data.source
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.CarColorEntity
-import com.badcompany.data.model.CarDetailsEntity
-import com.badcompany.data.model.CarEntity
-import com.badcompany.data.model.CarModelEntity
-import com.badcompany.data.repository.CarDataStore
-import com.badcompany.data.repository.CarRemote
-import com.badcompany.data.repository.UserDataStore
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.CarColorEntity
+import com.badcompany.pitakpass.data.model.CarDetailsEntity
+import com.badcompany.pitakpass.data.model.CarEntity
+import com.badcompany.pitakpass.data.model.CarModelEntity
+import com.badcompany.pitakpass.data.repository.CarDataStore
+import com.badcompany.pitakpass.data.repository.CarRemote
+import com.badcompany.pitakpass.data.repository.UserDataStore
 import javax.inject.Inject
 
 /**

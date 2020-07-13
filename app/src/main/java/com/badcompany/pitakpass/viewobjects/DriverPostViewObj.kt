@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.viewobjects
 
 import android.os.Parcelable
-import com.badcompany.core.Constants
+import com.badcompany.pitakpass.util.Constants
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

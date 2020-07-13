@@ -1,4 +1,4 @@
-package com.badcompany.remote.model
+package com.badcompany.pitakpass.remote.model
 
 /**
  * Created by jahon on 12-Apr-20

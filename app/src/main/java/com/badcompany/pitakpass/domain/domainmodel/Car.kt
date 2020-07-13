@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 data class Car(var id: Long? = null,
                var modelId: Long? = null,

@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.badcompany.core.*
-import com.badcompany.domain.domainmodel.User
+import com.badcompany.pitakpass.util.*
+import com.badcompany.pitakpass.domain.domainmodel.User
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.fragment_register.*

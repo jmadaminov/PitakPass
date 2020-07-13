@@ -1,6 +1,6 @@
-package com.badcompany.remote.model
+package com.badcompany.pitakpass.remote.model
 
-import com.badcompany.core.Constants
+import com.badcompany.pitakpass.util.Constants
 import com.google.gson.annotations.SerializedName
 
 /**

@@ -1,9 +1,9 @@
-package com.badcompany.data.repository
+package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.CarColorEntity
-import com.badcompany.data.model.CarModelEntity
-import com.badcompany.data.model.PhotoEntity
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.CarColorEntity
+import com.badcompany.pitakpass.data.model.CarModelEntity
+import com.badcompany.pitakpass.data.model.PhotoEntity
 import java.io.File
 
 

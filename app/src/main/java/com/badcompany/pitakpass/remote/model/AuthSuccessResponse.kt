@@ -1,4 +1,4 @@
-package com.badcompany.remote.model
+package com.badcompany.pitakpass.remote.model
 
 import com.google.gson.annotations.SerializedName
 

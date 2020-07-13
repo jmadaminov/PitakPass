@@ -1,9 +1,9 @@
-package com.badcompany.domain.usecases
+package com.badcompany.pitakpass.domain.usecases
 
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.DriverPost
-import com.badcompany.domain.repository.DriverPostRepository
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 
 
 /** User Login Use Case

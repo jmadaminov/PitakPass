@@ -1,9 +1,9 @@
-package com.badcompany.data.mapper
+package com.badcompany.pitakpass.data.mapper
 
-import com.badcompany.data.model.PhotoEntity
-import com.badcompany.domain.domainmodel.User
-import com.badcompany.data.model.UserEntity
-import com.badcompany.domain.domainmodel.PhotoBody
+import com.badcompany.pitakpass.data.model.PhotoEntity
+import com.badcompany.pitakpass.domain.domainmodel.User
+import com.badcompany.pitakpass.data.model.UserEntity
+import com.badcompany.pitakpass.domain.domainmodel.PhotoBody
 import javax.inject.Inject
 
 

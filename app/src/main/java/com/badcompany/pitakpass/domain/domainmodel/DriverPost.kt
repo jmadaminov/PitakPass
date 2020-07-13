@@ -1,6 +1,6 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
-import com.badcompany.core.Constants
+import com.badcompany.pitakpass.util.Constants
 
 data class DriverPost(val id: Long? = null,
                       val from: Place,

@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 import java.io.Serializable
 

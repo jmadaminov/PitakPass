@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 data class Place(val districtId: Int? = null,
                  val regionId: Int? = null,

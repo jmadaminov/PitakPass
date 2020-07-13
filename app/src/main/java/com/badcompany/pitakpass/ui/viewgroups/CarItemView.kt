@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.viewgroups
 
 import androidx.core.content.ContextCompat
-import com.badcompany.domain.domainmodel.CarDetails
+import com.badcompany.pitakpass.domain.domainmodel.CarDetails
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addcar.MyItemClickListener
 import com.badcompany.pitakpass.util.loadImageUrl

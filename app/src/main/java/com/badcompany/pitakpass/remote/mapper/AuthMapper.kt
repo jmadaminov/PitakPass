@@ -1,9 +1,9 @@
-package com.badcompany.remote.mapper
+package com.badcompany.pitakpass.remote.mapper
 
-import com.badcompany.data.model.AuthEntity
-import com.badcompany.data.model.UserCredentialsEntity
-import com.badcompany.remote.model.UserCredentialsModel
-import com.badcompany.remote.model.UserInfoModel
+import com.badcompany.pitakpass.data.model.AuthEntity
+import com.badcompany.pitakpass.data.model.UserCredentialsEntity
+import com.badcompany.pitakpass.remote.model.UserCredentialsModel
+import com.badcompany.pitakpass.remote.model.UserInfoModel
 import javax.inject.Inject
 
 /**

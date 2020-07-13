@@ -1,4 +1,4 @@
-package com.badcompany.data.model
+package com.badcompany.pitakpass.data.model
 
 /**
  * Representation for a [CarColorEntity] fetched from an external layer data source

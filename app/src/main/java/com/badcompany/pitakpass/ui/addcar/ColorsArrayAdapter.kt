@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.badcompany.domain.domainmodel.CarColorBody
+import com.badcompany.pitakpass.domain.domainmodel.CarColorBody
 import com.badcompany.pitakpass.R
 import kotlinx.android.synthetic.main.item_car_color.view.*
 

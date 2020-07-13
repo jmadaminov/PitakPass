@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 data class CarColorBody(val id: Long? = null,
                         val hex: String? = null,

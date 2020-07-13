@@ -1,11 +1,11 @@
-package com.badcompany.data.source
+package com.badcompany.pitakpass.data.source
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.DriverPostEntity
-import com.badcompany.data.repository.DriverPostDataStore
-import com.badcompany.data.repository.DriverPostRemote
-import com.badcompany.data.repository.PlaceDataStore
-import com.badcompany.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.DriverPostEntity
+import com.badcompany.pitakpass.data.repository.DriverPostDataStore
+import com.badcompany.pitakpass.data.repository.DriverPostRemote
+import com.badcompany.pitakpass.data.repository.PlaceDataStore
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 import javax.inject.Inject
 
 /**

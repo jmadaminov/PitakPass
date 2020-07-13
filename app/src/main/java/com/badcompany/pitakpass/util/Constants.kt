@@ -1,4 +1,4 @@
-package com.badcompany.pitak.util
+package com.badcompany.pitakpass.util
 
 /**
  * Created by jahon on 06-May-20

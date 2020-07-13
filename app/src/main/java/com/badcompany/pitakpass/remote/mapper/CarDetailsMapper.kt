@@ -1,7 +1,7 @@
-package com.badcompany.remote.mapper
+package com.badcompany.pitakpass.remote.mapper
 
-import com.badcompany.data.model.*
-import com.badcompany.remote.model.*
+import com.badcompany.pitakpass.data.model.*
+import com.badcompany.pitakpass.remote.model.*
 import javax.inject.Inject
 
 /**

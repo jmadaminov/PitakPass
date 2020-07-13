@@ -1,15 +1,15 @@
 package com.badcompany.pitakpass.ui.main.profile
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.Constants.TXT_ID
-import com.badcompany.core.Constants.TXT_TOKEN
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.core.exhaustive
-import com.badcompany.domain.domainmodel.CarDetails
-import com.badcompany.domain.usecases.DeleteCar
-import com.badcompany.domain.usecases.GetCars
-import com.badcompany.domain.usecases.SetDefaultCar
+import com.badcompany.pitakpass.util.Constants.TXT_ID
+import com.badcompany.pitakpass.util.Constants.TXT_TOKEN
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.exhaustive
+import com.badcompany.pitakpass.domain.domainmodel.CarDetails
+import com.badcompany.pitakpass.domain.usecases.DeleteCar
+import com.badcompany.pitakpass.domain.usecases.GetCars
+import com.badcompany.pitakpass.domain.usecases.SetDefaultCar
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers.IO

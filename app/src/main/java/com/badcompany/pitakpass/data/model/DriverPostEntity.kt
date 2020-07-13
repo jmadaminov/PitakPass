@@ -1,6 +1,6 @@
-package com.badcompany.data.model
+package com.badcompany.pitakpass.data.model
 
-import com.badcompany.core.Constants
+import com.badcompany.pitakpass.util.Constants
 
 data class DriverPostEntity(val id: Long? = null,
                             val from: PlaceEntity,

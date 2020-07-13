@@ -1,6 +1,6 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.remote.model.*
+import com.badcompany.pitakpass.remote.model.*
 import okhttp3.MultipartBody
 import retrofit2.http.*
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.badcompany.domain.domainmodel.CarModelBody
+import com.badcompany.pitakpass.domain.domainmodel.CarModelBody
 import com.badcompany.pitakpass.R
 import kotlinx.android.synthetic.main.item_car_model.view.*
 

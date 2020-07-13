@@ -1,9 +1,9 @@
 package com.badcompany.pitakpass.ui.auth.login
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.ResultWrapper
-import com.badcompany.core.numericOnly
-import com.badcompany.domain.usecases.LogUserIn
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.numericOnly
+import com.badcompany.pitakpass.domain.usecases.LogUserIn
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers

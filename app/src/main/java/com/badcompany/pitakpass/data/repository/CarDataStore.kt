@@ -1,7 +1,7 @@
-package com.badcompany.data.repository
+package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.*
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.*
 import java.io.File
 
 

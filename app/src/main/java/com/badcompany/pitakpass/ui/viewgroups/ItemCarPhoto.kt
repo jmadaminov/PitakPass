@@ -1,6 +1,6 @@
 package com.badcompany.pitakpass.ui.viewgroups
 
-import com.badcompany.domain.domainmodel.PhotoBody
+import com.badcompany.pitakpass.domain.domainmodel.PhotoBody
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.xwray.groupie.OnItemClickListener

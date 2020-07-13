@@ -1,8 +1,8 @@
 package com.badcompany.pitakpass.di.auth
 
-import com.badcompany.domain.repository.UserRepository
-import com.badcompany.domain.usecases.LogUserIn
-import com.badcompany.domain.usecases.SmsConfirm
+import com.badcompany.pitakpass.domain.repository.UserRepository
+import com.badcompany.pitakpass.domain.usecases.LogUserIn
+import com.badcompany.pitakpass.domain.usecases.SmsConfirm
 import dagger.Module
 import dagger.Provides
 

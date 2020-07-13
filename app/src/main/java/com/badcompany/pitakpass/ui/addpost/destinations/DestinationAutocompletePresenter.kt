@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.badcompany.core.ResultWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.ui.interfaces.IOnPlaceSearchQueryListener
 import com.badcompany.pitakpass.ui.viewgroups.PlaceFeedItemView
 import com.otaliastudios.autocomplete.RecyclerViewPresenter

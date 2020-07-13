@@ -1,9 +1,9 @@
-package com.badcompany.domain.usecases
+package com.badcompany.pitakpass.domain.usecases
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.PhotoBody
-import com.badcompany.domain.repository.CarRepository
-import com.badcompany.domain.repository.FileUploadRepository
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.PhotoBody
+import com.badcompany.pitakpass.domain.repository.CarRepository
+import com.badcompany.pitakpass.domain.repository.FileUploadRepository
 import java.io.File
 
 

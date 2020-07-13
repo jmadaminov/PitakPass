@@ -1,10 +1,10 @@
-package com.badcompany.domain.usecases
+package com.badcompany.pitakpass.domain.usecases
 
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Filter
-import com.badcompany.domain.domainmodel.PassengerPost
-import com.badcompany.domain.repository.PassengerPostRepository
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Filter
+import com.badcompany.pitakpass.domain.domainmodel.PassengerPost
+import com.badcompany.pitakpass.domain.repository.PassengerPostRepository
 
 /** User Login Use Case
  *

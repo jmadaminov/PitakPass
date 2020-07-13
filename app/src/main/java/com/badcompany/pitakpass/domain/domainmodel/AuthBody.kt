@@ -1,4 +1,4 @@
-package com.badcompany.domain.domainmodel
+package com.badcompany.pitakpass.domain.domainmodel
 
 data class AuthBody(val phoneNum: String? = null,
                     val name: String? = null,

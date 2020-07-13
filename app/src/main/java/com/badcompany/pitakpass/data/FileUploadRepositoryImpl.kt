@@ -1,12 +1,12 @@
-package com.badcompany.data
+package com.badcompany.pitakpass.data
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.mapper.PhotoMapper
-import com.badcompany.data.source.FileUploadDataStoreFactory
-import com.badcompany.domain.domainmodel.PhotoBody
-import com.badcompany.domain.repository.FileUploadRepository
-import com.badcompany.domain.repository.UserRepository
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.mapper.PhotoMapper
+import com.badcompany.pitakpass.data.source.FileUploadDataStoreFactory
+import com.badcompany.pitakpass.domain.domainmodel.PhotoBody
+import com.badcompany.pitakpass.domain.repository.FileUploadRepository
+import com.badcompany.pitakpass.domain.repository.UserRepository
 import java.io.File
 import javax.inject.Inject
 

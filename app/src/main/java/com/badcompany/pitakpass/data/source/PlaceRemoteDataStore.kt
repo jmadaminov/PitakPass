@@ -1,9 +1,9 @@
-package com.badcompany.data.source
+package com.badcompany.pitakpass.data.source
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.PlaceEntity
-import com.badcompany.data.repository.PlaceDataStore
-import com.badcompany.data.repository.PlaceRemote
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.PlaceEntity
+import com.badcompany.pitakpass.data.repository.PlaceDataStore
+import com.badcompany.pitakpass.data.repository.PlaceRemote
 import javax.inject.Inject
 
 /**

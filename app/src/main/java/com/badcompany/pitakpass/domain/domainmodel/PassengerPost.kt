@@ -1,5 +1,5 @@
-package com.badcompany.domain.domainmodel
-import com.badcompany.core.Constants
+package com.badcompany.pitakpass.domain.domainmodel
+import com.badcompany.pitakpass.util.Constants
 
 /**
  * Representation for a [PassengerPost] fetched from the API

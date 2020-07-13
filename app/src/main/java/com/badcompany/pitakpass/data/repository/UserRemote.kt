@@ -1,11 +1,11 @@
-package com.badcompany.data.repository
+package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.AuthEntity
-import com.badcompany.data.model.UserCredentialsEntity
-import com.badcompany.data.model.UserEntity
-import com.badcompany.domain.domainmodel.AuthBody
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.AuthEntity
+import com.badcompany.pitakpass.data.model.UserCredentialsEntity
+import com.badcompany.pitakpass.data.model.UserEntity
+import com.badcompany.pitakpass.domain.domainmodel.AuthBody
 
 
 /**

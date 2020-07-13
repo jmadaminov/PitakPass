@@ -1,10 +1,10 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.PhotoEntity
-import com.badcompany.data.repository.FileUploadRemote
-import com.badcompany.remote.mapper.PhotoMapper
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.PhotoEntity
+import com.badcompany.pitakpass.data.repository.FileUploadRemote
+import com.badcompany.pitakpass.remote.mapper.PhotoMapper
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

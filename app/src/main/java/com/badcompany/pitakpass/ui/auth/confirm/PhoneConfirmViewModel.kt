@@ -1,11 +1,11 @@
 package com.badcompany.pitakpass.ui.auth.confirm
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.ResultWrapper
-import com.badcompany.core.numericOnly
-import com.badcompany.domain.domainmodel.AuthBody
-import com.badcompany.domain.domainmodel.UserCredentials
-import com.badcompany.domain.usecases.SmsConfirm
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.numericOnly
+import com.badcompany.pitakpass.domain.domainmodel.AuthBody
+import com.badcompany.pitakpass.domain.domainmodel.UserCredentials
+import com.badcompany.pitakpass.domain.usecases.SmsConfirm
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers

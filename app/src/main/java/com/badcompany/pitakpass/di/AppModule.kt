@@ -1,22 +1,22 @@
 package com.badcompany.pitakpass.di
 
-import com.badcompany.data.CarRepositoryImpl
-import com.badcompany.data.FileUploadRepositoryImpl
-import com.badcompany.data.mapper.*
-import com.badcompany.data.repository.CarRemote
-import com.badcompany.data.repository.FileUploadRemote
-import com.badcompany.data.source.CarDataStoreFactory
-import com.badcompany.data.source.CarRemoteDataStore
-import com.badcompany.data.source.FileUploadDataStoreFactory
-import com.badcompany.data.source.FileUploadRemoteDataStore
-import com.badcompany.domain.repository.CarRepository
-import com.badcompany.domain.repository.FileUploadRepository
-import com.badcompany.domain.usecases.*
+import com.badcompany.pitakpass.data.CarRepositoryImpl
+import com.badcompany.pitakpass.data.FileUploadRepositoryImpl
+import com.badcompany.pitakpass.data.mapper.*
+import com.badcompany.pitakpass.data.repository.CarRemote
+import com.badcompany.pitakpass.data.repository.FileUploadRemote
+import com.badcompany.pitakpass.data.source.CarDataStoreFactory
+import com.badcompany.pitakpass.data.source.CarRemoteDataStore
+import com.badcompany.pitakpass.data.source.FileUploadDataStoreFactory
+import com.badcompany.pitakpass.data.source.FileUploadRemoteDataStore
+import com.badcompany.pitakpass.domain.repository.CarRepository
+import com.badcompany.pitakpass.domain.repository.FileUploadRepository
+import com.badcompany.pitakpass.domain.usecases.*
 import com.badcompany.pitakpass.BuildConfig
-import com.badcompany.remote.ApiService
-import com.badcompany.remote.ApiServiceFactory
-import com.badcompany.remote.CarRemoteImpl
-import com.badcompany.remote.FileUploadRemoteImpl
+import com.badcompany.pitakpass.remote.ApiService
+import com.badcompany.pitakpass.remote.ApiServiceFactory
+import com.badcompany.pitakpass.remote.CarRemoteImpl
+import com.badcompany.pitakpass.remote.FileUploadRemoteImpl
 import dagger.Module
 import dagger.Provides
 
@@ -98,10 +98,10 @@ object AppModule {
     @Provides
     @JvmStatic
     fun provideCarRemote(apiService: ApiService,
-                         carModelMapper: com.badcompany.remote.mapper.CarModelMapper,
-                         carColorMapper: com.badcompany.remote.mapper.CarColorMapper,
-                         carMapper: com.badcompany.remote.mapper.CarMapper,
-                         carDetailsMapper: com.badcompany.remote.mapper.CarDetailsMapper): CarRemote {
+                         carModelMapper: com.badcompany.pitakpass.remote.mapper.CarModelMapper,
+                         carColorMapper: com.badcompany.pitakpass.remote.mapper.CarColorMapper,
+                         carMapper: com.badcompany.pitakpass.remote.mapper.CarMapper,
+                         carDetailsMapper: com.badcompany.pitakpass.remote.mapper.CarDetailsMapper): CarRemote {
         return CarRemoteImpl(apiService,
                              carModelMapper,
                              carColorMapper,
@@ -113,22 +113,22 @@ object AppModule {
     @Provides
 
     @JvmStatic
-    fun provideRemoteCarModelMapper(): com.badcompany.remote.mapper.CarModelMapper {
-        return com.badcompany.remote.mapper.CarModelMapper()
+    fun provideRemoteCarModelMapper(): com.badcompany.pitakpass.remote.mapper.CarModelMapper {
+        return com.badcompany.pitakpass.remote.mapper.CarModelMapper()
     }
 
 
     @Provides
     @JvmStatic
-    fun provideRemoteCarColorMapper(): com.badcompany.remote.mapper.CarColorMapper {
-        return com.badcompany.remote.mapper.CarColorMapper()
+    fun provideRemoteCarColorMapper(): com.badcompany.pitakpass.remote.mapper.CarColorMapper {
+        return com.badcompany.pitakpass.remote.mapper.CarColorMapper()
     }
 
 
     @Provides
     @JvmStatic
-    fun provideRemoteCarMapper(): com.badcompany.remote.mapper.CarMapper {
-        return com.badcompany.remote.mapper.CarMapper()
+    fun provideRemoteCarMapper(): com.badcompany.pitakpass.remote.mapper.CarMapper {
+        return com.badcompany.pitakpass.remote.mapper.CarMapper()
     }
 
 
@@ -202,14 +202,14 @@ object AppModule {
     @Provides
     @JvmStatic
     fun provideFileUploadRemote(apiService: ApiService,
-                                photoMapper: com.badcompany.remote.mapper.PhotoMapper): FileUploadRemote {
+                                photoMapper: com.badcompany.pitakpass.remote.mapper.PhotoMapper): FileUploadRemote {
         return FileUploadRemoteImpl(apiService, photoMapper)
     }
 
     @Provides
     @JvmStatic
-    fun provideRemoteFileUploadPhotoMapper(): com.badcompany.remote.mapper.PhotoMapper {
-        return com.badcompany.remote.mapper.PhotoMapper()
+    fun provideRemoteFileUploadPhotoMapper(): com.badcompany.pitakpass.remote.mapper.PhotoMapper {
+        return com.badcompany.pitakpass.remote.mapper.PhotoMapper()
     }
 
 

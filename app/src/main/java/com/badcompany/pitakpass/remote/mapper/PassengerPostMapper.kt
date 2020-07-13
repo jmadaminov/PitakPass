@@ -1,12 +1,12 @@
-package com.badcompany.remote.mapper
+package com.badcompany.pitakpass.remote.mapper
 
-import com.badcompany.data.mapper.Mapper
-import com.badcompany.data.model.DriverPostEntity
-import com.badcompany.data.model.PassengerPostEntity
-import com.badcompany.data.model.PlaceEntity
-import com.badcompany.remote.model.DriverPostModel
-import com.badcompany.remote.model.PassengerPostModel
-import com.badcompany.remote.model.PlaceModel
+import com.badcompany.pitakpass.data.mapper.Mapper
+import com.badcompany.pitakpass.data.model.DriverPostEntity
+import com.badcompany.pitakpass.data.model.PassengerPostEntity
+import com.badcompany.pitakpass.data.model.PlaceEntity
+import com.badcompany.pitakpass.remote.model.DriverPostModel
+import com.badcompany.pitakpass.remote.model.PassengerPostModel
+import com.badcompany.pitakpass.remote.model.PlaceModel
 import javax.inject.Inject
 
 

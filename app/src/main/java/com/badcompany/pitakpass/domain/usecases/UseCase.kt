@@ -1,4 +1,4 @@
-package com.badcompany.domain.usecases
+package com.badcompany.pitakpass.domain.usecases
 
 /**
  *

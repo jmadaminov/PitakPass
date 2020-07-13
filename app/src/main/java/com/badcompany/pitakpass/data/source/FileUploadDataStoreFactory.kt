@@ -1,6 +1,6 @@
-package com.badcompany.data.source
+package com.badcompany.pitakpass.data.source
 
-import com.badcompany.data.repository.FileUploadDataStore
+import com.badcompany.pitakpass.data.repository.FileUploadDataStore
 import javax.inject.Inject
 
 /**

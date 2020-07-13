@@ -1,10 +1,10 @@
 package com.badcompany.pitakpass.ui.main.mytrips.historytrips
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.DriverPost
-import com.badcompany.domain.usecases.GetHistoryDriverPost
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.usecases.GetHistoryDriverPost
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.AppPreferences
 import com.badcompany.pitakpass.util.SingleLiveEvent

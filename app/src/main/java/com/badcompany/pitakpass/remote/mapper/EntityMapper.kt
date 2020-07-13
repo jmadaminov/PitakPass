@@ -1,4 +1,4 @@
-package com.badcompany.remote.mapper
+package com.badcompany.pitakpass.remote.mapper
 
 /**
  * Interface for model mappers. It provides helper methods that facilitate

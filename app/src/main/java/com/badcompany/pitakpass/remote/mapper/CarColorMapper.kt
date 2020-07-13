@@ -1,9 +1,9 @@
-package com.badcompany.remote.mapper
+package com.badcompany.pitakpass.remote.mapper
 
-import com.badcompany.data.model.CarColorEntity
-import com.badcompany.data.model.UserEntity
-import com.badcompany.remote.model.CarColorModel
-import com.badcompany.remote.model.UserModel
+import com.badcompany.pitakpass.data.model.CarColorEntity
+import com.badcompany.pitakpass.data.model.UserEntity
+import com.badcompany.pitakpass.remote.model.CarColorModel
+import com.badcompany.pitakpass.remote.model.UserModel
 import javax.inject.Inject
 
 /**

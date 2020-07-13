@@ -16,9 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.core.exhaustive
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.MapsActivity
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel

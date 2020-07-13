@@ -1,9 +1,9 @@
-package com.badcompany.domain.usecases
+package com.badcompany.pitakpass.domain.usecases
 
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Place
-import com.badcompany.domain.repository.PlaceRepository
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Place
+import com.badcompany.pitakpass.domain.repository.PlaceRepository
 
 
 /** User Login Use Case

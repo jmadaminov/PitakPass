@@ -1,8 +1,8 @@
-package com.badcompany.data.repository
+package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.FilterEntity
-import com.badcompany.data.model.PassengerPostEntity
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.FilterEntity
+import com.badcompany.pitakpass.data.model.PassengerPostEntity
 
 
 interface PassengerPostDataStore {

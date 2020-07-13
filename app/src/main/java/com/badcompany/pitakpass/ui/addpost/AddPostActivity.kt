@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.badcompany.core.Constants
-import com.badcompany.domain.domainmodel.*
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.domain.domainmodel.*
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.di.viewmodels.AddPostViewModelFactory

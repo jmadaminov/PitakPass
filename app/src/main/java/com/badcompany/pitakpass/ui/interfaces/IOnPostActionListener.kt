@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.interfaces
 
 import android.view.View
-import com.badcompany.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 
 interface IOnPostActionListener {
     fun onEditClick(post: DriverPost)

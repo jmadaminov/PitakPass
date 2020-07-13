@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.addpost
 
-import com.badcompany.domain.domainmodel.CarDetails
-import com.badcompany.domain.domainmodel.Place
+import com.badcompany.pitakpass.domain.domainmodel.CarDetails
+import com.badcompany.pitakpass.domain.domainmodel.Place
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.ui.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,10 +1,10 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.PlaceEntity
-import com.badcompany.data.repository.PlaceRemote
-import com.badcompany.remote.mapper.PlaceMapper
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.PlaceEntity
+import com.badcompany.pitakpass.data.repository.PlaceRemote
+import com.badcompany.pitakpass.remote.mapper.PlaceMapper
 import javax.inject.Inject
 
 /**

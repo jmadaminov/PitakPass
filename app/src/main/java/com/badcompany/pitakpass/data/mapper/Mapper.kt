@@ -1,4 +1,4 @@
-package com.badcompany.data.mapper
+package com.badcompany.pitakpass.data.mapper
 
 /**
  * Interface for model mappers. It provides helper methods that facilitate

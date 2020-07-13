@@ -1,16 +1,16 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.CarColorEntity
-import com.badcompany.data.model.CarDetailsEntity
-import com.badcompany.data.model.CarEntity
-import com.badcompany.data.model.CarModelEntity
-import com.badcompany.data.repository.CarRemote
-import com.badcompany.remote.mapper.CarColorMapper
-import com.badcompany.remote.mapper.CarDetailsMapper
-import com.badcompany.remote.mapper.CarMapper
-import com.badcompany.remote.mapper.CarModelMapper
+import com.badcompany.pitakpass.data.model.CarColorEntity
+import com.badcompany.pitakpass.data.model.CarDetailsEntity
+import com.badcompany.pitakpass.data.model.CarEntity
+import com.badcompany.pitakpass.data.model.CarModelEntity
+import com.badcompany.pitakpass.data.repository.CarRemote
+import com.badcompany.pitakpass.remote.mapper.CarColorMapper
+import com.badcompany.pitakpass.remote.mapper.CarDetailsMapper
+import com.badcompany.pitakpass.remote.mapper.CarMapper
+import com.badcompany.pitakpass.remote.mapper.CarModelMapper
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
 
 
@@ -42,9 +42,10 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun getCarModels(token: String, lang:String): ResultWrapper<List<CarModelEntity>> {
+    override suspend fun getCarModels(token: String,
+                                      lang: String): ResultWrapper<List<CarModelEntity>> {
         return try {
-            val response = apiService.getCarModels(token,lang)
+            val response = apiService.getCarModels(token, lang)
             if (response.code == 1) {
                 val newCarModels = ArrayList<CarModelEntity>()
                 response.data!!.forEach {
@@ -57,9 +58,10 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun getCarColors(token: String, lang:String): ResultWrapper<List<CarColorEntity>> {
+    override suspend fun getCarColors(token: String,
+                                      lang: String): ResultWrapper<List<CarColorEntity>> {
         return try {
-            val response = apiService.getCarColors(token,lang)
+            val response = apiService.getCarColors(token, lang)
             if (response.code == 1) {
                 val newCarColors = ArrayList<CarColorEntity>()
                 response.data!!.forEach {
@@ -83,7 +85,7 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun deleteCar(token: String, id:Long): ResultWrapper<String> {
+    override suspend fun deleteCar(token: String, id: Long): ResultWrapper<String> {
         return try {
             val response =
                 apiService.deleteCar(token, id)
@@ -106,7 +108,6 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
             ErrorWrapper.SystemError(e)
         }
     }
-
 
 
     override suspend fun setDefaultCar(token: String, id: Long): ResultWrapper<String> {

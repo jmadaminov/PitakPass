@@ -1,10 +1,10 @@
 package com.badcompany.pitakpass.ui.addpost.destinations
 
 import androidx.lifecycle.viewModelScope
-import com.badcompany.core.Constants
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Place
-import com.badcompany.domain.usecases.GetPlacesFeed
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Place
+import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.AppPreferences
 import com.badcompany.pitakpass.util.SingleLiveEvent

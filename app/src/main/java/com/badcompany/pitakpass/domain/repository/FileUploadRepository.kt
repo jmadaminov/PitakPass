@@ -1,10 +1,10 @@
-package com.badcompany.domain.repository
+package com.badcompany.pitakpass.domain.repository
 
-import com.badcompany.core.ResultWrapper
-import com.badcompany.domain.domainmodel.Car
-import com.badcompany.domain.domainmodel.CarColorBody
-import com.badcompany.domain.domainmodel.CarModelBody
-import com.badcompany.domain.domainmodel.PhotoBody
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.domain.domainmodel.Car
+import com.badcompany.pitakpass.domain.domainmodel.CarColorBody
+import com.badcompany.pitakpass.domain.domainmodel.CarModelBody
+import com.badcompany.pitakpass.domain.domainmodel.PhotoBody
 import java.io.File
 
 interface FileUploadRepository {

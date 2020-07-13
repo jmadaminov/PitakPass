@@ -1,4 +1,4 @@
-package com.badcompany.data.model
+package com.badcompany.pitakpass.data.model
 
 data class CarInPostEntity( var id: Long? = null,
                             var modelId: Long? = null,

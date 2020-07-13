@@ -1,12 +1,12 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
-import com.badcompany.core.ErrorWrapper
-import com.badcompany.core.ResultWrapper
-import com.badcompany.data.model.FilterEntity
-import com.badcompany.data.model.PassengerPostEntity
-import com.badcompany.data.repository.PassengerPostRemote
-import com.badcompany.remote.mapper.FilterMapper
-import com.badcompany.remote.mapper.PassengerPostMapper
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.data.model.FilterEntity
+import com.badcompany.pitakpass.data.model.PassengerPostEntity
+import com.badcompany.pitakpass.data.repository.PassengerPostRemote
+import com.badcompany.pitakpass.remote.mapper.FilterMapper
+import com.badcompany.pitakpass.remote.mapper.PassengerPostMapper
 import javax.inject.Inject
 
 /**

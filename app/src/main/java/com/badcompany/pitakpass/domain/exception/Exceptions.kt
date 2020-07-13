@@ -1,4 +1,4 @@
-package com.badcompany.domain.exception
+package com.badcompany.pitakpass.domain.exception
 
 object UserRepositoryException : Exception()
 object PostRepositoryException : Exception()

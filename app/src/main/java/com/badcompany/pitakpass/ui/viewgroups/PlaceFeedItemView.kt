@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.viewgroups
 
 import android.graphics.Color
-import com.badcompany.domain.domainmodel.Place
+import com.badcompany.pitakpass.domain.domainmodel.Place
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.destinations.DestinationAutocompletePresenter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder

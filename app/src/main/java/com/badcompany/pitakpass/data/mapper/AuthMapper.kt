@@ -1,8 +1,8 @@
-package com.badcompany.data.mapper
+package com.badcompany.pitakpass.data.mapper
 
-import com.badcompany.data.model.AuthEntity
-import com.badcompany.domain.domainmodel.AuthBody
-import com.badcompany.domain.domainmodel.User
+import com.badcompany.pitakpass.data.model.AuthEntity
+import com.badcompany.pitakpass.domain.domainmodel.AuthBody
+import com.badcompany.pitakpass.domain.domainmodel.User
 import javax.inject.Inject
 
 

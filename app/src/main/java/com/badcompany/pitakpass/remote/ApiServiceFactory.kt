@@ -1,4 +1,4 @@
-package com.badcompany.remote
+package com.badcompany.pitakpass.remote
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
