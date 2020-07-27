@@ -1,9 +1,7 @@
 package com.badcompany.pitakpass.data.repository
 
+import com.badcompany.pitakpass.domain.model.PhotoBody
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.CarColorEntity
-import com.badcompany.pitakpass.data.model.CarModelEntity
-import com.badcompany.pitakpass.data.model.PhotoEntity
 import java.io.File
 
 
@@ -14,6 +12,6 @@ import java.io.File
  */
 interface FileUploadDataStore {
 
-    suspend fun uploadPhoto(file: File): ResultWrapper<PhotoEntity>
+    suspend fun uploadPhoto(file: File): ResultWrapper<PhotoBody>
 
 }

@@ -1,7 +1,6 @@
 package com.badcompany.pitakpass.ui.main
 
 import android.animation.LayoutTransition
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,7 +20,7 @@ import com.badcompany.pitakpass.ui.main.profile.ProfileFragment
 import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
 import com.badcompany.pitakpass.util.AppPreferences
 import com.badcompany.pitakpass.util.BOTTOM_NAV_BACKSTACK_KEY
-import com.badcompany.pitakpass.util.BottomNavController
+import com.badcompany.pitakpass.util.BottomNavControllerFix
 import com.badcompany.pitakpass.util.setUpNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
@@ -29,8 +28,8 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 import javax.inject.Named
 
-class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChanged,
-    BottomNavController.OnNavigationReselectedListener {
+class MainActivity : BaseActivity(), BottomNavControllerFix.OnNavigationGraphChanged,
+    BottomNavControllerFix.OnNavigationReselectedListener {
 
     @Inject
     lateinit var viewModelFactory: MainViewModelFactory
@@ -48,11 +47,11 @@ class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChange
         viewModelFactory
     }
 
-    private val bottomNavController by lazy(LazyThreadSafetyMode.NONE) {
-        BottomNavController(
+    private val bottomNavControllerFix by lazy(LazyThreadSafetyMode.NONE) {
+        BottomNavControllerFix(
             this,
             R.id.main_fragments_container,
-            R.id.navSearchTripFragment,
+            R.id.nav_menu_search,
             this)
     }
 
@@ -67,7 +66,7 @@ class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChange
         setupActionBar()
         setupListeners()
         subscribeObservers()
-        onRestoreInstanceState()
+//        onRestoreInstanceState()
         setupBottomNavigationView(savedInstanceState)
 
     }
@@ -86,15 +85,15 @@ class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChange
     }
 
     private fun setupBottomNavigationView(savedInstanceState: Bundle?) {
-        nav_view.setUpNavigation(bottomNavController, this)
+        nav_view.setUpNavigation(bottomNavControllerFix, this)
         if (savedInstanceState == null) {
-            bottomNavController.setupBottomNavigationBackStack(null)
-            bottomNavController.onNavigationItemSelected()
+            bottomNavControllerFix.setupBottomNavigationBackStack(null)
+            bottomNavControllerFix.onNavigationItemSelected()
         } else {
             (savedInstanceState[BOTTOM_NAV_BACKSTACK_KEY] as IntArray?)?.let { items ->
-                val backstack = BottomNavController.BackStack()
+                val backstack = BottomNavControllerFix.BackStack()
                 backstack.addAll(items.toTypedArray())
-                bottomNavController.setupBottomNavigationBackStack(backstack)
+                bottomNavControllerFix.setupBottomNavigationBackStack(backstack)
             }
         }
     }
@@ -111,7 +110,7 @@ class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChange
         Log.d(TAG, "logInfo: onReSelectItem")
         when (fragment) {
             is SearchTripFragment -> {
-//                navController.navigate(R.id.action_navSearchTripFragment_self)
+//                navController.navigate(R.id.action_nav_menu_search_self)
             }
 
             is MyTripsFragment -> {
@@ -145,10 +144,10 @@ class MainActivity : BaseActivity(), BottomNavController.OnNavigationGraphChange
 
     }
 
-    override fun onBackPressed() = bottomNavController.onBackPressed()
+    override fun onBackPressed() = bottomNavControllerFix.onBackPressed()
 
     private fun setupActionBar() {
-        setSupportActionBar(tool_bar)
+//        setSupportActionBar(tool_bar)
     }
 
     fun showTabLayout() {

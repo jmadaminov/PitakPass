@@ -176,16 +176,17 @@
             android:layout_weight="1"
             android:background="@drawable/selector_primary"
             android:clickable="true"
-            app:spinning_bar_color="#fff"
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
+            android:foregroundGravity="center"
             android:gravity="center"
             android:text="@string/create"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="20dp"
             app:finalCornerAngle="50dp"
-            app:initialCornerAngle="8dp" />
+            app:initialCornerAngle="8dp"
+            app:spinning_bar_color="#fff" />
 
     </LinearLayout>
 

@@ -5,7 +5,7 @@ import android.app.Application
 import com.badcompany.pitakpass.di.AppComponent
 import com.badcompany.pitakpass.di.DaggerAppComponent
 import com.badcompany.pitakpass.di.addPost.AddPostComponent
-import com.badcompany.pitakpass.di.addcar.AddCarComponent
+//import com.badcompany.pitakpass.di.addcar.AddCarComponent
 import com.badcompany.pitakpass.di.auth.AuthComponent
 import com.badcompany.pitakpass.di.main.MainComponent
 
@@ -17,7 +17,7 @@ open class App : Application() {
 
     lateinit var appComponent: AppComponent
     private var authComponent: AuthComponent? = null
-    private var addCarComponent: AddCarComponent? = null
+//    private var addCarComponent: AddCarComponent? = null
     private var addPostComponent: AddPostComponent? = null
     private var mainComponent: MainComponent? = null
 
@@ -54,20 +54,20 @@ open class App : Application() {
             .build()
     }
 
-    fun releaseAddCarComponent() {
-        addCarComponent = null
-    }
+//    fun releaseAddCarComponent() {
+//        addCarComponent = null
+//    }
 
     fun releaseAddPostComponent() {
         addPostComponent = null
     }
 
-    fun addCarComponent(): AddCarComponent {
-        if (addCarComponent == null) {
-            addCarComponent = appComponent.addCarComponent().create()
-        }
-        return addCarComponent as AddCarComponent
-    }
+//    fun addCarComponent(): AddCarComponent {
+//        if (addCarComponent == null) {
+//            addCarComponent = appComponent.addCarComponent().create()
+//        }
+//        return addCarComponent as AddCarComponent
+//    }
 
 
     fun addPostComponent(): AddPostComponent {

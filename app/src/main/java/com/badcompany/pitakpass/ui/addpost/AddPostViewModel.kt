@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass.ui.addpost
 
-import com.badcompany.pitakpass.domain.domainmodel.CarDetails
-import com.badcompany.pitakpass.domain.domainmodel.Place
+import com.badcompany.pitakpass.domain.model.CarDetails
+import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.ui.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,6 +54,6 @@ class AddPostViewModel @Inject constructor() :
     @ExperimentalCoroutinesApi
     override fun onCleared() {
         super.onCleared()
-        (appCtx as App).releaseAddCarComponent()
+//        (appCtx as App).releaseAddCarComponent()
     }
 }

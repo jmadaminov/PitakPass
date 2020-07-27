@@ -1,10 +1,7 @@
 package com.badcompany.pitakpass.ui.auth.register
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
@@ -15,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.badcompany.pitakpass.util.*
-import com.badcompany.pitakpass.domain.domainmodel.User
+import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -81,7 +78,7 @@ class RegisterFragment @Inject constructor(private val viewModelFactory: ViewMod
             viewModel.register(User(phone.text.toString().numericOnly(),
                 name.text.toString(),
                 surname.text.toString(),
-                "DRIVER"))
+                Constants.ROLE_PASSENGER))
 //            navController.navigate(R.id.action_navRegisterFragment_to_navPhoneConfirmFragment)
         }
 

@@ -16,16 +16,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.MapsActivity
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.ui.interfaces.IOnPlaceSearchQueryListener
 import com.badcompany.pitakpass.ui.viewgroups.PlaceFeedItemView
-import com.badcompany.pitakpass.util.hideKeyboard
-import com.badcompany.pitakpass.util.showKeyboard
+import com.badcompany.pitakpass.util.*
 import com.otaliastudios.autocomplete.Autocomplete
 import com.otaliastudios.autocomplete.AutocompleteCallback
 import com.otaliastudios.autocomplete.AutocompletePolicy
@@ -35,34 +31,64 @@ import splitties.fragments.start
 import javax.inject.Inject
 
 
+
 //@FlowPreview
 //@ExperimentalCoroutinesApi
+@ExperimentalSplittiesApi
 class DestinationsFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
     Fragment(R.layout.fragment_destinations) {
 
     val args: DestinationsFragmentArgs by navArgs()
 
-    private var fromFeed: Autocomplete<PlaceFeedItemView>? = null
-    private var toFeed: Autocomplete<PlaceFeedItemView>? = null
     private val viewModel: DestinationsViewModel by viewModels {
         viewModelFactory
     }
+
     private val activityViewModel: AddPostViewModel by activityViewModels {
         viewModelFactory
     }
 
-    //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
 
+
+    lateinit var autoCompleteManager: AutoCompleteManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.cancelActiveJobs()
     }
 
-    @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        previewOrPlainCheck()
+        setupAutoCompleteViews()
+        setupListeners()
+        updateNextButtonState()
+        setupObservers()
+        navController = findNavController()
+    }
+
+    private fun setupAutoCompleteViews() {
+        autoCompleteManager = buildAutoCompleteManager {
+            with { requireContext() }
+            fromEditText { fromInput }
+            toEditText { toInput }
+            onQueryAction { queryStr, isFrom ->
+                viewModel.getPlacesFeed(queryStr, isFrom)
+            }
+//            targetViewModel { viewModel }
+            updateBtnStateAction {
+                updateNextButtonState()
+            }
+
+            popUpClickAction { isFrom, item ->
+                if (isFrom) viewModel.placeFrom = item.place
+                else viewModel.placeTo = item.place
+            }
+        }
+    }
+
+    private fun previewOrPlainCheck() {
         if (args.ISFROMPOSTPREVIEW) {
             viewModel.placeTo = activityViewModel.placeTo
             viewModel.placeFrom = activityViewModel.placeFrom
@@ -72,58 +98,12 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
         } else {
             navBack.visibility = View.INVISIBLE
         }
-
-
-        setupFromInputAutocomplete()
-        setupToInputAutocomplete()
-        setupListeners()
-        updateNextButtonState()
-        setupObservers()
-
-
-        navController = findNavController()
-//        confirm.isEnabled = true
-//
-//        code.setText(args.password)
-//
-//        confirm.setOnClickListener {
-//            viewModel.confirm(args.phone, code.text.toString())
-//        }
-
-
     }
 
-
-    @ExperimentalSplittiesApi
     private fun setupListeners() {
 
         navBack.setOnClickListener {
             requireActivity().onBackPressed()
-        }
-
-        fromInput.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-                    fromAutocompleteCallback.onPopupItemClicked(fromInput.editableText,
-                                                                fromAutocompletePresenter.getAdr()!!
-                                                                    .getItem(0) as PlaceFeedItemView)
-                    toInput.requestFocus()
-                    toInput.showKeyboard()
-                }
-            }
-            false
-        }
-        toInput.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-
-                    toAutocompleteCallback.onPopupItemClicked(toInput.editableText,
-                                                              toAutocompletePresenter.getAdr()!!
-                                                                  .getItem(0) as PlaceFeedItemView)
-
-                }
-            }
-            false
         }
 
         next.setOnClickListener {
@@ -134,9 +114,9 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
         }
 
         fromInput.onFocusChangeListener =
-            View.OnFocusChangeListener { v, hasFocus -> if (!hasFocus) fromFeed?.dismissPopup() }
+            View.OnFocusChangeListener { v, hasFocus -> if (!hasFocus) autoCompleteManager.fromFeed?.dismissPopup() }
         toInput.onFocusChangeListener =
-            View.OnFocusChangeListener { v, hasFocus -> if (!hasFocus) toFeed?.dismissPopup() }
+            View.OnFocusChangeListener { v, hasFocus -> if (!hasFocus) autoCompleteManager.fromFeed?.dismissPopup() }
 
         map.setOnClickListener {
             start<MapsActivity>()
@@ -144,40 +124,6 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
 
     }
 
-    @ExperimentalSplittiesApi
-    private fun setupFromInputAutocomplete() {
-        fromAutocompletePresenter =
-            DestinationAutocompletePresenter(requireContext(), viewModel, autoCompleteQueryListener)
-        fromFeed = Autocomplete.on<PlaceFeedItemView>(fromInput)
-            .with(autoCompletePolicy)
-            .with(fromAutocompleteCallback)
-            .with(fromAutocompletePresenter)
-            .with(requireContext().getDrawable(R.drawable.selector_rounded_corners))
-            .with(3f)
-            .build()
-        fromFeed!!.setGravity(Gravity.BOTTOM)
-    }
-
-    @ExperimentalSplittiesApi
-    private fun setupToInputAutocomplete() {
-        toAutocompletePresenter =
-            DestinationAutocompletePresenter(requireContext(),
-                                             viewModel,
-                                             autoCompleteQueryListener,
-                                             false)
-
-        toFeed = Autocomplete.on<PlaceFeedItemView>(toInput)
-            .with(autoCompletePolicy)
-            .with(toAutocompleteCallback)
-            .with(toAutocompletePresenter)
-            .with(requireContext().getDrawable(R.drawable.selector_rounded_corners))
-            .with(3f)
-            .build()
-        toFeed!!.setGravity(Gravity.END)
-    }
-
-
-    @ExperimentalSplittiesApi
     private fun setupObservers() {
         viewModel.fromPlacesResponse.observe(viewLifecycleOwner, Observer {
             val response = it ?: return@Observer
@@ -190,22 +136,16 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
 
                 }
                 is ResultWrapper.Success -> {
-                    fromAutocompletePresenter.getAdr()!!.clear()
+                    autoCompleteManager.fromPresenter.getAdr()!!.clear()
                     response.value.forEach { place ->
-                        fromAutocompletePresenter.getAdr()!!.add(PlaceFeedItemView(place,
-                                                                                   fromAutocompletePresenter))
+                        autoCompleteManager.fromPresenter.getAdr()!!
+                            .add(PlaceFeedItemView(place,
+                                                   autoCompleteManager.fromPresenter))
 
                     }
-                    fromAutocompletePresenter.getAdr()!!.notifyDataSetChanged()
+                    autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
                 }
                 ResultWrapper.InProgress -> {
-//                    if (fromAutocompletePresenter.getAdr().itemCount == 0 || fromAutocompletePresenter.getAdr().getItem(
-//                            fromAutocompletePresenter.getAdr().itemCount - 1) !is LoadingItemSmall) {
-//                        fromAutocompletePresenter.getAdr().add(LoadingItemSmall())
-//                        fromAutocompletePresenter.getAdr().notifyDataSetChanged()
-//                    } else {
-//
-//                    }
                 }
             }.exhaustive
 
@@ -221,25 +161,19 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
 
                 }
                 is ResultWrapper.Success -> {
-                    if (toAutocompletePresenter.getAdr() != null) {
-                        toAutocompletePresenter.getAdr()!!.clear()
+                    if (autoCompleteManager.toPresenter.getAdr() != null) {
+                        autoCompleteManager.toPresenter.getAdr()!!.clear()
                         response.value.forEach { place ->
-                            toAutocompletePresenter.getAdr()!!.add(PlaceFeedItemView(place,
-                                                                                     toAutocompletePresenter))
+                            autoCompleteManager.toPresenter.getAdr()!!
+                                .add(PlaceFeedItemView(place,
+                                                       autoCompleteManager.toPresenter))
                         }
-                        toAutocompletePresenter.getAdr()!!.notifyDataSetChanged()
+                        autoCompleteManager.toPresenter.getAdr()!!
+                            .notifyDataSetChanged()
                     } else {
-
                     }
                 }
                 ResultWrapper.InProgress -> {
-//                    if (toAutocompletePresenter.getAdr().itemCount == 0 || toAutocompletePresenter.getAdr().getItem(
-//                            toAutocompletePresenter.getAdr().itemCount - 1) !is LoadingItemSmall) {
-//                        toAutocompletePresenter.getAdr().add(LoadingItemSmall())
-//                        toAutocompletePresenter.getAdr().notifyDataSetChanged()
-//                    } else {
-//
-//                    }
                 }
             }.exhaustive
 
@@ -249,56 +183,14 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
 
     override fun onPause() {
         super.onPause()
-        fromFeed?.dismissPopup()
-        toFeed?.dismissPopup()
+        autoCompleteManager.fromFeed?.dismissPopup()
+        autoCompleteManager.toFeed?.dismissPopup()
     }
 
     override fun onResume() {
         super.onResume()
 //        (activity as AddPostActivity).showActionBar()
     }
-
-
-    @ExperimentalSplittiesApi
-    private val autoCompleteQueryListener = object : IOnPlaceSearchQueryListener {
-        override fun onQuery(query: CharSequence?, isFrom: Boolean, isSelectedFromFeed: Boolean) {
-            if (query!!.length % 3 == 0 && !isSelectedFromFeed) viewModel.getPlacesFeed(query.toString(),
-                                                                                        isFrom)
-        }
-    }
-
-    private val fromAutocompleteCallback =
-        object : AutocompleteCallback<PlaceFeedItemView> {
-            override fun onPopupItemClicked(editable: Editable,
-                                            item: PlaceFeedItemView): Boolean {
-                editable.clear()
-                editable.insert(0, item.place.name)
-                fromInput.clearFocus()
-                fromInput.hideKeyboard()
-                viewModel.placeFrom = item.place
-                return true
-            }
-
-            override fun onPopupVisibilityChanged(shown: Boolean) {
-            }
-        }
-
-    private val toAutocompleteCallback =
-        object : AutocompleteCallback<PlaceFeedItemView> {
-            override fun onPopupItemClicked(editable: Editable,
-                                            item: PlaceFeedItemView): Boolean {
-                editable.clear()
-                editable.insert(0, item.place.name)
-                toInput.clearFocus()
-                toInput.hideKeyboard()
-                viewModel.placeTo = item.place
-                updateNextButtonState()
-                return true
-            }
-
-            override fun onPopupVisibilityChanged(shown: Boolean) {
-            }
-        }
 
     private fun updateNextButtonState() {
         next.isEnabled = viewModel.placeFrom != null && viewModel.placeTo != null
@@ -316,29 +208,6 @@ class DestinationsFragment @Inject constructor(private val viewModelFactory: Vie
         }
     }
 
-    @ExperimentalSplittiesApi
-    private lateinit var fromAutocompletePresenter: DestinationAutocompletePresenter
-
-    @ExperimentalSplittiesApi
-    private lateinit var toAutocompletePresenter: DestinationAutocompletePresenter
-
-    private val autoCompletePolicy = object : AutocompletePolicy {
-        override fun shouldShowPopup(text: Spannable?, cursorPos: Int): Boolean {
-            return text!!.length > 0
-        }
-
-        override fun shouldDismissPopup(text: Spannable?, cursorPos: Int): Boolean {
-            return text!!.length == 0
-        }
-
-        override fun getQuery(text: Spannable?): CharSequence {
-            return text!!
-        }
-
-        override fun onDismiss(text: Spannable?) {
-        }
-
-    }
 
 }
 

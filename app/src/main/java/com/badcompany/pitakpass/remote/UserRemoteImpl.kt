@@ -1,15 +1,12 @@
 package com.badcompany.pitakpass.remote
 
+import com.badcompany.pitakpass.data.repository.UserRemote
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.remote.model.LoginRequest
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.AuthEntity
-import com.badcompany.pitakpass.data.model.UserCredentialsEntity
-import com.badcompany.pitakpass.data.model.UserEntity
-import com.badcompany.pitakpass.data.repository.UserRemote
-import com.badcompany.pitakpass.remote.mapper.AuthMapper
-import com.badcompany.pitakpass.remote.mapper.UserCredentialsMapper
-import com.badcompany.pitakpass.remote.mapper.UserMapper
-import com.badcompany.pitakpass.remote.model.LoginRequest
 import javax.inject.Inject
 
 /**
@@ -17,19 +14,16 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                         private val userCredMapper: UserCredentialsMapper,
-                                         private val userMapper: UserMapper,
-                                         private val authMapper: AuthMapper) : UserRemote {
+class UserRemoteImpl @Inject constructor(private val apiService: ApiService) : UserRemote {
 
 //    /**
-//     * Retrieve a list of [BufferooEntity] instances from the [BufferooService].
+//     * Retrieve a list of [Bufferoo] instances from the [BufferooService].
 //     */
-//    override fun getBufferoos(): Flowable<List<UserEntity>> {
+//    override fun getBufferoos(): Flowable<List<User>> {
 //        return bufferooService.getBufferoos()
 //                .map { it.team }
 //                .map {
-//                    val entities = mutableListOf<UserEntity>()
+//                    val entities = mutableListOf<User>()
 //                    it.forEach { entities.add(entityMapper.mapFromRemote(it)) }
 //                    entities
 //                }
@@ -45,9 +39,9 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun registerUser(user: UserEntity): ResultWrapper<String> {
+    override suspend fun registerUser(user: User): ResultWrapper<String> {
         return try {
-            val response = apiService.userRegister(userMapper.mapFromEntity(user))
+            val response = apiService.userRegister(user)
             if (response.code == 1) ResultWrapper.Success(response.data!!.password!!)
             else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
@@ -55,10 +49,10 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun confirmUser(user: UserCredentialsEntity): ResultWrapper<AuthEntity> {
+    override suspend fun confirmUser(user: UserCredentials): ResultWrapper<AuthBody> {
         return try {
-            val response = apiService.smsConfirm(userCredMapper.mapFromEntity(user))
-            if (response.code == 1) ResultWrapper.Success(authMapper.mapToEntity(response.data!!))
+            val response = apiService.smsConfirm(user)
+            if (response.code == 1) ResultWrapper.Success(response.data!!)
             else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)

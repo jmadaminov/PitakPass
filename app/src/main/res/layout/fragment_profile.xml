@@ -128,27 +128,27 @@
     </androidx.cardview.widget.CardView>
 
 
-    <TextView
-        android:id="@+id/labelMyAutos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/selector_rounded_right_corners"
-        android:paddingStart="12dp"
-        android:paddingTop="6dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="6dp"
-        android:text="@string/myCars"
-        android:textColor="#fff"
-        android:textStyle="bold" />
+<!--    <TextView-->
+<!--        android:id="@+id/labelMyAutos"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:layout_marginBottom="6dp"-->
+<!--        android:background="@drawable/selector_rounded_right_corners"-->
+<!--        android:paddingStart="12dp"-->
+<!--        android:paddingTop="6dp"-->
+<!--        android:paddingEnd="12dp"-->
+<!--        android:paddingBottom="6dp"-->
+<!--        android:text="@string/myCars"-->
+<!--        android:textColor="#fff"-->
+<!--        android:textStyle="bold" />-->
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carsList"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center_vertical" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/carsList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_gravity="center_vertical" />-->
 
 
     <TextView

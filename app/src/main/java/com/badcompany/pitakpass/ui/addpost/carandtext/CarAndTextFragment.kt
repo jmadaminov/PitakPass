@@ -7,23 +7,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.domainmodel.CarDetails
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.ui.addcar.MyItemClickListener
+import com.badcompany.pitakpass.domain.model.CarDetails
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
-import com.badcompany.pitakpass.ui.viewgroups.CarItemSelectionView
 import com.badcompany.pitakpass.ui.viewgroups.ErrorTextItem
-import com.badcompany.pitakpass.ui.viewgroups.LoadingItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_car_and_note.*
@@ -67,7 +58,7 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
         }
 
         setupListeners()
-        setupCarList()
+//        setupCarList()
         setupObservers()
 
         navController = findNavController()
@@ -79,24 +70,24 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
 //            viewModel.confirm(args.phone, code.text.toString())
 //        }
 
-        viewModel.getCars()
-        updateNextButtonState()
+//        viewModel.getCars()
+//        updateNextButtonState()
     }
 
-    private fun setupCarList() {
-        carsList.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        carsList.setHasFixedSize(true)
-        carsList.adapter = adapter
-
-    }
+//    private fun setupCarList() {
+//        carsList.layoutManager =
+//            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+//        carsList.setHasFixedSize(true)
+//        carsList.adapter = adapter
+//
+//    }
 
 
     @ExperimentalSplittiesApi
     private fun setupListeners() {
 
         navNext.setOnClickListener {
-            activityViewModel.car = selectedCar
+//            activityViewModel.car = selectedCar
             activityViewModel.note =
                 if (!noteInput.text.isNullOrBlank()) noteInput.text.toString() else ""
 
@@ -112,26 +103,26 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
 
     @ExperimentalSplittiesApi
     private fun setupObservers() {
-        viewModel.carsResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    showErrorMessage(response.message)
-                }
-                is ErrorWrapper.SystemError -> {
-                    showErrorMessage(response.err.localizedMessage)
-                }
-                is ResultWrapper.Success -> {
-                    populateCarsList(response.value)
-                }
-                ResultWrapper.InProgress -> {
-                    adapter.clear()
-                    adapter.add(LoadingItem())
-                }
-            }.exhaustive
-
-        })
+//        viewModel.carsResponse.observe(viewLifecycleOwner, Observer {
+//            val response = it ?: return@Observer
+//
+//            when (response) {
+//                is ErrorWrapper.ResponseError -> {
+//                    showErrorMessage(response.message)
+//                }
+//                is ErrorWrapper.SystemError -> {
+//                    showErrorMessage(response.err.localizedMessage)
+//                }
+//                is ResultWrapper.Success -> {
+//                    populateCarsList(response.value)
+//                }
+//                ResultWrapper.InProgress -> {
+//                    adapter.clear()
+//                    adapter.add(LoadingItem())
+//                }
+//            }.exhaustive
+//
+//        })
 
     }
 
@@ -143,25 +134,25 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
 
     }
 
-    private fun populateCarsList(cars: List<CarDetails>) {
-        adapter.clear()
-        cars.forEach { car ->
-            if (car.def!!) {
-                selectedCar = car
-            }
-            adapter.add(CarItemSelectionView(car, object : MyItemClickListener {
-                override fun onClick(pos: Int) {
-                    super.onClick(pos)
-                    for (i in 0 until adapter.itemCount) {
-                        (adapter.getItem(i) as CarItemSelectionView).car.def = false
-                    }
-                    car.def = true
-                    adapter.notifyDataSetChanged()
-                }
-            }))
-        }
-        updateNextButtonState()
-    }
+//    private fun populateCarsList(cars: List<CarDetails>) {
+//        adapter.clear()
+//        cars.forEach { car ->
+//            if (car.def!!) {
+//                selectedCar = car
+//            }
+//            adapter.add(CarItemSelectionView(car, object : MyItemClickListener {
+//                override fun onClick(pos: Int) {
+//                    super.onClick(pos)
+//                    for (i in 0 until adapter.itemCount) {
+//                        (adapter.getItem(i) as CarItemSelectionView).car.def = false
+//                    }
+//                    car.def = true
+//                    adapter.notifyDataSetChanged()
+//                }
+//            }))
+//        }
+//        updateNextButtonState()
+//    }
 
     private fun updateNextButtonState() {
         navNext.isEnabled = selectedCar != null
@@ -187,7 +178,7 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
     @ExperimentalSplittiesApi
     override fun onResume() {
         super.onResume()
-        viewModel.getCars()
+//        viewModel.getCars()
 //        (activity as AddPostActivity).showActionBar()
     }
 

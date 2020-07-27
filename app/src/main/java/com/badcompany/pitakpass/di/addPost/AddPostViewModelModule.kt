@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.badcompany.pitakpass.di.viewmodels.AddPostViewModelFactory
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
-import com.badcompany.pitakpass.ui.addpost.carandtext.CarAndTextViewModel
 import com.badcompany.pitakpass.ui.addpost.destinations.DestinationsViewModel
 import com.badcompany.pitakpass.ui.addpost.preview.PreviewViewModel
 import dagger.Binds
@@ -29,10 +28,10 @@ abstract class AddPostViewModelModule {
     @AddPostViewModelKey(DestinationsViewModel::class)
     abstract fun bindChooseDestinationsViewModel(viewModel: DestinationsViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @AddPostViewModelKey(CarAndTextViewModel::class)
-    abstract fun bindChooseCarAndTextViewModel(viewModel: CarAndTextViewModel): ViewModel
+//    @Binds
+//    @IntoMap
+//    @AddPostViewModelKey(CarAndTextViewModel::class)
+//    abstract fun bindChooseCarAndTextViewModel(viewModel: CarAndTextViewModel): ViewModel
 
     @Binds
     @IntoMap

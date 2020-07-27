@@ -1,10 +1,7 @@
 package com.badcompany.pitakpass.data.repository
 
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.CarColorEntity
-import com.badcompany.pitakpass.data.model.CarEntity
-import com.badcompany.pitakpass.data.model.CarModelEntity
-import com.badcompany.pitakpass.data.model.PhotoEntity
+import com.badcompany.pitakpass.domain.model.PhotoBody
 import java.io.File
 
 
@@ -13,6 +10,6 @@ import java.io.File
  * cache layer, using this interface as a way of communicating.
  */
 interface FileUploadRemote {
-    suspend fun uploadPhoto(file: File): ResultWrapper<PhotoEntity>
+    suspend fun uploadPhoto(file: File): ResultWrapper<PhotoBody>
 
 }

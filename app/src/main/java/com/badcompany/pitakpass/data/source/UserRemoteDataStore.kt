@@ -1,12 +1,11 @@
 package com.badcompany.pitakpass.data.source
 
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.AuthEntity
-import com.badcompany.pitakpass.data.model.UserCredentialsEntity
-import com.badcompany.pitakpass.data.model.UserEntity
 import com.badcompany.pitakpass.data.repository.UserDataStore
 import com.badcompany.pitakpass.data.repository.UserRemote
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
 import javax.inject.Inject
 
 /**
@@ -31,10 +30,10 @@ open class UserRemoteDataStore @Inject constructor(private val userRemote: UserR
         return userRemote.loginUser(phoneNum)
     }
 
-    override suspend fun userRegister(user: UserEntity): ResultWrapper<String>  {
+    override suspend fun userRegister(user: User): ResultWrapper<String>  {
         return userRemote.registerUser(user)
     }
-    override suspend fun confirmSms(userCredentialsEntity: UserCredentialsEntity): ResultWrapper<AuthEntity> {
+    override suspend fun confirmSms(userCredentialsEntity: UserCredentials): ResultWrapper<AuthBody> {
         return userRemote.confirmUser(userCredentialsEntity)
     }
 //

@@ -1,11 +1,9 @@
 package com.badcompany.pitakpass.data.repository
 
-import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.AuthEntity
-import com.badcompany.pitakpass.data.model.UserCredentialsEntity
-import com.badcompany.pitakpass.data.model.UserEntity
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
 
 
 /**
@@ -17,9 +15,9 @@ interface UserRemote {
     /**
      * Retrieve a list of Bufferoos, from the cache
      */
-   suspend fun loginUser(phoneNum: String): ResultWrapper<String>
+    suspend fun loginUser(phoneNum: String): ResultWrapper<String>
 
-    suspend  fun registerUser(user: UserEntity): ResultWrapper<String>
-    suspend  fun confirmUser(user: UserCredentialsEntity): ResultWrapper<AuthEntity>
+    suspend fun registerUser(user: User): ResultWrapper<String>
+    suspend fun confirmUser(user: UserCredentials): ResultWrapper<AuthBody>
 
 }

@@ -1,26 +1,20 @@
 package com.badcompany.pitakpass.data
 
+import com.badcompany.pitakpass.data.source.UserDataStoreFactory
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.Car
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.domain.repository.UserRepository
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.mapper.AuthMapper
-import com.badcompany.pitakpass.data.mapper.UserCredentialsMapper
-import com.badcompany.pitakpass.data.mapper.UserMapper
-import com.badcompany.pitakpass.data.source.UserDataStoreFactory
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
-import com.badcompany.pitakpass.domain.domainmodel.Car
-import com.badcompany.pitakpass.domain.domainmodel.User
-import com.badcompany.pitakpass.domain.domainmodel.UserCredentials
-import com.badcompany.pitakpass.domain.repository.UserRepository
 import javax.inject.Inject
 
 /**
  * Provides an implementation of the [UserRepository] interface for communicating to and from
  * data sources
  */
-class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreFactory,
-                                             private val userMapper: UserMapper,
-                                             private val userCredentialsMapper: UserCredentialsMapper,
-                                             private val authMapper: AuthMapper) :
+class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreFactory) :
     UserRepository {
 
     override suspend fun loginUser(phoneNum: String): ResultWrapper<String> {
@@ -28,18 +22,18 @@ class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreF
     }
 
     override suspend fun registerUser(user: User): ResultWrapper<String> {
-        return factory.retrieveDataStore(false).userRegister(userMapper.mapToEntity(user))
+        return factory.retrieveDataStore(false).userRegister(user)
     }
 
     override suspend fun smsConfirm(userCredentials: UserCredentials): ResultWrapper<AuthBody> {
 
         val response = factory.retrieveDataStore(false)
-            .confirmSms(userCredentialsMapper.mapToEntity(userCredentials))
+            .confirmSms(userCredentials)
 
         return when (response) {
             is ErrorWrapper.ResponseError -> response
             is ErrorWrapper.SystemError -> response
-            is ResultWrapper.Success -> ResultWrapper.Success(authMapper.mapFromEntity(response.value))
+            is ResultWrapper.Success -> ResultWrapper.Success(response.value)
             ResultWrapper.InProgress -> ResultWrapper.InProgress
         }
 

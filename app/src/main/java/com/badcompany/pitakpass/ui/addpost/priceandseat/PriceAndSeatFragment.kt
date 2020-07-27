@@ -86,6 +86,7 @@ class PriceAndSeatFragment @Inject constructor(private val viewModelFactory: Vie
         navNext.setOnClickListener {
             activityViewModel.price = priceInput.text.toString().toInt()
             activityViewModel.seat = seatsNumberPicker.value
+//            navController.navigate(R.id.action_priceAndSeatFragment_to_previewFragment)
             navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_priceAndSeatFragment_to_previewFragment else R.id.action_priceAndSeatFragment_to_carAndTextFragment)
         }
         navBack.setOnClickListener {

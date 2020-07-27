@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.remote.model
 
+import com.badcompany.pitakpass.domain.model.AuthBody
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -7,10 +8,4 @@ import com.google.gson.annotations.SerializedName
  */
 data class AuthSuccessResponse(val code: Int? = null,
                                val message: String? = null,
-                               val data: UserInfoModel? = null)
-
-data class UserInfoModel(@SerializedName("phoneNum") val phoneNum: String? = null,
-                        @SerializedName("name")  val name: String? = null,
-                        @SerializedName("surname")  val surname: String? = null,
-                        @SerializedName("jwt")  val jwt: String? = null,
-                        @SerializedName("role")  val role: String? = null)
+                               val data: AuthBody? = null)

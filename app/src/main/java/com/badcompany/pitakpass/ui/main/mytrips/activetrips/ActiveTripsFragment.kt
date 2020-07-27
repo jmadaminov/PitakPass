@@ -14,7 +14,7 @@ import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
@@ -218,7 +218,7 @@ class ActiveTripsFragment @Inject constructor(private val viewModelFactory: View
 //    }
 
     @ExperimentalSplittiesApi
-    private fun loadData(orders: List<DriverPost>) {
+    private fun loadData(orders: List<PassengerPost>) {
         adapter.clear()
         if (orders.isEmpty()) {
             noActiveOrdersTxt.visibility = View.VISIBLE
@@ -235,7 +235,7 @@ class ActiveTripsFragment @Inject constructor(private val viewModelFactory: View
 
     @ExperimentalSplittiesApi
     private val onOrderActionListener = object : IOnPostActionListener {
-        override fun onEditClick(post: DriverPost) {
+        override fun onEditClick(post: PassengerPost) {
 
             val from = PlaceViewObj(post.from.districtId,
                                     post.from.regionId,
@@ -253,30 +253,30 @@ class ActiveTripsFragment @Inject constructor(private val viewModelFactory: View
 
             start<AddPostActivity> {
 
-                putExtra(Constants.TXT_DRIVER_POST,
-                         DriverPostViewObj(from,
-                                           to,
-                                           post.price,
-                                           post.departureDate,
-                                           post.timeFirstPart,
-                                           post.timeSecondPart,
-                                           post.timeThirdPart,
-                                           post.timeFourthPart,
-                                           post.carId,
-                                           null,
-                                           post.remark,
-                                           post.seat,
-                                           post.postType))
+                putExtra(Constants.TXT_PASSENGER_POST,
+                         PassengerPostViewObj(from,
+                                              to,
+                                              post.price,
+                                              post.departureDate,
+                                              post.timeFirstPart,
+                                              post.timeSecondPart,
+                                              post.timeThirdPart,
+                                              post.timeFourthPart,
+                                              null,
+                                              null,
+                                              post.remark,
+                                              post.seat,
+                                              post.postType))
             }
 
         }
 
-        override fun onCancelClick(position: Int, post: DriverPost, parentView: View) {
+        override fun onCancelClick(position: Int, post: PassengerPost, parentView: View) {
             viewmodel.deletePost(post.id.toString(), position)
 
         }
 
-        override fun onDoneClick(position: Int, post: DriverPost, parentView: View) {
+        override fun onDoneClick(position: Int, post: PassengerPost, parentView: View) {
             viewmodel.finishPost(post.id.toString(), position)
         }
 

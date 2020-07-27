@@ -1,10 +1,10 @@
 package com.badcompany.pitakpass.ui.interfaces
 
 import android.view.View
-import com.badcompany.pitakpass.domain.domainmodel.DriverPost
+import com.badcompany.pitakpass.domain.model.PassengerPost
 
 interface IOnPostActionListener {
-    fun onEditClick(post: DriverPost)
-    fun onCancelClick(position:Int,post: DriverPost, parentView: View)
-    fun onDoneClick(position:Int,post: DriverPost, parentView: View)
+    fun onEditClick(post: PassengerPost)
+    fun onCancelClick(position: Int, post: PassengerPost, parentView: View)
+    fun onDoneClick(position: Int, post: PassengerPost, parentView: View)
 }

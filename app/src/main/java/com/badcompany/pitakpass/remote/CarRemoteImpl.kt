@@ -1,14 +1,10 @@
 package com.badcompany.pitakpass.remote
 
-import com.badcompany.pitakpass.data.model.CarColorEntity
-import com.badcompany.pitakpass.data.model.CarDetailsEntity
-import com.badcompany.pitakpass.data.model.CarEntity
-import com.badcompany.pitakpass.data.model.CarModelEntity
 import com.badcompany.pitakpass.data.repository.CarRemote
-import com.badcompany.pitakpass.remote.mapper.CarColorMapper
-import com.badcompany.pitakpass.remote.mapper.CarDetailsMapper
-import com.badcompany.pitakpass.remote.mapper.CarMapper
-import com.badcompany.pitakpass.remote.mapper.CarModelMapper
+import com.badcompany.pitakpass.domain.model.Car
+import com.badcompany.pitakpass.domain.model.CarColor
+import com.badcompany.pitakpass.domain.model.CarDetails
+import com.badcompany.pitakpass.domain.model.CarModel
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
@@ -19,37 +15,32 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                        private val carModelMapper: CarModelMapper,
-                                        private val carColorMapper: CarColorMapper,
-                                        private val carMapper: CarMapper,
-                                        private val carDetailsMapper: CarDetailsMapper
-) : CarRemote {
+class CarRemoteImpl @Inject constructor(private val apiService: ApiService) : CarRemote {
 
-    override suspend fun getCars(token: String): ResultWrapper<List<CarDetailsEntity>> {
-
-        return try {
-            val response = apiService.getCars(token)
-            if (response.code == 1) {
-                val newCars = ArrayList<CarDetailsEntity>()
-                response.data!!.forEach {
-                    newCars.add(carDetailsMapper.mapToEntity(it))
-                }
-                ResultWrapper.Success(newCars)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
+//    override suspend fun getCars(token: String): ResultWrapper<List<CarDetails>> {
+//
+//        return try {
+//            val response = apiService.getCars(token)
+//            if (response.code == 1) {
+//                val newCars = ArrayList<CarDetails>()
+//                response.data!!.forEach {
+//                    newCars.add(it)
+//                }
+//                ResultWrapper.Success(newCars)
+//            } else ErrorWrapper.ResponseError(response.code, response.message)
+//        } catch (e: Exception) {
+//            ErrorWrapper.SystemError(e)
+//        }
+//    }
 
     override suspend fun getCarModels(token: String,
-                                      lang: String): ResultWrapper<List<CarModelEntity>> {
+                                      lang: String): ResultWrapper<List<CarModel>> {
         return try {
             val response = apiService.getCarModels(token, lang)
             if (response.code == 1) {
-                val newCarModels = ArrayList<CarModelEntity>()
+                val newCarModels = ArrayList<CarModel>()
                 response.data!!.forEach {
-                    newCarModels.add(carModelMapper.mapToEntity(it))
+                    newCarModels.add(it)
                 }
                 ResultWrapper.Success(newCarModels)
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -59,13 +50,13 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
     }
 
     override suspend fun getCarColors(token: String,
-                                      lang: String): ResultWrapper<List<CarColorEntity>> {
+                                      lang: String): ResultWrapper<List<CarColor>> {
         return try {
             val response = apiService.getCarColors(token, lang)
             if (response.code == 1) {
-                val newCarColors = ArrayList<CarColorEntity>()
+                val newCarColors = ArrayList<CarColor>()
                 response.data!!.forEach {
-                    newCarColors.add(carColorMapper.mapToEntity(it))
+                    newCarColors.add(it)
                 }
                 ResultWrapper.Success(newCarColors)
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -74,52 +65,52 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun createCar(token: String, car: CarEntity): ResultWrapper<String> {
-        return try {
-            val response = apiService.createCar(token, carMapper.mapFromEntity(car))
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun deleteCar(token: String, id: Long): ResultWrapper<String> {
-        return try {
-            val response =
-                apiService.deleteCar(token, id)
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun updateCar(token: String, car: CarEntity): ResultWrapper<String> {
-        return try {
-            val response =
-                apiService.updateCar(token, car.id!!, carMapper.mapFromEntity(car))
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-
-    override suspend fun setDefaultCar(token: String, id: Long): ResultWrapper<String> {
-        return try {
-            val response = apiService.setDefaultCar(token, id)
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
+//    override suspend fun createCar(token: String, car: Car): ResultWrapper<String> {
+//        return try {
+//            val response = apiService.createCar(token, car)
+//            if (response.code == 1) {
+//                ResultWrapper.Success("SUCCESS")
+//            } else ErrorWrapper.ResponseError(response.code, response.message)
+//        } catch (e: Exception) {
+//            ErrorWrapper.SystemError(e)
+//        }
+//    }
+//
+//    override suspend fun deleteCar(token: String, id: Long): ResultWrapper<String> {
+//        return try {
+//            val response =
+//                apiService.deleteCar(token, id)
+//            if (response.code == 1) {
+//                ResultWrapper.Success("SUCCESS")
+//            } else ErrorWrapper.ResponseError(response.code, response.message)
+//        } catch (e: Exception) {
+//            ErrorWrapper.SystemError(e)
+//        }
+//    }
+//
+//    override suspend fun updateCar(token: String, car: Car): ResultWrapper<String> {
+//        return try {
+//            val response =
+//                apiService.updateCar(token, car.id!!, car)
+//            if (response.code == 1) {
+//                ResultWrapper.Success("SUCCESS")
+//            } else ErrorWrapper.ResponseError(response.code, response.message)
+//        } catch (e: Exception) {
+//            ErrorWrapper.SystemError(e)
+//        }
+//    }
+//
+//
+//    override suspend fun setDefaultCar(token: String, id: Long): ResultWrapper<String> {
+//        return try {
+//            val response = apiService.setDefaultCar(token, id)
+//            if (response.code == 1) {
+//                ResultWrapper.Success("SUCCESS")
+//            } else ErrorWrapper.ResponseError(response.code, response.message)
+//        } catch (e: Exception) {
+//            ErrorWrapper.SystemError(e)
+//        }
+//    }
 
 
 }

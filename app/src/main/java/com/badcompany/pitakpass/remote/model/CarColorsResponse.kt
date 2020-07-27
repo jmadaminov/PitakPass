@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.remote.model
 
+import com.badcompany.pitakpass.domain.model.CarColor
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -7,11 +8,5 @@ import com.google.gson.annotations.SerializedName
  */
 data class CarColorsResponse(val code: Int? = null,
                              val message: String? = null,
-                             val data: List<CarColorModel>? = null
-)
+                             val data: List<CarColor>? = null)
 
-data class CarColorModel(val id: Long,
-                         val hex: String,
-                         @SerializedName("nameEn") val nameEn: String?=null,
-                         @SerializedName("nameUz") val nameUz: String?=null,
-                         @SerializedName("nameRu") val nameRu: String?=null)

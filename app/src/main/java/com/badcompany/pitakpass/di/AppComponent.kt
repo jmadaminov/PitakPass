@@ -2,7 +2,6 @@ package com.badcompany.pitakpass.di
 
 import android.app.Application
 import com.badcompany.pitakpass.di.addPost.AddPostComponent
-import com.badcompany.pitakpass.di.addcar.AddCarComponent
 import com.badcompany.pitakpass.di.auth.AuthComponent
 import com.badcompany.pitakpass.di.main.MainComponent
 import com.badcompany.pitakpass.ui.BaseActivity
@@ -25,7 +24,7 @@ interface AppComponent {
     fun inject(activity: BaseActivity)
     fun authComponent(): AuthComponent.Factory
     fun mainComponent(): MainComponent.Factory
-    fun addCarComponent(): AddCarComponent.Factory
+//    fun addCarComponent(): AddCarComponent.Factory
     fun addPostComponent(): AddPostComponent.Factory
 
 }

@@ -1,14 +1,17 @@
 package com.badcompany.pitakpass.data.repository
 
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.FilterEntity
-import com.badcompany.pitakpass.data.model.PassengerPostEntity
+import com.badcompany.pitakpass.domain.model.Filter
+import com.badcompany.pitakpass.domain.model.PassengerPost
 
 
 interface PassengerPostDataStore {
 
-    suspend fun filterPassengerPost(token: String,
-                                    lang: String,
-                                    filter: FilterEntity): ResultWrapper<List<PassengerPostEntity>>
+    suspend fun createPassengerPost(token: String, post: PassengerPost): ResultWrapper<String>
+    suspend fun deletePassengerPost(token: String, identifier: String): ResultWrapper<String>
+    suspend fun finishPassengerPost(token: String, identifier: String): ResultWrapper<String>
+    suspend fun getActivePassengerPosts(token: String, lang: String): ResultWrapper<List<PassengerPost>>
+    suspend fun getHistoryPassengerPosts(token: String, lang: String,
+                                      page: Int): ResultWrapper<List<PassengerPost>>
 
 }

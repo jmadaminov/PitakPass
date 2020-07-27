@@ -1,11 +1,10 @@
 package com.badcompany.pitakpass.remote
 
+import com.badcompany.pitakpass.data.repository.DriverPostRemote
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.DriverPostEntity
-import com.badcompany.pitakpass.data.repository.DriverPostRemote
-import com.badcompany.pitakpass.remote.mapper.DriverPostMapper
-import com.badcompany.pitakpass.remote.model.HistoryPostRequest
+import com.badcompany.pitakpass.domain.model.DriverPost
+import com.badcompany.pitakpass.domain.model.Filter
 import javax.inject.Inject
 
 /**
@@ -13,72 +12,17 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                               private val postMapper: DriverPostMapper) :
+class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiService) :
     DriverPostRemote {
 
-    override suspend fun createDriverPost(token: String,
-                                          post: DriverPostEntity): ResultWrapper<String> {
-
+    override suspend fun filterDriverPost(token: String,
+                                             lang: String,
+                                             filter: Filter): ResultWrapper<List<DriverPost>> {
         return try {
-            val response = apiService.createPost(token, postMapper.mapFromEntity(post))
+            val response =
+                apiService.filterDriverPost(token, lang, filter)
             if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun deleteDriverPost(token: String,
-                                          identifier: String): ResultWrapper<String> {
-        return try {
-            val response = apiService.deletePost(token, identifier)
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun finishDriverPost(token: String,
-                                          identifier: String): ResultWrapper<String> {
-        return try {
-            val response = apiService.finishPost(token, identifier)
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun getActiveDriverPosts(token: String,
-                                              lang: String): ResultWrapper<List<DriverPostEntity>> {
-
-        return try {
-            val response = apiService.getActivePosts(token, lang)
-            if (response.code == 1) {
-                val posts = arrayListOf<DriverPostEntity>()
-                response.data?.forEach { posts.add(postMapper.mapToEntity(it)) }
-                ResultWrapper.Success(posts)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
-
-    override suspend fun getHistoryDriverPosts(token: String,
-                                               lang: String,
-                                               page: Int): ResultWrapper<List<DriverPostEntity>> {
-
-        return try {
-            val response = apiService.getHistoryPosts(token, lang, page)
-            if (response.code == 1) {
-                val posts = arrayListOf<DriverPostEntity>()
-                response.data?.data?.forEach { posts.add(postMapper.mapToEntity(it)) }
-                ResultWrapper.Success(posts)
+                ResultWrapper.Success(response.data!!.data!!)
             } else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)

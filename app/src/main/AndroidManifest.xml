@@ -20,12 +20,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity
-            android:name=".ui.addcar.AddCarActivity"
-            android:label="@string/title_add_car"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".ui.addcar.AddCarActivity"-->
+<!--            android:label="@string/title_add_car"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/AppTheme"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
             android:name=".ui.addpost.AddPostActivity"
             android:screenOrientation="portrait"
@@ -74,7 +74,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.badcompany.fileprovider"
+            android:authorities="com.badcompany.pitakpass.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

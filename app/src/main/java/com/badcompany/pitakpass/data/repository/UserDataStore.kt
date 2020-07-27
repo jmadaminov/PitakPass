@@ -1,9 +1,9 @@
 package com.badcompany.pitakpass.data.repository
 
+import com.badcompany.pitakpass.domain.model.AuthBody
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.AuthEntity
-import com.badcompany.pitakpass.data.model.UserCredentialsEntity
-import com.badcompany.pitakpass.data.model.UserEntity
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
 
 
 /**
@@ -14,7 +14,7 @@ import com.badcompany.pitakpass.data.model.UserEntity
 interface UserDataStore {
 
     suspend fun userLogin(phoneNum: String): ResultWrapper<String>
-    suspend fun userRegister(user: UserEntity): ResultWrapper<String>
-    suspend fun confirmSms(userCredentialsEntity: UserCredentialsEntity): ResultWrapper<AuthEntity>
+    suspend fun userRegister(user: User): ResultWrapper<String>
+    suspend fun confirmSms(userCredentials: UserCredentials): ResultWrapper<AuthBody>
 
 }

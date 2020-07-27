@@ -1,8 +1,8 @@
 package com.badcompany.pitakpass.di
 
+import com.badcompany.pitakpass.BuildConfig
 import com.badcompany.pitakpass.data.CarRepositoryImpl
 import com.badcompany.pitakpass.data.FileUploadRepositoryImpl
-import com.badcompany.pitakpass.data.mapper.*
 import com.badcompany.pitakpass.data.repository.CarRemote
 import com.badcompany.pitakpass.data.repository.FileUploadRemote
 import com.badcompany.pitakpass.data.source.CarDataStoreFactory
@@ -12,7 +12,6 @@ import com.badcompany.pitakpass.data.source.FileUploadRemoteDataStore
 import com.badcompany.pitakpass.domain.repository.CarRepository
 import com.badcompany.pitakpass.domain.repository.FileUploadRepository
 import com.badcompany.pitakpass.domain.usecases.*
-import com.badcompany.pitakpass.BuildConfig
 import com.badcompany.pitakpass.remote.ApiService
 import com.badcompany.pitakpass.remote.ApiServiceFactory
 import com.badcompany.pitakpass.remote.CarRemoteImpl
@@ -23,62 +22,25 @@ import dagger.Provides
 @Module
 object AppModule {
 
-
-    @Provides
-    @JvmStatic
-    fun provideGetCars(carRepository: CarRepository): GetCars {
-        return GetCars(carRepository)
-    }
-
-    @Provides
-    @JvmStatic
-    fun provideDeleteCar(carRepository: CarRepository): DeleteCar {
-        return DeleteCar(carRepository)
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideCarRepository(carDataStoreFactory: CarDataStoreFactory,
-                             modelMapper: CarModelMapper,
-                             colorMapper: CarColorMapper,
-                             carMapper: CarMapper,
-                             carDetailsMapper: CarDetailsMapper): CarRepository {
-        return CarRepositoryImpl(carDataStoreFactory,
-                                 colorMapper,
-                                 modelMapper,
-                                 carMapper,
-                                 carDetailsMapper)
-    }
+//
+//    @Provides
+//    @JvmStatic
+//    fun provideGetCars(carRepository: CarRepository): GetCars {
+//        return GetCars(carRepository)
+//    }
+//
+//    @Provides
+//    @JvmStatic
+//    fun provideDeleteCar(carRepository: CarRepository): DeleteCar {
+//        return DeleteCar(carRepository)
+//    }
 
 
     @Provides
     @JvmStatic
-    fun provideCarColorMapper(): CarColorMapper {
-        return CarColorMapper()
+    fun provideCarRepository(carDataStoreFactory: CarDataStoreFactory): CarRepository {
+        return CarRepositoryImpl(carDataStoreFactory)
     }
-
-    @Provides
-    @JvmStatic
-    fun provideCarDetailsMapper(): CarDetailsMapper {
-        return CarDetailsMapper()
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideCarMapper(): CarMapper {
-        return CarMapper()
-    }
-
-
-    @Provides
-
-    @JvmStatic
-    fun provideCarModelMapper(): CarModelMapper {
-        return CarModelMapper()
-    }
-
 
     @Provides
     @JvmStatic
@@ -97,53 +59,23 @@ object AppModule {
 
     @Provides
     @JvmStatic
-    fun provideCarRemote(apiService: ApiService,
-                         carModelMapper: com.badcompany.pitakpass.remote.mapper.CarModelMapper,
-                         carColorMapper: com.badcompany.pitakpass.remote.mapper.CarColorMapper,
-                         carMapper: com.badcompany.pitakpass.remote.mapper.CarMapper,
-                         carDetailsMapper: com.badcompany.pitakpass.remote.mapper.CarDetailsMapper): CarRemote {
-        return CarRemoteImpl(apiService,
-                             carModelMapper,
-                             carColorMapper,
-                             carMapper,
-                             carDetailsMapper)
+    fun provideCarRemote(apiService: ApiService): CarRemote {
+        return CarRemoteImpl(apiService)
     }
 
 
-    @Provides
-
-    @JvmStatic
-    fun provideRemoteCarModelMapper(): com.badcompany.pitakpass.remote.mapper.CarModelMapper {
-        return com.badcompany.pitakpass.remote.mapper.CarModelMapper()
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideRemoteCarColorMapper(): com.badcompany.pitakpass.remote.mapper.CarColorMapper {
-        return com.badcompany.pitakpass.remote.mapper.CarColorMapper()
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideRemoteCarMapper(): com.badcompany.pitakpass.remote.mapper.CarMapper {
-        return com.badcompany.pitakpass.remote.mapper.CarMapper()
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideSaveCar(carRepository: CarRepository): SaveCar {
-        return SaveCar(carRepository)
-    }
-
-
-    @Provides
-    @JvmStatic
-    fun provideSetDefaultCar(carRepository: CarRepository): SetDefaultCar {
-        return SetDefaultCar(carRepository)
-    }
+//    @Provides
+//    @JvmStatic
+//    fun provideSaveCar(carRepository: CarRepository): SaveCar {
+//        return SaveCar(carRepository)
+//    }
+//
+//
+//    @Provides
+//    @JvmStatic
+//    fun provideSetDefaultCar(carRepository: CarRepository): SetDefaultCar {
+//        return SetDefaultCar(carRepository)
+//    }
 
 
     @Provides
@@ -175,17 +107,10 @@ object AppModule {
 
     @Provides
     @JvmStatic
-    fun provideFileUploadRepository(fileUploadDataStoreFactory: FileUploadDataStoreFactory,
-                                    photoMapper: PhotoMapper): FileUploadRepository {
-        return FileUploadRepositoryImpl(fileUploadDataStoreFactory, photoMapper)
+    fun provideFileUploadRepository(fileUploadDataStoreFactory: FileUploadDataStoreFactory): FileUploadRepository {
+        return FileUploadRepositoryImpl(fileUploadDataStoreFactory)
     }
 
-
-    @Provides
-    @JvmStatic
-    fun providePhotoMapper(): PhotoMapper {
-        return PhotoMapper()
-    }
 
     @Provides
     @JvmStatic
@@ -201,17 +126,9 @@ object AppModule {
 
     @Provides
     @JvmStatic
-    fun provideFileUploadRemote(apiService: ApiService,
-                                photoMapper: com.badcompany.pitakpass.remote.mapper.PhotoMapper): FileUploadRemote {
-        return FileUploadRemoteImpl(apiService, photoMapper)
+    fun provideFileUploadRemote(apiService: ApiService): FileUploadRemote {
+        return FileUploadRemoteImpl(apiService)
     }
-
-    @Provides
-    @JvmStatic
-    fun provideRemoteFileUploadPhotoMapper(): com.badcompany.pitakpass.remote.mapper.PhotoMapper {
-        return com.badcompany.pitakpass.remote.mapper.PhotoMapper()
-    }
-
 
 //    @Singleton
 //    @Provides

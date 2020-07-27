@@ -8,13 +8,13 @@ import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.domain.domainmodel.*
+import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.di.viewmodels.AddPostViewModelFactory
 import com.badcompany.pitakpass.fragments.AddPostNavHostFragment
 import com.badcompany.pitakpass.ui.BaseActivity
-import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
+import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import splitties.experimental.ExperimentalSplittiesApi
@@ -61,41 +61,41 @@ class AddPostActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        checkIfEditing(intent.getParcelableExtra(Constants.TXT_DRIVER_POST))
+        checkIfEditing(intent.getParcelableExtra(Constants.TXT_PASSENGER_POST))
 
     }
 
-    private fun checkIfEditing(driverPostViewObj: DriverPostViewObj?) {
-        if (driverPostViewObj != null) {
+    private fun checkIfEditing(passengerPostViewObj: PassengerPostViewObj?) {
+        if (passengerPostViewObj != null) {
             viewmodel.isEditing = true
-            viewmodel.price = driverPostViewObj.price
-            viewmodel.seat = driverPostViewObj.seat
-            viewmodel.placeFrom = Place(driverPostViewObj.from.districtId,
-                                        driverPostViewObj.from.regionId,
-                                        driverPostViewObj.from.lat,
-                                        driverPostViewObj.from.lon,
-                                        driverPostViewObj.from.regionName,
-                                        driverPostViewObj.from.name)
+            viewmodel.price = passengerPostViewObj.price
+            viewmodel.seat = passengerPostViewObj.seat
+            viewmodel.placeFrom = Place(passengerPostViewObj.from.districtId,
+                                        passengerPostViewObj.from.regionId,
+                                        passengerPostViewObj.from.lat,
+                                        passengerPostViewObj.from.lon,
+                                        passengerPostViewObj.from.regionName,
+                                        passengerPostViewObj.from.name)
 
-            viewmodel.placeTo = Place(driverPostViewObj.to.districtId,
-                                      driverPostViewObj.to.regionId,
-                                      driverPostViewObj.to.lat,
-                                      driverPostViewObj.to.lon,
-                                      driverPostViewObj.from.regionName,
-                                      driverPostViewObj.from.name)
+            viewmodel.placeTo = Place(passengerPostViewObj.to.districtId,
+                                      passengerPostViewObj.to.regionId,
+                                      passengerPostViewObj.to.lat,
+                                      passengerPostViewObj.to.lon,
+                                      passengerPostViewObj.from.regionName,
+                                      passengerPostViewObj.from.name)
 
-            viewmodel.timeFirstPart = driverPostViewObj.timeFirstPart
-            viewmodel.timeSecondPart = driverPostViewObj.timeSecondPart
-            viewmodel.timeThirdPart = driverPostViewObj.timeThirdPart
-            viewmodel.timeFourthPart = driverPostViewObj.timeFourthPart
-            viewmodel.departureDate = driverPostViewObj.departureDate
-            viewmodel.note = driverPostViewObj.remark
-            viewmodel.car = CarDetails(driverPostViewObj.carId,
+            viewmodel.timeFirstPart = passengerPostViewObj.timeFirstPart
+            viewmodel.timeSecondPart = passengerPostViewObj.timeSecondPart
+            viewmodel.timeThirdPart = passengerPostViewObj.timeThirdPart
+            viewmodel.timeFourthPart = passengerPostViewObj.timeFourthPart
+            viewmodel.departureDate = passengerPostViewObj.departureDate
+            viewmodel.note = passengerPostViewObj.remark
+            viewmodel.car = CarDetails(passengerPostViewObj.carId,
                                        IdName(2L, "MODEL 1"),
                                        Image(2L,
                                              "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng"),
                                        Constants.FUEL_TYPE_METHANE,
-                                       CarColorBody(3L, "#eb4034", "RED", "qizil", "KRASNIY"),
+                                       CarColor(3L, "#eb4034", "RED", "qizil", "KRASNIY"),
                                        "01XU239A", 2013, true, true, listOf(Image(2L,
                                                                                   "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng")
                 ))

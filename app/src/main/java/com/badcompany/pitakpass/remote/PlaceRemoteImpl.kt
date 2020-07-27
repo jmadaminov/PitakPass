@@ -1,10 +1,9 @@
 package com.badcompany.pitakpass.remote
 
+import com.badcompany.pitakpass.data.repository.PlaceRemote
+import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.data.model.PlaceEntity
-import com.badcompany.pitakpass.data.repository.PlaceRemote
-import com.badcompany.pitakpass.remote.mapper.PlaceMapper
 import javax.inject.Inject
 
 /**
@@ -12,18 +11,17 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class PlaceRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                          private val placeMapper: PlaceMapper) : PlaceRemote {
+class PlaceRemoteImpl @Inject constructor(private val apiService: ApiService) : PlaceRemote {
 
     override suspend fun getPlacesAutocomplete(token: String,
                                                lang: String,
-                                               queryString: String): ResultWrapper<List<PlaceEntity>> {
+                                               queryString: String): ResultWrapper<List<Place>> {
         return try {
             val response = apiService.getPlacesFeed(token, lang, queryString)
             if (response.code == 1) {
-                val places = arrayListOf<PlaceEntity>()
+                val places = arrayListOf<Place>()
                 response.data!!.forEach {
-                    places.add(placeMapper.mapToEntity(it))
+                    places.add(it)
                 }
                 ResultWrapper.Success(places)
             } else ErrorWrapper.ResponseError(response.code, response.message)

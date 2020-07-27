@@ -1,11 +1,10 @@
 package com.badcompany.pitakpass.domain.repository
 
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.domain.domainmodel.Car
-import com.badcompany.pitakpass.domain.domainmodel.User
-import com.badcompany.pitakpass.domain.domainmodel.UserCredentials
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
+import com.badcompany.pitakpass.domain.model.Car
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.domain.model.AuthBody
 
 interface UserRepository {
 

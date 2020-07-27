@@ -1,10 +1,8 @@
 package com.badcompany.pitakpass.domain.usecases
 
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
-import com.badcompany.pitakpass.domain.domainmodel.UserCredentials
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.domain.repository.UserRepository
 
 

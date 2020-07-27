@@ -1,21 +1,16 @@
 package com.badcompany.pitakpass.di.addPost
 
-import com.badcompany.pitakpass.data.DriverPostRepositoryImpl
+import com.badcompany.pitakpass.data.PassengerPostRepositoryImpl
 import com.badcompany.pitakpass.data.PlaceRepositoryImpl
-import com.badcompany.pitakpass.data.mapper.DriverPostMapper
-import com.badcompany.pitakpass.data.mapper.PlaceMapper
 import com.badcompany.pitakpass.data.repository.PlaceRemote
-import com.badcompany.pitakpass.data.repository.DriverPostRemote
-import com.badcompany.pitakpass.data.source.DriverPostDataStoreFactory
-import com.badcompany.pitakpass.data.source.DriverPostRemoteDataStore
-import com.badcompany.pitakpass.data.source.PlaceDataStoreFactory
-import com.badcompany.pitakpass.data.source.PlaceRemoteDataStore
-import com.badcompany.pitakpass.domain.repository.DriverPostRepository
+import com.badcompany.pitakpass.data.repository.PassengerPostRemote
+import com.badcompany.pitakpass.data.source.*
+import com.badcompany.pitakpass.domain.repository.PassengerPostRepository
 import com.badcompany.pitakpass.domain.repository.PlaceRepository
-import com.badcompany.pitakpass.domain.usecases.CreateDriverPost
+import com.badcompany.pitakpass.domain.usecases.CreatePassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.remote.ApiService
-import com.badcompany.pitakpass.remote.DriverPostRemoteImpl
+import com.badcompany.pitakpass.remote.PassengerPostRemoteImpl
 import com.badcompany.pitakpass.remote.PlaceRemoteImpl
 import dagger.Module
 import dagger.Provides
@@ -26,8 +21,8 @@ object AddPostModule {
     @AddPostScope
     @Provides
     @JvmStatic
-    fun provideCreateDriverPost(driverPostRepository: DriverPostRepository): CreateDriverPost {
-        return CreateDriverPost(driverPostRepository)
+    fun provideCreatePassengerPost(driverPostRepository: PassengerPostRepository): CreatePassengerPost {
+        return CreatePassengerPost(driverPostRepository)
     }
 
     @AddPostScope
@@ -40,31 +35,15 @@ object AddPostModule {
     @AddPostScope
     @Provides
     @JvmStatic
-    fun providePlaceRepository(factory: PlaceDataStoreFactory,
-                               placeMapper: PlaceMapper): PlaceRepository {
-        return PlaceRepositoryImpl(factory, placeMapper)
+    fun providePlaceRepository(factory: PlaceDataStoreFactory): PlaceRepository {
+        return PlaceRepositoryImpl(factory)
     }
 
     @AddPostScope
     @Provides
     @JvmStatic
-    fun provideDriverPostRepository(factory: DriverPostDataStoreFactory,
-                                    driverPostMapper: DriverPostMapper): DriverPostRepository {
-        return DriverPostRepositoryImpl(factory, driverPostMapper)
-    }
-
-    @Provides
-    @AddPostScope
-    @JvmStatic
-    fun providePlaceMapper(): PlaceMapper {
-        return PlaceMapper()
-    }
-
-    @Provides
-    @AddPostScope
-    @JvmStatic
-    fun provideDriverPostMapper(): DriverPostMapper {
-        return DriverPostMapper()
+    fun providePassengerPostRepository(factory: PassengerPostDataStoreFactory): PassengerPostRepository {
+        return PassengerPostRepositoryImpl(factory)
     }
 
     @Provides
@@ -77,8 +56,8 @@ object AddPostModule {
     @Provides
     @AddPostScope
     @JvmStatic
-    fun provideDriverPostDataStoreFactory(driverPostRemoteDataStore: DriverPostRemoteDataStore): DriverPostDataStoreFactory {
-        return DriverPostDataStoreFactory(driverPostRemoteDataStore)
+    fun providePassengerPostDataStoreFactory(driverPostRemoteDataStore: PassengerPostRemoteDataStore): PassengerPostDataStoreFactory {
+        return PassengerPostDataStoreFactory(driverPostRemoteDataStore)
     }
 
     @Provides
@@ -91,41 +70,24 @@ object AddPostModule {
     @Provides
     @AddPostScope
     @JvmStatic
-    fun provideDriverPostRemoteDataStore(driverDriverPostRemote: DriverPostRemote): DriverPostRemoteDataStore {
-        return DriverPostRemoteDataStore(driverDriverPostRemote)
+    fun providePassengerPostRemoteDataStore(passengerPassengerPostRemote: PassengerPostRemote): PassengerPostRemoteDataStore {
+        return PassengerPostRemoteDataStore(passengerPassengerPostRemote)
     }
 
 
     @Provides
     @AddPostScope
     @JvmStatic
-    fun providePlaceRemote(apiService: ApiService,
-                           placeMapper: com.badcompany.pitakpass.remote.mapper.PlaceMapper): PlaceRemote {
-        return PlaceRemoteImpl(apiService, placeMapper)
+    fun providePlaceRemote(apiService: ApiService): PlaceRemote {
+        return PlaceRemoteImpl(apiService)
     }
 
 
     @Provides
     @AddPostScope
     @JvmStatic
-    fun provideDriverPostRemote(apiService: ApiService,
-                                driverPostMapper: com.badcompany.pitakpass.remote.mapper.DriverPostMapper): DriverPostRemote {
-        return DriverPostRemoteImpl(apiService, driverPostMapper)
+    fun providePassengerPostRemote(apiService: ApiService): PassengerPostRemote {
+        return PassengerPostRemoteImpl(apiService)
     }
-
-    @AddPostScope
-    @Provides
-    @JvmStatic
-    fun provideRemotePlaceMapper(): com.badcompany.pitakpass.remote.mapper.PlaceMapper {
-        return com.badcompany.pitakpass.remote.mapper.PlaceMapper()
-    }
-
-    @AddPostScope
-    @Provides
-    @JvmStatic
-    fun provideRemoteDriverPostMapper(): com.badcompany.pitakpass.remote.mapper.DriverPostMapper {
-        return com.badcompany.pitakpass.remote.mapper.DriverPostMapper()
-    }
-
 
 }

@@ -3,7 +3,6 @@ package com.badcompany.pitakpass.di.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.badcompany.pitakpass.di.addPost.AddPostScope
-import com.badcompany.pitakpass.di.addcar.AddCarScope
 import com.badcompany.pitakpass.di.main.MainScope
 import javax.inject.Inject
 import javax.inject.Provider

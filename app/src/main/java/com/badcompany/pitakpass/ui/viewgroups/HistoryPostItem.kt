@@ -1,14 +1,14 @@
 package com.badcompany.pitakpass.ui.viewgroups
 
 import android.view.View
-import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_active_post.view.*
 
-class HistoryPostItem(var post: DriverPost, var onPostActionListener: IOnPostActionListener) :
+class HistoryPostItem(var post: PassengerPost, var onPostActionListener: IOnPostActionListener) :
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.date.text = post.departureDate

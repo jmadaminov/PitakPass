@@ -9,18 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.domain.model.Place
+import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.domainmodel.DriverPost
-import com.badcompany.pitakpass.domain.domainmodel.Place
-import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.ui.addcar.MyItemClickListener
-import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
-import com.badcompany.pitakpass.ui.viewgroups.CarItemSelectionView
 import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -70,7 +66,7 @@ class PreviewFragment @Inject constructor(private val viewModelFactory: ViewMode
 //            viewModel.confirm(args.phone, code.text.toString())
 //        }
 
-        setupCarList()
+//        setupCarList()
     }
 
     private fun setupViews() {
@@ -153,39 +149,41 @@ class PreviewFragment @Inject constructor(private val viewModelFactory: ViewMode
         }
 
         postCreate.setOnClickListener {
-            viewModel.createDriverPost(DriverPost(null,
-                                                  activityViewModel.placeFrom!!,
-                                                  activityViewModel.placeTo!!,
-                                                  activityViewModel.price!!,
-                                                  activityViewModel.departureDate!!,
-                                                  null,
-                                                  activityViewModel.timeFirstPart,
-                                                  activityViewModel.timeSecondPart,
-                                                  activityViewModel.timeThirdPart,
-                                                  activityViewModel.timeFourthPart,
-                                                  activityViewModel.car!!.id!!,
-                                                  null,
-                                                  activityViewModel.note!!,
-                                                  activityViewModel.seat!!,
-                                                  Constants.DRIVER_POST_SIMPLE))
+            viewModel.createPassengerPost(PassengerPost(null,
+                                                        activityViewModel.placeFrom!!,
+                                                        activityViewModel.placeTo!!,
+                                                        activityViewModel.price!!,
+                                                        activityViewModel.departureDate!!,
+                                                        null,
+                                                        null,
+                                                        null,
+                                                        activityViewModel.timeFirstPart,
+                                                        activityViewModel.timeSecondPart,
+                                                        activityViewModel.timeThirdPart,
+                                                        activityViewModel.timeFourthPart,
+                                                        null,
+                                                        activityViewModel.note!!,
+                                                        null,
+                                                        activityViewModel.seat!!,
+                                                        Constants.PASSENGER_POST_SIMPLE))
         }
 
     }
 
-    private fun setupCarList() {
-        selectedCarList.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        selectedCarList.setHasFixedSize(true)
-        adapter.clear()
-        selectedCarList.adapter = adapter
-        adapter.add(CarItemSelectionView(activityViewModel.car!!, object : MyItemClickListener {
-            override fun onClick(pos: Int, view: View) {
-                super.onClick(pos)
-                navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToCarAndTextFragment(
-                    true))
-            }
-        }))
-    }
+//    private fun setupCarList() {
+//        selectedCarList.layoutManager =
+//            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+//        selectedCarList.setHasFixedSize(true)
+//        adapter.clear()
+//        selectedCarList.adapter = adapter
+//        adapter.add(CarItemSelectionView(activityViewModel.car!!, object : MyItemClickListener {
+//            override fun onClick(pos: Int, view: View) {
+//                super.onClick(pos)
+//                navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToCarAndTextFragment(
+//                    true))
+//            }
+//        }))
+//    }
 
     @ExperimentalSplittiesApi
     private fun setupObservers() {

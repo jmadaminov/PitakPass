@@ -3,8 +3,8 @@ package com.badcompany.pitakpass.ui.auth.confirm
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.numericOnly
-import com.badcompany.pitakpass.domain.domainmodel.AuthBody
-import com.badcompany.pitakpass.domain.domainmodel.UserCredentials
+import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.domain.usecases.SmsConfirm
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.SingleLiveEvent

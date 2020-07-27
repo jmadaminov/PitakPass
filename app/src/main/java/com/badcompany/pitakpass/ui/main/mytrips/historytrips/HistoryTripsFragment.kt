@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.domainmodel.DriverPost
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
 import com.badcompany.pitakpass.ui.main.MainViewModel
 import com.badcompany.pitakpass.ui.viewgroups.HistoryPostItem
@@ -213,7 +213,7 @@ class HistoryTripsFragment @Inject constructor(private val viewModelFactory: Vie
 //    }
 
     @ExperimentalSplittiesApi
-    private fun loadData(orders: List<DriverPost>) {
+    private fun loadData(orders: List<PassengerPost>) {
         if (viewmodel.currentPage == 0) {
             adapter.clear()
             if (orders.isEmpty()) noHistoryPostsTxt.visibility = View.VISIBLE
@@ -229,13 +229,13 @@ class HistoryTripsFragment @Inject constructor(private val viewModelFactory: Vie
 
 
     private val onOrderActionListener = object : IOnPostActionListener {
-        override fun onEditClick(post: DriverPost) {
+        override fun onEditClick(post: PassengerPost) {
         }
 
-        override fun onCancelClick(position: Int, post: DriverPost, parentView: View) {
+        override fun onCancelClick(position: Int, post: PassengerPost, parentView: View) {
         }
 
-        override fun onDoneClick(position: Int, post: DriverPost, parentView: View) {
+        override fun onDoneClick(position: Int, post: PassengerPost, parentView: View) {
 
         }
     }

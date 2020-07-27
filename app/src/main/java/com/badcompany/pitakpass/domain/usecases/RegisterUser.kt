@@ -3,7 +3,7 @@ package com.badcompany.pitakpass.domain.usecases
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.domain.domainmodel.User
+import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.repository.UserRepository
 
 

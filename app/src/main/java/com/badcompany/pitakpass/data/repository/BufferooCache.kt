@@ -1,4 +1,4 @@
-//package com.badcompany.androiddata.repository
+package com.badcompany.pitakpass.data.repository//package com.badcompany.androiddata.repository
 //
 //import io.reactivex.Completable
 //import io.reactivex.Flowable

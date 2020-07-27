@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.remote
 
+import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.*
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -15,10 +16,10 @@ interface ApiService {
     //Passenger POST API
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @POST("passenger_post/action/filter")
-    suspend fun filterPassengerPost(@Header("Authorization") token: String,
-                                    @Header("Accept-Language") lang: String,
-                                    @Body filter: FilterModel): PassengerPostsResponse
+    @POST("driver_post/action/filter")
+    suspend fun filterDriverPost(@Header("Authorization") token: String,
+                                 @Header("Accept-Language") lang: String,
+                                 @Body filter: Filter): DriverPostsResponse
 
     //END PASSENGER POST API
 
@@ -26,34 +27,34 @@ interface ApiService {
     //DRIVER POST API
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @POST("driver_post/action")
+    @POST("passenger_post/action")
     suspend fun createPost(@Header("Authorization") token: String,
-                           @Body driverPostBody: DriverPostModel): PlainResponse
+                           @Body passengerPostBody: PassengerPost): PlainResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @PUT("driver_post/action/cancel/{identifier}")
+    @PUT("passenger_post/action/cancel/{identifier}")
     suspend fun deletePost(@Header("Authorization") token: String,
                            @Path(value = "identifier",
                                  encoded = true) identifier: String): PlainResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @PUT("driver_post/action/finish/{identifier}")
+    @PUT("passenger_post/action/finish/{identifier}")
     suspend fun finishPost(@Header("Authorization") token: String,
                            @Path(value = "identifier",
                                  encoded = true) identifier: String): PlainResponse
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @GET("driver_post/action/active")
+    @GET("passenger_post/action/active")
     suspend fun getActivePosts(@Header("Authorization") token: String,
-                               @Header("Accept-Language") lang: String): DriverActivePostsResponse
+                               @Header("Accept-Language") lang: String): PassengerActivePostsResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @GET("driver_post/action/history")
+    @GET("passenger_post/action/history")
     suspend fun getHistoryPosts(@Header("Authorization") token: String,
                                 @Header("Accept-Language") lang: String,
                                 @Query("page") page: Int = 0,
-                                @Query("size") size: Int = 10): DriverHistoryPostsResponse
+                                @Query("size") size: Int = 10): PassengerHistoryPostsResponse
 
     //
 
@@ -76,45 +77,45 @@ interface ApiService {
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/reg")
-    suspend fun userRegister(@Body user: UserModel): AuthResponse
+    suspend fun userRegister(@Body user: User): AuthResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/confirm")
-    suspend fun smsConfirm(@Body user: UserCredentialsModel): AuthSuccessResponse
+    suspend fun smsConfirm(@Body user: UserCredentials): AuthSuccessResponse
     //END AUTH API
 
     ///CAR API
 
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @GET("car/action")
-    suspend fun getCars(/*@Header("Content-Language") lang: String,*/ @Header("Authorization") token: String): CarListResponse
+//    @Headers("Content-Type:application/json", "Accept: application/json")
+//    @GET("car/action")
+//    suspend fun getCars(/*@Header("Content-Language") lang: String,*/ @Header("Authorization") token: String): CarListResponse
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @POST("car/action")
-    suspend fun createCar(/*@Header("Content-Language") lang: String,*/
-        @Header("Authorization") token: String,
-        @Body car: CarModel): PlainResponse
+//    @Headers("Content-Type:application/json", "Accept: application/json")
+//    @POST("car/action")
+//    suspend fun createCar(/*@Header("Content-Language") lang: String,*/
+//        @Header("Authorization") token: String,
+//        @Body car: Car): PlainResponse
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @PUT("car/action/{identifier}")
-    suspend fun updateCar(/*@Header("Content-Language") lang: String,*/
-        @Header("Authorization") token: String,
-        @Path(value = "identifier", encoded = true) identifier: Long,
-        @Body car: CarModel): PlainResponse
+//    @Headers("Content-Type:application/json", "Accept: application/json")
+//    @PUT("car/action/{identifier}")
+//    suspend fun updateCar(/*@Header("Content-Language") lang: String,*/
+//        @Header("Authorization") token: String,
+//        @Path(value = "identifier", encoded = true) identifier: Long,
+//        @Body car: Car): PlainResponse
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @DELETE("car/action/{identifier}")
-    suspend fun deleteCar(/*@Header("Content-Language") lang: String,*/
-        @Header("Authorization") token: String,
-        @Path(value = "identifier", encoded = true) identifier: Long): PlainResponse
+//    @Headers("Content-Type:application/json", "Accept: application/json")
+//    @DELETE("car/action/{identifier}")
+//    suspend fun deleteCar(/*@Header("Content-Language") lang: String,*/
+//        @Header("Authorization") token: String,
+//        @Path(value = "identifier", encoded = true) identifier: Long): PlainResponse
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @PUT("car/action/{identifier}/def")
-    suspend fun setDefaultCar(/*@Header("Content-Language") lang: String,*/
-        @Header("Authorization") token: String,
-        @Path(value = "identifier", encoded = true) identifier: Long,
-        @Body carDefault: CarDefaultBody = CarDefaultBody()): PlainResponse
+//    @Headers("Content-Type:application/json", "Accept: application/json")
+//    @PUT("car/action/{identifier}/def")
+//    suspend fun setDefaultCar(/*@Header("Content-Language") lang: String,*/
+//        @Header("Authorization") token: String,
+//        @Path(value = "identifier", encoded = true) identifier: Long,
+//        @Body carDefault: CarDefaultBody = CarDefaultBody()): PlainResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("car_model/action")

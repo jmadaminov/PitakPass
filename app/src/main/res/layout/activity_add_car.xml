@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context="com.badcompany.pitakpass.ui.addcar.AddCarActivity">
+    android:animateLayoutChanges="true">
 
     <ProgressBar
         android:id="@+id/progress"
@@ -124,8 +122,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_photo_grid"
                 android:layout_width="match_parent"
-                android:minHeight="90dp"
                 android:layout_height="wrap_content"
+                android:minHeight="90dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintBottom_toTopOf="@id/labelcarPlateNumber"
@@ -251,13 +249,13 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="24dp"
-            app:spinning_bar_color="#fff"
             android:background="@drawable/selector_round_regular"
             android:elevation="3dp"
             android:enabled="false"
             android:gravity="center"
             android:text="@string/add"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            app:spinning_bar_color="#fff" />
 
     </androidx.cardview.widget.CardView>
 

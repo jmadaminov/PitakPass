@@ -149,6 +149,7 @@
 
     <fragment
         android:id="@+id/priceAndSeatFragment"
+
         android:name="com.badcompany.pitakpass.ui.addpost.priceandseat.PriceAndSeatFragment"
         android:label="@string/price_and_seats"
         tools:layout="@layout/fragment_price_and_seat">
