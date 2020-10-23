@@ -33,10 +33,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/auth_fragments_container"
         android:layout_width="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_auth_graph"
+        app:defaultNavHost="true"
         android:layout_marginTop="?android:actionBarSize"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -19,5 +19,6 @@ interface UserRemote {
 
     suspend fun registerUser(user: User): ResultWrapper<String>
     suspend fun confirmUser(user: UserCredentials): ResultWrapper<AuthBody>
+    suspend fun sendFeedback(feedback:String): ResultWrapper<Any>
 
 }

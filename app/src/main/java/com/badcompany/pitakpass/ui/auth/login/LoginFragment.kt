@@ -16,18 +16,18 @@ import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
-class LoginFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class LoginFragment @Inject constructor() :
     Fragment(R.layout.fragment_login) {
 
-    private val viewModel: LoginViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: LoginViewModel by viewModels()
 
 
     lateinit var navController: NavController
@@ -141,23 +141,6 @@ class LoginFragment @Inject constructor(private val viewModelFactory: ViewModelP
 
         })
     }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            requireContext(),
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(requireContext(), errorString, Toast.LENGTH_SHORT).show()
-    }
-
-
 
 }
 

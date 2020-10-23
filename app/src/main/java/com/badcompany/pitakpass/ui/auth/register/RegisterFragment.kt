@@ -15,19 +15,19 @@ import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register.*
 import javax.inject.Inject
 
-class RegisterFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class RegisterFragment @Inject constructor() :
     Fragment(R.layout.fragment_register) {
 
     val args: RegisterFragmentArgs by navArgs()
 
     lateinit var navController: NavController
 
-    private val viewModel: RegisterViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,20 +167,6 @@ class RegisterFragment @Inject constructor(private val viewModelFactory: ViewMod
         })
     }
 
-    private fun updateUiWithUser(model: RegisterUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            requireContext(),
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(requireContext(), errorString, Toast.LENGTH_SHORT).show()
-    }
 
 
 }

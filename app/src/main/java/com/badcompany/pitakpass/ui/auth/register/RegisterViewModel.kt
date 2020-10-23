@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.auth.register
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.User
@@ -10,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RegisterViewModel @Inject constructor(private val registerUser: RegisterUser) :
+class RegisterViewModel  @ViewModelInject constructor(private val registerUser: RegisterUser) :
     BaseViewModel() {
 
     private val _registerForm = SingleLiveEvent<RegisterFormState>()

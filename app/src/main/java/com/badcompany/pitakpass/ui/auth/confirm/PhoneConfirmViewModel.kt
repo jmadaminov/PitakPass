@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.auth.confirm
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.numericOnly
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class PhoneConfirmViewModel @Inject constructor(private val smsConfirm: SmsConfirm) :
+class PhoneConfirmViewModel  @ViewModelInject constructor(private val smsConfirm: SmsConfirm) :
     BaseViewModel() {
     val confirmResponse = SingleLiveEvent<ResultWrapper<AuthBody>>()
 

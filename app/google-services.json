@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "435089740924",
+    "firebase_url": "https://pitakpass-ed405.firebaseio.com",
+    "project_id": "pitakpass-ed405",
+    "storage_bucket": "pitakpass-ed405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435089740924:android:a2148aa4ac30d91009e5f9",
+        "android_client_info": {
+          "package_name": "com.badcompany.pitakpass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435089740924-43je49d2dsovgfjkjca8r15i5lriftcs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjxBq0socXo8AtW1CG_Pm6YOG_XAsyN1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435089740924-43je49d2dsovgfjkjca8r15i5lriftcs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

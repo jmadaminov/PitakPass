@@ -15,6 +15,7 @@ import com.badcompany.pitakpass.domain.model.AuthBody
 import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.util.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_phone_confirm.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
@@ -25,12 +26,11 @@ import javax.inject.Inject
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
-class PhoneConfirmFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class PhoneConfirmFragment @Inject constructor() :
     Fragment(R.layout.fragment_phone_confirm) {
 
-    private val viewModel: PhoneConfirmViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: PhoneConfirmViewModel by viewModels()
 
     val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
@@ -82,8 +82,6 @@ class PhoneConfirmFragment @Inject constructor(private val viewModelFactory: Vie
                     confirm.revertAnimation()
                     saveCredentials(response)
                     context?.start<MainActivity> { }
-
-                    (appCtx as App).releaseAuthComponent()
                 }
                 ResultWrapper.InProgress -> {
                     errorMessage.visibility = View.INVISIBLE

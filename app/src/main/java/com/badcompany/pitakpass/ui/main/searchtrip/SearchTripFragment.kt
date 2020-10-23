@@ -24,6 +24,7 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search_trip.*
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.SimpleDateFormat
@@ -31,14 +32,13 @@ import java.util.*
 import javax.inject.Inject
 
 @ExperimentalSplittiesApi
-class SearchTripFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class SearchTripFragment @Inject constructor() :
     Fragment(R.layout.fragment_search_trip) {
 
     private lateinit var balloon: Balloon
     private val adapter = GroupAdapter<GroupieViewHolder>()
-    private val viewModel: SearchTripViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: SearchTripViewModel by viewModels()
 
     lateinit var autoCompleteManager: AutoCompleteManager
 

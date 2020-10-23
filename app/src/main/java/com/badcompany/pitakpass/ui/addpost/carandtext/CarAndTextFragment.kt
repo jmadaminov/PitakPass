@@ -17,6 +17,7 @@ import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.ui.viewgroups.ErrorTextItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_car_and_note.*
 import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
@@ -24,7 +25,8 @@ import javax.inject.Inject
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
-class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class CarAndTextFragment @Inject constructor() :
     Fragment(R.layout.fragment_car_and_note) {
 
     val args: CarAndTextFragmentArgs by navArgs()
@@ -33,13 +35,9 @@ class CarAndTextFragment @Inject constructor(private val viewModelFactory: ViewM
     private var selectedCar: CarDetails? = null
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
-    private val activityViewModel: AddPostViewModel by activityViewModels {
-        viewModelFactory
-    }
+    private val activityViewModel: AddPostViewModel by activityViewModels()
 
-    private val viewModel: CarAndTextViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: CarAndTextViewModel by viewModels()
 
     //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController

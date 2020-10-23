@@ -3,6 +3,8 @@ package com.badcompany.pitakpass.remote
 import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.*
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -86,37 +88,6 @@ interface ApiService {
 
     ///CAR API
 
-
-//    @Headers("Content-Type:application/json", "Accept: application/json")
-//    @GET("car/action")
-//    suspend fun getCars(/*@Header("Content-Language") lang: String,*/ @Header("Authorization") token: String): CarListResponse
-
-//    @Headers("Content-Type:application/json", "Accept: application/json")
-//    @POST("car/action")
-//    suspend fun createCar(/*@Header("Content-Language") lang: String,*/
-//        @Header("Authorization") token: String,
-//        @Body car: Car): PlainResponse
-
-//    @Headers("Content-Type:application/json", "Accept: application/json")
-//    @PUT("car/action/{identifier}")
-//    suspend fun updateCar(/*@Header("Content-Language") lang: String,*/
-//        @Header("Authorization") token: String,
-//        @Path(value = "identifier", encoded = true) identifier: Long,
-//        @Body car: Car): PlainResponse
-
-//    @Headers("Content-Type:application/json", "Accept: application/json")
-//    @DELETE("car/action/{identifier}")
-//    suspend fun deleteCar(/*@Header("Content-Language") lang: String,*/
-//        @Header("Authorization") token: String,
-//        @Path(value = "identifier", encoded = true) identifier: Long): PlainResponse
-
-//    @Headers("Content-Type:application/json", "Accept: application/json")
-//    @PUT("car/action/{identifier}/def")
-//    suspend fun setDefaultCar(/*@Header("Content-Language") lang: String,*/
-//        @Header("Authorization") token: String,
-//        @Path(value = "identifier", encoded = true) identifier: Long,
-//        @Body carDefault: CarDefaultBody = CarDefaultBody()): PlainResponse
-
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("car_model/action")
     suspend fun getCarModels(@Header("Authorization") token: String,
@@ -129,6 +100,10 @@ interface ApiService {
 
     //END CAR API
 
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @POST("feedback/action")
+    suspend fun sendFeedback(@Body body: FeedbackBody): Response<Any>
 
     //FILE UPLOAD API
 

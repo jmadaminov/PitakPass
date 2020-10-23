@@ -36,9 +36,7 @@ open class UserRemoteDataStore @Inject constructor(private val userRemote: UserR
     override suspend fun confirmSms(userCredentialsEntity: UserCredentials): ResultWrapper<AuthBody> {
         return userRemote.confirmUser(userCredentialsEntity)
     }
-//
-//    override fun isCached(): Single<Boolean> {
-//        throw UnsupportedOperationException()
-//    }
+
+    override suspend fun sendFeedback(feedback: String)=userRemote.sendFeedback(feedback)
 
 }

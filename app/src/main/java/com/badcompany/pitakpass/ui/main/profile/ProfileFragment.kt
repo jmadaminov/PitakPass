@@ -22,6 +22,7 @@ import com.badcompany.pitakpass.domain.model.CarDetails
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
+import com.badcompany.pitakpass.ui.feedback.FeedbackActivity
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.ui.viewgroups.CarItemView
 import com.badcompany.pitakpass.ui.viewgroups.ItemAddCar
@@ -35,6 +36,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.item_car.view.*
 import splitties.experimental.ExperimentalSplittiesApi
@@ -44,14 +46,13 @@ import javax.inject.Inject
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
-class ProfileFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class ProfileFragment @Inject constructor() :
     Fragment(R.layout.fragment_profile) {
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
-    private val viewModel: ProfileViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: ProfileViewModel by viewModels()
 
 
     override fun onAttach(context: Context) {
@@ -233,6 +234,11 @@ class ProfileFragment @Inject constructor(private val viewModelFactory: ViewMode
 //    }
 
     private fun setupListeners() {
+
+        btnFeedback.setOnClickListener {
+            start<FeedbackActivity>{}
+        }
+
         //        change_password.setOnClickListener {
 //            findNavController().navigate(R.id.action_accountFragment_to_changePasswordFragment)
 //        }
@@ -258,7 +264,6 @@ class ProfileFragment @Inject constructor(private val viewModelFactory: ViewMode
                 phone = ""
             }
             start<AuthActivity> {}
-            (requireActivity().applicationContext as App).releaseMainComponent()
         }
 
 

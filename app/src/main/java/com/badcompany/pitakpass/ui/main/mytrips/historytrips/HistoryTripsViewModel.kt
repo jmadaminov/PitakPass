@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.main.mytrips.historytrips
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
-class HistoryTripsViewModel @Inject constructor(val getHistoryPassengerPost: GetHistoryPassengerPost) :
+class HistoryTripsViewModel  @ViewModelInject constructor(val getHistoryPassengerPost: GetHistoryPassengerPost) :
     BaseViewModel() {
 
     val historyPostsResponse = SingleLiveEvent<ResultWrapper<List<PassengerPost>>>()

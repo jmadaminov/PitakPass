@@ -3,60 +3,40 @@ package com.badcompany.pitakpass.ui.addpost
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.domain.model.*
-import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.di.viewmodels.AddPostViewModelFactory
-import com.badcompany.pitakpass.fragments.AddPostNavHostFragment
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
-import javax.inject.Named
 
 
 class AddPostActivity : BaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: AddPostViewModelFactory
+//    @Inject
+//    lateinit var viewModelFactory: AddPostViewModelFactory
 
 
-    private val viewmodel: AddPostViewModel by viewModels {
-        viewModelFactory
-    }
-
-    @Inject
-    @Named("AddPostFragmentFactory")
-    lateinit var fragmentFactory: FragmentFactory
-
-
-    override fun inject() {
-        (application as App).addPostComponent()
-            .inject(this)
-    }
-
+    private val viewModel: AddPostViewModel by viewModels()
 
     @InternalCoroutinesApi
     @ExperimentalCoroutinesApi
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
-        inject()
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_add_post)
         setupActionBar()
-        onRestoreInstanceState()
+//        onRestoreInstanceState()
 
 
         subscribeObservers()
         setupListeners()
+
     }
 
     override fun onResume() {
@@ -67,30 +47,30 @@ class AddPostActivity : BaseActivity() {
 
     private fun checkIfEditing(passengerPostViewObj: PassengerPostViewObj?) {
         if (passengerPostViewObj != null) {
-            viewmodel.isEditing = true
-            viewmodel.price = passengerPostViewObj.price
-            viewmodel.seat = passengerPostViewObj.seat
-            viewmodel.placeFrom = Place(passengerPostViewObj.from.districtId,
+            viewModel.isEditing = true
+            viewModel.price = passengerPostViewObj.price
+            viewModel.seat = passengerPostViewObj.seat
+            viewModel.placeFrom = Place(passengerPostViewObj.from.districtId,
                                         passengerPostViewObj.from.regionId,
                                         passengerPostViewObj.from.lat,
                                         passengerPostViewObj.from.lon,
                                         passengerPostViewObj.from.regionName,
                                         passengerPostViewObj.from.name)
 
-            viewmodel.placeTo = Place(passengerPostViewObj.to.districtId,
+            viewModel.placeTo = Place(passengerPostViewObj.to.districtId,
                                       passengerPostViewObj.to.regionId,
                                       passengerPostViewObj.to.lat,
                                       passengerPostViewObj.to.lon,
                                       passengerPostViewObj.from.regionName,
                                       passengerPostViewObj.from.name)
 
-            viewmodel.timeFirstPart = passengerPostViewObj.timeFirstPart
-            viewmodel.timeSecondPart = passengerPostViewObj.timeSecondPart
-            viewmodel.timeThirdPart = passengerPostViewObj.timeThirdPart
-            viewmodel.timeFourthPart = passengerPostViewObj.timeFourthPart
-            viewmodel.departureDate = passengerPostViewObj.departureDate
-            viewmodel.note = passengerPostViewObj.remark
-            viewmodel.car = CarDetails(passengerPostViewObj.carId,
+            viewModel.timeFirstPart = passengerPostViewObj.timeFirstPart
+            viewModel.timeSecondPart = passengerPostViewObj.timeSecondPart
+            viewModel.timeThirdPart = passengerPostViewObj.timeThirdPart
+            viewModel.timeFourthPart = passengerPostViewObj.timeFourthPart
+            viewModel.departureDate = passengerPostViewObj.departureDate
+            viewModel.note = passengerPostViewObj.remark
+            viewModel.car = CarDetails(passengerPostViewObj.carId,
                                        IdName(2L, "MODEL 1"),
                                        Image(2L,
                                              "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng"),
@@ -104,7 +84,7 @@ class AddPostActivity : BaseActivity() {
                 .setPopUpTo(R.id.previewFragment, true)
                 .build()
 
-            navHost.findNavController()
+            findNavController(R.id.add_post_fragments_container)
                 .navigate(R.id.action_destinationsFragment_to_previewFragment,
                           null,
                           navOptions)
@@ -124,21 +104,21 @@ class AddPostActivity : BaseActivity() {
     }
 
 
-    var host: Fragment? = null
-    lateinit var navHost: Fragment
-
-    private fun onRestoreInstanceState() {
-        host = supportFragmentManager.findFragmentById(R.id.add_post_fragments_container)
-        host?.let { /*do nothing*/ } ?: createNavHost()
-    }
-
-    private fun createNavHost() {
-        navHost = AddPostNavHostFragment.create(R.navigation.add_post_nav_graph)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.add_post_fragments_container, navHost, getString(R.string.AuthNavHost))
-            .setPrimaryNavigationFragment(navHost)
-            .commit()
-    }
+//    var host: Fragment? = null
+//    lateinit var navHost: Fragment
+//
+//    private fun onRestoreInstanceState() {
+//        host = supportFragmentManager.findFragmentById(R.id.add_post_fragments_container)
+//        host?.let { /*do nothing*/ } ?: createNavHost()
+//    }
+//
+//    private fun createNavHost() {
+//        navHost = AddPostNavHostFragment.create(R.navigation.add_post_nav_graph)
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.add_post_fragments_container, navHost, getString(R.string.AuthNavHost))
+//            .setPrimaryNavigationFragment(navHost)
+//            .commit()
+//    }
 
 
     private fun setupActionBar() {

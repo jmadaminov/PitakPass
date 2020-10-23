@@ -2,16 +2,12 @@ package com.badcompany.pitakpass.ui.main
 
 import android.animation.LayoutTransition
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavController
-import com.badcompany.pitakpass.App
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.di.viewmodels.MainViewModelFactory
-import com.badcompany.pitakpass.fragments.MainNavHostFragment
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
 import com.badcompany.pitakpass.ui.auth.AuthActivity
@@ -19,46 +15,19 @@ import com.badcompany.pitakpass.ui.main.mytrips.MyTripsFragment
 import com.badcompany.pitakpass.ui.main.profile.ProfileFragment
 import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
 import com.badcompany.pitakpass.util.AppPreferences
-import com.badcompany.pitakpass.util.BOTTOM_NAV_BACKSTACK_KEY
-import com.badcompany.pitakpass.util.BottomNavControllerFix
-import com.badcompany.pitakpass.util.setUpNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
-import javax.inject.Named
 
-class MainActivity : BaseActivity(), BottomNavControllerFix.OnNavigationGraphChanged,
-    BottomNavControllerFix.OnNavigationReselectedListener {
+class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphChanged,
+    BottomNavControllerFix.OnNavigationReselectedListener*/ {
 
-    @Inject
-    lateinit var viewModelFactory: MainViewModelFactory
-
-    @Inject
-    @Named("MainFragmentFactory")
-    lateinit var fragmentFactory: FragmentFactory
-
-    override fun inject() {
-        (application as App).mainComponent()
-            .inject(this)
-    }
-
-    private val viewModel: MainViewModel by viewModels {
-        viewModelFactory
-    }
-
-    private val bottomNavControllerFix by lazy(LazyThreadSafetyMode.NONE) {
-        BottomNavControllerFix(
-            this,
-            R.id.main_fragments_container,
-            R.id.nav_menu_search,
-            this)
-    }
+    private lateinit var navController: NavController
+    private val viewModel: MainViewModel by viewModels()
 
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         checkUserLogin()
-        inject()
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -67,13 +36,38 @@ class MainActivity : BaseActivity(), BottomNavControllerFix.OnNavigationGraphCha
         setupListeners()
         subscribeObservers()
 //        onRestoreInstanceState()
-        setupBottomNavigationView(savedInstanceState)
+//        setupBottomNavigationView(savedInstanceState)
 
+//        nav_view.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        navController = findNavController(R.id.nav_host_fragment)
     }
 
     private fun setupListeners() {
         addPost.setOnClickListener {
             start<AddPostActivity>()
+        }
+
+        navSearch.setOnClickListener {
+            if ((navController.currentDestination as FragmentNavigator.Destination).className == ProfileFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_profile_to_nav_menu_search)
+            } else if ((navController.currentDestination as FragmentNavigator.Destination).className == MyTripsFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_my_trips_to_nav_menu_search)
+            }
+        }
+
+        navMyTrips.setOnClickListener {
+            if ((navController.currentDestination as FragmentNavigator.Destination).className == SearchTripFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_search_to_nav_menu_my_trips)
+            } else if ((navController.currentDestination as FragmentNavigator.Destination).className == ProfileFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_profile_to_nav_menu_my_trips)
+            }
+        }
+        navProfile.setOnClickListener {
+            if ((navController.currentDestination as FragmentNavigator.Destination).className == SearchTripFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_search_to_nav_menu_profile)
+            } else if ((navController.currentDestination as FragmentNavigator.Destination).className == MyTripsFragment::class.qualifiedName) {
+                navController.navigate(R.id.action_nav_menu_my_trips_to_nav_menu_profile)
+            }
         }
     }
 
@@ -84,67 +78,10 @@ class MainActivity : BaseActivity(), BottomNavControllerFix.OnNavigationGraphCha
         }
     }
 
-    private fun setupBottomNavigationView(savedInstanceState: Bundle?) {
-        nav_view.setUpNavigation(bottomNavControllerFix, this)
-        if (savedInstanceState == null) {
-            bottomNavControllerFix.setupBottomNavigationBackStack(null)
-            bottomNavControllerFix.onNavigationItemSelected()
-        } else {
-            (savedInstanceState[BOTTOM_NAV_BACKSTACK_KEY] as IntArray?)?.let { items ->
-                val backstack = BottomNavControllerFix.BackStack()
-                backstack.addAll(items.toTypedArray())
-                bottomNavControllerFix.setupBottomNavigationBackStack(backstack)
-            }
-        }
-    }
-
-
     private fun subscribeObservers() {
 //        TODO("Not yet implemented")
     }
 
-    override fun onReselectNavItem(
-        navController: NavController,
-        fragment: Fragment
-    ) {
-        Log.d(TAG, "logInfo: onReSelectItem")
-        when (fragment) {
-            is SearchTripFragment -> {
-//                navController.navigate(R.id.action_nav_menu_search_self)
-            }
-
-            is MyTripsFragment -> {
-//                navController.navigate(R.id.action_nav_menu_my_trips_self)
-            }
-
-            is ProfileFragment -> {
-//                navController.navigate(R.id.action_nav_menu_profile_self)
-            }
-            else -> {
-                // do nothing
-            }
-        }
-    }
-
-    private fun onRestoreInstanceState() {
-        val host = supportFragmentManager.findFragmentById(R.id.main_fragments_container)
-        host?.let { } ?: createNavHost()
-    }
-
-    private fun createNavHost() {
-        val navHost = MainNavHostFragment.create(R.navigation.main_nav_graph)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragments_container, navHost, getString(
-                R.string.MainNavHost))
-            .setPrimaryNavigationFragment(navHost)
-            .commit()
-    }
-
-    override fun onGraphChange() {
-
-    }
-
-    override fun onBackPressed() = bottomNavControllerFix.onBackPressed()
 
     private fun setupActionBar() {
 //        setSupportActionBar(tool_bar)

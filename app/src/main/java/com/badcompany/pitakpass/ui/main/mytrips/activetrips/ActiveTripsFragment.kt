@@ -24,20 +24,18 @@ import com.badcompany.pitakpass.viewobjects.*
 import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_active_trips.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
 import javax.inject.Inject
 
-class ActiveTripsFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class ActiveTripsFragment @Inject constructor() :
     Fragment(R.layout.fragment_active_trips) {
 
-
     private val adapter = GroupAdapter<GroupieViewHolder>()
-    val viewmodel: ActiveTripsViewModel by viewModels {
-        viewModelFactory
-    }
-
+    val viewmodel: ActiveTripsViewModel by viewModels()
 
     private val activityViewModel: MainViewModel by activityViewModels()
 

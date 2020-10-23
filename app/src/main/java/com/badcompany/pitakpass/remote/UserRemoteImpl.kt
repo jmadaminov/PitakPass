@@ -2,6 +2,7 @@ package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.data.repository.UserRemote
 import com.badcompany.pitakpass.domain.model.AuthBody
+import com.badcompany.pitakpass.domain.model.FeedbackBody
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.remote.model.LoginRequest
@@ -44,6 +45,7 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService) : U
             val response = apiService.userRegister(user)
             if (response.code == 1) ResultWrapper.Success(response.data!!.password!!)
             else ErrorWrapper.ResponseError(response.code, response.message)
+
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -54,6 +56,16 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService) : U
             val response = apiService.smsConfirm(user)
             if (response.code == 1) ResultWrapper.Success(response.data!!)
             else ErrorWrapper.ResponseError(response.code, response.message)
+        } catch (e: Exception) {
+            ErrorWrapper.SystemError(e)
+        }
+    }
+
+    override suspend fun sendFeedback(feedback: String): ResultWrapper<Any> {
+        return try {
+            val response = apiService.sendFeedback(FeedbackBody(feedback))
+            if (response.isSuccessful) ResultWrapper.Success("")
+            else ErrorWrapper.ResponseError(-1, response.message())
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }

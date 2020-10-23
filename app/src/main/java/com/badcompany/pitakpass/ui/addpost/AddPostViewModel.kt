@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.addpost
 
+import androidx.hilt.lifecycle.ViewModelInject
 import com.badcompany.pitakpass.domain.model.CarDetails
 import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.App
@@ -11,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by jahon on 28-Apr-20
  */
-class AddPostViewModel @Inject constructor() :
+class AddPostViewModel  @ViewModelInject constructor() :
     BaseViewModel() {
 
     var isEditing: Boolean = false

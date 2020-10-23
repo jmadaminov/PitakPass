@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.main.mytrips.activetrips
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
@@ -17,9 +18,9 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
-class ActiveTripsViewModel @Inject constructor(val getActivePassengerPost: GetActivePassengerPost,
-                                               val deletePost: DeletePassengerPost,
-                                               val finishPost: FinishPassengerPost) : BaseViewModel() {
+class ActiveTripsViewModel  @ViewModelInject constructor(val getActivePassengerPost: GetActivePassengerPost,
+                                                         val deletePost: DeletePassengerPost,
+                                                         val finishPost: FinishPassengerPost) : BaseViewModel() {
 
     val activePostsResponse = SingleLiveEvent<ResultWrapper<List<PassengerPost>>>()
     val deletePostReponse = SingleLiveEvent<ResultWrapper<Int>>()

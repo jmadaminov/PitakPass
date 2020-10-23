@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.util.hideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_price_and_seat.*
 import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
@@ -22,7 +23,8 @@ import javax.inject.Inject
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
-class PriceAndSeatFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class PriceAndSeatFragment @Inject constructor() :
     Fragment(R.layout.fragment_price_and_seat) {
 
     val args: PriceAndSeatFragmentArgs by navArgs()
@@ -31,9 +33,7 @@ class PriceAndSeatFragment @Inject constructor(private val viewModelFactory: Vie
     private var passengerCount: Int? = null
 
 
-    private val activityViewModel: AddPostViewModel by activityViewModels {
-        viewModelFactory
-    }
+    private val activityViewModel: AddPostViewModel by activityViewModels()
 
     //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController

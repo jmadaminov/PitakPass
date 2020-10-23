@@ -25,6 +25,7 @@ import com.badcompany.pitakpass.util.*
 import com.otaliastudios.autocomplete.Autocomplete
 import com.otaliastudios.autocomplete.AutocompleteCallback
 import com.otaliastudios.autocomplete.AutocompletePolicy
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_destinations.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
@@ -35,18 +36,15 @@ import javax.inject.Inject
 //@FlowPreview
 //@ExperimentalCoroutinesApi
 @ExperimentalSplittiesApi
-class DestinationsFragment @Inject constructor(private val viewModelFactory: ViewModelProvider.Factory) :
+@AndroidEntryPoint
+class DestinationsFragment @Inject constructor() :
     Fragment(R.layout.fragment_destinations) {
 
     val args: DestinationsFragmentArgs by navArgs()
 
-    private val viewModel: DestinationsViewModel by viewModels {
-        viewModelFactory
-    }
+    private val viewModel: DestinationsViewModel by viewModels()
 
-    private val activityViewModel: AddPostViewModel by activityViewModels {
-        viewModelFactory
-    }
+    private val activityViewModel: AddPostViewModel by activityViewModels()
 
     lateinit var navController: NavController
 

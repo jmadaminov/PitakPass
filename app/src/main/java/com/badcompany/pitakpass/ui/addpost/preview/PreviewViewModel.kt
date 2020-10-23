@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.ui.addpost.preview
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
@@ -16,7 +17,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
 
-class PreviewViewModel @Inject constructor(private val createPassengerPost: CreatePassengerPost) :
+class PreviewViewModel  @ViewModelInject constructor(private val createPassengerPost: CreatePassengerPost) :
     BaseViewModel() {
 
     val createResponse = SingleLiveEvent<ResultWrapper<String>>()

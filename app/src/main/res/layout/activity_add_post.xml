@@ -13,9 +13,12 @@
 <!--        app:defaultNavHost="true"-->
 <!--        app:navGraph="@navigation/add_post_nav_graph" />-->
 
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/add_post_fragments_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:defaultNavHost="true"
             android:layout_width="match_parent"
+            app:navGraph="@navigation/add_post_nav_graph"
             android:layout_height="match_parent" />
 
 
