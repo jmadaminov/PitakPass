@@ -4,19 +4,17 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.usecases.DeletePassengerPost
 import com.badcompany.pitakpass.domain.usecases.FinishPassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetActivePassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPreferences
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
 
 class ActiveTripsViewModel  @ViewModelInject constructor(val getActivePassengerPost: GetActivePassengerPost,
                                                          val deletePost: DeletePassengerPost,
@@ -31,8 +29,8 @@ class ActiveTripsViewModel  @ViewModelInject constructor(val getActivePassengerP
         activePostsResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = getActivePassengerPost.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPreferences.token),
-                Pair(Constants.TXT_LANG, AppPreferences.language)))
+                Pair(Constants.TXT_TOKEN, AppPrefs.token),
+                Pair(Constants.TXT_LANG, AppPrefs.language)))
 
             withContext(Dispatchers.Main) {
                 activePostsResponse.value = response
@@ -45,7 +43,7 @@ class ActiveTripsViewModel  @ViewModelInject constructor(val getActivePassengerP
         deletePostReponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = deletePost.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPreferences.token),
+                Pair(Constants.TXT_TOKEN, AppPrefs.token),
                 Pair(Constants.TXT_ID, identifier),
                 Pair(Constants.TXT_POSITION, pos)))
 
@@ -60,7 +58,7 @@ class ActiveTripsViewModel  @ViewModelInject constructor(val getActivePassengerP
         finishPostResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = finishPost.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPreferences.token),
+                Pair(Constants.TXT_TOKEN, AppPrefs.token),
                 Pair(Constants.TXT_ID, identifier),
                 Pair(Constants.TXT_POSITION, pos)))
 

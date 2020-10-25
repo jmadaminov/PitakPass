@@ -7,13 +7,12 @@ import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetHistoryPassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPreferences
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
 
 class HistoryTripsViewModel  @ViewModelInject constructor(val getHistoryPassengerPost: GetHistoryPassengerPost) :
     BaseViewModel() {
@@ -29,8 +28,8 @@ class HistoryTripsViewModel  @ViewModelInject constructor(val getHistoryPassenge
         historyPostsResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = getHistoryPassengerPost.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPreferences.token),
-                Pair(Constants.TXT_LANG, AppPreferences.language),
+                Pair(Constants.TXT_TOKEN, AppPrefs.token),
+                Pair(Constants.TXT_LANG, AppPrefs.language),
                 Pair(Constants.TXT_PAGE, page)))
 
             withContext(Dispatchers.Main) {

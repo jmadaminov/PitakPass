@@ -18,10 +18,6 @@ import splitties.experimental.ExperimentalSplittiesApi
 
 class AddPostActivity : BaseActivity() {
 
-//    @Inject
-//    lateinit var viewModelFactory: AddPostViewModelFactory
-
-
     private val viewModel: AddPostViewModel by viewModels()
 
     @InternalCoroutinesApi

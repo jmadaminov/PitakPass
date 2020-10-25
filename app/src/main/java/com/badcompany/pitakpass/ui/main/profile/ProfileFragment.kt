@@ -1,44 +1,20 @@
 package com.badcompany.pitakpass.ui.main.profile
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.badcompany.pitakpass.util.Constants.CODE_ADD_CAR
-import com.badcompany.pitakpass.util.Constants.TXT_CAR
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.model.CarDetails
-import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.ui.feedback.FeedbackActivity
 import com.badcompany.pitakpass.ui.main.MainActivity
-import com.badcompany.pitakpass.ui.viewgroups.CarItemView
-import com.badcompany.pitakpass.ui.viewgroups.ItemAddCar
-import com.badcompany.pitakpass.ui.viewgroups.LoadingItem
-import com.badcompany.pitakpass.util.AppPreferences
-import com.badcompany.pitakpass.viewobjects.CarColorViewObj
-import com.badcompany.pitakpass.viewobjects.CarViewObj
-import com.badcompany.pitakpass.viewobjects.IdNameViewObj
-import com.badcompany.pitakpass.viewobjects.ImageViewObj
-import com.google.android.material.snackbar.Snackbar
+import com.badcompany.pitakpass.util.AppPrefs
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.item_car.view.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
 import splitties.preferences.edit
@@ -79,8 +55,8 @@ class ProfileFragment @Inject constructor() :
     private fun setupViews() {
         (activity as MainActivity).hideTabLayout()
         cardDriver.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
-        nameSurname.text = "${AppPreferences.name} ${AppPreferences.surname}"
-        phone.text = "+${AppPreferences.phone}"
+        nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
+        phone.text = "+${AppPrefs.phone}"
 
     }
 
@@ -257,7 +233,7 @@ class ProfileFragment @Inject constructor() :
 
         signOut.setOnClickListener {
             requireActivity().finish()
-            AppPreferences.edit {
+            AppPrefs.edit {
                 token = ""
                 name = ""
                 surname = ""

@@ -2,8 +2,9 @@ package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.*
+import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.RespFormatter
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,6 +23,13 @@ interface ApiService {
     suspend fun filterDriverPost(@Header("Authorization") token: String,
                                  @Header("Accept-Language") lang: String,
                                  @Body filter: Filter): DriverPostsResponse
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("driver_post/action/{id}")
+    suspend fun getDriverPostById(
+        @Path(value = "id", encoded = true) identifier: Int,
+        @Header("Accept-Language") lang: String = AppPrefs.language,
+        @Header("Authorization") token: String = AppPrefs.token): RespFormatter<DriverPost>
 
     //END PASSENGER POST API
 

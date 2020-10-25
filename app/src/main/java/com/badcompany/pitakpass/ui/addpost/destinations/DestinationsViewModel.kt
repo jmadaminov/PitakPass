@@ -7,7 +7,7 @@ import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPreferences
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -15,7 +15,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
 
 
 class DestinationsViewModel  @ViewModelInject constructor(private val getPlacesFeed: GetPlacesFeed) :
@@ -38,9 +37,9 @@ class DestinationsViewModel  @ViewModelInject constructor(private val getPlacesF
         viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
             val response =
                 getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_TOKEN,
-                                                     AppPreferences.token),
+                                                     AppPrefs.token),
                                                 Pair(Constants.TXT_LANG,
-                                                     AppPreferences.language),
+                                                     AppPrefs.language),
                                                 Pair(Constants.TXT_PLACE, queryString)))
 
             withContext(Main) {

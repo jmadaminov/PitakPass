@@ -1,10 +1,12 @@
 package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.data.repository.DriverPostRemote
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.Filter
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResponseWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.getFormattedResponse
 import javax.inject.Inject
 
 /**
@@ -16,8 +18,8 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
     DriverPostRemote {
 
     override suspend fun filterDriverPost(token: String,
-                                             lang: String,
-                                             filter: Filter): ResultWrapper<List<DriverPost>> {
+                                          lang: String,
+                                          filter: Filter): ResultWrapper<List<DriverPost>> {
         return try {
             val response =
                 apiService.filterDriverPost(token, lang, filter)
@@ -27,6 +29,10 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
+    }
+
+    override suspend fun getPostById(id: Int): ResponseWrapper<DriverPost> {
+        return getFormattedResponse { apiService.getDriverPostById(id) }
     }
 
 

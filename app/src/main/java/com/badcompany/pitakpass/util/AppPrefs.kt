@@ -8,7 +8,7 @@ package com.badcompany.pitakpass.util
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.preferences.Preferences
 
-@ExperimentalSplittiesApi object AppPreferences : Preferences("myPrefs") {
+@ExperimentalSplittiesApi object AppPrefs : Preferences("myPrefs") {
 //    @ExperimentalSplittiesApi
 //    var isUserLoggedIn by boolPref(false)
     @ExperimentalSplittiesApi

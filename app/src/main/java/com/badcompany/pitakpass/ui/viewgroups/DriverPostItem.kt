@@ -3,11 +3,12 @@ package com.badcompany.pitakpass.ui.viewgroups
 import android.view.View
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.ui.post.PostActivity
 import com.badcompany.pitakpass.ui.interfaces.MyItemClickListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_passenger_post.view.*
+import splitties.activities.start
 
 class DriverPostItem(val post: DriverPost, val myItemClickListener: MyItemClickListener) :
     Item() {
@@ -25,6 +26,10 @@ class DriverPostItem(val post: DriverPost, val myItemClickListener: MyItemClickL
             viewHolder.itemView.note.text = post.remark
         } else {
             viewHolder.itemView.note.visibility = View.GONE
+        }
+
+        viewHolder.itemView.card.setOnClickListener {
+            viewHolder.itemView.context.start<PostActivity>()
         }
 
     }

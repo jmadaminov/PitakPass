@@ -6,6 +6,7 @@ import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.repository.PlaceRepository
 import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResponseWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
 
@@ -32,4 +33,10 @@ class DriverPostRepositoryImpl @Inject constructor(private val factoryDriver: Dr
         }
     }
 
+    override suspend fun getPostById(id: Int) = factoryDriver.retrieveDataStore(false)
+    .getPostById(id)
+
+
+
 }
+

@@ -14,7 +14,7 @@ import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.ui.main.mytrips.MyTripsFragment
 import com.badcompany.pitakpass.ui.main.profile.ProfileFragment
 import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
-import com.badcompany.pitakpass.util.AppPreferences
+import com.badcompany.pitakpass.util.AppPrefs
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
@@ -73,7 +73,7 @@ class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphC
 
     @ExperimentalSplittiesApi
     private fun checkUserLogin() {
-        if (AppPreferences.token.isBlank()) {
+        if (AppPrefs.token.isBlank()) {
             start<AuthActivity> { }
         }
     }

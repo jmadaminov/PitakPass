@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".ui.feedback.FeedbackActivity" android:theme="@style/AppTheme" android:label="@string/feedback"></activity>
+        <activity
+            android:name=".ui.feedback.FeedbackActivity"
+            android:label="@string/feedback"
+            android:theme="@style/AppTheme"></activity>
         <!-- <activity -->
         <!-- android:name=".ui.addcar.AddCarActivity" -->
         <!-- android:label="@string/title_add_car" -->
@@ -41,6 +44,11 @@
             android:label="@string/title_login"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
+
+        <activity
+            android:name=".ui.post.PostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

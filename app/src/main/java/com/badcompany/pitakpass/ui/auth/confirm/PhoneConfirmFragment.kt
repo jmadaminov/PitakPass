@@ -5,11 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.AuthBody
 import com.badcompany.pitakpass.ui.auth.AuthActivity
@@ -19,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_phone_confirm.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.init.appCtx
 import splitties.preferences.edit
 import javax.inject.Inject
 
@@ -94,7 +91,7 @@ class PhoneConfirmFragment @Inject constructor() :
 
     @ExperimentalSplittiesApi
     private fun saveCredentials(response: ResultWrapper.Success<AuthBody>) {
-        AppPreferences.edit {
+        AppPrefs.edit {
             token = response.value.jwt!!
             name = response.value.name!!
             surname = response.value.surname!!

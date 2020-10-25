@@ -6,19 +6,17 @@ import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.Filter
-import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.domain.usecases.GetDriverPostWithFilter
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPreferences
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
 
 class SearchTripViewModel  @ViewModelInject constructor(val getDriverPostWithFilter: GetDriverPostWithFilter,
                                                         private val getPlacesFeed: GetPlacesFeed) :
@@ -34,8 +32,8 @@ class SearchTripViewModel  @ViewModelInject constructor(val getDriverPostWithFil
         passengerPostsReponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = getDriverPostWithFilter.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPreferences.token),
-                Pair(Constants.TXT_LANG, AppPreferences.language),
+                Pair(Constants.TXT_TOKEN, AppPrefs.token),
+                Pair(Constants.TXT_LANG, AppPrefs.language),
                 Pair(Constants.TXT_FILTER, filter)))
 
             withContext(Dispatchers.Main) {
@@ -61,9 +59,9 @@ class SearchTripViewModel  @ViewModelInject constructor(val getDriverPostWithFil
         viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
             val response =
                 getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_TOKEN,
-                                                     AppPreferences.token),
+                                                     AppPrefs.token),
                                                 Pair(Constants.TXT_LANG,
-                                                     AppPreferences.language),
+                                                     AppPrefs.language),
                                                 Pair(Constants.TXT_PLACE, queryString)))
 
             withContext(Dispatchers.Main) {

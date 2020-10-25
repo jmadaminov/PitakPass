@@ -9,7 +9,7 @@ import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.withContext
 
 class RegisterViewModel  @ViewModelInject constructor(private val registerUser: RegisterUser) :
     BaseViewModel() {
@@ -17,12 +17,15 @@ class RegisterViewModel  @ViewModelInject constructor(private val registerUser: 
     private val _registerForm = SingleLiveEvent<RegisterFormState>()
     val registerFormState: SingleLiveEvent<RegisterFormState> = _registerForm
 
-    val response = SingleLiveEvent<ResultWrapper<String>>()
+    val regResponse = SingleLiveEvent<ResultWrapper<String>>()
 
     fun register(user: User) {
-            response.value = ResultWrapper.InProgress
+            regResponse.value = ResultWrapper.InProgress
             viewModelScope.launch(Dispatchers.IO)  {
-                response.value = registerUser.execute(user)
+                val response = registerUser.execute(user)
+                withContext(Dispatchers.Main) {
+                    regResponse.value = response
+                }
             }
     }
 

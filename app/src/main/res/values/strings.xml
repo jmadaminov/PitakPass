@@ -96,4 +96,5 @@
     <string name="please_let_us_know_what_you_think_about_our_app">Please let us know what you think about our app…</string>
     <string name="send">Send</string>
     <string name="search">Search</string>
+    <string name="post">Post: %1$d</string>
 </resources>
