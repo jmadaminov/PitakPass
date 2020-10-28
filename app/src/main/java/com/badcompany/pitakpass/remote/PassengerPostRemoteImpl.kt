@@ -1,10 +1,9 @@
 package com.badcompany.pitakpass.remote
 
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.data.repository.PassengerPostRemote
 import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.remote.model.HistoryPostRequest
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
 
 /**
@@ -12,14 +11,15 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiService) :
+class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiService,
+                                                  private val authorizedApiService: AuthorizedApiService) :
     PassengerPostRemote {
 
-    override suspend fun createPassengerPost(token: String,
-                                          post: PassengerPost): ResultWrapper<String> {
+    override suspend fun createPassengerPost(
+                                             post: PassengerPost): ResultWrapper<String> {
 
         return try {
-            val response = apiService.createPost(token, post)
+            val response = authorizedApiService.createPost(post)
             if (response.code == 1) {
                 ResultWrapper.Success("SUCCESS")
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -28,10 +28,10 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
         }
     }
 
-    override suspend fun deletePassengerPost(token: String,
-                                          identifier: String): ResultWrapper<String> {
+    override suspend fun deletePassengerPost(
+                                             identifier: String): ResultWrapper<String> {
         return try {
-            val response = apiService.deletePost(token, identifier)
+            val response = authorizedApiService.deletePost(identifier)
             if (response.code == 1) {
                 ResultWrapper.Success("SUCCESS")
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -40,10 +40,10 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
         }
     }
 
-    override suspend fun finishPassengerPost(token: String,
-                                          identifier: String): ResultWrapper<String> {
+    override suspend fun finishPassengerPost(
+                                             identifier: String): ResultWrapper<String> {
         return try {
-            val response = apiService.finishPost(token, identifier)
+            val response = authorizedApiService.finishPost(identifier)
             if (response.code == 1) {
                 ResultWrapper.Success("SUCCESS")
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -52,11 +52,11 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
         }
     }
 
-    override suspend fun getActivePassengerPosts(token: String,
-                                              lang: String): ResultWrapper<List<PassengerPost>> {
+    override suspend fun getActivePassengerPosts(
+                                                 ): ResultWrapper<List<PassengerPost>> {
 
         return try {
-            val response = apiService.getActivePosts(token, lang)
+            val response = authorizedApiService.getActivePosts()
             if (response.code == 1) {
                 ResultWrapper.Success(response.data!!)
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -65,12 +65,10 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
         }
     }
 
-    override suspend fun getHistoryPassengerPosts(token: String,
-                                               lang: String,
-                                               page: Int): ResultWrapper<List<PassengerPost>> {
+    override suspend fun getHistoryPassengerPosts(                                                  page: Int): ResultWrapper<List<PassengerPost>> {
 
         return try {
-            val response = apiService.getHistoryPosts(token, lang, page)
+            val response = authorizedApiService.getHistoryPosts(page)
             if (response.code == 1) {
                 val posts = arrayListOf<PassengerPost>()
                 response.data?.data?.forEach { posts.add(it) }

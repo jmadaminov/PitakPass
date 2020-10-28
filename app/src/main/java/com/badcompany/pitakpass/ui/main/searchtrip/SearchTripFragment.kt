@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
@@ -207,8 +206,10 @@ class SearchTripFragment @Inject constructor() :
 
             when (response) {
                 is ErrorWrapper.ResponseError -> {
+                    adapter.clear()
                 }
                 is ErrorWrapper.SystemError -> {
+                    adapter.clear()
                 }
                 is ResultWrapper.Success -> {
                     autoCompleteManager.fromPresenter.getAdr()!!.clear()
@@ -257,12 +258,14 @@ class SearchTripFragment @Inject constructor() :
             val response = it ?: return@Observer
             when (response) {
                 is ErrorWrapper.ResponseError -> {
+                    adapter.clear()
                     Snackbar.make(nestedScroll,
                                   response.message!!,
                                   Snackbar.LENGTH_SHORT).show()
 
                 }
                 is ErrorWrapper.SystemError -> {
+                    adapter.clear()
                     Snackbar.make(nestedScroll,
                                   response.err.localizedMessage.toString(),
                                   Snackbar.LENGTH_SHORT).show()

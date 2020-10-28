@@ -13,8 +13,6 @@ class GetDriverPostWithFilter(val repositoryDriver: DriverPostRepository) :
     UseCaseWithParams<HashMap<String, Any>, ResultWrapper<List<DriverPost>>>() {
 
     override suspend fun buildUseCase(params: HashMap<String, Any>): ResultWrapper<List<DriverPost>> {
-        return repositoryDriver.filterDriverPost(params[Constants.TXT_TOKEN] as String,
-                                                 params[Constants.TXT_LANG] as String,
-                                                 params[Constants.TXT_FILTER] as Filter)
+        return repositoryDriver.filterDriverPost(params[Constants.TXT_FILTER] as Filter)
     }
 }

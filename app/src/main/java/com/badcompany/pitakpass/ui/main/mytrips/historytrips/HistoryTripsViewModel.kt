@@ -2,19 +2,18 @@ package com.badcompany.pitakpass.ui.main.mytrips.historytrips
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetHistoryPassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class HistoryTripsViewModel  @ViewModelInject constructor(val getHistoryPassengerPost: GetHistoryPassengerPost) :
+class HistoryTripsViewModel @ViewModelInject constructor(val getHistoryPassengerPost: GetHistoryPassengerPost) :
     BaseViewModel() {
 
     val historyPostsResponse = SingleLiveEvent<ResultWrapper<List<PassengerPost>>>()
@@ -27,10 +26,8 @@ class HistoryTripsViewModel  @ViewModelInject constructor(val getHistoryPassenge
         currentPage = page
         historyPostsResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
-            val response = getHistoryPassengerPost.execute(hashMapOf(
-                Pair(Constants.TXT_TOKEN, AppPrefs.token),
-                Pair(Constants.TXT_LANG, AppPrefs.language),
-                Pair(Constants.TXT_PAGE, page)))
+            val response =
+                getHistoryPassengerPost.execute(hashMapOf(Pair(Constants.TXT_PAGE, page)))
 
             withContext(Dispatchers.Main) {
                 historyPostsResponse.value = response

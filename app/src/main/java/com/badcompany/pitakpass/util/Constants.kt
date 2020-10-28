@@ -5,6 +5,7 @@ package com.badcompany.pitakpass.util
  */
 object Constants {
 
+    const val BASE_URL = "http://codeuz.uz:9091/"
     const val ROLE_PASSENGER = "PASSENGER"
     const val TXT_IS_FROM_POST_PREVIEW = "IS_FROM_POST_PREVIEW"
     const val DRIVER_POST_SIMPLE = "DRIVER_SM"

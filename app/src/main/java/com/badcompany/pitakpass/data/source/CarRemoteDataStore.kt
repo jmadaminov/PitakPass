@@ -20,31 +20,31 @@ open class CarRemoteDataStore @Inject constructor(private val carRemote: CarRemo
 //        return carRemote.getCars(token)
 //    }
 
-    override suspend fun getCarModels(token: String,
-                                      lang: String): ResultWrapper<List<CarModel>> {
-        return carRemote.getCarModels(token, lang)
+    override suspend fun getCarModels(
+                                      ): ResultWrapper<List<CarModel>> {
+        return carRemote.getCarModels()
     }
 
-    override suspend fun getCarColors(token: String,
-                                      lang: String): ResultWrapper<List<CarColor>> {
-        return carRemote.getCarColors(token, lang)
+    override suspend fun getCarColors(
+                                      ): ResultWrapper<List<CarColor>> {
+        return carRemote.getCarColors()
 
     }
 
-//    override suspend fun createCar(token: String, car: Car): ResultWrapper<String> {
-//        return carRemote.createCar(token, car)
+//    override suspend fun createCar( car: Car): ResultWrapper<String> {
+//        return carRemote.createCar( car)
 //    }
 //
-//    override suspend fun updateCar(token: String, car: Car): ResultWrapper<String> {
-//        return carRemote.updateCar(token, car)
+//    override suspend fun updateCar( car: Car): ResultWrapper<String> {
+//        return carRemote.updateCar( car)
 //    }
 //
-//    override suspend fun deleteCar(token: String, id: Long): ResultWrapper<String> {
-//        return carRemote.deleteCar(token, id)
+//    override suspend fun deleteCar( id: Long): ResultWrapper<String> {
+//        return carRemote.deleteCar( id)
 //    }
 //
-//    override suspend fun setDefaultCar(token: String, id: Long): ResultWrapper<String> {
-//        return carRemote.setDefaultCar(token, id)
+//    override suspend fun setDefaultCar( id: Long): ResultWrapper<String> {
+//        return carRemote.setDefaultCar( id)
 //    }
 
 }

@@ -5,6 +5,6 @@ import com.badcompany.pitakpass.domain.model.Place
 
 
 interface PlaceDataStore {
-    suspend fun getPlacesAutocomplete(token: String,lang: String, queryString:String): ResultWrapper<List<Place>>
+    suspend fun getPlacesAutocomplete( queryString:String): ResultWrapper<List<Place>>
 
 }

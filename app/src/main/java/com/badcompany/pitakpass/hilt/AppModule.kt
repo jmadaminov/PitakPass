@@ -1,5 +1,5 @@
 package com.badcompany.pitakpass.hilt
-import com.badcompany.pitakpass.BuildConfig
+
 import com.badcompany.pitakpass.data.*
 import com.badcompany.pitakpass.data.repository.*
 import com.badcompany.pitakpass.data.source.*
@@ -42,8 +42,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCarRemote(apiService: ApiService): CarRemote {
-        return CarRemoteImpl(apiService)
+    fun provideCarRemote(apiService: ApiService,
+                         authorizedApiService: AuthorizedApiService): CarRemote {
+        return CarRemoteImpl(apiService, authorizedApiService)
     }
 
     @Provides
@@ -90,29 +91,27 @@ object AppModule {
     }
 
 
-
-    
     @Provides
     @Singleton
     fun provideGetPlacesFeed(placeRepository: PlaceRepository): GetPlacesFeed {
         return GetPlacesFeed(placeRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun providePlaceRepository(factory: PlaceDataStoreFactory): PlaceRepository {
         return PlaceRepositoryImpl(factory)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideGetDriverPostWithFilter(passengerPostRepository: DriverPostRepository): GetDriverPostWithFilter {
         return GetDriverPostWithFilter(passengerPostRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun providePassengerPostRepository(factory: PassengerPostDataStoreFactory): PassengerPostRepository {
@@ -120,55 +119,56 @@ object AppModule {
     }
 
     @Provides
-    
+
     @Singleton
     fun providePassengerPostDataStoreFactory(postDataStore: PassengerPostDataStore): PassengerPostDataStoreFactory {
         return PassengerPostDataStoreFactory(postDataStore)
     }
 
     @Provides
-    
+
     @Singleton
     fun providePassengerPostDataStore(passengerPostRemote: PassengerPostRemote): PassengerPostDataStore {
         return PassengerPostRemoteDataStore(passengerPostRemote)
     }
 
     @Provides
-    
+
     @Singleton
-    fun providePassengerPostRemote(apiService: ApiService): PassengerPostRemote {
-        return PassengerPostRemoteImpl(apiService)
+    fun providePassengerPostRemote(apiService: ApiService,
+                                   authorizedApiService: AuthorizedApiService): PassengerPostRemote {
+        return PassengerPostRemoteImpl(apiService, authorizedApiService)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideGetActivePassengerPost(driverPostRepository: PassengerPostRepository): GetActivePassengerPost {
         return GetActivePassengerPost(driverPostRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideDeletePassengerPost(driverPostRepository: PassengerPostRepository): DeletePassengerPost {
         return DeletePassengerPost(driverPostRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideFinishPassengerPost(driverPostRepository: PassengerPostRepository): FinishPassengerPost {
         return FinishPassengerPost(driverPostRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideGetHistoryPassengerPost(driverPostRepository: PassengerPostRepository): GetHistoryPassengerPost {
         return GetHistoryPassengerPost(driverPostRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideDriverPostRepository(factory: DriverPostDataStoreFactory): DriverPostRepository {
@@ -176,28 +176,28 @@ object AppModule {
     }
 
     @Provides
-    
+
     @Singleton
     fun providePlaceDataStoreFactory(placeRemoteDataStore: PlaceRemoteDataStore): PlaceDataStoreFactory {
         return PlaceDataStoreFactory(placeRemoteDataStore)
     }
 
     @Provides
-    
+
     @Singleton
     fun provideDriverPostDataStoreFactory(driverPostRemoteDataStore: DriverPostRemoteDataStore): DriverPostDataStoreFactory {
         return DriverPostDataStoreFactory(driverPostRemoteDataStore)
     }
 
     @Provides
-    
+
     @Singleton
     fun providePlaceRemoteDataStore(placeRemote: PlaceRemote): PlaceRemoteDataStore {
         return PlaceRemoteDataStore(placeRemote)
     }
 
     @Provides
-    
+
     @Singleton
     fun provideDriverPostRemoteDataStore(driverDriverPostRemote: DriverPostRemote): DriverPostRemoteDataStore {
         return DriverPostRemoteDataStore(driverDriverPostRemote)
@@ -205,21 +205,23 @@ object AppModule {
 
 
     @Provides
-    
+
     @Singleton
-    fun providePlaceRemote(apiService: ApiService): PlaceRemote {
-        return PlaceRemoteImpl(apiService)
+    fun providePlaceRemote(apiService: ApiService,
+                           authorizedApiService: AuthorizedApiService): PlaceRemote {
+        return PlaceRemoteImpl(apiService, authorizedApiService)
     }
 
 
     @Provides
-    
+
     @Singleton
-    fun provideDriverPostRemote(apiService: ApiService): DriverPostRemote {
-        return DriverPostRemoteImpl(apiService)
+    fun provideDriverPostRemote(apiService: ApiService,
+                                authorizedApiService: AuthorizedApiService): DriverPostRemote {
+        return DriverPostRemoteImpl(apiService, authorizedApiService)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideLogUserInUseCase(userRepository: UserRepository): LogUserIn {
@@ -227,21 +229,20 @@ object AppModule {
     }
 
 
-    
     @Provides
     @Singleton
     fun provideSmsConfirm(userRepository: UserRepository): SmsConfirm {
         return SmsConfirm(userRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideRegisterUserUseCase(userRepository: UserRepository): RegisterUser {
         return RegisterUser(userRepository)
     }
 
-    
+
     @Provides
     @Singleton
     fun provideUserRepository(factory: UserDataStoreFactory): UserRepository {
@@ -249,28 +250,27 @@ object AppModule {
     }
 
     @Provides
-    
+
     @Singleton
     fun provideUserDataStoreFactory(userRemoteDataStore: UserRemoteDataStore): UserDataStoreFactory {
         return UserDataStoreFactory(userRemoteDataStore)
     }
 
     @Provides
-    
+
     @Singleton
     fun provideUserRemoteDataStore(userRemote: UserRemote): UserRemoteDataStore {
         return UserRemoteDataStore(userRemote)
     }
 
     @Provides
-    
+
     @Singleton
     fun provideUserRemote(apiService: ApiService): UserRemote {
         return UserRemoteImpl(apiService)
     }
 
 
-    
     @Provides
     @Singleton
     fun provideCreatePassengerPost(driverPostRepository: PassengerPostRepository): CreatePassengerPost {
@@ -283,8 +283,6 @@ object AppModule {
     fun providePassengerPostRemoteDataStore(passengerPassengerPostRemote: PassengerPostRemote): PassengerPostRemoteDataStore {
         return PassengerPostRemoteDataStore(passengerPassengerPostRemote)
     }
-
-
 
 
 }

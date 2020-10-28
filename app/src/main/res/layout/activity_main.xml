@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
             app:layout_constraintTop_toTopOf="parent"
@@ -77,14 +78,13 @@
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:layout_gravity="bottom"
+        android:backgroundTint="@color/colorPrimary"
         android:clipChildren="true"
         android:clipToPadding="true"
-        android:backgroundTint="@color/colorPrimary"
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="0dp"
         app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp"
-        >
+        app:contentInsetStart="0dp">
 
         <!--                <com.google.android.material.bottomnavigation.BottomNavigationView-->
         <!--                    android:id="@+id/nav_view"-->
@@ -96,13 +96,12 @@
         <!--                    app:menu="@menu/bottom_nav_menu" />-->
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/shade_bottom_nav"
             android:clipChildren="true"
             android:clipToPadding="true"
-            android:background="@drawable/shade_bottom_nav"
             android:gravity="center_vertical">
 
 
@@ -110,30 +109,32 @@
                 android:id="@+id/navSearch"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="?selectableItemBackgroundBorderless"
                 android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:paddingVertical="5dp"
                 android:drawableTop="@drawable/baseline_search_white_24dp"
                 android:focusable="true"
                 android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="@string/search"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/navMyTrips"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginEnd="30dp"
+                android:layout_weight="1"
                 android:background="?selectableItemBackgroundBorderless"
-                android:paddingVertical="5dp"
                 android:clickable="true"
                 android:drawableTop="@drawable/baseline_directions_car_white_24dp"
                 android:focusable="true"
                 android:gravity="center"
+                android:paddingVertical="5dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:text="@string/my_trips"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
@@ -143,14 +144,15 @@
                 android:id="@+id/navNotifications"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
                 android:layout_weight="1"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:paddingVertical="5dp"
-                android:layout_marginStart="30dp"
                 android:drawableTop="@drawable/ic_baseline_notifications_none_24"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:focusable="true"
                 android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="@string/title_notifications"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
@@ -160,13 +162,14 @@
                 android:id="@+id/navProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:paddingVertical="5dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:layout_weight="1"
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:drawableTop="@drawable/baseline_person_outline_white_24dp"
                 android:focusable="true"
                 android:gravity="center"
+                android:paddingVertical="5dp"
                 android:text="@string/title_profile"
                 android:textColor="@color/white"
                 android:textSize="12dp" />

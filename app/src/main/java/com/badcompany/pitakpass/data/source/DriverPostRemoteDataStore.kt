@@ -15,11 +15,11 @@ import javax.inject.Inject
 open class DriverPostRemoteDataStore @Inject constructor(private val postRemote: DriverPostRemote) :
     DriverPostDataStore {
 
-    override suspend fun filterDriverPost(token: String,
-                                             lang: String,
+    override suspend fun filterDriverPost(
+
                                              filter: Filter): ResultWrapper<List<DriverPost>> {
 
-        return postRemote.filterDriverPost(token, lang, filter)
+        return postRemote.filterDriverPost( filter)
     }
 
     override suspend fun getPostById(id: Int)= postRemote.getPostById(id)

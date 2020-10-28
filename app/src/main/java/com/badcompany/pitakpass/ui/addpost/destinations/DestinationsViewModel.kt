@@ -2,12 +2,11 @@ package com.badcompany.pitakpass.ui.addpost.destinations
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -17,7 +16,7 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
 
-class DestinationsViewModel  @ViewModelInject constructor(private val getPlacesFeed: GetPlacesFeed) :
+class DestinationsViewModel @ViewModelInject constructor(private val getPlacesFeed: GetPlacesFeed) :
     BaseViewModel() {
 
     var placeFrom: Place? = null
@@ -35,12 +34,7 @@ class DestinationsViewModel  @ViewModelInject constructor(private val getPlacesF
         else toPlacesResponse.value = ResultWrapper.InProgress
         resetFromFeedJob(isFrom)
         viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
-            val response =
-                getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_TOKEN,
-                                                     AppPrefs.token),
-                                                Pair(Constants.TXT_LANG,
-                                                     AppPrefs.language),
-                                                Pair(Constants.TXT_PLACE, queryString)))
+            val response = getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_PLACE, queryString)))
 
             withContext(Main) {
                 if (isFrom) fromPlacesResponse.value = response
@@ -74,8 +68,6 @@ class DestinationsViewModel  @ViewModelInject constructor(private val getPlacesF
         fromFeedJob?.cancel()
         toFeedJob?.cancel()
     }
-
-
 
 
 }

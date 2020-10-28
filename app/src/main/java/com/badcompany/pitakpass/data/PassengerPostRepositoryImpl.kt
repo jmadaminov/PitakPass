@@ -17,27 +17,27 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
     PassengerPostRepository {
 
 
-    override suspend fun createPassengerPost(token: String, post: PassengerPost): ResultWrapper<String> {
+    override suspend fun createPassengerPost( post: PassengerPost): ResultWrapper<String> {
         return factoryPassenger.retrieveDataStore(false)
-            .createPassengerPost(token, post)
+            .createPassengerPost( post)
     }
 
-    override suspend fun deletePassengerPost(token: String,
+    override suspend fun deletePassengerPost(
                                           identifier: String): ResultWrapper<String> {
 
-        return factoryPassenger.retrieveDataStore(false).deletePassengerPost(token, identifier)
+        return factoryPassenger.retrieveDataStore(false).deletePassengerPost( identifier)
     }
 
-    override suspend fun finishPassengerPost(token: String,
+    override suspend fun finishPassengerPost(
                                           identifier: String): ResultWrapper<String> {
-        return factoryPassenger.retrieveDataStore(false).finishPassengerPost(token, identifier)
+        return factoryPassenger.retrieveDataStore(false).finishPassengerPost( identifier)
 
     }
 
-    override suspend fun getActivePassengerPosts(token: String,
-                                              lang: String): ResultWrapper<List<PassengerPost>> {
+    override suspend fun getActivePassengerPosts(
+                                              ): ResultWrapper<List<PassengerPost>> {
         val response =
-            factoryPassenger.retrieveDataStore(false).getActivePassengerPosts(token, lang)
+            factoryPassenger.retrieveDataStore(false).getActivePassengerPosts()
 
         return when (response) {
             is ErrorWrapper.ResponseError -> response
@@ -49,11 +49,11 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
         }
     }
 
-    override suspend fun getHistoryPassengerPosts(token: String,
-                                               lang: String,
+    override suspend fun getHistoryPassengerPosts(
+
                                                page: Int): ResultWrapper<List<PassengerPost>> {
         val response =
-            factoryPassenger.retrieveDataStore(false).getHistoryPassengerPosts(token, lang, page)
+            factoryPassenger.retrieveDataStore(false).getHistoryPassengerPosts( page)
 
         return when (response) {
             is ErrorWrapper.ResponseError -> response
@@ -68,11 +68,11 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
 
 
 
-//    override suspend fun getHistoryPassengerPosts(token: String,
-//                                               lang: String,
+//    override suspend fun getHistoryPassengerPosts(
+//
 //                                               page: Int): ResultWrapper<List<PassengerPost>> {
 //        val response =
-//            factoryPassenger.retrieveDataStore(false).getHistoryPassengerPosts(token, lang,page)
+//            factoryPassenger.retrieveDataStore(false).getHistoryPassengerPosts(,page)
 //
 //        return when (response) {
 //            is ErrorWrapper.ResponseError -> response

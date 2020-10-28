@@ -32,9 +32,9 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
 //    }
 
 
-    override suspend fun getCarModels(token: String, lang: String): ResultWrapper<List<CarModel>> {
+    override suspend fun getCarModels( ): ResultWrapper<List<CarModel>> {
         val response = factory.retrieveDataStore(false)
-            .getCarModels(token, lang)
+            .getCarModels()
         return when (response) {
             is ErrorWrapper.ResponseError -> response
             is ErrorWrapper.SystemError -> response
@@ -45,8 +45,8 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
         }
     }
 
-    override suspend fun getCarColors(token: String, lang: String): ResultWrapper<List<CarColor>> {
-        val response = factory.retrieveDataStore(false).getCarColors(token, lang)
+    override suspend fun getCarColors( ): ResultWrapper<List<CarColor>> {
+        val response = factory.retrieveDataStore(false).getCarColors()
         return when (response) {
             is ErrorWrapper.ResponseError -> response
             is ErrorWrapper.SystemError -> response
@@ -57,8 +57,8 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
         }
     }
 
-//    override suspend fun createCar(token: String, car: Car): ResultWrapper<String> {
-//        val response = factory.retrieveDataStore(false).createCar(token, car)
+//    override suspend fun createCar( car: Car): ResultWrapper<String> {
+//        val response = factory.retrieveDataStore(false).createCar( car)
 //        return when (response) {
 //            is ErrorWrapper.ResponseError -> response
 //            is ErrorWrapper.SystemError -> response
@@ -69,8 +69,8 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
 //        }
 //    }
 //
-//    override suspend fun updateCar(token: String, car: Car): ResultWrapper<String> {
-//        val response = factory.retrieveDataStore(false).updateCar(token, car)
+//    override suspend fun updateCar( car: Car): ResultWrapper<String> {
+//        val response = factory.retrieveDataStore(false).updateCar( car)
 //        return when (response) {
 //            is ErrorWrapper.ResponseError -> response
 //            is ErrorWrapper.SystemError -> response
@@ -81,9 +81,9 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
 //        }
 //    }
 //
-//    override suspend fun deleteCar(token: String, id: Long): ResultWrapper<String> {
+//    override suspend fun deleteCar( id: Long): ResultWrapper<String> {
 //        val response = factory.retrieveDataStore(false)
-//            .deleteCar(token, id)
+//            .deleteCar( id)
 //        return when (response) {
 //            is ErrorWrapper.ResponseError -> response
 //            is ErrorWrapper.SystemError -> response
@@ -94,9 +94,9 @@ class CarRepositoryImpl @Inject constructor(private val factory: CarDataStoreFac
 //        }
 //    }
 //
-//    override suspend fun setDefaultCar(token: String, id: Long): ResultWrapper<String> {
+//    override suspend fun setDefaultCar( id: Long): ResultWrapper<String> {
 //        val response = factory.retrieveDataStore(false)
-//            .setDefaultCar(token, id)
+//            .setDefaultCar( id)
 //        return when (response) {
 //            is ErrorWrapper.ResponseError -> response
 //            is ErrorWrapper.SystemError -> response

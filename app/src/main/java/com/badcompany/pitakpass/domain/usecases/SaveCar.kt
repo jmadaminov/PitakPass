@@ -14,9 +14,9 @@ package com.badcompany.pitakpass.domain.usecases
 //
 //    override suspend fun buildUseCase(params: HashMap<String, Any>): ResultWrapper<String> {
 //        return if ((params[Constants.TXT_CAR] as Car).id == null)
-//            repository.createCar(params[Constants.TXT_TOKEN] as String,
+//            repository.createCar(
 //                                 params[Constants.TXT_CAR] as Car)
-//        else repository.updateCar(params[Constants.TXT_TOKEN] as String,
+//        else repository.updateCar(
 //                                  params[Constants.TXT_CAR] as Car)
 //
 //    }

@@ -11,13 +11,15 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class PlaceRemoteImpl @Inject constructor(private val apiService: ApiService) : PlaceRemote {
+class PlaceRemoteImpl @Inject constructor(private val apiService: ApiService,
+                                          private val authorizedApiService: AuthorizedApiService) :
+    PlaceRemote {
 
-    override suspend fun getPlacesAutocomplete(token: String,
-                                               lang: String,
+    override suspend fun getPlacesAutocomplete(
+
                                                queryString: String): ResultWrapper<List<Place>> {
         return try {
-            val response = apiService.getPlacesFeed(token, lang, queryString)
+            val response = authorizedApiService.getPlacesFeed(queryString)
             if (response.code == 1) {
                 val places = arrayListOf<Place>()
                 response.data!!.forEach {

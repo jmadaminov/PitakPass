@@ -7,8 +7,8 @@ import com.badcompany.pitakpass.util.ResultWrapper
 
 interface DriverPostRepository {
 
-    suspend fun filterDriverPost(token: String,
-                                 lang: String,
+    suspend fun filterDriverPost(
+
                                  filter: Filter): ResultWrapper<List<DriverPost>>
     suspend fun getPostById(id: Int): ResponseWrapper<DriverPost>
 

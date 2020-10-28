@@ -113,7 +113,7 @@ abstract class BaseActivity : AppCompatActivity()/*,
 //            val inputMethodManager = getSystemService(
 //                Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //            inputMethodManager
-//                .hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+//                .hideSoftInputFromWindow(currentFocus!!.window 0)
 //        }
 //    }
 //

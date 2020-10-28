@@ -16,12 +16,12 @@ import javax.inject.Inject
  */
 class DriverPostRepositoryImpl @Inject constructor(private val factoryDriver: DriverPostDataStoreFactory) :
     DriverPostRepository {
-    override suspend fun filterDriverPost(token: String,
-                                             lang: String,
+    override suspend fun filterDriverPost(
+
                                              filter: Filter): ResultWrapper<List<DriverPost>> {
 
         val response = factoryDriver.retrieveDataStore(false)
-            .filterDriverPost(token, lang, filter)
+            .filterDriverPost( filter)
 
         return when (response) {
             is ErrorWrapper.ResponseError -> response

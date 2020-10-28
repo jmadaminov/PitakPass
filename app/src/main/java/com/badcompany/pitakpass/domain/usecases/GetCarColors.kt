@@ -13,6 +13,6 @@ class GetCarColors(val repository: CarRepository) :
     UseCaseWithParams<HashMap<String, String>, ResultWrapper<List<CarColor>>>() {
 
     override suspend fun buildUseCase(params: HashMap<String, String>): ResultWrapper<List<CarColor>> {
-        return repository.getCarColors(params[Constants.TXT_TOKEN]!!, params[Constants.TXT_LANG]!!)
+        return repository.getCarColors()
     }
 }

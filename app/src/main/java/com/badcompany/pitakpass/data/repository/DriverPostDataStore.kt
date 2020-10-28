@@ -9,9 +9,7 @@ import com.badcompany.pitakpass.util.ResultWrapper
 
 interface DriverPostDataStore {
 
-    suspend fun filterDriverPost(token: String,
-                                    lang: String,
-                                    filter: Filter): ResultWrapper<List<DriverPost>>
+    suspend fun filterDriverPost(filter: Filter): ResultWrapper<List<DriverPost>>
     suspend fun getPostById(id: Int): ResponseWrapper<DriverPost>
 
 }

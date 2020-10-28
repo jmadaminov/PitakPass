@@ -14,15 +14,16 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiService) :
+class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiService,
+                                               private val authorizedApiService: AuthorizedApiService) :
     DriverPostRemote {
 
-    override suspend fun filterDriverPost(token: String,
-                                          lang: String,
+    override suspend fun filterDriverPost(
+
                                           filter: Filter): ResultWrapper<List<DriverPost>> {
         return try {
             val response =
-                apiService.filterDriverPost(token, lang, filter)
+                authorizedApiService.filterDriverPost(filter)
             if (response.code == 1) {
                 ResultWrapper.Success(response.data!!.data!!)
             } else ErrorWrapper.ResponseError(response.code, response.message)
@@ -32,7 +33,7 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
     }
 
     override suspend fun getPostById(id: Int): ResponseWrapper<DriverPost> {
-        return getFormattedResponse { apiService.getDriverPostById(id) }
+        return getFormattedResponse { authorizedApiService.getDriverPostById(id) }
     }
 
 

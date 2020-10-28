@@ -165,7 +165,7 @@ class ProfileFragment @Inject constructor() :
 //                    popUpMenu.setOnMenuItemClickListener { menuItem ->
 //                        when (menuItem.itemId) {
 //                            R.id.delete -> {
-//                                viewModel.deleteCar(AppPreferences.token, carDetails.id!!, pos)
+//                                viewModel.deleteCar(AppPreferences. carDetails.id!!, pos)
 //                            }
 //                            R.id.edit -> {
 //                                val intent = Intent(context, AddCarActivity::class.java)
@@ -188,7 +188,7 @@ class ProfileFragment @Inject constructor() :
 //                                startActivityForResult(intent, CODE_ADD_CAR)
 //                            }
 //                            R.id.setDefault -> {
-//                                viewModel.setDefault(AppPreferences.token, carDetails.id!!, pos)
+//                                viewModel.setDefault(AppPreferences. carDetails.id!!, pos)
 //                            }
 //                            else -> {
 //

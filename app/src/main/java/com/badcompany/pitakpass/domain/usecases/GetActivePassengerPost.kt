@@ -12,10 +12,9 @@ import com.badcompany.pitakpass.domain.repository.PassengerPostRepository
  *
  */
 class GetActivePassengerPost(val repositoryPassenger: PassengerPostRepository) :
-    UseCaseWithParams<HashMap<String, String>, ResultWrapper<List<PassengerPost>>>() {
+    UseCase<ResultWrapper<List<PassengerPost>>>() {
 
-    override suspend fun buildUseCase(params: HashMap<String, String>): ResultWrapper<List<PassengerPost>> {
-        return repositoryPassenger.getActivePassengerPosts(params[Constants.TXT_TOKEN] as String,
-                                                     params[Constants.TXT_LANG] as String)
+    override suspend fun buildUseCase(): ResultWrapper<List<PassengerPost>> {
+        return repositoryPassenger.getActivePassengerPosts()
     }
 }

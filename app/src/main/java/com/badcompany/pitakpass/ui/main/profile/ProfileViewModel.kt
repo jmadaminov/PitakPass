@@ -35,10 +35,10 @@ class ProfileViewModel  @ViewModelInject constructor(/*val getCarList: GetCars, 
 //        }
 //    }
 //
-//    fun deleteCar(token: String, id: Long, position: Int) {
+//    fun deleteCar( id: Long, position: Int) {
 //        deleteCarResponse.value = ResultWrapper.InProgress
 //        viewModelScope.launch(IO) {
-//            val response = deleteCar.execute(hashMapOf(Pair(TXT_TOKEN, token), Pair(TXT_ID, id)))
+//            val response = deleteCar.execute(hashMapOf(Pair(TXT_ token), Pair(TXT_ID, id)))
 //            withContext(Main) {
 //                when (response) {
 //                    is ErrorWrapper.ResponseError -> deleteCarResponse.value = response
@@ -53,10 +53,10 @@ class ProfileViewModel  @ViewModelInject constructor(/*val getCarList: GetCars, 
 //        }
 //    }
 //
-//    fun setDefault(token: String, id: Long, pos: Int) {
+//    fun setDefault( id: Long, pos: Int) {
 //        defaultCarResponse.value = ResultWrapper.InProgress
 //        viewModelScope.launch(IO) {
-//            val response = setDefaultCar.execute(hashMapOf(Pair(TXT_TOKEN, token), Pair(TXT_ID, id)))
+//            val response = setDefaultCar.execute(hashMapOf(Pair(TXT_ token), Pair(TXT_ID, id)))
 //            withContext(Main) {
 //                when (response) {
 //                    is ErrorWrapper.ResponseError -> defaultCarResponse.value = response

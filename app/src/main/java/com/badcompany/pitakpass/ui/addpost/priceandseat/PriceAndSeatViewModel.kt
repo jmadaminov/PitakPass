@@ -33,7 +33,7 @@ package com.badcompany.pitakpass.ui.addpost.priceandseat//package com.badcompany
 //        resetFromFeedJob(isFrom)
 //        viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
 //            val response =
-//                getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_TOKEN,
+//                getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_
 //                                                     AppPreferences.token),
 //                                                Pair(Constants.TXT_LANG,
 //                                                     AppPreferences.language),
