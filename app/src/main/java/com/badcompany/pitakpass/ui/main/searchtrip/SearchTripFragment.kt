@@ -240,8 +240,7 @@ class SearchTripFragment @Inject constructor() :
                         autoCompleteManager.toPresenter.getAdr()!!.clear()
                         response.value.forEach { place ->
                             autoCompleteManager.toPresenter.getAdr()!!
-                                .add(PlaceFeedItemView(place,
-                                                       autoCompleteManager.toPresenter))
+                                .add(PlaceFeedItemView(place, autoCompleteManager.toPresenter))
                         }
                         autoCompleteManager.toPresenter.getAdr()!!
                             .notifyDataSetChanged()

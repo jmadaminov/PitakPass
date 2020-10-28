@@ -5,5 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class UserCredentials(@SerializedName("phoneNum") var phoneNum: String? = null,
                            @SerializedName("password") var password: String? = null,
+                           @SerializedName("deviceId") var deviceId: String? = null,
                            @SerializedName("userType") var userType: String=Constants.ROLE_PASSENGER)
 
