@@ -33,7 +33,7 @@ class DriverPostRepositoryImpl @Inject constructor(private val factoryDriver: Dr
         }
     }
 
-    override suspend fun getPostById(id: Int) = factoryDriver.retrieveDataStore(false)
+    override suspend fun getDriverPostById(id: Int) = factoryDriver.retrieveDataStore(false)
     .getPostById(id)
 
 

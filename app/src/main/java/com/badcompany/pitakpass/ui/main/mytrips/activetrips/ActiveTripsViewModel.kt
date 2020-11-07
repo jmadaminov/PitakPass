@@ -15,14 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class ActiveTripsViewModel @ViewModelInject constructor(val getActivePassengerPost: GetActivePassengerPost,
-                                                        val deletePost: DeletePassengerPost,
-                                                        val finishPost: FinishPassengerPost) :
+class ActiveTripsViewModel @ViewModelInject constructor(val getActivePassengerPost: GetActivePassengerPost) :
     BaseViewModel() {
 
     val activePostsResponse = SingleLiveEvent<ResultWrapper<List<PassengerPost>>>()
-    val deletePostReponse = SingleLiveEvent<ResultWrapper<Int>>()
-    val finishPostResponse = SingleLiveEvent<ResultWrapper<Int>>()
 
     @ExperimentalSplittiesApi
     fun getActivePosts() {
@@ -36,32 +32,5 @@ class ActiveTripsViewModel @ViewModelInject constructor(val getActivePassengerPo
         }
     }
 
-    @ExperimentalSplittiesApi
-    fun deletePost(identifier: String, pos: Int) {
-        deletePostReponse.value = ResultWrapper.InProgress
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = deletePost.execute(hashMapOf(
-                Pair(Constants.TXT_ID, identifier),
-                Pair(Constants.TXT_POSITION, pos)))
-
-            withContext(Dispatchers.Main) {
-                deletePostReponse.value = response
-            }
-        }
-    }
-
-    @ExperimentalSplittiesApi
-    fun finishPost(identifier: String, pos: Int) {
-        finishPostResponse.value = ResultWrapper.InProgress
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = finishPost.execute(hashMapOf(
-                Pair(Constants.TXT_ID, identifier),
-                Pair(Constants.TXT_POSITION, pos)))
-
-            withContext(Dispatchers.Main) {
-                finishPostResponse.value = response
-            }
-        }
-    }
 
 }

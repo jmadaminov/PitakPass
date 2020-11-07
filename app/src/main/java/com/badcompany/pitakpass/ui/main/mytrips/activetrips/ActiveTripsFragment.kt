@@ -1,6 +1,8 @@
 package com.badcompany.pitakpass.ui.main.mytrips.activetrips
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -8,31 +10,28 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.ui.main.MainViewModel
+import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
+import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.REQ_POST_MANIPULATED
+import com.badcompany.pitakpass.ui.viewgroups.ActivePostItem
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.ui.addpost.AddPostActivity
-import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
-import com.badcompany.pitakpass.ui.main.MainViewModel
-import com.badcompany.pitakpass.ui.viewgroups.ActivePostItem
-import com.badcompany.pitakpass.viewobjects.*
-import com.google.android.material.snackbar.Snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_active_trips.*
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.fragments.start
 import javax.inject.Inject
 
+@ExperimentalSplittiesApi
 @AndroidEntryPoint
 class ActiveTripsFragment @Inject constructor() :
     Fragment(R.layout.fragment_active_trips) {
+
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
     val viewmodel: ActiveTripsViewModel by viewModels()
@@ -147,53 +146,6 @@ class ActiveTripsFragment @Inject constructor() :
             }.exhaustive
         })
 
-        viewmodel.deletePostReponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
-
-                }
-                is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
-                }
-                is ResultWrapper.Success -> {
-                    adapter.remove(adapter.getItem(response.value))
-                    adapter.notifyItemRemoved(response.value)
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-        })
-
-        viewmodel.finishPostResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
-
-                }
-                is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
-                }
-                is ResultWrapper.Success -> {
-                    adapter.remove(adapter.getItem(response.value))
-                    adapter.notifyItemRemoved(response.value)
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-        })
-
-
     }
 
 
@@ -223,62 +175,76 @@ class ActiveTripsFragment @Inject constructor() :
             noActiveOrdersTxt.text = getString(R.string.no_active_orders)
         } else noActiveOrdersTxt.visibility = View.GONE
 
-        orders.forEach {
-            adapter.add(ActivePostItem(it, onOrderActionListener))
+        orders.forEach { post ->
+            adapter.add(ActivePostItem(post /*, onOrderActionListener*/) {
+                startActivityForResult(Intent(requireActivity(),
+                                              PassengerPostActivity::class.java).apply {
+                    putExtra(PassengerPostActivity.EXTRA_POST_ID, post.id)
+                }, REQ_POST_MANIPULATED)
+            })
         }
         adapter.notifyDataSetChanged()
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    @ExperimentalSplittiesApi
-    private val onOrderActionListener = object : IOnPostActionListener {
-        override fun onEditClick(post: PassengerPost) {
-
-            val from = PlaceViewObj(post.from.districtId,
-                                    post.from.regionId,
-                                    post.from.lat,
-                                    post.from.lon,
-                                    post.from.regionName,
-                                    post.from.name)
-
-            val to = PlaceViewObj(post.to.districtId,
-                                  post.to.regionId,
-                                  post.to.lat,
-                                  post.to.lon,
-                                  post.from.regionName,
-                                  post.from.name)
-
-            start<AddPostActivity> {
-
-                putExtra(Constants.TXT_PASSENGER_POST,
-                         PassengerPostViewObj(from,
-                                              to,
-                                              post.price,
-                                              post.departureDate,
-                                              post.timeFirstPart,
-                                              post.timeSecondPart,
-                                              post.timeThirdPart,
-                                              post.timeFourthPart,
-                                              null,
-                                              null,
-                                              post.remark,
-                                              post.seat,
-                                              post.postType))
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQ_POST_MANIPULATED) {
+                viewmodel.getActivePosts()
             }
-
         }
-
-        override fun onCancelClick(position: Int, post: PassengerPost, parentView: View) {
-            viewmodel.deletePost(post.id.toString(), position)
-
-        }
-
-        override fun onDoneClick(position: Int, post: PassengerPost, parentView: View) {
-            viewmodel.finishPost(post.id.toString(), position)
-        }
-
     }
+
+    //    @ExperimentalSplittiesApi
+//    private val onOrderActionListener = object : IOnPostActionListener {
+//        override fun onEditClick(post: PassengerPost) {
+//
+//            val from = PlaceViewObj(post.from.districtId,
+//                                    post.from.regionId,
+//                                    post.from.lat,
+//                                    post.from.lon,
+//                                    post.from.regionName,
+//                                    post.from.name)
+//
+//            val to = PlaceViewObj(post.to.districtId,
+//                                  post.to.regionId,
+//                                  post.to.lat,
+//                                  post.to.lon,
+//                                  post.from.regionName,
+//                                  post.from.name)
+//
+//            start<AddPostActivity> {
+//
+//                putExtra(Constants.TXT_PASSENGER_POST,
+//                         PassengerPostViewObj(from,
+//                                              to,
+//                                              post.price,
+//                                              post.departureDate,
+//                                              post.timeFirstPart,
+//                                              post.timeSecondPart,
+//                                              post.timeThirdPart,
+//                                              post.timeFourthPart,
+//                                              null,
+//                                              null,
+//                                              post.remark,
+//                                              post.seat,
+//                                              post.postType))
+//            }
+//
+//        }
+
+//        override fun onCancelClick(position: Int, post: PassengerPost, parentView: View) {
+//            viewmodel.deletePost(post.id.toString(), position)
+//
+//        }
+//
+//        override fun onDoneClick(position: Int, post: PassengerPost, parentView: View) {
+//            viewmodel.finishPost(post.id.toString(), position)
+//        }
+
+//    }
 
 
 }

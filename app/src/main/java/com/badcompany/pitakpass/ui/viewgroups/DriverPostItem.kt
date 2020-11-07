@@ -3,8 +3,9 @@ package com.badcompany.pitakpass.ui.viewgroups
 import android.view.View
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.ui.post.PostActivity
+import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
 import com.badcompany.pitakpass.ui.interfaces.MyItemClickListener
+import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_passenger_post.view.*
@@ -29,7 +30,9 @@ class DriverPostItem(val post: DriverPost, val myItemClickListener: MyItemClickL
         }
 
         viewHolder.itemView.card.setOnClickListener {
-            viewHolder.itemView.context.start<PostActivity>()
+            viewHolder.itemView.context.start<PassengerPostActivity>() {
+                putExtra(DriverPostActivity.EXTRA_POST_ID, post.id)
+            }
         }
 
     }

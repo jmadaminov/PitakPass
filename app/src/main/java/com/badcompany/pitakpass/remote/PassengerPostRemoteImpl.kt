@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.data.repository.PassengerPostRemote
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.getFormattedResponse
 import javax.inject.Inject
 
 /**
@@ -16,7 +17,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     PassengerPostRemote {
 
     override suspend fun createPassengerPost(
-                                             post: PassengerPost): ResultWrapper<String> {
+        post: PassengerPost): ResultWrapper<String> {
 
         return try {
             val response = authorizedApiService.createPost(post)
@@ -29,11 +30,11 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     }
 
     override suspend fun deletePassengerPost(
-                                             identifier: String): ResultWrapper<String> {
+        identifier: String): ResultWrapper<Unit> {
         return try {
             val response = authorizedApiService.deletePost(identifier)
             if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
+                ResultWrapper.Success(Unit)
             } else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
@@ -41,11 +42,11 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     }
 
     override suspend fun finishPassengerPost(
-                                             identifier: String): ResultWrapper<String> {
+        identifier: String): ResultWrapper<Unit> {
         return try {
             val response = authorizedApiService.finishPost(identifier)
             if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
+                ResultWrapper.Success(Unit)
             } else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
@@ -53,7 +54,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     }
 
     override suspend fun getActivePassengerPosts(
-                                                 ): ResultWrapper<List<PassengerPost>> {
+    ): ResultWrapper<List<PassengerPost>> {
 
         return try {
             val response = authorizedApiService.getActivePosts()
@@ -65,7 +66,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
         }
     }
 
-    override suspend fun getHistoryPassengerPosts(                                                  page: Int): ResultWrapper<List<PassengerPost>> {
+    override suspend fun getHistoryPassengerPosts(page: Int): ResultWrapper<List<PassengerPost>> {
 
         return try {
             val response = authorizedApiService.getHistoryPosts(page)
@@ -78,6 +79,9 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
             ErrorWrapper.SystemError(e)
         }
     }
+
+    override suspend fun getPassengerPostById(id: Long) =
+        getFormattedResponse { authorizedApiService.getPassengerPostById(id) }
 
 
 }

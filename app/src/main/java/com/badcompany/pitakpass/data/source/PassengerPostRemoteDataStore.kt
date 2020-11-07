@@ -10,22 +10,23 @@ import javax.inject.Inject
  * Implementation of the [PlaceDataStore] interface to provide a means of communicating
  * with the remote data source
  */
-open class PassengerPostRemoteDataStore @Inject constructor(private val driverPostRemote: PassengerPostRemote) :
+open class PassengerPostRemoteDataStore @Inject constructor(private val passengerPostRemote: PassengerPostRemote) :
     PassengerPostDataStore {
 
     override suspend fun createPassengerPost(post: PassengerPost) =
-        driverPostRemote.createPassengerPost(post)
+        passengerPostRemote.createPassengerPost(post)
 
     override suspend fun deletePassengerPost(identifier: String) =
-        driverPostRemote.deletePassengerPost(identifier)
+        passengerPostRemote.deletePassengerPost(identifier)
 
     override suspend fun finishPassengerPost(identifier: String) =
-        driverPostRemote.finishPassengerPost(identifier)
+        passengerPostRemote.finishPassengerPost(identifier)
 
-    override suspend fun getActivePassengerPosts() = driverPostRemote.getActivePassengerPosts()
+    override suspend fun getActivePassengerPosts() = passengerPostRemote.getActivePassengerPosts()
 
     override suspend fun getHistoryPassengerPosts(page: Int) =
-        driverPostRemote.getHistoryPassengerPosts(page)
+        passengerPostRemote.getHistoryPassengerPosts(page)
 
-
+    override suspend fun getPassengerPostById(id: Long) =
+        passengerPostRemote.getPassengerPostById(id)
 }

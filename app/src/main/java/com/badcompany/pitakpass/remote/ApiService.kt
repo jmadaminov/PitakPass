@@ -1,9 +1,12 @@
 package com.badcompany.pitakpass.remote
 
-import com.badcompany.pitakpass.domain.model.*
-import com.badcompany.pitakpass.remote.model.*
-import com.badcompany.pitakpass.util.AppPrefs
-import com.badcompany.pitakpass.util.RespFormatter
+import com.badcompany.pitakpass.domain.model.FeedbackBody
+import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.remote.model.AuthResponse
+import com.badcompany.pitakpass.remote.model.AuthSuccessResponse
+import com.badcompany.pitakpass.remote.model.LoginRequest
+import com.badcompany.pitakpass.remote.model.PhotoUploadResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*

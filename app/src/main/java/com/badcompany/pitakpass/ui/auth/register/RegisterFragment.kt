@@ -74,8 +74,7 @@ class RegisterFragment @Inject constructor() :
         register.setOnClickListener {
             viewModel.register(User(phone.text.toString().numericOnly(),
                 name.text.toString(),
-                surname.text.toString(),
-                Constants.ROLE_PASSENGER))
+                surname.text.toString()))
 //            navController.navigate(R.id.action_navRegisterFragment_to_navPhoneConfirmFragment)
         }
 

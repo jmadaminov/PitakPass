@@ -35,17 +35,27 @@ interface AuthorizedApiService {
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("passenger_post/action")
-    suspend fun createPost(@Body passengerPostBody: PassengerPost): PlainResponse
+    suspend fun createPost(@Body passengerPostBody: PassengerPost,
+                           @Header("Accept-Language") lang: String = AppPrefs.language): PlainResponse
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("passenger_post/action/{id}")
+    suspend fun getPassengerPostById(@Path(value = "id",
+                                           encoded = true) id: Long,
+                                     @Header("Accept-Language") lang: String = AppPrefs.language
+    ): RespFormatter<PassengerPost>
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @PUT("passenger_post/action/cancel/{identifier}")
     suspend fun deletePost(@Path(value = "identifier",
-                                 encoded = true) identifier: String): PlainResponse
+                                 encoded = true) identifier: String,
+                           @Header("Accept-Language") lang: String = AppPrefs.language): PlainResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @PUT("passenger_post/action/finish/{identifier}")
     suspend fun finishPost(@Path(value = "identifier",
-                                 encoded = true) identifier: String): PlainResponse
+                                 encoded = true) identifier: String,
+                           @Header("Accept-Language") lang: String = AppPrefs.language): PlainResponse
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
