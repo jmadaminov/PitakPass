@@ -45,6 +45,16 @@ interface AuthorizedApiService {
                                      @Header("Accept-Language") lang: String = AppPrefs.language
     ): RespFormatter<PassengerPost>
 
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("offer/post/action/{id}")
+    suspend fun getOffersForPost(@Path(value = "id", encoded = true) id: Long,
+                                 @Query("page") page: Int = 0,
+                                 @Query("size") size: Int = 10,
+                                 @Header("Accept-Language") lang: String = AppPrefs.language
+    ): RespFormatter<List<OfferDTO>>
+
+
     @Headers("Content-Type:application/json", "Accept: application/json")
     @PUT("passenger_post/action/cancel/{identifier}")
     suspend fun deletePost(@Path(value = "identifier",

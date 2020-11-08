@@ -39,7 +39,6 @@
                 android:text="@string/no"
                 android:textAllCaps="false" />
 
-
             <Button
                 android:id="@+id/btnYes"
                 android:layout_width="0dp"
@@ -51,7 +50,6 @@
                 android:textAllCaps="false" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 </LinearLayout>
