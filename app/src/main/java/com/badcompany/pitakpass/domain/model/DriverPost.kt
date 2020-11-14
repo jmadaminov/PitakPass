@@ -1,5 +1,6 @@
 package com.badcompany.pitakpass.domain.model
 
+import com.badcompany.pitakpass.ui.EPostType
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResponseParent
 import com.google.gson.annotations.SerializedName
@@ -18,5 +19,5 @@ data class DriverPost(@SerializedName("id") val id: Long? = null,
                       @SerializedName("car") val car: CarInPost? = null,
                       @SerializedName("remark") val remark: String,
                       @SerializedName("seat") val seat: Int,
-                      @SerializedName("postType") val postType: String = Constants.DRIVER_POST_SIMPLE)
+                      @SerializedName("postType") val postType: EPostType = EPostType.DRIVER_SM)
 

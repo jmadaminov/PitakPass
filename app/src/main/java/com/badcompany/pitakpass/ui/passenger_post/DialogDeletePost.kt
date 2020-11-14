@@ -12,7 +12,7 @@ class DialogDeletePost : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, android.R.style.Theme)
+        setStyle(STYLE_NO_TITLE, R.style.AppTheme)
     }
 
     override fun onCreateView(inflater: LayoutInflater,

@@ -160,6 +160,8 @@ dependencies {
     //AutoCompleteEditText
     implementation("com.otaliastudios:autocomplete:1.1.0")
 
+    //PAGING
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
 
 //VIEW PAGER2
     implementation "androidx.viewpager2:viewpager2:1.0.0"

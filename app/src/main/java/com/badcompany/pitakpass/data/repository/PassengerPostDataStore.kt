@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.data.repository
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.util.ResponseWrapper
 
 

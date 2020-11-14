@@ -29,12 +29,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
 
                     <androidx.cardview.widget.CardView
@@ -207,27 +207,27 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/your_driver"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="@string/your_driver"-->
+<!--                    android:textStyle="bold" />-->
 
 
-                <ImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="?android:actionBarSize"
-                    android:layout_height="?android:actionBarSize"
-                    android:layout_gravity="center_horizontal" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/ivAvatar"-->
+<!--                    android:layout_width="?android:actionBarSize"-->
+<!--                    android:layout_height="?android:actionBarSize"-->
+<!--                    android:layout_gravity="center_horizontal" />-->
 
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/driver_not_appointed_yet"
-                    tools:text="DriverName DriverSurname" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvName"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/driver_not_appointed_yet"-->
+<!--                    tools:text="DriverName DriverSurname" />-->
 
 
                 <!--                <androidx.recyclerview.widget.RecyclerView-->
@@ -239,12 +239,52 @@
                 <!--                    tools:listitem="@layout/item_passenger" />-->
 
 
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/offersProgress"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="25dp"-->
+<!--                    android:visibility="gone"-->
+<!--                    tools:visibility="visible" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnRetry"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:text="@string/retry"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:visibility="gone"-->
+<!--                    tools:visibility="visible" />-->
+
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvOffersInfo"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:visibility="gone"-->
+<!--                    tools:visibility="visible"-->
+<!--                    android:text="@string/no_offers_yet"-->
+<!--                    tools:text="You have no offers yet..." />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/colorAccent"
+                    android:orientation="vertical"
+                    android:minHeight="200dp"
+                    android:layout_height="match_parent">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvOffers"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:minHeight="200dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_offer" />
-
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

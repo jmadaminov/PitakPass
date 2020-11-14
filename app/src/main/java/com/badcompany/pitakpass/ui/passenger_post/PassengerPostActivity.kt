@@ -30,12 +30,26 @@ import splitties.experimental.ExperimentalSplittiesApi
     var postId: Long = 0
     private val viewModel: PassengerPostViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passenger_post)
         postId = intent.getLongExtra(EXTRA_POST_ID, 0)
         setupActionBar()
+        val offersAdapter = PostOffersAdapter()
+
+        rvOffers.setHasFixedSize(true)
+        rvOffers.adapter = offersAdapter
+
+
         viewModel.getPostById(postId)
+        viewModel.getOffersForPost(postId)
+
+        viewModel.postOffers.observe(this, {
+            val value = it ?: return@observe
+            offersAdapter.submitData(lifecycle, value)
+        })
+
 
         attachListeners()
         subscribes()
@@ -47,6 +61,7 @@ import splitties.experimental.ExperimentalSplittiesApi
             post = it ?: return@observe
             showPostData()
         })
+
 
         viewModel.isLoading.observe(this, {
             val value = it ?: return@observe
@@ -133,9 +148,6 @@ import splitties.experimental.ExperimentalSplittiesApi
             note.visibility = View.GONE
         }
 
-        card.setOnClickListener {
-            start<PassengerPostActivity>()
-        }
 
     }
 

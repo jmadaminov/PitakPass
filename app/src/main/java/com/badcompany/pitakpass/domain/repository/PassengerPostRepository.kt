@@ -1,9 +1,12 @@
 package com.badcompany.pitakpass.domain.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.util.ResponseWrapper
 
 interface PassengerPostRepository {

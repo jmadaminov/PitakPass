@@ -1,4 +1,5 @@
 package com.badcompany.pitakpass.domain.model
+import com.badcompany.pitakpass.ui.EPostType
 import com.badcompany.pitakpass.util.Constants
 import com.google.gson.annotations.SerializedName
 
@@ -21,4 +22,4 @@ data class PassengerPost(@SerializedName("id") val id: Long?=null,
                          @SerializedName("remark") val remark: String,
                          @SerializedName("postStatus") val postStatus: String?=null,
                          @SerializedName("seat") val seat: Int,
-                         @SerializedName("postType") val postType: String = Constants.PASSENGER_POST_SIMPLE)
+                         @SerializedName("postType") val postType: EPostType = EPostType.PASSENGER_SM)

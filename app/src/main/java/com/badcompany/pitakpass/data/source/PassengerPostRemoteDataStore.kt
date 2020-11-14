@@ -4,6 +4,8 @@ import com.badcompany.pitakpass.data.repository.PassengerPostDataStore
 import com.badcompany.pitakpass.data.repository.PassengerPostRemote
 import com.badcompany.pitakpass.data.repository.PlaceDataStore
 import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.remote.model.OfferDTO
+import com.badcompany.pitakpass.util.ResponseWrapper
 import javax.inject.Inject
 
 /**
@@ -29,4 +31,5 @@ open class PassengerPostRemoteDataStore @Inject constructor(private val passenge
 
     override suspend fun getPassengerPostById(id: Long) =
         passengerPostRemote.getPassengerPostById(id)
+
 }

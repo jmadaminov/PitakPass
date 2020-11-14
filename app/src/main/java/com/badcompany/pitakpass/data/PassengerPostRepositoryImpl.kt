@@ -33,23 +33,6 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
     override suspend fun getPassengerPostById(id: Long) =
         factoryPassenger.retrieveDataStore(false).getPassengerPostById(id)
 
-//    override suspend fun getHistoryPassengerPosts(
-//
-//                                               page: Int): ResultWrapper<List<PassengerPost>> {
-//        val response =
-//            factoryPassenger.retrieveDataStore(false).getHistoryPassengerPosts(,page)
-//
-//        return when (response) {
-//            is ErrorWrapper.ResponseError -> response
-//            is ErrorWrapper.SystemError -> response
-//            is ResultWrapper.Success -> {
-//                val posts = arrayListOf<PassengerPost>()
-//                response.value.forEach { posts.add(driverPostMapper.mapFromEntity(it)) }
-//                ResultWrapper.Success(posts)
-//            }
-//            ResultWrapper.InProgress -> ResultWrapper.InProgress
-//        }
-//    }
 
 
 }
