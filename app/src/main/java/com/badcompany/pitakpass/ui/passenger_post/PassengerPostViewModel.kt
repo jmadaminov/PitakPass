@@ -27,6 +27,7 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
     val postData = SingleLiveEvent<PassengerPost>()
     val errorMessage = SingleLiveEvent<String>()
     val isLoading = SingleLiveEvent<Boolean>()
+    val offerActionLoading = SingleLiveEvent<Boolean>()
 
     fun getPostById(id: Long) {
         isLoading.value = true
@@ -51,11 +52,10 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
     //    val postOffers = SingleLiveEvent<PagingData<OfferDTO>>()
 //     val postOffers =         postOffersRepository.getOffersForPost(14).cachedIn(viewModelScope)
 
-    lateinit var postOffers : LiveData<PagingData<OfferDTO>>
+    lateinit var postOffers: LiveData<PagingData<OfferDTO>>
     fun getOffersForPost(id: Long) {
-        postOffers = postOffersRepository.getOffersForPost(id).cachedIn(viewModelScope)
+        postOffers = postOffersRepository.getOffersForPost(id)
     }
-
 
     val deletePostReponse = SingleLiveEvent<ResultWrapper<Unit>>()
     val finishPostResponse = SingleLiveEvent<ResultWrapper<Unit>>()
@@ -68,6 +68,7 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
             val response = deletePost.execute(identifier)
 
             withContext(Dispatchers.Main) {
+                isLoading.value = false
                 deletePostReponse.value = response
             }
         }
@@ -81,7 +82,47 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
             val response = finishPost.execute(identifier)
 
             withContext(Dispatchers.Main) {
+                isLoading.value = false
                 finishPostResponse.value = response
+            }
+        }
+    }
+
+    val offerActionResp = SingleLiveEvent<String>()
+    val offerActionError = SingleLiveEvent<String>()
+    fun acceptOffer(id: Long) {
+
+        offerActionLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = postRepository.acceptOffer(id)
+
+            withContext(Dispatchers.Main) {
+                offerActionLoading.value = false
+                when (response) {
+                    is ResponseError -> offerActionError.value = response.message
+                    is ResponseSuccess -> {
+                        offerActionError.value = null
+                        offerActionResp.value = response.value
+                    }
+                }.exhaustive
+            }
+        }
+    }
+
+    fun cancelOffer(id: Long) {
+
+        offerActionLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = postRepository.rejectOffer(id)
+            withContext(Dispatchers.Main) {
+                offerActionLoading.value = false
+                when (response) {
+                    is ResponseError -> offerActionError.value = response.message
+                    is ResponseSuccess -> {
+                        offerActionError.value = null
+                        offerActionResp.value = response.value
+                    }
+                }.exhaustive
             }
         }
     }

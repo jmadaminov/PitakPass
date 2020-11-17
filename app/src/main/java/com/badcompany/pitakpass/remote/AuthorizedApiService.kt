@@ -97,6 +97,25 @@ interface AuthorizedApiService {
     @GET("car_color/action")
     suspend fun getCarColors(@Header("Accept-Language") lang: String = AppPrefs.language): CarColorsResponse
 
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("offer/post/accept/{id}")
+    suspend fun acceptOffer(@Path(value = "id", encoded = true) id: Long,
+                            @Header("Accept-Language") lang: String = AppPrefs.language
+    ): RespFormatter<String?>
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("offer/post/reject/{id}")
+    suspend fun rejectOffer(@Path(value = "id", encoded = true) id: Long,
+                            @Header("Accept-Language") lang: String = AppPrefs.language
+    ): RespFormatter<String?>
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("offer/post/cancel/{id}")
+    suspend fun cancelMyOffer(@Path(value = "id", encoded = true) id: Long,
+                            @Header("Accept-Language") lang: String = AppPrefs.language
+    ): RespFormatter<String?>
+
     //END CAR API
 
 

@@ -1,13 +1,17 @@
 package com.badcompany.pitakpass.remote.model
 
+import android.os.Parcelable
+import com.badcompany.pitakpass.ui.EOfferStatus
 import com.badcompany.pitakpass.ui.EPostType
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class OfferDTO(@SerializedName("id") val id: Long,
                     @SerializedName("postId") val postId: Long,
                     @SerializedName("postType") val postType: EPostType,
                     @SerializedName("profileId") val profileId: Long,
-                    @SerializedName("status") val status: EPostType,
+                    @SerializedName("status") val status: EOfferStatus,
                     @SerializedName("visible") val visible: Boolean,
                     @SerializedName("submitDate") val submitDate: String,
-                    @SerializedName("message") val message: String)
+                    @SerializedName("message") val message: String):Parcelable

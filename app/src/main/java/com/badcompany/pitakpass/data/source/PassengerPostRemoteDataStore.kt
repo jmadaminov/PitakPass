@@ -32,4 +32,13 @@ open class PassengerPostRemoteDataStore @Inject constructor(private val passenge
     override suspend fun getPassengerPostById(id: Long) =
         passengerPostRemote.getPassengerPostById(id)
 
+    override suspend fun acceptOffer(id: Long) =
+        passengerPostRemote.acceptOffer(id)
+
+    override suspend fun rejectOffer(id: Long) =
+        passengerPostRemote.rejectOffer(id)
+
+    override suspend fun cancelMyOffer(id: Long) =
+        passengerPostRemote.cancelMyOffer(id)
+
 }

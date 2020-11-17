@@ -5,6 +5,7 @@ import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.getFormattedResponse
+import com.badcompany.pitakpass.util.getFormattedResponseNullable
 import javax.inject.Inject
 
 /**
@@ -82,6 +83,15 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
 
     override suspend fun getPassengerPostById(id: Long) =
         getFormattedResponse { authorizedApiService.getPassengerPostById(id) }
+
+    override suspend fun acceptOffer(id: Long) =
+        getFormattedResponseNullable { authorizedApiService.acceptOffer(id) }
+
+    override suspend fun rejectOffer(id: Long) =
+        getFormattedResponseNullable { authorizedApiService.rejectOffer(id) }
+
+    override suspend fun cancelMyOffer(id: Long) =
+        getFormattedResponseNullable { authorizedApiService.cancelMyOffer(id) }
 
 
 }

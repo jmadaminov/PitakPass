@@ -6,8 +6,10 @@ import android.view.View
 import androidx.activity.viewModels
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
+import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
@@ -36,7 +38,20 @@ import splitties.experimental.ExperimentalSplittiesApi
         setContentView(R.layout.activity_passenger_post)
         postId = intent.getLongExtra(EXTRA_POST_ID, 0)
         setupActionBar()
-        val offersAdapter = PostOffersAdapter()
+        val offersAdapter = PostOffersAdapter(object : IOnOfferActionListener {
+            override fun onCancelClick(offer: OfferDTO) {
+                val dialog = DialogCancelOffer()
+                dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
+                dialog.show(supportFragmentManager, "")
+            }
+
+            override fun onAcceptClick(offer: OfferDTO) {
+                val dialog = DialogAcceptOffer()
+                dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
+                dialog.show(supportFragmentManager, "")
+            }
+
+        })
 
         rvOffers.setHasFixedSize(true)
         rvOffers.adapter = offersAdapter
@@ -62,6 +77,13 @@ import splitties.experimental.ExperimentalSplittiesApi
             showPostData()
         })
 
+        viewModel.offerActionLoading.observe(this, {
+            progressOfferAction.visibility = if (it ?: return@observe) View.VISIBLE else View.GONE
+        })
+
+        viewModel.offerActionResp.observe(this, {
+            viewModel.getOffersForPost(postId)
+        })
 
         viewModel.isLoading.observe(this, {
             val value = it ?: return@observe
@@ -77,6 +99,10 @@ import splitties.experimental.ExperimentalSplittiesApi
                 tvMessage.visibility = View.VISIBLE
                 tvMessage.text = it
             }
+        })
+
+        viewModel.offerActionError.observe(this, {
+            Snackbar.make(swipeRefreshLayout, it ?: return@observe, Snackbar.LENGTH_SHORT).show()
         })
 
         viewModel.deletePostReponse.observe(this, {
@@ -96,8 +122,6 @@ import splitties.experimental.ExperimentalSplittiesApi
                 is ResultWrapper.Success -> {
                     setResult(RESULT_OK)
                     finish()
-//                    adapter.remove(adapter.getItem(response.value))
-//                    adapter.notifyItemRemoved(response.value)
                 }
                 ResultWrapper.InProgress -> {
                 }
@@ -121,8 +145,7 @@ import splitties.experimental.ExperimentalSplittiesApi
                 is ResultWrapper.Success -> {
                     setResult(RESULT_OK)
                     finish()
-//                    adapter.remove(adapter.getItem(response.value))
-//                    adapter.notifyItemRemoved(response.value)
+
                 }
                 ResultWrapper.InProgress -> {
                 }
@@ -155,6 +178,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.getPostById(postId)
+            viewModel.getOffersForPost(postId)
         }
 
         done.setOnClickListener {
@@ -165,8 +189,6 @@ import splitties.experimental.ExperimentalSplittiesApi
             DialogDeletePost().show(supportFragmentManager, "")
 //            viewModel.deletePost(post.id.toString())
         }
-
-
 
         edit.setOnClickListener {
             val from = PlaceViewObj(post.from.districtId,
@@ -221,6 +243,8 @@ import splitties.experimental.ExperimentalSplittiesApi
 
     fun finishPost() = viewModel.finishPost(post.id.toString())
     fun deletePost() = viewModel.deletePost(post.id.toString())
+    fun acceptOffer(offer: OfferDTO) = viewModel.acceptOffer(offer.id)
+    fun cancelOffer(offer: OfferDTO) = viewModel.cancelOffer(offer.id)
 
 
 }

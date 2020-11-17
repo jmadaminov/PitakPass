@@ -11,11 +11,6 @@ import kotlinx.android.synthetic.main.dialog_finish_post.*
 class DialogFinishPost : DialogFragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, R.style.AppTheme)
-    }
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,4 +31,8 @@ class DialogFinishPost : DialogFragment() {
         }
 
     }
+
+
+    override fun getTheme() = R.style.Theme_Dialog
+
 }

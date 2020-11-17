@@ -14,8 +14,7 @@ suspend fun <T> getFormattedResponse(action: suspend () -> RespFormatter<T>): Re
     return try {
         val resp = action()
         when {
-            resp.data != null -> ResponseSuccess(resp.data)
-            resp.code == 1 -> ResponseError("DATA NULL")
+            resp.code == 1 && resp.data != null -> ResponseSuccess(resp.data)
             else -> ResponseError(resp.message, resp.code)
         }
     } catch (e: HttpException) {
@@ -26,5 +25,5 @@ suspend fun <T> getFormattedResponse(action: suspend () -> RespFormatter<T>): Re
     } catch (e: Exception) {
         ResponseError(message = e.localizedMessage)
     }
-
 }
+

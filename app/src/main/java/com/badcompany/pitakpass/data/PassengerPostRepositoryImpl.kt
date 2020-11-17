@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.data.source.PassengerPostDataStoreFactory
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.repository.PassengerPostRepository
 import com.badcompany.pitakpass.domain.repository.PlaceRepository
+import com.badcompany.pitakpass.util.ResponseWrapper
 import javax.inject.Inject
 
 /**
@@ -33,6 +34,14 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
     override suspend fun getPassengerPostById(id: Long) =
         factoryPassenger.retrieveDataStore(false).getPassengerPostById(id)
 
+    override suspend fun acceptOffer(id: Long) =
+        factoryPassenger.retrieveDataStore(false).acceptOffer(id)
+
+    override suspend fun rejectOffer(id: Long) =
+        factoryPassenger.retrieveDataStore(false).rejectOffer(id)
+
+    override suspend fun cancelMyOffer(id: Long) =
+        factoryPassenger.retrieveDataStore(false).cancelMyOffer(id)
 
 
 }

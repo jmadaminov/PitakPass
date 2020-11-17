@@ -18,4 +18,8 @@ interface PassengerPostRemote {
 
     suspend fun getPassengerPostById(id: Long): ResponseWrapper<PassengerPost>
 
+    suspend fun acceptOffer(id: Long): ResponseWrapper<String?>
+    suspend fun rejectOffer(id: Long): ResponseWrapper<String?>
+    suspend fun cancelMyOffer(id: Long): ResponseWrapper<String?>
+
 }
