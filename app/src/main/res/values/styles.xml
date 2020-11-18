@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--        <item name="android:windowBackground">@color/colorPrimary</item>-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomNavigationStyle">@style/AppBottomNavigation</item>
+        <item name="textInputStyle">@style/AppTextField</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="fontFamily">@font/valera_round_regular</item>
+        <!--        <item name="android:homeAsUpIndicator">@drawable/baseline_arrow_back_white_24dp</item>-->
+        <item name="actionBarTheme">@style/ToolBarStyle</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--        <item name="android:windowBackground">@color/colorPrimary</item>-->
+        <item name="bottomNavigationStyle">@style/AppBottomNavigation</item>
+
+        <item name="textInputStyle">@style/AppTextField</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="fontFamily">@font/valera_round_regular</item>
+        <item name="actionBarTheme">@style/ToolBarStyle</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- ToolBar -->
+    <style name="ToolBarStyle" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:homeAsUpIndicator">@drawable/baseline_arrow_back_white_24dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">#fff</item>
+
+    </style>
+    <style name="FullFABStyle">
+        <item name="fabSize">normal</item>
+        <item name="maxImageSize">@dimen/fab_size</item>
+        <item name="fabCustomSize">@dimen/fab_size</item>
+    </style>
+
+    <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
+
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored" />
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--<item name="android:navigationBarColor">@color/windowBackground</item>-->
+    </style>
+
+    <style name="Theme_Dialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/selector_rounded_top_corners</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+
+    <dimen name="fab_size">56dp</dimen>
+</resources>
