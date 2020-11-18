@@ -27,3 +27,22 @@ suspend fun <T> getFormattedResponse(action: suspend () -> RespFormatter<T>): Re
     }
 }
 
+
+suspend fun <T> getFormattedResponseNullable(action: suspend () -> RespFormatter<T>): ResponseWrapper<T?> {
+    return try {
+        val resp = action()
+        when {
+            resp.code == 1 && resp.data != null -> ResponseSuccess(resp.data)
+            resp.code == 1 && resp.data == null -> ResponseSuccess(resp.data)
+            else -> ResponseError(resp.message, resp.code)
+        }
+    } catch (e: HttpException) {
+        ResponseError(
+            JSONObject(e.response()!!.errorBody()!!.string())["message"].toString(),
+            e.code()
+        )
+    } catch (e: Exception) {
+        ResponseError(message = e.localizedMessage)
+    }
+}
+
