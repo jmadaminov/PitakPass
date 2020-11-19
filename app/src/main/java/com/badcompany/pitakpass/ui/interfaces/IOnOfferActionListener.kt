@@ -7,4 +7,5 @@ import com.badcompany.pitakpass.remote.model.OfferDTO
 interface IOnOfferActionListener {
     fun onCancelClick(offer: OfferDTO)
     fun onAcceptClick(offer: OfferDTO)
+    fun onPhoneCallClick(offer: OfferDTO)
 }

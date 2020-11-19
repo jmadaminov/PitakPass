@@ -32,13 +32,13 @@ import splitties.experimental.ExperimentalSplittiesApi
     var postId: Long = 0
     private val viewModel: PassengerPostViewModel by viewModels()
 
-
+    lateinit var offersAdapter: PostOffersAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passenger_post)
         postId = intent.getLongExtra(EXTRA_POST_ID, 0)
         setupActionBar()
-        val offersAdapter = PostOffersAdapter(object : IOnOfferActionListener {
+        offersAdapter = PostOffersAdapter(object : IOnOfferActionListener {
             override fun onCancelClick(offer: OfferDTO) {
                 val dialog = DialogCancelOffer()
                 dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
@@ -51,6 +51,11 @@ import splitties.experimental.ExperimentalSplittiesApi
                 dialog.show(supportFragmentManager, "")
             }
 
+            override fun onPhoneCallClick(offer: OfferDTO) {
+
+
+            }
+
         })
 
         rvOffers.setHasFixedSize(true)
@@ -60,17 +65,19 @@ import splitties.experimental.ExperimentalSplittiesApi
         viewModel.getPostById(postId)
         viewModel.getOffersForPost(postId)
 
-        viewModel.postOffers.observe(this, {
-            val value = it ?: return@observe
-            offersAdapter.submitData(lifecycle, value)
-        })
-
 
         attachListeners()
         subscribes()
     }
 
     private fun subscribes() {
+
+        viewModel.postOffers.observe(this, {
+            val value = it ?: return@observe
+            offersAdapter.submitData(lifecycle, value)
+            rvOffers.requestLayout()
+        })
+
 
         viewModel.postData.observe(this, {
             post = it ?: return@observe
@@ -94,8 +101,9 @@ import splitties.experimental.ExperimentalSplittiesApi
         viewModel.errorMessage.observe(this, {
             if (it.isNullOrBlank()) {
                 tvMessage.visibility = View.GONE
-                scrollView.visibility = View.VISIBLE
+                llOffersContainer.visibility = View.VISIBLE
             } else {
+                llOffersContainer.visibility = View.GONE
                 tvMessage.visibility = View.VISIBLE
                 tvMessage.text = it
             }
