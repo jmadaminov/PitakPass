@@ -52,8 +52,6 @@ import splitties.experimental.ExperimentalSplittiesApi
             }
 
             override fun onPhoneCallClick(offer: OfferDTO) {
-
-
             }
 
         })
@@ -61,10 +59,8 @@ import splitties.experimental.ExperimentalSplittiesApi
         rvOffers.setHasFixedSize(true)
         rvOffers.adapter = offersAdapter
 
-
         viewModel.getPostById(postId)
         viewModel.getOffersForPost(postId)
-
 
         attachListeners()
         subscribes()
@@ -77,7 +73,6 @@ import splitties.experimental.ExperimentalSplittiesApi
             offersAdapter.submitData(lifecycle, value)
             rvOffers.requestLayout()
         })
-
 
         viewModel.postData.observe(this, {
             post = it ?: return@observe
@@ -96,7 +91,6 @@ import splitties.experimental.ExperimentalSplittiesApi
             val value = it ?: return@observe
             swipeRefreshLayout.isRefreshing = value
         })
-
 
         viewModel.errorMessage.observe(this, {
             if (it.isNullOrBlank()) {
