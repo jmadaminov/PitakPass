@@ -2,6 +2,7 @@ package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.Filter
+import com.badcompany.pitakpass.domain.model.PassengerOffer
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.remote.model.*
 import com.badcompany.pitakpass.util.AppPrefs
@@ -119,6 +120,9 @@ interface AuthorizedApiService {
 
     //END CAR API
 
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @POST("offer/passenger/action")
+    suspend fun joinARide(@Body myOfferBody: PassengerOffer): RespFormatter<Any>
 
 }
 

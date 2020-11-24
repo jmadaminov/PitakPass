@@ -303,11 +303,7 @@ class SearchTripFragment @Inject constructor() :
         } else {
             infoText.visibility = View.INVISIBLE
             value.forEach {
-                adapter.add(DriverPostItem(it, object : MyItemClickListener {
-                    override fun onClick(pos: Int) {
-                        super.onClick(pos)
-                    }
-                }))
+                adapter.add(DriverPostItem(it))
             }
         }
         adapter.notifyDataSetChanged()

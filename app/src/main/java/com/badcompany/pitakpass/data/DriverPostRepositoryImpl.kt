@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.data
 import com.badcompany.pitakpass.data.source.DriverPostDataStoreFactory
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.DriverPost
+import com.badcompany.pitakpass.domain.model.PassengerOffer
 import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.repository.PlaceRepository
 import com.badcompany.pitakpass.util.ErrorWrapper
@@ -36,6 +37,8 @@ class DriverPostRepositoryImpl @Inject constructor(private val factoryDriver: Dr
     override suspend fun getDriverPostById(id: Int) = factoryDriver.retrieveDataStore(false)
     .getPostById(id)
 
+    override suspend fun joinARide(myOffer: PassengerOffer) = factoryDriver.retrieveDataStore(false)
+        .joinARide(myOffer)
 
 
 }

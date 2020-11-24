@@ -5,8 +5,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.ui.BaseActivity
+import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
+import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_passenger_post.*
 import splitties.activities.start
 
@@ -16,29 +17,25 @@ class DriverPostActivity : BaseActivity() {
         const val EXTRA_POST_ID = "EXTRA_POST_ID"
     }
 
-    var postId: Long = 0
     private val viewModel: DriverPostViewModel by viewModels()
+    private lateinit var driverPost: DriverPostViewObj
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passenger_post)
         setupActionBar()
-        postId = intent.getLongExtra(EXTRA_POST_ID, 0)
-        viewModel.getPostById(postId)
+        driverPost = intent.getParcelableExtra(ARG_DRIVER_POST)!!
 
         attachListeners()
         subscribeObservers()
+        showPostData(driverPost)
     }
 
     private fun subscribeObservers() {
 
-        viewModel.postData.observe(this, {
-            val post = it ?: return@observe
-            showPostData(post)
-        })
     }
 
-    private fun showPostData(post: PassengerPost) {
+    private fun showPostData(post: DriverPostViewObj) {
 
 
         date.text = post.departureDate
@@ -70,7 +67,7 @@ class DriverPostActivity : BaseActivity() {
     private fun setupActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.title = getString(R.string.post, postId)
+        supportActionBar?.title = getString(R.string.post, driverPost.id)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

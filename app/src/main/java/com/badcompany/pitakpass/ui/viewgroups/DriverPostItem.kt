@@ -11,7 +11,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_passenger_post.view.*
 import splitties.activities.start
 
-class DriverPostItem(val post: DriverPost, val myItemClickListener: MyItemClickListener) :
+class DriverPostItem(val post: DriverPost) :
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.date.text = post.departureDate

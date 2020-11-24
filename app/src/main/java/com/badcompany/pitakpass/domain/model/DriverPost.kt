@@ -5,7 +5,7 @@ import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResponseParent
 import com.google.gson.annotations.SerializedName
 
-data class DriverPost(@SerializedName("id") val id: Long? = null,
+data class DriverPost(@SerializedName("id") val id: Long,
                       @SerializedName("from") val from: Place,
                       @SerializedName("to") val to: Place,
                       @SerializedName("price") val price: Int,

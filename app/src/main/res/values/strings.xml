@@ -107,4 +107,7 @@
     <string name="do_you_want_to_accept_this_offer">Do you want to accept this offer?</string>
     <string name="do_you_want_to_cancel_this_offer">Do you want to cancel this offer?</string>
     <string name="have_you_reached_your_destination">Have you reached your destination?</string>
+    <string name="your_price">Your price</string>
+    <string name="message">Message</string>
+    <string name="send_offer">Send offer</string>
 </resources>
