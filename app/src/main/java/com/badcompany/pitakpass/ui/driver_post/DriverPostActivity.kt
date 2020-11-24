@@ -7,9 +7,14 @@ import androidx.activity.viewModels
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
+import com.badcompany.pitakpass.ui.driver_post.join_a_ride.DialogJoinARideFragment
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
-import kotlinx.android.synthetic.main.activity_passenger_post.*
-import splitties.activities.start
+import kotlinx.android.synthetic.main.activity_driver_post.*
+import kotlinx.android.synthetic.main.activity_passenger_post.date
+import kotlinx.android.synthetic.main.activity_passenger_post.from
+import kotlinx.android.synthetic.main.activity_passenger_post.note
+import kotlinx.android.synthetic.main.activity_passenger_post.price
+import kotlinx.android.synthetic.main.activity_passenger_post.to
 
 class DriverPostActivity : BaseActivity() {
 
@@ -22,7 +27,7 @@ class DriverPostActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_passenger_post)
+        setContentView(R.layout.activity_driver_post)
         setupActionBar()
         driverPost = intent.getParcelableExtra(ARG_DRIVER_POST)!!
 
@@ -53,13 +58,15 @@ class DriverPostActivity : BaseActivity() {
             note.visibility = View.GONE
         }
 
-        card.setOnClickListener {
-            start<DriverPostActivity>()
-        }
 
     }
 
     private fun attachListeners() {
+        btnOfferARide.setOnClickListener {
+            val dialog = DialogJoinARideFragment()
+            dialog.arguments = Bundle().apply { putParcelable(ARG_DRIVER_POST, driverPost) }
+            dialog.show(supportFragmentManager, "")
+        }
 
     }
 

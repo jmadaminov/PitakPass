@@ -110,4 +110,5 @@
     <string name="your_price">Your price</string>
     <string name="message">Message</string>
     <string name="send_offer">Send offer</string>
+    <string name="offer_a_ride">Jump in!</string>
 </resources>

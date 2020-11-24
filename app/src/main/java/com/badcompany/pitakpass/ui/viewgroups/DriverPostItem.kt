@@ -3,9 +3,9 @@ package com.badcompany.pitakpass.ui.viewgroups
 import android.view.View
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
-import com.badcompany.pitakpass.ui.interfaces.MyItemClickListener
+import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
+import com.badcompany.pitakpass.viewobjects.DriverPostViewObj.Companion.mapFromDriverPostModel
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_passenger_post.view.*
@@ -30,8 +30,8 @@ class DriverPostItem(val post: DriverPost) :
         }
 
         viewHolder.itemView.card.setOnClickListener {
-            viewHolder.itemView.context.start<PassengerPostActivity>() {
-                putExtra(DriverPostActivity.EXTRA_POST_ID, post.id)
+            viewHolder.itemView.context.start<PassengerPostActivity> {
+                putExtra(ARG_DRIVER_POST, mapFromDriverPostModel(post))
             }
         }
 

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.dialog_offer_a_ride.*
 const val ARG_DRIVER_POST = "DRIVER_POST"
 
 @AndroidEntryPoint
-class DialogOfferARideFragment : DialogFragment() {
+class DialogJoinARideFragment : DialogFragment() {
 
     private lateinit var driverPost: DriverPostViewObj
     val viewModel: JoinARideViewModel by viewModels()
