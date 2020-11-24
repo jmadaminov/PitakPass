@@ -25,7 +25,6 @@ class ActiveTripsViewModel @ViewModelInject constructor(val getActivePassengerPo
         activePostsResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
             val response = getActivePassengerPost.execute()
-
             withContext(Dispatchers.Main) {
                 activePostsResponse.value = response
             }
