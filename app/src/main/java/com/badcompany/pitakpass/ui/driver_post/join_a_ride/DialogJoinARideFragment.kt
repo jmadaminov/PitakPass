@@ -68,12 +68,12 @@ class DialogJoinARideFragment : DialogFragment() {
                                 tvSeats.text.toString().toInt())
         }
 
-        tvAddSeat.setOnClickListener {
+        tvSubtractSeat.setOnClickListener {
             if (tvSeats.text.toString().toInt() > 1)
                 tvSeats.text = (tvSeats.text.toString().toInt() - 1).toString()
         }
 
-        tvSubtractSeat.setOnClickListener {
+        tvAddSeat.setOnClickListener {
             if (driverPost.seat > tvSeats.text.toString().toInt())
                 tvSeats.text = (tvSeats.text.toString().toInt() + 1).toString()
         }
