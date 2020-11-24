@@ -50,7 +50,7 @@ class DialogJoinARideFragment : DialogFragment() {
         })
 
         viewModel.hasFinished.observe(viewLifecycleOwner, { hasFinished ->
-           if (hasFinished) dismiss()
+            if (hasFinished) dismiss()
         })
 
     }
@@ -63,8 +63,20 @@ class DialogJoinARideFragment : DialogFragment() {
         btnSendOffer.setOnClickListener {
             viewModel.joinARide(driverPost.id,
                                 if (edtPrice.text.isNullOrBlank()) null else edtPrice.text.toString()
-                                     .toInt(),
-                                messageInput.text.toString())
+                                    .toInt(),
+                                messageInput.text.toString(),
+                                tvSeats.text.toString().toInt())
         }
+
+        tvAddSeat.setOnClickListener {
+            if (tvSeats.text.toString().toInt() > 1)
+                tvSeats.text = (tvSeats.text.toString().toInt() - 1).toString()
+        }
+
+        tvSubtractSeat.setOnClickListener {
+            if (driverPost.seat > tvSeats.text.toString().toInt())
+                tvSeats.text = (tvSeats.text.toString().toInt() + 1).toString()
+        }
+
     }
 }

@@ -6,10 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.domain.model.PassengerOffer
 import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.ResponseError
-import com.badcompany.pitakpass.util.ResponseSuccess
-import com.badcompany.pitakpass.util.ResponseWrapper
-import com.badcompany.pitakpass.util.exhaustive
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,10 +16,10 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
     val isOffering = MutableLiveData<Boolean>()
     val hasFinished = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
-    fun joinARide(postId: Long, myPrice: Int?, message: String) {
+    fun joinARide(postId: Long, myPrice: Int?, message: String, seats: Int) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.joinARide(PassengerOffer(postId, myPrice, message))
+            val response = repository.joinARide(PassengerOffer(postId, myPrice, message, seats))
             withContext(Dispatchers.Main) {
 //                when (response) {
 //                    is ResponseError -> {
