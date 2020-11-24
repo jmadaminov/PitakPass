@@ -21,11 +21,7 @@
             tools:text="Sorry, something went wrong try again later!"
             tools:visibility="visible" />
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,6 +35,7 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="10dp"
@@ -271,8 +268,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="200dp"
+                android:id="@+id/llOffersContainer"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ProgressBar
@@ -294,6 +292,5 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

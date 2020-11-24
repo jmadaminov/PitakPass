@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:text="@string/have_you_completed_the_ride" />
+            android:text="@string/have_you_reached_your_destination" />
 
 
         <LinearLayout

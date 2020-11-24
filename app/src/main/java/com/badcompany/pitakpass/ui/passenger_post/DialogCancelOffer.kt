@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.remote.model.OfferDTO
-import kotlinx.android.synthetic.main.dialog_finish_post.*
+import kotlinx.android.synthetic.main.dialog_cancel_offer.*
 
 
 class DialogCancelOffer : DialogFragment() {

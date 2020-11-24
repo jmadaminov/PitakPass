@@ -27,7 +27,6 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
         if (currentItem != null) holder.bind(currentItem, onOfferActionListener)
     }
 
-
     class OfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(offer: OfferDTO, onOfferActionListener: IOnOfferActionListener) {
             itemView.apply {
@@ -45,6 +44,11 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                         ivPhone.visibility = View.VISIBLE
                         tvStatus.setBackgroundResource(R.color.green)
                     }
+                    EOfferStatus.REJECTED -> {
+                        ivAccept.visibility = View.INVISIBLE
+                        ivPhone.visibility = View.INVISIBLE
+                        tvStatus.setBackgroundResource(R.color.colorAccent)
+                    }
                 }.exhaustive
 
                 ivDeny.setOnClickListener {
@@ -54,7 +58,7 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                     onOfferActionListener.onAcceptClick(offer)
                 }
                 ivPhone.setOnClickListener {
-                    onOfferActionListener.onAcceptClick(offer)
+                    onOfferActionListener.onPhoneCallClick(offer)
                 }
             }
         }
