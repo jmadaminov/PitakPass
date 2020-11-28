@@ -6,4 +6,4 @@ import com.google.gson.annotations.SerializedName
 data class User(@SerializedName("phoneNum") val phoneNum: String,
                 @SerializedName("name") val name: String,
                 @SerializedName("surname") val surname: String,
-                @SerializedName("userType") val userType: String = Constants.ROLE_PASSENGER)
+                @SerializedName("udId") val udId: String)

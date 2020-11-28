@@ -8,10 +8,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.badcompany.pitakpass.util.*
-import com.badcompany.pitakpass.domain.model.User
+import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.ui.auth.AuthActivity
+import com.badcompany.pitakpass.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register.*
 import javax.inject.Inject
@@ -73,8 +74,9 @@ class RegisterFragment @Inject constructor() :
 
         register.setOnClickListener {
             viewModel.register(User(phone.text.toString().numericOnly(),
-                name.text.toString(),
-                surname.text.toString()))
+                                    name.text.toString(),
+                                    surname.text.toString(),
+                                    App.uuid))
 //            navController.navigate(R.id.action_navRegisterFragment_to_navPhoneConfirmFragment)
         }
 
@@ -162,7 +164,6 @@ class RegisterFragment @Inject constructor() :
 
         })
     }
-
 
 
 }
