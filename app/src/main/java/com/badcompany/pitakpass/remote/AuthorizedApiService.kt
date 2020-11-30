@@ -1,12 +1,10 @@
 package com.badcompany.pitakpass.remote
 
-import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.domain.model.Filter
-import com.badcompany.pitakpass.domain.model.PassengerOffer
-import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.*
 import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.RespFormatter
+import retrofit2.Response
 import retrofit2.http.*
 import splitties.experimental.ExperimentalSplittiesApi
 
@@ -23,6 +21,12 @@ interface AuthorizedApiService {
     @POST("driver_post/action/filter")
     suspend fun filterDriverPost(@Body filter: Filter,
                                  @Header("Accept-Language") lang: String = AppPrefs.language): DriverPostsResponse
+
+
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @POST("feedback/action")
+    suspend fun sendFeedback(@Body body: FeedbackBody): RespFormatter<Any>
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("driver_post/action/{id}")
@@ -115,7 +119,7 @@ interface AuthorizedApiService {
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("offer/post/cancel/{id}")
     suspend fun cancelMyOffer(@Path(value = "id", encoded = true) id: Long,
-                            @Header("Accept-Language") lang: String = AppPrefs.language
+                              @Header("Accept-Language") lang: String = AppPrefs.language
     ): RespFormatter<String?>
 
     //END CAR API

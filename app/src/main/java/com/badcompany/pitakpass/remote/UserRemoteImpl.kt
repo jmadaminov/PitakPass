@@ -7,7 +7,9 @@ import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.remote.model.LoginRequest
 import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResponseWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.getFormattedResponse
 import javax.inject.Inject
 
 /**
@@ -15,7 +17,8 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class UserRemoteImpl @Inject constructor(private val apiService: ApiService) : UserRemote {
+class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
+                                         private val authorizedApiService: AuthorizedApiService) : UserRemote {
 
 //    /**
 //     * Retrieve a list of [Bufferoo] instances from the [BufferooService].
@@ -61,14 +64,6 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService) : U
         }
     }
 
-    override suspend fun sendFeedback(feedback: String): ResultWrapper<Any> {
-        return try {
-            val response = apiService.sendFeedback(FeedbackBody(feedback))
-            if (response.isSuccessful) ResultWrapper.Success("")
-            else ErrorWrapper.ResponseError(-1, response.message())
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
+    override suspend fun sendFeedback(feedback: String) = getFormattedResponse { authorizedApiService.sendFeedback(FeedbackBody(feedback)) }
 
 }

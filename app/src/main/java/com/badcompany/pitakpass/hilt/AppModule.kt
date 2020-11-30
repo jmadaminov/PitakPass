@@ -266,8 +266,9 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun provideUserRemote(apiService: ApiService): UserRemote {
-        return UserRemoteImpl(apiService)
+    fun provideUserRemote(apiService: ApiService,
+                          authorizedApiService: AuthorizedApiService): UserRemote {
+        return UserRemoteImpl(apiService, authorizedApiService)
     }
 
 

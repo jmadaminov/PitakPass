@@ -32,9 +32,6 @@ interface ApiService {
     //END AUTH API
 
 
-    @Headers("Content-Type:application/json", "Accept: application/json")
-    @POST("feedback/action")
-    suspend fun sendFeedback(@Body body: FeedbackBody): Response<Any>
 
     //FILE UPLOAD API
 

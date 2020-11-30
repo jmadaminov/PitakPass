@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.domain.model.AuthBody
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.util.ResponseWrapper
 
 
 /**
@@ -16,6 +17,6 @@ interface UserDataStore {
     suspend fun userLogin(phoneNum: String): ResultWrapper<String>
     suspend fun userRegister(user: User): ResultWrapper<String>
     suspend fun confirmSms(userCredentials: UserCredentials): ResultWrapper<AuthBody>
-    suspend fun sendFeedback(feedback:String): ResultWrapper<Any>
+    suspend fun sendFeedback(feedback:String): ResponseWrapper<Any>
 
 }

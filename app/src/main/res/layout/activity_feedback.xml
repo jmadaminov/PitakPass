@@ -32,13 +32,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <TextView
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/btnSend"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         android:layout_margin="24dp"
-        android:background="@drawable/selector_primary"
         android:clickable="true"
+        app:initialCornerAngle="50dp"
+        app:finalCornerAngle="50dp"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
         android:gravity="center"

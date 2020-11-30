@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.main.MainActivity
@@ -80,4 +79,8 @@ class MyTripsFragment @Inject constructor() :
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pager.adapter = null
+    }
 }
