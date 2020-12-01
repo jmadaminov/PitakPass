@@ -1,6 +1,5 @@
 package com.badcompany.pitakpass.ui.main.mytrips
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -17,14 +16,10 @@ import kotlinx.android.synthetic.main.fragment_my_trips.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyTripsFragment @Inject constructor() :
-    Fragment(R.layout.fragment_my_trips) {
+class MyTripsFragment @Inject constructor() : Fragment(R.layout.fragment_my_trips) {
 
     private val viewModel: MyTripsViewModel by viewModels()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    private lateinit var mediator: TabLayoutMediator
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,28 +31,20 @@ class MyTripsFragment @Inject constructor() :
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (activity as MainActivity).showTabLayout()
-
-//        change_password.setOnClickListener {
-//            findNavController().navigate(R.id.action_accountFragment_to_changePasswordFragment)
-//        }
-//
-//        logout_button.setOnClickListener {
-//            viewModel.logout()
-//        }
-//
-//        subscribeObservers()
         setupViewPager()
     }
 
     private fun setupViewPager() {
         val pagerAdapter = ScreenSlidePagerAdapter(childFragmentManager)
         pager.adapter = pagerAdapter
-        TabLayoutMediator(requireActivity().findViewById(R.id.tab_layout), pager) { tab, position ->
+        mediator = TabLayoutMediator(requireActivity().findViewById(R.id.tab_layout),
+                                     pager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.active)
                 else -> getString(R.string.history)
             }
-        }.attach()
+        }
+        mediator.attach()
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) :
@@ -79,8 +66,10 @@ class MyTripsFragment @Inject constructor() :
 
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         pager.adapter = null
+        mediator.detach()
     }
 }
