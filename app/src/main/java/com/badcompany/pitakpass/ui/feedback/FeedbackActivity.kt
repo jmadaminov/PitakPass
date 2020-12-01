@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.ui.feedback
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.widget.doOnTextChanged
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_feedback.*
@@ -35,8 +36,13 @@ class FeedbackActivity : BaseActivity() {
 
     private fun attachListeners() {
         btnSend.setOnClickListener {
-
+            viewModel.sendFeedback(noteInput.text.toString())
         }
+
+        noteInput.doOnTextChanged { text, start, before, count ->
+            btnSend.isEnabled = !text.isNullOrBlank()
+        }
+
     }
 
     private fun setupActionbar() {

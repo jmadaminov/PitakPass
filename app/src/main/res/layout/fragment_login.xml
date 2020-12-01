@@ -88,13 +88,15 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/button_shape_default_rounded"
-        app:spinning_bar_color="#fff"
         android:elevation="3dp"
         android:enabled="false"
         android:text="@string/authorize"
         android:textColor="#fff"
+        app:finalCornerAngle="50dp"
+        app:initialCornerAngle="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone" />
+        app:layout_constraintTop_toBottomOf="@id/phone"
+        app:spinning_bar_color="#fff" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,7 @@
             android:gravity="start|top"
             android:hint="@string/please_add_notes_if_needed"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:maxLength="120"
             android:maxLines="6"
             android:textColor="@color/dark_grey" />

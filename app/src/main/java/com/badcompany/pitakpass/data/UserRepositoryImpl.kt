@@ -26,5 +26,4 @@ class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreF
     override suspend fun sendFeedback(feedback: String) = factory.retrieveDataStore(false)
         .sendFeedback(feedback)
 
-
 }

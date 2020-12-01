@@ -1,10 +1,17 @@
 package com.badcompany.pitakpass.domain.model
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Representation for a [Filter] fetched from the API
  */
+
+
+const val MAX_PRICE = 1000000
+const val MIN_PRICE = 10000
+
 data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean? = null,
                   @SerializedName("departureDate") var departureDate: String? = null,
                   @SerializedName("fromDistrictId") var fromDistrictId: Int? = null,
@@ -18,4 +25,9 @@ data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean?
                   @SerializedName("timeFirstPart") var timeFirstPart: Boolean? = null,
                   @SerializedName("timeFourthPart") var timeFourthPart: Boolean? = null,
                   @SerializedName("timeSecondPart") var timeSecondPart: Boolean? = null,
-                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null)
+                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null) {
+    init {
+        departureDate = SimpleDateFormat("dd.MM.yyyy").format(Date())
+        seat = 1
+    }
+}

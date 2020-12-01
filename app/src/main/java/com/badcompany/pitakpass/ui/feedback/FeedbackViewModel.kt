@@ -7,7 +7,6 @@ import com.badcompany.pitakpass.domain.repository.UserRepository
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.ResponseError
 import com.badcompany.pitakpass.util.ResponseSuccess
-import com.badcompany.pitakpass.util.ResponseWrapper
 import com.badcompany.pitakpass.util.exhaustive
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -17,7 +16,7 @@ import kotlinx.coroutines.withContext
 class FeedbackViewModel @ViewModelInject constructor(val userRepository: UserRepository) :
     BaseViewModel() {
 
-    val feedbackResponse = MutableLiveData<ResponseWrapper<String>>()
+    val feedbackResponse = MutableLiveData<String>()
     val errorString = MutableLiveData<String>()
     val isLoading = MutableLiveData<Boolean>()
 
@@ -32,7 +31,7 @@ class FeedbackViewModel @ViewModelInject constructor(val userRepository: UserRep
                         errorString.value = resp.message
                     }
                     is ResponseSuccess -> {
-
+                        feedbackResponse.value = ""
                     }
                 }.exhaustive
             }

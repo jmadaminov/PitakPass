@@ -6,10 +6,7 @@ import com.badcompany.pitakpass.domain.model.FeedbackBody
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.remote.model.LoginRequest
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResponseWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.getFormattedResponse
+import com.badcompany.pitakpass.util.*
 import javax.inject.Inject
 
 /**
@@ -18,7 +15,8 @@ import javax.inject.Inject
  * operations in which data store implementation layers can carry out.
  */
 class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                         private val authorizedApiService: AuthorizedApiService) : UserRemote {
+                                         private val authorizedApiService: AuthorizedApiService) :
+    UserRemote {
 
 //    /**
 //     * Retrieve a list of [Bufferoo] instances from the [BufferooService].
@@ -64,6 +62,7 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
         }
     }
 
-    override suspend fun sendFeedback(feedback: String) = getFormattedResponse { authorizedApiService.sendFeedback(FeedbackBody(feedback)) }
+    override suspend fun sendFeedback(feedback: String) =
+        getFormattedResponseNullable { authorizedApiService.sendFeedback(FeedbackBody(feedback)) }
 
 }

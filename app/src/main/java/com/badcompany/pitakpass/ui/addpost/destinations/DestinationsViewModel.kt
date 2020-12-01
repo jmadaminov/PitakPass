@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +33,7 @@ class DestinationsViewModel @ViewModelInject constructor(private val getPlacesFe
         else toPlacesResponse.value = ResultWrapper.InProgress
         resetFromFeedJob(isFrom)
         viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
-            val response = getPlacesFeed.execute(hashMapOf(Pair(Constants.TXT_PLACE, queryString)))
+            val response = getPlacesFeed.execute(queryString)
 
             withContext(Main) {
                 if (isFrom) fromPlacesResponse.value = response

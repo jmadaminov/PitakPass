@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.sablab.domvetdoctor",
+  "applicationId": "com.badcompany.pitakpass",
   "variantName": "release",
   "elements": [
     {
@@ -14,7 +14,7 @@
       "versionCode": 1,
       "versionName": "1.0",
       "enabled": true,
-      "outputFile": "DomVet-release-1.0.apk"
+      "outputFile": "Pitak_PASSENGER-release-1.0.apk"
     }
   ]
 }

@@ -12,8 +12,6 @@ interface UserRepository {
     suspend fun loginUser(phoneNum: String): ResultWrapper<String>
     suspend fun registerUser(user: User): ResultWrapper<String>
     suspend fun smsConfirm(userCredentials: UserCredentials): ResultWrapper<AuthBody>
-    suspend fun sendFeedback(feedback:String): ResponseWrapper<Any>
-
-
+    suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>
 
 }

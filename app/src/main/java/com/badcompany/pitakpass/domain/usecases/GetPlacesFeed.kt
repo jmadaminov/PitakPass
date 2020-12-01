@@ -10,9 +10,9 @@ import com.badcompany.pitakpass.util.ResultWrapper
  *
  */
 class GetPlacesFeed(val repository: PlaceRepository) :
-    UseCaseWithParams<HashMap<String, String>, ResultWrapper<List<Place>>>() {
+    UseCaseWithParams<String, ResultWrapper<List<Place>>>() {
 
-    override suspend fun buildUseCase(params: HashMap<String, String>): ResultWrapper<List<Place>> {
-        return repository.getPlacesAutocomplete(params[Constants.TXT_PLACE]!!)
+    override suspend fun buildUseCase(params: String): ResultWrapper<List<Place>> {
+        return repository.getPlacesAutocomplete(params)
     }
 }

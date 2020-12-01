@@ -10,9 +10,9 @@ import com.badcompany.pitakpass.util.ResultWrapper
  *
  */
 class GetDriverPostWithFilter(val repositoryDriver: DriverPostRepository) :
-    UseCaseWithParams<HashMap<String, Any>, ResultWrapper<List<DriverPost>>>() {
+    UseCaseWithParams<Filter, ResultWrapper<List<DriverPost>>>() {
 
-    override suspend fun buildUseCase(params: HashMap<String, Any>): ResultWrapper<List<DriverPost>> {
-        return repositoryDriver.filterDriverPost(params[Constants.TXT_FILTER] as Filter)
+    override suspend fun buildUseCase(params: Filter): ResultWrapper<List<DriverPost>> {
+        return repositoryDriver.filterDriverPost(params)
     }
 }

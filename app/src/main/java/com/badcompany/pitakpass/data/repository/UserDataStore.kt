@@ -17,6 +17,6 @@ interface UserDataStore {
     suspend fun userLogin(phoneNum: String): ResultWrapper<String>
     suspend fun userRegister(user: User): ResultWrapper<String>
     suspend fun confirmSms(userCredentials: UserCredentials): ResultWrapper<AuthBody>
-    suspend fun sendFeedback(feedback:String): ResponseWrapper<Any>
+    suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>
 
 }
