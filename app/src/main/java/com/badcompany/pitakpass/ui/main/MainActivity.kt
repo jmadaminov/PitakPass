@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.ui.main
 import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.View
+import android.widget.CheckedTextView
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -19,8 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 
-class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphChanged,
-    BottomNavControllerFix.OnNavigationReselectedListener*/ {
+class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
     private val viewModel: MainViewModel by viewModels()
@@ -53,6 +53,7 @@ class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphC
             } else if ((navController.currentDestination as FragmentNavigator.Destination).className == MyTripsFragment::class.qualifiedName) {
                 navController.navigate(R.id.action_nav_menu_my_trips_to_nav_menu_search)
             }
+            uncheckAllButMe(navSearch)
         }
 
         navMyTrips.setOnClickListener {
@@ -61,6 +62,7 @@ class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphC
             } else if ((navController.currentDestination as FragmentNavigator.Destination).className == ProfileFragment::class.qualifiedName) {
                 navController.navigate(R.id.action_nav_menu_profile_to_nav_menu_my_trips)
             }
+            uncheckAllButMe(navMyTrips)
         }
         navProfile.setOnClickListener {
             if ((navController.currentDestination as FragmentNavigator.Destination).className == SearchTripFragment::class.qualifiedName) {
@@ -68,7 +70,19 @@ class MainActivity : BaseActivity()/*, BottomNavControllerFix.OnNavigationGraphC
             } else if ((navController.currentDestination as FragmentNavigator.Destination).className == MyTripsFragment::class.qualifiedName) {
                 navController.navigate(R.id.action_nav_menu_my_trips_to_nav_menu_profile)
             }
+            uncheckAllButMe(navProfile)
         }
+        navNotifications.setOnClickListener {
+            uncheckAllButMe(navNotifications)
+        }
+    }
+
+    private fun uncheckAllButMe(target: CheckedTextView?) {
+        navSearch?.isChecked = false
+        navMyTrips?.isChecked = false
+        navProfile?.isChecked = false
+        navNotifications?.isChecked = false
+        target?.isChecked = true
     }
 
     @ExperimentalSplittiesApi

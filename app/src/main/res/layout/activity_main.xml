@@ -105,74 +105,83 @@
             android:gravity="center_vertical">
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <CheckedTextView
                 android:id="@+id/navSearch"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:drawableTop="@drawable/baseline_search_white_24dp"
                 android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:paddingVertical="5dp"
+                android:checked="true"
                 android:text="@string/search"
-                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_bottom_nav_item"
                 android:textSize="12dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:drawableTint="@drawable/selector_bottom_nav_item" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <CheckedTextView
                 android:id="@+id/navMyTrips"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="30dp"
                 android:layout_weight="1"
-                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:drawableTop="@drawable/baseline_directions_car_white_24dp"
                 android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:paddingVertical="5dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:text="@string/my_trips"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_bottom_nav_item"
+                android:textSize="12dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:drawableTint="@drawable/selector_bottom_nav_item" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <CheckedTextView
                 android:id="@+id/navNotifications"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
                 android:layout_weight="1"
-                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:drawableTop="@drawable/ic_baseline_notifications_none_24"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:paddingVertical="5dp"
                 android:text="@string/title_notifications"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_bottom_nav_item"
+                android:textSize="12dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:drawableTint="@drawable/selector_bottom_nav_item" />
 
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <CheckedTextView
                 android:id="@+id/navProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:layout_weight="1"
-                android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:drawableTop="@drawable/baseline_person_outline_white_24dp"
                 android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
                 android:gravity="center"
                 android:paddingVertical="5dp"
                 android:text="@string/title_profile"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textAlignment="center"
+                android:textColor="@drawable/selector_bottom_nav_item"
+                android:textSize="12dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:drawableTint="@drawable/selector_bottom_nav_item" />
 
 
         </LinearLayout>

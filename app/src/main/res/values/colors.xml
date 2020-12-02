@@ -24,6 +24,7 @@
 
     <color name="orangeOpacityEighty">#CCFFA000</color>
     <color name="orangeOpacityTwenty">#33FFA000</color>
+    <color name="colorNavIdle">#b3e5fc</color>
 
 
 </resources>

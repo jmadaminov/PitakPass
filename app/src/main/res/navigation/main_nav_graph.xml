@@ -22,7 +22,6 @@
             app:popUpToInclusive="true"
             app:destination="@id/nav_menu_search" />
 
-
     </fragment>
 
     <fragment
@@ -30,7 +29,6 @@
         android:name="com.badcompany.pitakpass.ui.main.mytrips.MyTripsFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_my_trips" >
-
 
         <action
             android:id="@+id/action_nav_menu_my_trips_to_nav_menu_profile"
