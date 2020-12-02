@@ -5,10 +5,12 @@ import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
+import com.badcompany.pitakpass.util.loadCircleImageUrl
+import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj.Companion.mapFromDriverPostModel
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import kotlinx.android.synthetic.main.item_passenger_post.view.*
+import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
 
 class DriverPostItem(val post: DriverPost) :
@@ -34,8 +36,28 @@ class DriverPostItem(val post: DriverPost) :
                 }
             }
 
+            post.car?.image?.link?.let {
+                ivCarPhoto.loadImageUrl(it)
+            }
+
+            post.profileDTO?.image?.let {
+                ivDriver.loadCircleImageUrl(it)
+            }
+
+            post.car?.let {
+                tvCarInfo.text = it.carModel?.name + "\n"
+                it.carYear.toString() + "\n"
+                it.carColor?.name + "\n"
+                it.carNumber + "\n"
+                it.fuelType
+            }
+
+            post.profileDTO?.let {
+                tvDriverName.text = it.name + " " + it.surname
+            }
+
         }
     }
 
-    override fun getLayout() = R.layout.item_passenger_post
+    override fun getLayout() = R.layout.item_driver_post
 }

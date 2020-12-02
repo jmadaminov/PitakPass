@@ -22,13 +22,7 @@ val <T> LiveData<T>.valueNN
 
 
 fun ImageView.loadImageUrl(url: String) {
-    val circularProgressDrawable = CircularProgressDrawable(this.context)
-    circularProgressDrawable.strokeWidth = 5f
-    circularProgressDrawable.centerRadius = 30f
-    circularProgressDrawable.start()
-
-    Glide.with(this.context).load(url).placeholder(circularProgressDrawable)
-        .apply(RequestOptions().centerInside()).into(this)
+    Glide.with(this.context).load(url).into(this)
 }
 
 fun ImageView.loadCircleImageUrl(url: String) {

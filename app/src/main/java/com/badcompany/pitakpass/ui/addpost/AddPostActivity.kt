@@ -71,7 +71,7 @@ class AddPostActivity : BaseActivity() {
                                        Image(2L,
                                              "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng"),
                                        Constants.FUEL_TYPE_METHANE,
-                                       CarColor(3L, "#eb4034", "RED", "qizil", "KRASNIY"),
+                                       CarColor(3L, "#eb4034", "RED"),
                                        "01XU239A", 2013, true, true, listOf(Image(2L,
                                                                                   "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng")
                 ))
