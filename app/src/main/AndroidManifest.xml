@@ -21,11 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
+        <activity android:name=".ui.edit_profile.EditProfileActivity"></activity>
         <activity
             android:name=".ui.feedback.FeedbackActivity"
             android:label="@string/feedback"
-            android:theme="@style/AppTheme"></activity>
-        <!-- <activity -->
+            android:theme="@style/AppTheme" /> <!-- <activity -->
         <!-- android:name=".ui.addcar.AddCarActivity" -->
         <!-- android:label="@string/title_add_car" -->
         <!-- android:screenOrientation="portrait" -->
@@ -45,12 +45,10 @@
             android:label="@string/title_login"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
-
         <activity
             android:name=".ui.passenger_post.PassengerPostActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".ui.driver_post.DriverPostActivity"
             android:screenOrientation="portrait"

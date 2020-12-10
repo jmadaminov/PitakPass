@@ -54,7 +54,7 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
 
     lateinit var postOffers: LiveData<PagingData<OfferDTO>>
     fun getOffersForPost(id: Long) {
-        postOffers = postOffersRepository.getOffersForPost(id)
+        postOffers = postOffersRepository.getOffersForPost(id).cachedIn(viewModelScope)
     }
 
     val deletePostReponse = SingleLiveEvent<ResultWrapper<Unit>>()
