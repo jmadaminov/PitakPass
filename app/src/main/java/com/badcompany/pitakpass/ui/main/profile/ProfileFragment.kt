@@ -74,7 +74,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
         signOut.setOnClickListener {
             val dialog = DialogSignOut()
             dialog.setTargetFragment(this, 88)
-            dialog.show(childFragmentManager, "")
+            dialog.show(parentFragmentManager, "")
         }
 
     }
