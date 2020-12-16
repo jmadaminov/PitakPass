@@ -8,10 +8,12 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.badcompany.pitakpass.util.exhaustive
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 
 
 /**
@@ -20,6 +22,23 @@ import com.bumptech.glide.request.RequestOptions
 val <T> LiveData<T>.valueNN
     get() = this.value!!
 
+
+fun CoroutineScope.launchPeriodicAsync(
+    repeatMillis: Long,
+    maxMillis: Long,
+    action: (Long) -> Unit
+) = this.async {
+    if (repeatMillis > 0 && maxMillis > 0 && repeatMillis < maxMillis) {
+        var tempMillis = 0L
+        while (repeatMillis < maxMillis) {
+            action(maxMillis - tempMillis)
+            delay(repeatMillis)
+            tempMillis += repeatMillis
+        }
+    } else {
+        action(0)
+    }
+}
 
 fun ImageView.loadImageUrl(url: String) {
     Glide.with(this.context).load(url).into(this)
@@ -52,11 +71,10 @@ fun ContentResolver.getFileName(fileUri: Uri): String {
 }
 
 
-
 val <T> T.exhaustive: T
     get() = this
 
-fun String.numericOnly() : String {
+fun String.numericOnly(): String {
     return Regex("[^0-9]").replace(this, "")
 }
 ///**

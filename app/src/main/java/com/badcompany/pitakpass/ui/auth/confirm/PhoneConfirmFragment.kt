@@ -15,6 +15,7 @@ import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_phone_confirm.*
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.preferences.edit
@@ -23,9 +24,9 @@ import javax.inject.Inject
 
 //@FlowPreview
 //@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
 @AndroidEntryPoint
-class PhoneConfirmFragment @Inject constructor() :
-    Fragment(R.layout.fragment_phone_confirm) {
+class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_phone_confirm) {
 
     private val viewModel: PhoneConfirmViewModel by viewModels()
 
@@ -34,27 +35,34 @@ class PhoneConfirmFragment @Inject constructor() :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.cancelActiveJobs()
+        viewModel.startTimer()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
+        setupViews()
+        attachListeners()
+        subscribeObserver()
+    }
 
-
+    private fun setupViews() {
         navController = findNavController()
         confirm.isEnabled = true
-
         code.setText(args.password)
+    }
+
+    private fun attachListeners() {
 
         confirm.setOnClickListener {
             viewModel.confirm(args.phone, code.text.toString())
         }
 
+        tvRequestCodeAgain.setOnClickListener {
+            viewModel.requestCodeAgain(args.phone)
+        }
     }
 
-    @ExperimentalSplittiesApi
-    private fun setupObservers() {
+    private fun subscribeObserver() {
         viewModel.confirmResponse.observe(viewLifecycleOwner, Observer {
             val response = it ?: return@Observer
 
@@ -63,8 +71,6 @@ class PhoneConfirmFragment @Inject constructor() :
                     confirm.revertAnimation()
                     if (response.code == Constants.errPhoneFormat) {
                         code.error = getString(R.string.incorrect_phone_number_format)
-//                        errorMessage.visibility = View.VISIBLE
-//                        errorMessage.text = response.message
                     } else {
                         errorMessage.visibility = View.VISIBLE
                         errorMessage.text = response.message
@@ -87,6 +93,33 @@ class PhoneConfirmFragment @Inject constructor() :
             }.exhaustive
 
         })
+
+
+        viewModel.requestSmsCountDown.observe(viewLifecycleOwner) { timeLeft ->
+
+            if (timeLeft > 0) {
+                tvRequestCodeAgain.isClickable = false
+                tvRequestCodeAgain.text =
+                    getString(R.string.request_sms_again_in, timeLeft.toString())
+            } else {
+                tvRequestCodeAgain.isClickable = true
+                tvRequestCodeAgain.text = getString(R.string.request_sms_again)
+            }
+
+        }
+
+        viewModel.respRegainCode.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResponseError -> {
+                    tvRequestCodeAgain.isClickable = true
+                    tvRequestCodeAgain.text = getString(R.string.request_sms_again)
+                }
+                is ResponseSuccess -> {
+                    tvRequestCodeAgain.isClickable = false
+                    viewModel.startTimer()
+                }
+            }.exhaustive
+        }
     }
 
     @ExperimentalSplittiesApi

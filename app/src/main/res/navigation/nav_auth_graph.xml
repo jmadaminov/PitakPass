@@ -13,21 +13,23 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_navLoginFragment_to_navRegisterFragment"
-            app:destination="@id/navRegisterFragment" >
+            app:destination="@id/navRegisterFragment">
             <argument
                 android:name="phone"
-                app:argType="string"/>
+                app:argType="string" />
         </action>
         <action
             android:id="@+id/action_navLoginFragment_to_navPhoneConfirmFragment"
-            app:destination="@id/navPhoneConfirmFragment" >
+            app:destination="@id/navPhoneConfirmFragment">
             <argument
                 android:name="password"
-                app:argType="string"/>
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
 
             <argument
                 android:name="phone"
-                app:argType="string"/>
+                app:argType="string" />
         </action>
     </fragment>
 
@@ -38,13 +40,13 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_navRegisterFragment_to_navPhoneConfirmFragment"
-            app:destination="@id/navPhoneConfirmFragment" >
+            app:destination="@id/navPhoneConfirmFragment">
 
 
         </action>
         <argument
             android:name="phone"
-            app:argType="string"/>
+            app:argType="string" />
 
     </fragment>
 
@@ -53,13 +55,16 @@
         android:name="com.badcompany.pitakpass.ui.auth.confirm.PhoneConfirmFragment"
         android:label="@string/phone_confirmation"
         tools:layout="@layout/fragment_phone_confirm">
+
         <argument
             android:name="password"
-            app:argType="string"/>
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string" />
 
         <argument
             android:name="phone"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 
 </navigation>

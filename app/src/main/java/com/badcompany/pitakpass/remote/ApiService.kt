@@ -1,14 +1,13 @@
 package com.badcompany.pitakpass.remote
 
-import com.badcompany.pitakpass.domain.model.FeedbackBody
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.remote.model.AuthResponse
 import com.badcompany.pitakpass.remote.model.AuthSuccessResponse
 import com.badcompany.pitakpass.remote.model.LoginRequest
 import com.badcompany.pitakpass.remote.model.PhotoUploadResponse
+import com.badcompany.pitakpass.util.RespFormatter
 import okhttp3.MultipartBody
-import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -19,7 +18,7 @@ interface ApiService {
     //AUTH API
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/auth")
-    suspend fun userLogin(@Body loginReq: LoginRequest): AuthResponse
+    suspend fun userLogin(@Body loginReq: LoginRequest): RespFormatter<UserCredentials>
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
@@ -30,7 +29,6 @@ interface ApiService {
     @POST("prof/mb/confirm")
     suspend fun smsConfirm(@Body user: UserCredentials): AuthSuccessResponse
     //END AUTH API
-
 
 
     //FILE UPLOAD API

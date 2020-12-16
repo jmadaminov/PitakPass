@@ -14,7 +14,7 @@ import com.badcompany.pitakpass.util.ResponseWrapper
  */
 interface UserDataStore {
 
-    suspend fun userLogin(phoneNum: String): ResultWrapper<String>
+    suspend fun userLogin(phoneNum: String): ResponseWrapper<UserCredentials?>
     suspend fun userRegister(user: User): ResultWrapper<String>
     suspend fun confirmSms(userCredentials: UserCredentials): ResultWrapper<AuthBody>
     suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>

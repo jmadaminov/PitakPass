@@ -9,7 +9,7 @@ import com.badcompany.pitakpass.util.ResponseWrapper
 
 interface UserRepository {
 
-    suspend fun loginUser(phoneNum: String): ResultWrapper<String>
+    suspend fun loginUser(phoneNum: String): ResponseWrapper<UserCredentials?>
     suspend fun registerUser(user: User): ResultWrapper<String>
     suspend fun smsConfirm(userCredentials: UserCredentials): ResultWrapper<AuthBody>
     suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>

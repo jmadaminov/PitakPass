@@ -31,15 +31,9 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
 //                }
 //    }
 
-    override suspend fun loginUser(phoneNum: String): ResultWrapper<String> {
-        return try {
-            val response = apiService.userLogin(LoginRequest(phoneNum))
-            if (response.code == 1) ResultWrapper.Success(response.data!!.password!!)
-            else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
+    override suspend fun loginUser(phoneNum: String): ResponseWrapper<UserCredentials?> =
+        getFormattedResponseNullable { apiService.userLogin(LoginRequest(phoneNum)) }
+
 
     override suspend fun registerUser(user: User): ResultWrapper<String> {
         return try {

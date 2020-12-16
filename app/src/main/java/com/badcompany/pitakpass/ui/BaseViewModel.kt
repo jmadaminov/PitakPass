@@ -15,7 +15,6 @@ abstract class BaseViewModel : ViewModel() {
 
 
     fun cancelActiveJobs() {
-//        TODO("Not yet implemented")
     }
 
     val TAG: String = "AppDebug"
