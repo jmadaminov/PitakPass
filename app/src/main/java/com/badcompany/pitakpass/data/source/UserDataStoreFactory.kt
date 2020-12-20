@@ -6,10 +6,7 @@ import javax.inject.Inject
 /**
  * Create an instance of a BufferooDataStore
  */
-open class UserDataStoreFactory @Inject constructor(
-//        private val userCache: BufferooCache,
-//        private val userCacheDataStore: BufferooCacheDataStore,
-        private val userRemoteDataStore: UserRemoteDataStore) {
+open class UserDataStoreFactory @Inject constructor(private val userRemoteDataStore: UserRemoteDataStore) {
 
     /**
      * Returns a DataStore based on whether or not there is content in the cache and the cache

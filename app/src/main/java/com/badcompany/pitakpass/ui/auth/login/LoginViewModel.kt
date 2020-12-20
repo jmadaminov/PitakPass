@@ -7,6 +7,7 @@ import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.domain.usecases.LogUserIn
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.ResponseWrapper
+import com.badcompany.pitakpass.util.SingleLiveEvent
 import com.badcompany.pitakpass.util.numericOnly
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -17,8 +18,8 @@ import kotlinx.coroutines.withContext
 class LoginViewModel @ViewModelInject constructor(private val logUserIn: LogUserIn) :
     BaseViewModel() {
 
-    val loginResponse = MutableLiveData<ResponseWrapper<UserCredentials?>>()
-    val isLoading = MutableLiveData<Boolean>()
+    val loginResponse = SingleLiveEvent<ResponseWrapper<UserCredentials?>>()
+    val isLoading = SingleLiveEvent<Boolean>()
 
     var phoneNum = ""
 

@@ -38,36 +38,6 @@ class RegisterFragment @Inject constructor() :
         setupObservers()
         phone.setMaskedText(args.phone.numericOnly().substring(3, args.phone.numericOnly().length))
 
-//        username.afterTextChanged {
-//            viewModel.loginDataChanged(
-//                username.text.toString(),
-//                password.text.toString()
-//            )
-//        }
-
-//        password.apply {
-//            afterTextChanged {
-//                viewModel.loginDataChanged(
-//                    username.text.toString(),
-//                    password.text.toString()
-//                )
-//            }
-//
-//            setOnEditorActionListener { _, actionId, _ ->
-//                when (actionId) {
-//                    EditorInfo.IME_ACTION_DONE ->
-//                        viewModel.register(User(
-//                            phone.text.toString(),
-//                            name.text.toString(),
-//                            surname.text.toString(),
-//                            username.text.toString(),
-//                            password.text.toString(),
-//                            false)
-//                        )
-//                }
-//                false
-//            }
-//        }
         register.isEnabled = true
 
         navController = findNavController()
@@ -77,25 +47,17 @@ class RegisterFragment @Inject constructor() :
                                     name.text.toString(),
                                     surname.text.toString(),
                                     App.uuid))
-//            navController.navigate(R.id.action_navRegisterFragment_to_navPhoneConfirmFragment)
         }
 
-//        register.setOnClickListener {
-//            register.startAnimation()
-//            viewModel.register(User(
-//                phone.text.toString(),
-//                name.text.toString(),
-//                surname.text.toString(),/*
-//                    username.text.toString(),
-//                    password.text.toString(),*/
-//                false)
-//            )
-//        }
+        ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as AuthActivity).showActionBar()
     }
 
     private fun setupObservers() {

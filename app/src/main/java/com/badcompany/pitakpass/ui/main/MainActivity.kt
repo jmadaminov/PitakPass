@@ -88,6 +88,7 @@ class MainActivity : BaseActivity() {
     @ExperimentalSplittiesApi
     private fun checkUserLogin() {
         if (AppPrefs.token.isBlank()) {
+            finish()
             start<AuthActivity> { }
         }
     }

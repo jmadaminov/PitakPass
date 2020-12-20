@@ -20,8 +20,7 @@ class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreF
         factory.retrieveDataStore(false).userRegister(user)
 
     override suspend fun smsConfirm(userCredentials: UserCredentials) =
-        factory.retrieveDataStore(false)
-            .confirmSms(userCredentials)
+        factory.retrieveDataStore(false).confirmSms(userCredentials)
 
     override suspend fun sendFeedback(feedback: String) = factory.retrieveDataStore(false)
         .sendFeedback(feedback)

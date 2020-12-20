@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -54,14 +53,12 @@ class LoginFragment @Inject constructor() :
 
     override fun onResume() {
         super.onResume()
-        (activity as AuthActivity).hideActionBar()
     }
 
     private fun subscribeObservers() {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-
-            if (isLoading) {
+            if (isLoading ?: return@observe) {
                 errorMessage.visibility = View.INVISIBLE
                 login.startAnimation()
             } else {

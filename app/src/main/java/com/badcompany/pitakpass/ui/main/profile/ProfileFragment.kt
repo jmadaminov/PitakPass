@@ -83,10 +83,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
     @ExperimentalSplittiesApi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == CODE_ADD_CAR && resultCode == RESULT_OK) {
-//            Log.d("ON ACTIVITY RESULT   ", "  $resultCode")
-//            viewModel.getCarList(AppPreferences.token)
-//        }
+
     }
 
     override fun onSignOut() {

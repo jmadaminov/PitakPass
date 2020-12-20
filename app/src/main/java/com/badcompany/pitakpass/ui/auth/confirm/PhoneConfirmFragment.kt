@@ -60,6 +60,9 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
         tvRequestCodeAgain.setOnClickListener {
             viewModel.requestCodeAgain(args.phone)
         }
+        ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun subscribeObserver() {
@@ -135,7 +138,6 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
 
     override fun onResume() {
         super.onResume()
-        (activity as AuthActivity).showActionBar()
     }
 
 
