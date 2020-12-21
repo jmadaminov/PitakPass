@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.data.source.UserDataStoreFactory
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.domain.repository.UserRepository
+import com.badcompany.pitakpass.util.ResponseWrapper
 import javax.inject.Inject
 
 /**
@@ -25,4 +26,8 @@ class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreF
     override suspend fun sendFeedback(feedback: String) = factory.retrieveDataStore(false)
         .sendFeedback(feedback)
 
+    override suspend fun updateUserInfo(name: String,
+                                        surName: String,
+                                        uploadedAvatarId: Long?) = factory.retrieveDataStore(false)
+        .updateUserInfo(name, surName, uploadedAvatarId)
 }

@@ -1,7 +1,6 @@
 package com.badcompany.pitakpass.domain.repository
 
 import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.domain.model.Car
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.domain.model.AuthBody
@@ -13,5 +12,6 @@ interface UserRepository {
     suspend fun registerUser(user: User): ResultWrapper<String>
     suspend fun smsConfirm(userCredentials: UserCredentials): ResultWrapper<AuthBody>
     suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>
+    suspend fun updateUserInfo(name: String, surName: String, uploadedAvatarId: Long?): ResponseWrapper<Any?>
 
 }

@@ -44,7 +44,6 @@
         app:notMaskedSymbol="*" />
 
 
-
     <EditText
         android:id="@+id/name"
         android:layout_width="0dp"
@@ -141,12 +140,14 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/button_shape_default_rounded"
-        app:spinning_bar_color="#fff"
         android:enabled="false"
+        android:textSize="18dp"
         android:text="@string/register"
+        android:textAllCaps="false"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/errorMessage" />
+        app:layout_constraintTop_toBottomOf="@id/errorMessage"
+        app:spinning_bar_color="#fff" />
 
 </androidx.constraintlayout.widget.ConstraintLayout><!--</ScrollView>-->

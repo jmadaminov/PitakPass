@@ -1,11 +1,9 @@
 package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.data.repository.UserRemote
-import com.badcompany.pitakpass.domain.model.AuthBody
-import com.badcompany.pitakpass.domain.model.FeedbackBody
-import com.badcompany.pitakpass.domain.model.User
-import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.LoginRequest
+import com.badcompany.pitakpass.remote.model.ReqUpdateProfileInfo
 import com.badcompany.pitakpass.util.*
 import javax.inject.Inject
 
@@ -18,18 +16,6 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
                                          private val authorizedApiService: AuthorizedApiService) :
     UserRemote {
 
-//    /**
-//     * Retrieve a list of [Bufferoo] instances from the [BufferooService].
-//     */
-//    override fun getBufferoos(): Flowable<List<User>> {
-//        return bufferooService.getBufferoos()
-//                .map { it.team }
-//                .map {
-//                    val entities = mutableListOf<User>()
-//                    it.forEach { entities.add(entityMapper.mapFromRemote(it)) }
-//                    entities
-//                }
-//    }
 
     override suspend fun loginUser(phoneNum: String) =
         getFormattedResponseNullable { apiService.userLogin(LoginRequest(phoneNum)) }
@@ -58,5 +44,16 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
 
     override suspend fun sendFeedback(feedback: String) =
         getFormattedResponseNullable { authorizedApiService.sendFeedback(FeedbackBody(feedback)) }
+
+    override suspend fun updateUserInfo(name: String,
+                                        surName: String,
+                                        uploadedAvatarId: Long?) =
+        getFormattedResponseNullable {
+            authorizedApiService.updateUserInfo(ReqUpdateProfileInfo(name,
+                                                                     surName,
+                                                                     uploadedAvatarId?.let {
+                                                                         IdName(uploadedAvatarId)
+                                                                     }))
+        }
 
 }

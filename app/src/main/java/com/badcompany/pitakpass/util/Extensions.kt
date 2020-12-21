@@ -2,7 +2,10 @@ package com.badcompany.pitakpass.util
 
 import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -48,9 +51,29 @@ fun ImageView.loadCircleImageUrl(url: String) {
     Glide.with(this.context).load(url).apply(RequestOptions().circleCrop()).into(this)
 }
 
+fun ImageView.loadBitmap(bitmap: Bitmap) {
+    Glide.with(this.context).load(bitmap).into(this)
+}
 fun View.hideKeyboard() {
     val imm = this.context!!.getSystemService(Context.INPUT_METHOD_SERVICE)!! as InputMethodManager
     imm.hideSoftInputFromWindow(this.windowToken, 0)
+}
+
+
+
+fun Uri.getRealPathFromURI(context: Context): String? {
+    var result = this.path
+    val cursor: Cursor? =
+        context.contentResolver.query(this, null, null, null, null)
+    if (cursor == null) { // Source is Dropbox or other similar local file path
+        result = this.path
+    } else {
+        if (cursor.moveToFirst()) {
+            result = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA))
+        }
+        cursor.close()
+    }
+    return result
 }
 
 fun View.showKeyboard() {

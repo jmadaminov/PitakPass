@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.data.repository.UserDataStore
 import com.badcompany.pitakpass.data.repository.UserRemote
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
+import com.badcompany.pitakpass.util.ResponseWrapper
 import javax.inject.Inject
 
 /**
@@ -21,5 +22,8 @@ open class UserRemoteDataStore @Inject constructor(private val userRemote: UserR
         userRemote.confirmUser(userCredentials)
 
     override suspend fun sendFeedback(feedback: String) = userRemote.sendFeedback(feedback)
+    override suspend fun updateUserInfo(name: String,
+                                        surName: String,
+                                        uploadedAvatarId: Long?) = userRemote.updateUserInfo(name, surName, uploadedAvatarId)
 
 }

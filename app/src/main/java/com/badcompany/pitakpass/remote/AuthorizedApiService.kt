@@ -128,5 +128,11 @@ interface AuthorizedApiService {
     @POST("offer/passenger/action")
     suspend fun joinARide(@Body myOfferBody: PassengerOffer): RespFormatter<Any>
 
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @PUT("prof/action/detail/mb")
+    suspend fun updateUserInfo(@Body reqUpdateProfileInfo: ReqUpdateProfileInfo): RespFormatter<UserCredentials>
+
+
 }
 
