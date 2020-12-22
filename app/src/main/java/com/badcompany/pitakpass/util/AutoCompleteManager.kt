@@ -25,7 +25,6 @@ import splitties.experimental.ExperimentalSplittiesApi
     lateinit var fromFeedCallback: AutocompleteCallback<PlaceFeedItemView>
     var context: Context? = null
 
-    //    var targetViewModel: ViewModel? = null
     var from: EditText? = null
     var to: EditText? = null
     var onPopUpItemClicked: (isFrom: Boolean,
@@ -35,7 +34,6 @@ import splitties.experimental.ExperimentalSplittiesApi
 
     init {
         context = builder.context
-//        targetViewModel = builder.targetViewModel
         from = builder.from
         to = builder.to
         onPopUpItemClicked = builder.onPopUpItemClicked
@@ -44,7 +42,6 @@ import splitties.experimental.ExperimentalSplittiesApi
 
         setupFromInputAutocomplete()
         setupToInputAutocomplete()
-
         setupListeners()
     }
 
@@ -170,6 +167,13 @@ import splitties.experimental.ExperimentalSplittiesApi
             }
             false
         }
+    }
+
+    fun dispose() {
+        fromPresenter.dispose()
+        toPresenter.dispose()
+        from = null
+        to = null
     }
 
 //    @ExperimentalSplittiesApi

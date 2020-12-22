@@ -20,7 +20,9 @@ interface AuthorizedApiService {
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("driver_post/action/filter")
     suspend fun filterDriverPost(@Body filter: Filter,
-                                 @Header("Accept-Language") lang: String = AppPrefs.language): DriverPostsResponse
+                                 @Query("page") page: Int = 0,
+                                 @Query("size") size: Int = 10,
+                                 @Header("Accept-Language") lang: String = AppPrefs.language):RespFormatter< DriverPostsPagination>
 
 
 

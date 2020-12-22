@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:slidingLayer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    app:layoutDescription="@xml/fragment_search_trip_scene">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
@@ -99,7 +100,7 @@
                     android:foreground="?android:selectableItemBackground"
                     android:padding="15dp"
                     android:src="@drawable/ic_sort"
-                    android:tint="@color/colorPrimary"
+                    app:tint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/filterBtn"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -114,7 +115,7 @@
                     android:foreground="?android:selectableItemBackground"
                     android:padding="15dp"
                     android:src="@drawable/ic_filter"
-                    android:tint="@color/colorPrimary"
+                    app:tint="@color/colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -145,9 +146,11 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/passengerPosts"
+                    android:id="@+id/rvPosts"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_driver_post" />
 
                 <TextView
                     android:id="@+id/infoText"
@@ -160,6 +163,44 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tv_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/system_error"
+                    android:textSize="16dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/btn_retry"
+                   />
+
+
+                <Button
+                    android:id="@+id/btn_retry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/selector_neutral_border"
+                    android:orientation="vertical"
+                    android:text="@string/retry"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -171,13 +212,13 @@
 
     <com.wunderlist.slidinglayer.SlidingLayer
         android:id="@+id/slidingLayer"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="3dp"
         android:paddingStart="80dp"
         slidingLayer:changeStateOnTap="true"
-        slidingLayer:stickTo="right">
+        slidingLayer:stickTo="right"
+        tools:visibility="visible">
 
         <!--        slidingLayer:shadowSize="40dp"-->
         <!--        slidingLayer:shadowDrawable="@drawable/sidebar_shadow"-->
@@ -337,4 +378,4 @@
         </androidx.cardview.widget.CardView>
     </com.wunderlist.slidinglayer.SlidingLayer>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

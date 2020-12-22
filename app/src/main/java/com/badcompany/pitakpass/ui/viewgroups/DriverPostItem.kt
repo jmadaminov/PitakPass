@@ -40,7 +40,7 @@ class DriverPostItem(val post: DriverPost) :
                 ivCarPhoto.loadImageUrl(it)
             }
 
-            post.profileDTO?.image?.let {
+            post.profileDTO?.image?.link?.let {
                 ivDriver.loadCircleImageUrl(it)
             }
 

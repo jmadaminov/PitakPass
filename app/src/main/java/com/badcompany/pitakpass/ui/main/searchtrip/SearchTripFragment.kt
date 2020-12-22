@@ -5,25 +5,20 @@ import android.text.format.DateFormat
 import android.view.View
 import android.widget.CalendarView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.paging.LoadState
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.MAX_PRICE
 import com.badcompany.pitakpass.domain.model.MIN_PRICE
 import com.badcompany.pitakpass.ui.main.MainActivity
-import com.badcompany.pitakpass.ui.viewgroups.DriverPostItem
-import com.badcompany.pitakpass.ui.viewgroups.LoadingItemSmall
 import com.badcompany.pitakpass.ui.viewgroups.PlaceFeedItemView
 import com.badcompany.pitakpass.util.*
-import com.google.android.material.snackbar.Snackbar
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search_trip.*
 import splitties.experimental.ExperimentalSplittiesApi
@@ -34,10 +29,12 @@ import java.util.*
 class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
     private lateinit var balloon: Balloon
-    private val adapter = GroupAdapter<GroupieViewHolder>()
+
+    //    private val adapter = GroupAdapter<GroupieViewHolder>()
     private val viewModel: SearchTripViewModel by viewModels()
 
     lateinit var autoCompleteManager: AutoCompleteManager
+    var postsAdapter = PostFilterAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +43,8 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         setupAutoCompleteViews()
         setupListeners()
         setupViews()
+        viewModel.getPassengerPost()
+
         subscribeObservers()
         setupDateBalloon()
     }
@@ -212,10 +211,10 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
             when (response) {
                 is ErrorWrapper.ResponseError -> {
-                    adapter.clear()
+//                    adapter.clear()
                 }
                 is ErrorWrapper.SystemError -> {
-                    adapter.clear()
+//                    adapter.clear()
                 }
                 is ResultWrapper.Success -> {
                     autoCompleteManager.fromPresenter.getAdr()!!.clear()
@@ -259,64 +258,69 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
         })
 
-        viewModel.passengerPostsReponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    adapter.clear()
-                    Snackbar.make(nestedScroll,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
-
-                }
-                is ErrorWrapper.SystemError -> {
-                    adapter.clear()
-                    Snackbar.make(nestedScroll,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
-                }
-                is ResultWrapper.Success -> {
-                    loadData(response.value)
-                }
-                ResultWrapper.InProgress -> {
-                    addLoading()
-                }
-            }.exhaustive
+        viewModel.postOffers.observe(viewLifecycleOwner, {
+            val value = it ?: return@observe
+            postsAdapter.submitData(lifecycle, value)
+            rvPosts.requestLayout()
         })
 
     }
 
     private fun setupViews() {
+        rvPosts.adapter = postsAdapter.withLoadStateHeaderAndFooter(
+            header = PostLoadStateAdapter { postsAdapter.retry() },
+            footer = PostLoadStateAdapter { postsAdapter.retry() }
+        )
+
+        postsAdapter.addLoadStateListener { loadState ->
+            progress.isVisible = loadState.source.refresh is LoadState.Loading
+            rvPosts.isVisible = loadState.source.refresh is LoadState.NotLoading
+            tv_error.isVisible = loadState.source.refresh is LoadState.Error
+            if (loadState.source.refresh is LoadState.Error) {
+                tv_error.text = (loadState.source.refresh as LoadState.Error).error.localizedMessage
+            }
+            btn_retry.isVisible = loadState.source.refresh is LoadState.Error
+
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && postsAdapter.itemCount < 1) {
+                rvPosts.isVisible = false
+                tv_error.isVisible = true
+                tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
+            } else if (loadState.source.refresh !is LoadState.Error) {
+                tv_error.isVisible = false
+            }
+        }
         lblPriceRange.text =
             getString(R.string.price_range) + " " + range_slider.getThumb(0).value + " - " + range_slider.getThumb(
                 1).value
-        passengerPosts.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        passengerPosts.setHasFixedSize(true)
-        passengerPosts.adapter = adapter
     }
 
-    private fun addLoading() {
-        adapter.clear()
-        adapter.add(LoadingItemSmall())
-        adapter.notifyDataSetChanged()
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        autoCompleteManager.dispose()
     }
 
-    private fun loadData(value: List<DriverPost>) {
-        adapter.clear()
-
-        if (value.isEmpty()) {
-            infoText.visibility = View.VISIBLE
-            infoText.text = getString(R.string.no_posts_found)
-        } else {
-            infoText.visibility = View.INVISIBLE
-            value.forEach {
-                adapter.add(DriverPostItem(it))
-            }
-        }
-        adapter.notifyDataSetChanged()
-    }
+    //    private fun addLoading() {
+//        adapter.clear()
+//        adapter.add(LoadingItemSmall())
+//        adapter.notifyDataSetChanged()
+//    }
+//
+//    private fun loadData(value: List<DriverPost>) {
+//        adapter.clear()
+//
+//        if (value.isEmpty()) {
+//            infoText.visibility = View.VISIBLE
+//            infoText.text = getString(R.string.no_posts_found)
+//        } else {
+//            infoText.visibility = View.INVISIBLE
+//            value.forEach {
+//                adapter.add(DriverPostItem(it))
+//            }
+//        }
+//        adapter.notifyDataSetChanged()
+//    }
 
 
 }

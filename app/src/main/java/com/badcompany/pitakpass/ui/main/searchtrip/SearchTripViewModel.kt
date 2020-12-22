@@ -4,39 +4,52 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.badcompany.pitakpass.data.repository.PostFilterRepository
 import com.badcompany.pitakpass.domain.model.*
-import com.badcompany.pitakpass.domain.usecases.GetDriverPostWithFilter
+//import com.badcompany.pitakpass.domain.usecases.GetDriverPostWithFilter
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import com.badcompany.pitakpass.util.valueNN
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class SearchTripViewModel @ViewModelInject constructor(val getDriverPostWithFilter: GetDriverPostWithFilter,
+class SearchTripViewModel @ViewModelInject constructor(/*val getDriverPostWithFilter: GetDriverPostWithFilter,*/
+                                                       val filterPostFilterRepository: PostFilterRepository,
                                                        private val getPlacesFeed: GetPlacesFeed) :
     BaseViewModel() {
 
 
-    val passengerPostsReponse = SingleLiveEvent<ResultWrapper<List<DriverPost>>>()
-    var currentPage = 0
+    //    val passengerPostsReponse = SingleLiveEvent<ResultWrapper<List<DriverPost>>>()
+//    var currentPage = 0
     private val _filter = MutableLiveData(Filter())
     val filter: LiveData<Filter> get() = _filter
     private val _count = MutableLiveData<Int>()
     val count: LiveData<Int> get() = _count
 
-    @ExperimentalSplittiesApi
+//    @ExperimentalSplittiesApi
+//    fun getPassengerPost() {
+//        passengerPostsReponse.value = ResultWrapper.InProgress
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val response = getDriverPostWithFilter.execute(_filter.valueNN)
+//            withContext(Dispatchers.Main) {
+//                passengerPostsReponse.value = response
+//            }
+//        }
+//    }
+
+    lateinit var postOffers: LiveData<PagingData<DriverPost>>
     fun getPassengerPost() {
-        passengerPostsReponse.value = ResultWrapper.InProgress
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = getDriverPostWithFilter.execute(_filter.valueNN)
-            withContext(Dispatchers.Main) {
-                passengerPostsReponse.value = response
-            }
-        }
+        postOffers =
+            filterPostFilterRepository.getFilteredPosts(_filter.valueNN)
     }
+
 
     private var fromFeedJob: Job? = null
     private var toFeedJob: Job? = null

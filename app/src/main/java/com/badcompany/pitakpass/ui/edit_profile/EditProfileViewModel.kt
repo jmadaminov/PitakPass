@@ -22,14 +22,14 @@ class EditProfileViewModel @ViewModelInject constructor(private val userReposito
     ViewModel() {
 
 
-    var _isUpdating = MutableLiveData<Boolean>()
+    private  var _isUpdating = MutableLiveData<Boolean>()
     val isUpdating: LiveData<Boolean> get() = _isUpdating
 
 
-    var _errorMessage = MutableLiveData<String>()
+    private   var _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-    var _updateSuccess = MutableLiveData<Boolean>()
+    private  var _updateSuccess = MutableLiveData<Boolean>()
     val updateSuccess: LiveData<Boolean> get() = _updateSuccess
 
 
@@ -61,7 +61,7 @@ class EditProfileViewModel @ViewModelInject constructor(private val userReposito
         }
     }
 
-    var _uploadPhotoResp = MutableLiveData<ResultWrapper<PhotoBody>>()
+   private var _uploadPhotoResp = MutableLiveData<ResultWrapper<PhotoBody>>()
     val uploadPhotoResp: LiveData<ResultWrapper<PhotoBody>> get() = _uploadPhotoResp
 
     fun uploadAvatar(file: File) {

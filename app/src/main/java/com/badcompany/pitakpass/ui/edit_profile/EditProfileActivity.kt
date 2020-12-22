@@ -1,6 +1,5 @@
 package com.badcompany.pitakpass.ui.edit_profile
 
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -85,6 +84,7 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
                         .show()
                 }
                 is ResultWrapper.Success -> {
+                    checkInputs()
                     ivAvatar.visibility = View.VISIBLE
                     progressAvatar.visibility = View.INVISIBLE
                 }
@@ -125,7 +125,7 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
         edtSurname.setText(AppPrefs.surname)
         edtName.setText(AppPrefs.name)
-        if (AppPrefs.avatar.isNotBlank())   ivAvatar.loadImageUrl(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) ivAvatar.loadImageUrl(AppPrefs.avatar)
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {

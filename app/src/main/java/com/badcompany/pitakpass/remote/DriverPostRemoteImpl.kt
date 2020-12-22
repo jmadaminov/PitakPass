@@ -4,7 +4,6 @@ import com.badcompany.pitakpass.data.repository.DriverPostRemote
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.PassengerOffer
-import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResponseWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.getFormattedResponse
@@ -19,19 +18,9 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
                                                private val authorizedApiService: AuthorizedApiService) :
     DriverPostRemote {
 
-    override suspend fun filterDriverPost(
+    override suspend fun filterDriverPost(filter: Filter) =
+        getFormattedResponse { authorizedApiService.filterDriverPost(filter) }
 
-        filter: Filter): ResultWrapper<List<DriverPost>> {
-        return try {
-            val response =
-                authorizedApiService.filterDriverPost(filter)
-            if (response.code == 1) {
-                ResultWrapper.Success(response.data!!.data!!)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
-    }
 
     override suspend fun getPostById(id: Int): ResponseWrapper<DriverPost> =
         getFormattedResponse { authorizedApiService.getDriverPostById(id) }

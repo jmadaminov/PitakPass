@@ -5,12 +5,11 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.ui.BaseActivity
+import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import splitties.experimental.ExperimentalSplittiesApi
@@ -28,7 +27,6 @@ class AddPostActivity : BaseActivity() {
         setContentView(R.layout.activity_add_post)
         setupActionBar()
 //        onRestoreInstanceState()
-
 
         subscribeObservers()
         setupListeners()
@@ -68,12 +66,15 @@ class AddPostActivity : BaseActivity() {
             viewModel.note = passengerPostViewObj.remark
             viewModel.car = CarDetails(passengerPostViewObj.carId,
                                        IdName(2L, "MODEL 1"),
-                                       Image(2L,
-                                             "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng"),
+                                       Image(
+                                           "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng",
+                                           2L,
+                                       ),
                                        Constants.FUEL_TYPE_METHANE,
                                        CarColor(3L, "#eb4034", "RED"),
-                                       "01XU239A", 2013, true, true, listOf(Image(2L,
-                                                                                  "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng")
+                                       "01XU239A", 2013, true, true, listOf(Image(
+                                                                                  "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng",
+                                                                                  2L)
                 ))
 
             val navOptions = NavOptions.Builder()

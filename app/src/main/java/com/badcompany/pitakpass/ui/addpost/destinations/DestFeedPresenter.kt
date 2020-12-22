@@ -48,4 +48,8 @@ class DestFeedPresenter(val ctx: Context, val inputEditText: EditText,
     override fun onViewShown() {
         super.onViewShown()
     }
+
+    fun dispose() {
+        recyclerView?.adapter = null
+    }
 }

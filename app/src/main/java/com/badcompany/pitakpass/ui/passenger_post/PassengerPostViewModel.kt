@@ -46,12 +46,6 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
         }
     }
 
-    var page = 0
-
-
-    //    val postOffers = SingleLiveEvent<PagingData<OfferDTO>>()
-//     val postOffers =         postOffersRepository.getOffersForPost(14).cachedIn(viewModelScope)
-
     lateinit var postOffers: LiveData<PagingData<OfferDTO>>
     fun getOffersForPost(id: Long) {
         postOffers = postOffersRepository.getOffersForPost(id).cachedIn(viewModelScope)

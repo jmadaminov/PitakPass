@@ -105,11 +105,11 @@ object AppModule {
     }
 
 
-    @Provides
-    @Singleton
-    fun provideGetDriverPostWithFilter(passengerPostRepository: DriverPostRepository): GetDriverPostWithFilter {
-        return GetDriverPostWithFilter(passengerPostRepository)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideGetDriverPostWithFilter(passengerPostRepository: DriverPostRepository): GetDriverPostWithFilter {
+//        return GetDriverPostWithFilter(passengerPostRepository)
+//    }
 
 
     @Provides
