@@ -106,7 +106,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
 
     override fun onResume() {
         super.onResume()
-        profilePhoto.loadImageUrl(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank())     profilePhoto.loadImageUrl(AppPrefs.avatar)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
@@ -26,7 +27,6 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
 
     private val viewModel: EditProfileViewModel by viewModels()
-    private val profileBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +98,8 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
         viewModel.isUpdating.observe(this) {
             if (it) {
-                tvError.isVisible = false
-                btnUpdate.animate()
+                tvError.visibility = View.INVISIBLE
+                btnUpdate.startAnimation()
             } else {
                 btnUpdate.revertAnimation()
             }
@@ -120,7 +120,12 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
     }
 
     fun setupViews() {
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        edtSurname.setText(AppPrefs.surname)
+        edtName.setText(AppPrefs.name)
+        if (AppPrefs.avatar.isNotBlank())   ivAvatar.loadImageUrl(AppPrefs.avatar)
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {
@@ -133,5 +138,12 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
         Glide.with(this).load(imageUri).into(ivImage)
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

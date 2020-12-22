@@ -46,7 +46,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         setupAutoCompleteViews()
         setupListeners()
         setupViews()
-//        viewModel.getPassengerPost()
         subscribeObservers()
         setupDateBalloon()
     }

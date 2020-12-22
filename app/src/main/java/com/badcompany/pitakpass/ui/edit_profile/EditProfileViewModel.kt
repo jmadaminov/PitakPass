@@ -65,8 +65,11 @@ class EditProfileViewModel @ViewModelInject constructor(private val userReposito
     val uploadPhotoResp: LiveData<ResultWrapper<PhotoBody>> get() = _uploadPhotoResp
 
     fun uploadAvatar(file: File) {
-        viewModelScope.launch {
-            _uploadPhotoResp.value = fileUploadRepository.uploadPhoto(file)
+        viewModelScope.launch(IO) {
+            val response = fileUploadRepository.uploadPhoto(file)
+            withContext(Main) {
+                _uploadPhotoResp.value = response
+            }
         }
     }
 

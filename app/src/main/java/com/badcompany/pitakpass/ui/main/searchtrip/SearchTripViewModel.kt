@@ -12,10 +12,7 @@ import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.SingleLiveEvent
 import com.badcompany.pitakpass.util.valueNN
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import splitties.experimental.ExperimentalSplittiesApi
 
 class SearchTripViewModel @ViewModelInject constructor(val getDriverPostWithFilter: GetDriverPostWithFilter,
@@ -40,7 +37,6 @@ class SearchTripViewModel @ViewModelInject constructor(val getDriverPostWithFilt
             }
         }
     }
-
 
     private var fromFeedJob: Job? = null
     private var toFeedJob: Job? = null
