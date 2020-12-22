@@ -7,12 +7,15 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardDriver"
+        android:id="@+id/cardProfile"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
         app:cardElevation="3dp">
 
 
@@ -26,7 +29,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/shape_round"
+                android:src="@drawable/ic_baseline_account_circle_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -142,28 +145,7 @@
         android:text="@string/feedback"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/cardDriver" />
-    <!--    <TextView-->
-    <!--        android:id="@+id/labelMyAutos"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="12dp"-->
-    <!--        android:layout_marginBottom="6dp"-->
-    <!--        android:background="@drawable/selector_rounded_right_corners"-->
-    <!--        android:paddingStart="12dp"-->
-    <!--        android:paddingTop="6dp"-->
-    <!--        android:paddingEnd="12dp"-->
-    <!--        android:paddingBottom="6dp"-->
-    <!--        android:text="@string/myCars"-->
-    <!--        android:textColor="#fff"-->
-    <!--        android:textStyle="bold" />-->
-
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/carsList"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="200dp"-->
-    <!--        android:layout_gravity="center_vertical" />-->
+        app:layout_constraintTop_toBottomOf="@id/cardProfile" />
 
 
     <TextView

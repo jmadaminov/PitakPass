@@ -1,12 +1,16 @@
 package com.badcompany.pitakpass.ui.edit_profile
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.asksira.bsimagepicker.BSImagePicker
 import com.badcompany.pitakpass.R
@@ -38,7 +42,6 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
         edtName.doOnTextChanged { text, start, before, count -> checkInputs() }
 
         edtSurname.doOnTextChanged { text, start, before, count -> checkInputs() }
-
 
         cardAvatar.setOnClickListener {
             val singleSelectionPicker: BSImagePicker =
@@ -91,6 +94,27 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
                 }
             }.exhaustive
 
+        }
+
+        viewModel.isUpdating.observe(this) {
+            if (it) {
+                tvError.isVisible = false
+                btnUpdate.animate()
+            } else {
+                btnUpdate.revertAnimation()
+            }
+        }
+        viewModel.errorMessage.observe(this) {
+            btnUpdate.revertAnimation()
+            tvError.isVisible = true
+            tvError.text = it
+        }
+        viewModel.updateSuccess.observe(this) {
+            btnUpdate.doneLoadingAnimation(Color.GREEN,
+                                           ContextCompat.getDrawable(this,
+                                                                     R.drawable.ic_baseline_check_24)!!
+                                               .toBitmap())
+            finish()
         }
 
     }

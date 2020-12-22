@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.auth.AuthActivity
+import com.badcompany.pitakpass.ui.edit_profile.EditProfileActivity
 import com.badcompany.pitakpass.ui.feedback.FeedbackActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnSignOut
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.loadImageUrl
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +54,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
     @ExperimentalSplittiesApi
     private fun setupViews() {
         (activity as MainActivity).hideTabLayout()
-        cardDriver.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
+        cardProfile.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
         phone.text = "+${AppPrefs.phone}"
 
@@ -71,11 +73,16 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
             start<FeedbackActivity> {}
         }
 
+        cardProfile.setOnClickListener {
+            start<EditProfileActivity> {}
+        }
+
         signOut.setOnClickListener {
             val dialog = DialogSignOut()
             dialog.setTargetFragment(this, 88)
             dialog.show(parentFragmentManager, "")
         }
+
 
     }
 
@@ -95,6 +102,12 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
             phone = ""
         }
         start<AuthActivity> {}
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profilePhoto.loadImageUrl(AppPrefs.avatar)
+        nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
     }
 }
 
