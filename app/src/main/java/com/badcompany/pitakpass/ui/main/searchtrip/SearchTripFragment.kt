@@ -3,7 +3,6 @@ package com.badcompany.pitakpass.ui.main.searchtrip
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CalendarView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -40,13 +39,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (activity as MainActivity).hideTabLayout()
-        setupAutoCompleteViews()
         setupListeners()
         setupViews()
         viewModel.getPassengerPost()
         subscribeObservers()
         setupDateBalloon()
-
     }
 
     private fun setupDateBalloon() {
@@ -263,6 +260,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     }
 
     private fun setupViews() {
+        setupAutoCompleteViews()
         rvPosts.adapter = postsAdapter.withLoadStateHeaderAndFooter(
             header = PostLoadStateAdapter { postsAdapter.retry() },
             footer = PostLoadStateAdapter { postsAdapter.retry() }
@@ -282,6 +280,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 tv_error.isVisible = true
                 tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
             } else if (loadState.source.refresh !is LoadState.Error) {
+                rvPosts.isVisible = true
                 tv_error.isVisible = false
             }
         }
@@ -297,26 +296,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         autoCompleteManager.dispose()
     }
 
-    //    private fun addLoading() {
-//        adapter.clear()
-//        adapter.add(LoadingItemSmall())
-//        adapter.notifyDataSetChanged()
-//    }
-//
-//    private fun loadData(value: List<DriverPost>) {
-//        adapter.clear()
-//
-//        if (value.isEmpty()) {
-//            infoText.visibility = View.VISIBLE
-//            infoText.text = getString(R.string.no_posts_found)
-//        } else {
-//            infoText.visibility = View.INVISIBLE
-//            value.forEach {
-//                adapter.add(DriverPostItem(it))
-//            }
-//        }
-//        adapter.notifyDataSetChanged()
-//    }
 
 
 }

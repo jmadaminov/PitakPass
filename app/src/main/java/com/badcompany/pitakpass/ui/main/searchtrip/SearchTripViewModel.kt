@@ -30,7 +30,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
     val count: LiveData<Int> get() = _count
 
 
-   lateinit var postOffers: LiveData<PagingData<DriverPost>>/* = MutableLiveData()*/
+   var postOffers: LiveData<PagingData<DriverPost>> = MutableLiveData()
     fun getPassengerPost() {
         postOffers = postFilterRepository.getFilteredPosts(_filter.valueNN).cachedIn(viewModelScope)
     }

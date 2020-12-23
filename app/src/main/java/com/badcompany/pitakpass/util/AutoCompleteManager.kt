@@ -25,7 +25,7 @@ import splitties.experimental.ExperimentalSplittiesApi
     lateinit var fromFeedCallback: AutocompleteCallback<PlaceFeedItemView>
     var context: Context? = null
 
-    var from: EditText? = null
+    var from: EditText? =null
     var to: EditText? = null
     var onPopUpItemClicked: (isFrom: Boolean,
                              item: PlaceFeedItemView) -> Unit = { _, _ -> }
@@ -76,8 +76,8 @@ import splitties.experimental.ExperimentalSplittiesApi
                                                 item: PlaceFeedItemView): Boolean {
                     editable.clear()
                     editable.insert(0, item.place.name)
-                    from!!.clearFocus()
-                    from!!.hideKeyboard()
+                    from?.clearFocus()
+                    from?.hideKeyboard()
 
                     onPopUpItemClicked(true, item)
                     updateBtnState()
