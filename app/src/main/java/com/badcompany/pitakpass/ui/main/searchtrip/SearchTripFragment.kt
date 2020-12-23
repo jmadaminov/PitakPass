@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.ui.main.searchtrip
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
+import android.view.ViewGroup
 import android.widget.CalendarView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -30,7 +31,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
     private lateinit var balloon: Balloon
 
-    //    private val adapter = GroupAdapter<GroupieViewHolder>()
     private val viewModel: SearchTripViewModel by viewModels()
 
     lateinit var autoCompleteManager: AutoCompleteManager
@@ -44,9 +44,9 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         setupListeners()
         setupViews()
         viewModel.getPassengerPost()
-
         subscribeObservers()
         setupDateBalloon()
+
     }
 
     private fun setupDateBalloon() {
@@ -211,17 +211,14 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
             when (response) {
                 is ErrorWrapper.ResponseError -> {
-//                    adapter.clear()
                 }
                 is ErrorWrapper.SystemError -> {
-//                    adapter.clear()
                 }
                 is ResultWrapper.Success -> {
                     autoCompleteManager.fromPresenter.getAdr()!!.clear()
                     response.value.forEach { place ->
                         autoCompleteManager.fromPresenter.getAdr()!!
-                            .add(PlaceFeedItemView(place,
-                                                   autoCompleteManager.fromPresenter))
+                            .add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
 
                     }
                     autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
@@ -261,7 +258,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         viewModel.postOffers.observe(viewLifecycleOwner, {
             val value = it ?: return@observe
             postsAdapter.submitData(lifecycle, value)
-            rvPosts.requestLayout()
         })
 
     }

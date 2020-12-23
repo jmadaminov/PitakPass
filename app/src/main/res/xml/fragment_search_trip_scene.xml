@@ -20,8 +20,8 @@
             android:id="@id/clToolPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="3dp"
-            motion:elevation="3dp"
+            android:elevation="5dp"
+            motion:elevation="5dp"
             motion:layout_constraintTop_toTopOf="parent">
 
             <CustomAttribute

@@ -66,9 +66,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clToolPanel"
             android:layout_width="match_parent"
-            android:elevation="0dp"
             android:layout_height="wrap_content"
             android:background="@color/windowBackground"
+            android:elevation="0dp"
             app:layout_constraintTop_toBottomOf="@id/toInputLayout">
 
             <TextView
@@ -145,8 +145,10 @@
             android:id="@+id/rvPosts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/error_red"
             android:clipChildren="false"
             android:clipToPadding="false"
+            android:minHeight="500dp"
             android:paddingBottom="90dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
