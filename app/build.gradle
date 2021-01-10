@@ -87,15 +87,10 @@ android.applicationVariants.all { variant ->
 
 
 dependencies {
-//    implementation project(":data")
-//    implementation project(":domain")
-//    implementation project(":core")
-//    implementation project(":remote")
-//    implementation project (":Autocomplete-master")
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
