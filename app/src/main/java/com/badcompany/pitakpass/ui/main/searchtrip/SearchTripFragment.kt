@@ -47,7 +47,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     }
 
     private fun setupDateBalloon() {
-        date.text = getString(R.string.today)
+        date.text = getString(R.string.anytime)
 
         balloon = Balloon.Builder(requireContext())
             .setLayout(R.layout.layout_calendar)
@@ -133,6 +133,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         resetFilter.setOnClickListener {
             slidingLayer.closeLayer(true)
             viewModel.resetFilter()
+            date.text = getString(R.string.anytime)
 
             filter_count.visibility = View.INVISIBLE
             filter_count.text = ""
@@ -189,7 +190,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
     private fun subscribeObservers() {
         viewModel.filter.observe(viewLifecycleOwner, {
-            viewModel.getPassengerPost()
+            postsAdapter.refresh()
         })
 
         viewModel.count.observe(viewLifecycleOwner, { count ->
@@ -216,7 +217,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                     response.value.forEach { place ->
                         autoCompleteManager.fromPresenter.getAdr()!!
                             .add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
-
                     }
                     autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
                 }
@@ -224,6 +224,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 }
             }.exhaustive
 
+        })
+
+        viewModel.postOffers.observe(viewLifecycleOwner, {
+            val value = it ?: return@observe
+            postsAdapter.submitData(lifecycle, value)
         })
 
         viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {
@@ -252,14 +257,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
         })
 
-        viewModel.postOffers.observe(viewLifecycleOwner, {
-            val value = it ?: return@observe
-            postsAdapter.submitData(lifecycle, value)
-        })
 
     }
 
     private fun setupViews() {
+        motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
         setupAutoCompleteViews()
         rvPosts.adapter = postsAdapter.withLoadStateHeaderAndFooter(
             header = PostLoadStateAdapter { postsAdapter.retry() },
@@ -279,9 +281,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 rvPosts.isVisible = false
                 tv_error.isVisible = true
                 tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
+                motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
             } else if (loadState.source.refresh !is LoadState.Error) {
                 rvPosts.isVisible = true
                 tv_error.isVisible = false
+                motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
             }
         }
         lblPriceRange.text =

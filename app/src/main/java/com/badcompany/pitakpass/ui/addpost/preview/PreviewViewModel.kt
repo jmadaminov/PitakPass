@@ -25,8 +25,7 @@ class PreviewViewModel @ViewModelInject constructor(private val createPassengerP
     fun createPassengerPost(driverPost: PassengerPost) {
         createResponse.value = ResultWrapper.InProgress
         viewModelScope.launch(Dispatchers.IO) {
-            val response = createPassengerPost.execute(
-                hashMapOf(Pair(Constants.TXT_PASSENGER_POST, driverPost)))
+            val response = createPassengerPost.execute(driverPost)
 
             withContext(Main) {
                 createResponse.value = response

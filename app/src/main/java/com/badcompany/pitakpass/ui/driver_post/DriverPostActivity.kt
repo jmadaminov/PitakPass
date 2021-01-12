@@ -10,6 +10,7 @@ import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.DialogJoinARideFragment
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
+import java.text.DecimalFormat
 
 class DriverPostActivity : BaseActivity() {
 
@@ -42,14 +43,12 @@ class DriverPostActivity : BaseActivity() {
         from.text = post.from.regionName
         to.text = post.to.regionName
         price.text =
-            getString(R.string.price_and_seats_format,
-                      post.price.toString(), post.seat.toString())
-//        seats.text = post.seat.toString()
+            DecimalFormat("#,###").format(post.price) +" "+ getString(R.string.sum)
 
-        if (!post.remark.isBlank()) {
+        post.remark?.also {
             note.visibility = View.VISIBLE
             note.text = post.remark
-        } else {
+        } ?: run {
             note.visibility = View.GONE
         }
 

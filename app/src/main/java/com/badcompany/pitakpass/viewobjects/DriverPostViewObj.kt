@@ -18,7 +18,7 @@ data class DriverPostViewObj(val id: Long,
                              val timeFourthPart: Boolean,
                              val carId: Long? = null,
                              val car: CarInPostViewObj? = null,
-                             val remark: String,
+                             val remark: String?=null,
                              val seat: Int,
                              val postType: EPostType) : Parcelable {
 

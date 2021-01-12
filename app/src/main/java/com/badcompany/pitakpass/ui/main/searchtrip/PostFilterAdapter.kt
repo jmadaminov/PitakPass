@@ -17,9 +17,16 @@ import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
+import kotlinx.android.synthetic.main.item_active_post.view.*
 import kotlinx.android.synthetic.main.item_driver_post.view.*
+import kotlinx.android.synthetic.main.item_driver_post.view.date
+import kotlinx.android.synthetic.main.item_driver_post.view.from
+import kotlinx.android.synthetic.main.item_driver_post.view.note
+import kotlinx.android.synthetic.main.item_driver_post.view.price
+import kotlinx.android.synthetic.main.item_driver_post.view.to
 import kotlinx.android.synthetic.main.item_offer.view.*
 import splitties.activities.start
+import java.text.DecimalFormat
 import kotlin.to
 
 class PostFilterAdapter() :
@@ -42,13 +49,12 @@ class PostFilterAdapter() :
                 date.text = post.departureDate
                 from.text = post.from.regionName
                 to.text = post.to.regionName
-                price.text = context.getString(R.string.price_and_seats_format,
-                                               post.price.toString(), post.seat.toString())
+                price.text = DecimalFormat("#,###").format(post.price) +" "+ itemView.context. getString(R.string.sum)
 
-                if (!post.remark.isBlank()) {
+                post.remark?.also {
                     note.visibility = View.VISIBLE
                     note.text = post.remark
-                } else {
+                } ?: run {
                     note.visibility = View.GONE
                 }
 

@@ -2,10 +2,7 @@ package com.badcompany.pitakpass.remote
 
 import com.badcompany.pitakpass.data.repository.PassengerPostRemote
 import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.getFormattedResponse
-import com.badcompany.pitakpass.util.getFormattedResponseNullable
+import com.badcompany.pitakpass.util.*
 import javax.inject.Inject
 
 /**
@@ -18,16 +15,19 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     PassengerPostRemote {
 
     override suspend fun createPassengerPost(
-        post: PassengerPost): ResultWrapper<String> {
+        post: PassengerPost): ResultWrapper<PassengerPost> {
+        val response =
+            getFormattedResponse { authorizedApiService.createPost(post) }
 
-        return try {
-            val response = authorizedApiService.createPost(post)
-            if (response.code == 1) {
-                ResultWrapper.Success("SUCCESS")
-            } else ErrorWrapper.ResponseError(response.code, response.message)
-        } catch (e: Exception) {
-            ErrorWrapper.SystemError(e)
-        }
+        (return when (response) {
+            is ResponseError -> {
+                ErrorWrapper.ResponseError(message = response.message, code = response.code)
+            }
+            is ResponseSuccess -> {
+                ResultWrapper.Success(response.value)
+            }
+        }).exhaustive
+
     }
 
     override suspend fun deletePassengerPost(

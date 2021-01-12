@@ -43,7 +43,7 @@ interface AuthorizedApiService {
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("passenger_post/action")
     suspend fun createPost(@Body passengerPostBody: PassengerPost,
-                           @Header("Accept-Language") lang: String = AppPrefs.language): PlainResponse
+                           @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<PassengerPost>
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("passenger_post/action/{id}")

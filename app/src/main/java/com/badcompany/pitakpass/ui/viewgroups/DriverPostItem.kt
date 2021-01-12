@@ -23,10 +23,10 @@ class DriverPostItem(val post: DriverPost) :
             price.text = context.getString(R.string.price_and_seats_format,
                                            post.price.toString(), post.seat.toString())
 
-            if (!post.remark.isBlank()) {
+            post.remark?.also {
                 note.visibility = View.VISIBLE
                 note.text = post.remark
-            } else {
+            } ?: run {
                 note.visibility = View.GONE
             }
 

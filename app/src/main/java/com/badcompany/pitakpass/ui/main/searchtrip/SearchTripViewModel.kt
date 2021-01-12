@@ -103,7 +103,10 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
     }
 
     fun setDate(dayOfMonth: Int, month: Int, year: Int) {
-        _filter.valueNN.departureDate = "$dayOfMonth.$month.$year"
+        val properMonthIndex = month + 1
+        val monthString =
+            if (properMonthIndex.toString().length == 1) "0$properMonthIndex" else properMonthIndex.toString()
+       _filter.valueNN.departureDate = "$dayOfMonth.$monthString.$year"
         applyFilter()
     }
 

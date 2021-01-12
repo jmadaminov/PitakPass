@@ -25,9 +25,4 @@ data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean?
                   @SerializedName("timeFirstPart") var timeFirstPart: Boolean? = null,
                   @SerializedName("timeFourthPart") var timeFourthPart: Boolean? = null,
                   @SerializedName("timeSecondPart") var timeSecondPart: Boolean? = null,
-                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null) {
-    init {
-        departureDate = SimpleDateFormat("dd.MM.yyyy").format(Date())
-        seat = 1
-    }
-}
+                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null)
