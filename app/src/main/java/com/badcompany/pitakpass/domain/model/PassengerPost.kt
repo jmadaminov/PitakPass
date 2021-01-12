@@ -19,7 +19,7 @@ data class PassengerPost(@SerializedName("id") val id: Long?=null,
                          @SerializedName("timeThirdPart") val timeThirdPart: Boolean,
                          @SerializedName("timeFourthPart") val timeFourthPart: Boolean,
                          @SerializedName("airConditioner") val airConditioner: Boolean?=null,
-                         @SerializedName("remark") val remark: String,
+                         @SerializedName("remark") val remark: String?=null,
                          @SerializedName("postStatus") val postStatus: String?=null,
                          @SerializedName("seat") val seat: Int,
                          @SerializedName("postType") val postType: EPostType = EPostType.PASSENGER_SM)

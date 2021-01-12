@@ -38,6 +38,7 @@
         <item name="android:textColorPrimary">#fff</item>
 
     </style>
+
     <style name="FullFABStyle">
         <item name="fabSize">normal</item>
         <item name="maxImageSize">@dimen/fab_size</item>

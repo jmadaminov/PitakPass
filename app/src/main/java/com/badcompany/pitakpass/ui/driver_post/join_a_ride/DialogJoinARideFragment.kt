@@ -9,14 +9,23 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.ui.viewgroups.ActivePostItem
+import com.badcompany.pitakpass.util.ErrorWrapper
+import com.badcompany.pitakpass.util.ResultWrapper
+import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_offer_a_ride.*
+import splitties.experimental.ExperimentalSplittiesApi
 
 const val ARG_DRIVER_POST = "DRIVER_POST"
 
 @AndroidEntryPoint
 class DialogJoinARideFragment : DialogFragment() {
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     private lateinit var driverPost: DriverPostViewObj
     val viewModel: JoinARideViewModel by viewModels()
@@ -37,9 +46,10 @@ class DialogJoinARideFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        rvMyPosts.adapter = adapter
         attachListeners()
         subscribeObservers()
+        viewModel.getActivePosts()
 
     }
 
@@ -53,6 +63,44 @@ class DialogJoinARideFragment : DialogFragment() {
             if (hasFinished) dismiss()
         })
 
+        viewModel.activePostsResponse.observe(viewLifecycleOwner, {
+            val response = it ?: return@observe
+            when (response) {
+                is ErrorWrapper.ResponseError -> {
+                }
+                is ErrorWrapper.SystemError -> {
+                }
+                is ResultWrapper.Success -> {
+                    loadData(response.value)
+                }
+                ResultWrapper.InProgress -> {
+                }
+            }.exhaustive
+        })
+    }
+
+    @ExperimentalSplittiesApi
+    private fun loadData(orders: List<PassengerPost>) {
+        adapter.clear()
+        if (orders.isEmpty()) {
+            lblSelectPost.text = getString(R.string.we_will_create_an_order_for_you)
+            rvContainer.visibility = View.GONE
+        } else {
+            lblSelectPost.text = getString(R.string.select_your_trip_if_you_have_one)
+            rvContainer.visibility = View.VISIBLE
+        }
+
+        orders.forEach { post ->
+            adapter.add(ActivePostItem(post) {
+                lblSelectPost.visibility = View.GONE
+                tvSelectedPost.visibility = View.VISIBLE
+                ivClearSelected.visibility = View.VISIBLE
+                tvSelectedPost.text = getString(R.string.offering_post_id, post.id)
+                viewModel.setOfferingPost(post.id)
+
+            })
+        }
+
     }
 
     private fun attachListeners() {
@@ -65,7 +113,8 @@ class DialogJoinARideFragment : DialogFragment() {
                                 if (edtPrice.text.isNullOrBlank()) null else edtPrice.text.toString()
                                     .toInt(),
                                 messageInput.text.toString(),
-                                tvSeats.text.toString().toInt())
+                                tvSeats.text.toString().toInt(),
+                                driverPost)
         }
 
         tvSubtractSeat.setOnClickListener {
@@ -78,5 +127,11 @@ class DialogJoinARideFragment : DialogFragment() {
                 tvSeats.text = (tvSeats.text.toString().toInt() + 1).toString()
         }
 
+        ivClearSelected.setOnClickListener {
+            viewModel.setOfferingPost(null)
+            lblSelectPost.visibility = View.VISIBLE
+            tvSelectedPost.visibility = View.GONE
+            ivClearSelected.visibility = View.GONE
+        }
     }
 }

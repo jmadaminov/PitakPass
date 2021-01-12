@@ -10,9 +10,9 @@ import com.badcompany.pitakpass.util.ResultWrapper
  *
  */
 class CreatePassengerPost(val repositoryPassenger: PassengerPostRepository) :
-    UseCaseWithParams<PassengerPost, ResultWrapper<String>>() {
+    UseCaseWithParams<PassengerPost, ResultWrapper<PassengerPost>>() {
 
-    override suspend fun buildUseCase(params: PassengerPost): ResultWrapper<String> {
+    override suspend fun buildUseCase(params: PassengerPost): ResultWrapper<PassengerPost> {
         return repositoryPassenger.createPassengerPost(params)
 
     }

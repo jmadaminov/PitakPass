@@ -57,9 +57,11 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
             driverPost.to.regionName,
             driverPost.to.name,
         )
-        val passengerPost = PassengerPost(null, placeFrom, placeTo, driverPost.price,
+        val passengerPost = PassengerPost(null,placeFrom, placeTo, driverPost.price,
                                           driverPost.departureDate,
                                           driverPost.finishedDate,
+                                          null,
+                                          null,
                                           driverPost.timeFirstPart,
                                           driverPost.timeSecondPart,
                                           driverPost.timeThirdPart,

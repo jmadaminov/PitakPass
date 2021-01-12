@@ -166,10 +166,10 @@ import splitties.experimental.ExperimentalSplittiesApi
                       post.price.toString(), post.seat.toString())
 //        seats.text = post.seat.toString()
 
-        if (!post.remark.isBlank()) {
+        post.remark?.also {
             note.visibility = View.VISIBLE
             note.text = post.remark
-        } else {
+        } ?: run {
             note.visibility = View.GONE
         }
 

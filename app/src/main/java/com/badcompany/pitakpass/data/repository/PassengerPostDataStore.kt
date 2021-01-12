@@ -9,7 +9,7 @@ import com.badcompany.pitakpass.util.ResponseWrapper
 
 interface PassengerPostDataStore {
 
-    suspend fun createPassengerPost( post: PassengerPost): ResultWrapper<String>
+    suspend fun createPassengerPost( post: PassengerPost): ResultWrapper<PassengerPost>
     suspend fun deletePassengerPost( identifier: String): ResultWrapper<Unit>
     suspend fun finishPassengerPost( identifier: String): ResultWrapper<Unit>
     suspend fun getActivePassengerPosts( ): ResultWrapper<List<PassengerPost>>

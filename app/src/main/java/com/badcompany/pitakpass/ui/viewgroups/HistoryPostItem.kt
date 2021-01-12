@@ -11,22 +11,23 @@ import kotlinx.android.synthetic.main.item_active_post.view.*
 class HistoryPostItem(var post: PassengerPost, var onPostActionListener: IOnPostActionListener) :
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.date.text = post.departureDate
-        viewHolder.itemView.from.text = post.from.regionName
-        viewHolder.itemView.to.text = post.to.regionName
-        viewHolder.itemView.price.text =
-            viewHolder.itemView.context.getString(R.string.price_and_seats_format,
-                                                  post.price.toString(), post.seat.toString())
-//        viewHolder.itemView.seats.text = post.seat.toString()
 
-        if (!post.remark.isBlank()) {
-            viewHolder.itemView.note.visibility = View.VISIBLE
-            viewHolder.itemView.note.text = post.remark
-        } else {
-            viewHolder.itemView.note.visibility = View.GONE
+        viewHolder.itemView.apply {
+            date.text = post.departureDate
+            from.text = post.from.regionName
+            to.text = post.to.regionName
+            price.text =
+                context.getString(R.string.price_and_seats_format,
+                                  post.price.toString(), post.seat.toString())
+
+            post.remark?.also {
+                note.visibility = View.VISIBLE
+                note.text = post.remark
+            } ?: run {
+                note.visibility = View.GONE
+            }
+
         }
-
-
     }
 
     override fun getLayout() = R.layout.item_history_post
