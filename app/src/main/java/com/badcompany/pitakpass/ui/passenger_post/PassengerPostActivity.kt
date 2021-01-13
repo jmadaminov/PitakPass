@@ -181,6 +181,7 @@ import splitties.experimental.ExperimentalSplittiesApi
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.getPostById(postId)
             viewModel.getOffersForPost(postId)
+            offersAdapter.refresh()
         }
 
         done.setOnClickListener {

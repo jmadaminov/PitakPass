@@ -16,14 +16,23 @@ data class DriverPostViewObj(val id: Long,
                              val timeSecondPart: Boolean,
                              val timeThirdPart: Boolean,
                              val timeFourthPart: Boolean,
+                             val profileDTO: ProfileViewObj? = null,
                              val carId: Long? = null,
                              val car: CarInPostViewObj? = null,
-                             val remark: String?=null,
+                             val remark: String? = null,
                              val seat: Int,
                              val postType: EPostType) : Parcelable {
 
     companion object {
         fun mapFromDriverPostModel(model: DriverPost): DriverPostViewObj {
+            val profileDTO = ProfileViewObj(model.profileDTO?.phoneNum,
+                                            model.profileDTO?.name,
+                                            model.profileDTO?.surname,
+                                            model.profileDTO?.id,
+                                            ImageViewObj(
+                                                model.profileDTO?.image?.id,
+                                                model.profileDTO?.image?.link,
+                                            ))
             return DriverPostViewObj(
                 model.id,
                 PlaceViewObj(model.from.districtId,
@@ -45,6 +54,7 @@ data class DriverPostViewObj(val id: Long,
                 model.timeSecondPart,
                 model.timeThirdPart,
                 model.timeFourthPart,
+                profileDTO,
                 model.carId,
                 CarInPostViewObj(model.car!!.id,
                                  model.car.modelId,

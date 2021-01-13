@@ -8,26 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.remote.model.OfferDTO
-import com.badcompany.pitakpass.ui.EOfferStatus
 import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
-import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
-import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
-import kotlinx.android.synthetic.main.item_active_post.view.*
 import kotlinx.android.synthetic.main.item_driver_post.view.*
-import kotlinx.android.synthetic.main.item_driver_post.view.date
-import kotlinx.android.synthetic.main.item_driver_post.view.from
-import kotlinx.android.synthetic.main.item_driver_post.view.note
-import kotlinx.android.synthetic.main.item_driver_post.view.price
-import kotlinx.android.synthetic.main.item_driver_post.view.to
-import kotlinx.android.synthetic.main.item_offer.view.*
 import splitties.activities.start
 import java.text.DecimalFormat
-import kotlin.to
 
 class PostFilterAdapter() :
     PagingDataAdapter<DriverPost, PostFilterAdapter.DriverPostViewHolder>(FILTER_COMPARATOR) {
@@ -46,10 +34,12 @@ class PostFilterAdapter() :
     class DriverPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: DriverPost) {
             itemView.apply {
+                seats.text = post.seat.toString()
                 date.text = post.departureDate
                 from.text = post.from.regionName
                 to.text = post.to.regionName
-                price.text = DecimalFormat("#,###").format(post.price) +" "+ itemView.context. getString(R.string.sum)
+                price.text =
+                    DecimalFormat("#,###").format(post.price) + " " + context.getString(R.string.sum)
 
                 post.remark?.also {
                     note.visibility = View.VISIBLE
@@ -73,11 +63,19 @@ class PostFilterAdapter() :
                 }
 
                 post.car?.let {
-                    tvCarInfo.text = it.carModel?.name + "\n"
-                    it.carYear.toString() + "\n"
-                    it.carColor?.name + "\n"
-                    it.carNumber + "\n"
-                    it.fuelType
+                    var hasAC = ""
+
+                    it.airConditioner?.let {
+                        if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
+                    }
+
+                    tvCarInfo.text = it.carModel?.name + ", "+
+                    it.carYear.toString() + ", "+
+                    it.carColor?.name + ", "+
+                    it.carNumber + ", "+
+                    it.fuelType +
+                            hasAC
+
                 }
 
                 post.profileDTO?.let {

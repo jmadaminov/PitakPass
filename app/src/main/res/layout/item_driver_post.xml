@@ -175,14 +175,13 @@
 
         <TextView
             android:id="@+id/tvCarInfo"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="12dp"
             android:gravity="start"
             android:textColor="@color/dark_grey"
             android:layout_marginTop="12dp"
             android:textSize="12dp"
-            app:layout_constraintStart_toEndOf="@id/tvDriverName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/note"
             tools:text="Car Model 2 uz Qizil PETROL 2013 xa107u" />

@@ -8,8 +8,12 @@ import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
 import com.badcompany.pitakpass.ui.driver_post.join_a_ride.DialogJoinARideFragment
+import com.badcompany.pitakpass.util.loadCircleImageUrl
+import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
+import kotlinx.android.synthetic.main.item_driver_post.view.*
+import splitties.activities.start
 import java.text.DecimalFormat
 
 class DriverPostActivity : BaseActivity() {
@@ -38,12 +42,12 @@ class DriverPostActivity : BaseActivity() {
 
     private fun showPostData(post: DriverPostViewObj) {
 
-
+        seats.text = post.seat.toString()
         date.text = post.departureDate
         from.text = post.from.regionName
         to.text = post.to.regionName
         price.text =
-            DecimalFormat("#,###").format(post.price) +" "+ getString(R.string.sum)
+            DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
 
         post.remark?.also {
             note.visibility = View.VISIBLE
@@ -51,6 +55,37 @@ class DriverPostActivity : BaseActivity() {
         } ?: run {
             note.visibility = View.GONE
         }
+
+
+
+        post.car?.image?.link?.let {
+            ivCarPhoto.loadImageUrl(it)
+        }
+
+        post.profileDTO?.image?.link?.let {
+            ivDriver.loadCircleImageUrl(it)
+        }
+
+        post.car?.let {
+            var hasAC = ""
+
+            it.airConditioner?.let {
+                if (it) hasAC = ", " + getString(R.string.air_conditioner)
+            }
+
+            tvCarInfo.text = it.carModel?.name + ", "+
+                    it.carYear.toString() + ", "+
+                    /*it.carColor?.name + ", "+*/
+                    it.carNumber + ", "+
+                    it.fuelType +
+                    hasAC
+
+        }
+
+        post.profileDTO?.let {
+            tvDriverName.text = it.name + " " + it.surname
+        }
+
 
 
     }
