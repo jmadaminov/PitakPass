@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_passenger_post.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
+import java.text.DecimalFormat
 
 @ExperimentalSplittiesApi class PassengerPostActivity : BaseActivity() {
 
@@ -161,10 +162,8 @@ import splitties.experimental.ExperimentalSplittiesApi
         date.text = post.departureDate
         from.text = post.from.regionName
         to.text = post.to.regionName
-        price.text =
-            getString(R.string.price_and_seats_format,
-                      post.price.toString(), post.seat.toString())
-//        seats.text = post.seat.toString()
+        price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
+        seats.text = post.seat.toString()
 
         post.remark?.also {
             note.visibility = View.VISIBLE
