@@ -285,7 +285,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             } else if (loadState.source.refresh !is LoadState.Error) {
                 rvPosts.isVisible = true
                 tv_error.isVisible = false
-                motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
+                motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(true)
             }
         }
         lblPriceRange.text =
@@ -299,7 +299,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
         autoCompleteManager.dispose()
     }
-
 
 
 }
