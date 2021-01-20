@@ -64,18 +64,6 @@ class AddPostActivity : BaseActivity() {
             viewModel.timeFourthPart = passengerPostViewObj.timeFourthPart
             viewModel.departureDate = passengerPostViewObj.departureDate
             viewModel.note = passengerPostViewObj.remark
-            viewModel.car = CarDetails(passengerPostViewObj.carId,
-                                       IdName(2L, "MODEL 1"),
-                                       Image(
-                                           "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng",
-                                           2L,
-                                       ),
-                                       Constants.FUEL_TYPE_METHANE,
-                                       CarColor(3L, "#eb4034", "RED"),
-                                       "01XU239A", 2013, true, true, listOf(Image(
-                                                                                  "http://codeuz.uz:9091/attach/image/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDIwLTA2LTIzLTIxLTA5LTA4LTgxMi5qcGciLCJpc3MiOiJwaXRha2oxMmJpaG1hbiIsImlhdCI6MTU5MzU5NDIxOH0.dpoNfy19v9pvFaFB9O3oZ-b0PTR78ukxGemaS_Jgzng",
-                                                                                  2L)
-                ))
 
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.previewFragment, true)

@@ -36,6 +36,8 @@
                     android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="3dp"
                     app:cardUseCompatPadding="true"
@@ -222,74 +224,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!--                <TextView-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:gravity="center_horizontal"-->
-            <!--                    android:text="@string/your_driver"-->
-            <!--                    android:textStyle="bold" />-->
-
-
-            <!--                <ImageView-->
-            <!--                    android:id="@+id/ivAvatar"-->
-            <!--                    android:layout_width="?android:actionBarSize"-->
-            <!--                    android:layout_height="?android:actionBarSize"-->
-            <!--                    android:layout_gravity="center_horizontal" />-->
-
-            <!--                <TextView-->
-            <!--                    android:id="@+id/tvName"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:gravity="center"-->
-            <!--                    android:text="@string/driver_not_appointed_yet"-->
-            <!--                    tools:text="DriverName DriverSurname" />-->
-
-
-            <!--                <androidx.recyclerview.widget.RecyclerView-->
-            <!--                    android:id="@+id/rvPassengers"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-            <!--                    android:orientation="horizontal"-->
-            <!--                    tools:listitem="@layout/item_passenger" />-->
-
-
-            <!--                <ProgressBar-->
-            <!--                    android:id="@+id/offersProgress"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_gravity="center"-->
-            <!--                    android:layout_margin="25dp"-->
-            <!--                    android:visibility="gone"-->
-            <!--                    tools:visibility="visible" />-->
-
-            <!--                <Button-->
-            <!--                    android:id="@+id/btnRetry"-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_gravity="center"-->
-            <!--                    android:text="@string/retry"-->
-            <!--                    android:textAllCaps="false"-->
-            <!--                    android:visibility="gone"-->
-            <!--                    tools:visibility="visible" />-->
-
-
-            <!--                <TextView-->
-            <!--                    android:id="@+id/tvOffersInfo"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:gravity="center"-->
-            <!--                    android:visibility="gone"-->
-            <!--                    tools:visibility="visible"-->
-            <!--                    android:text="@string/no_offers_yet"-->
-            <!--                    tools:text="You have no offers yet..." />-->
-
             <LinearLayout
                 android:id="@+id/llOffersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblMyOffers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    tools:text="@string/offers" />
 
                 <ProgressBar
                     android:id="@+id/progressOfferAction"

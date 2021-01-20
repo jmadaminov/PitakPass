@@ -36,11 +36,19 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/dark_grey"
             android:textSize="12dp"
+            app:layout_constraintEnd_toStartOf="@id/ivCarPhoto"
             app:layout_constraintStart_toEndOf="@id/ivDriver"
             app:layout_constraintTop_toTopOf="@id/ivDriver"
-            app:layout_constraintEnd_toStartOf="@id/ivCarPhoto"
             tools:text="Name Surname" />
 
+
+        <RatingBar
+            android:id="@+id/ratingBarDriver"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvDriverName"
+            app:layout_constraintTop_toBottomOf="@id/tvDriverName" />
 
         <View
             android:id="@+id/line"
@@ -178,9 +186,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:gravity="start"
             android:textColor="@color/dark_grey"
-            android:layout_marginTop="12dp"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/note"
@@ -189,9 +197,9 @@
         <ImageView
             android:id="@+id/ivCarPhoto"
             android:layout_width="0dp"
-            android:layout_marginTop="12dp"
             android:layout_height="?android:actionBarSize"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

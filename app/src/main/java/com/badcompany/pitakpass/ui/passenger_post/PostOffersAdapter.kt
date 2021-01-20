@@ -10,7 +10,10 @@ import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.loadCircleImageUrl
+import com.badcompany.pitakpass.util.loadImageUrl
 import kotlinx.android.synthetic.main.item_offer.view.*
+import kotlinx.android.synthetic.main.item_offer.view.ivCarPhoto
+import kotlinx.android.synthetic.main.item_offer.view.tvCarInfo
 import java.text.DecimalFormat
 
 class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
@@ -46,30 +49,30 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                 }
 
                 tvName.text = offer.profileDTO.name + " " + offer.profileDTO.surname
-                offer.profileDTO.image?.let {
-                    it.link?.let { link ->
-                        ivAvatar.loadCircleImageUrl(link)
-                    }
+
+                offer.car?.image?.link?.let {
+                    ivCarPhoto.loadImageUrl(it)
                 }
 
-//                when (offer.status) {
-//                    EOfferStatus.ACTIVE -> {
-//                        tvStatus.setBackgroundResource(R.color.colorPrimaryDarkOpacityFifty)
-//                        ivAccept.visibility = View.VISIBLE
-//                        ivPhone.visibility = View.INVISIBLE
-//                    }
-//                    EOfferStatus.ACCEPTED -> {
-//                        ivAccept.visibility = View.INVISIBLE
-//                        ivPhone.visibility = View.VISIBLE
-//                        tvStatus.setBackgroundResource(R.color.green)
-//                    }
-//                    EOfferStatus.REJECTED -> {
-//                        ivAccept.visibility = View.INVISIBLE
-//                        ivPhone.visibility = View.INVISIBLE
-//                        tvStatus.setBackgroundResource(R.color.colorAccent)
-//                    }
-//                }.exhaustive
+                offer.profileDTO.image?.link?.let {
+                    ivAvatar.loadCircleImageUrl(it)
+                }
 
+                offer.car?.let {
+                    var hasAC = ""
+
+                    it.airConditioner?.let {
+                        if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
+                    }
+
+                    tvCarInfo.text = it.carModel?.name + ", "+
+                            it.carYear.toString() + ", "+
+                            it.carColor?.name + ", "+
+                            it.carNumber + ", "+
+                            it.fuelType +
+                            hasAC
+
+                }
                 ivDeny.setOnClickListener {
                     onOfferActionListener.onCancelClick(offer)
                 }

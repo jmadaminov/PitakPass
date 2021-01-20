@@ -58,8 +58,13 @@ class PostFilterAdapter() :
                     ivCarPhoto.loadImageUrl(it)
                 }
 
-                post.profileDTO?.image?.link?.let {
-                    ivDriver.loadCircleImageUrl(it)
+                post.profileDTO?.let { driverProfile ->
+                    driverProfile.rating?.let { rating ->
+                        ratingBarDriver.rating = rating
+                    }
+                    driverProfile.image?.link?.let { avatarLink ->
+                        ivDriver.loadCircleImageUrl(avatarLink)
+                    }
                 }
 
                 post.car?.let {
@@ -69,11 +74,11 @@ class PostFilterAdapter() :
                         if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
                     }
 
-                    tvCarInfo.text = it.carModel?.name + ", "+
-                    it.carYear.toString() + ", "+
-                    it.carColor?.name + ", "+
-                    it.carNumber + ", "+
-                    it.fuelType +
+                    tvCarInfo.text = it.carModel?.name + ", " +
+                            it.carYear.toString() + ", " +
+                            it.carColor?.name + ", " +
+                            it.carNumber + ", " +
+                            it.fuelType +
                             hasAC
 
                 }

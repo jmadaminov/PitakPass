@@ -218,8 +218,6 @@ import java.text.DecimalFormat
                                               post.timeSecondPart,
                                               post.timeThirdPart,
                                               post.timeFourthPart,
-                                              null,
-                                              null,
                                               post.remark,
                                               post.seat,
                                               post.postType))

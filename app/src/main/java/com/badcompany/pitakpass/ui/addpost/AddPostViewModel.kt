@@ -24,32 +24,9 @@ class AddPostViewModel  @ViewModelInject constructor() :
     var timeSecondPart = false
     var timeThirdPart = false
     var timeFourthPart = false
-    var car: CarDetails? = null
     var price: Int? = null
     var seat: Int? = null
     var note: String? = null
-
-//    val carImgResponse = SingleLiveEvent<ResultWrapper<PhotoBody>>()
-
-//    @InternalCoroutinesApi
-//    fun getCarColorsAndModels(token: String) {
-//        viewModelScope.launch(IO) {
-//            withContext(Main) {
-//                colorsAndModels.value = ResultWrapper.InProgress
-//            }
-//            withContext(IO) {
-//                try {
-//                    val colors = async { getCarColors.execute(token) }
-//                    val models = async { getCarModels.execute(token) }
-//                    processResponses(colors.await(), models.await())
-//                } catch (e: Exception) {
-//                    withContext(Main) {
-//                        colorsAndModels.value = ErrorWrapper.SystemError(e)
-//                    }
-//                }
-//            }
-//        }
-//    }
 
 
     @ExperimentalCoroutinesApi

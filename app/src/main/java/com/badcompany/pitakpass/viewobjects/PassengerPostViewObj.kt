@@ -13,8 +13,6 @@ data class PassengerPostViewObj(val from: PlaceViewObj,
                                 val timeSecondPart: Boolean,
                                 val timeThirdPart: Boolean,
                                 val timeFourthPart: Boolean,
-                                val carId: Long? = null,
-                                val car: CarViewObj? = null,
                                 val remark: String?=null,
                                 val seat: Int,
                                 val postType: EPostType = EPostType.PASSENGER_SM) : Parcelable

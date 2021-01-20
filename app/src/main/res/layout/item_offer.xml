@@ -88,15 +88,16 @@
             app:layout_constraintStart_toEndOf="@id/tvCarInfo"
             app:layout_constraintTop_toTopOf="@id/tvCarInfo" />
 
-
         <TextView
             android:id="@+id/tvOfferingPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/selector_neutral_border"
+            android:drawableRight="@drawable/ic_baseline_money_24"
+            android:drawablePadding="10dp"
             android:gravity="center"
             android:padding="7dp"
+            app:drawableRightCompat="@drawable/ic_baseline_money_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
