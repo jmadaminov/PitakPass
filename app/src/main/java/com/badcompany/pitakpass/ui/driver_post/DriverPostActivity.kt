@@ -13,7 +13,6 @@ import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
 import kotlinx.android.synthetic.main.item_driver_post.view.*
-import splitties.activities.start
 import java.text.DecimalFormat
 
 class DriverPostActivity : BaseActivity() {
@@ -37,6 +36,14 @@ class DriverPostActivity : BaseActivity() {
     }
 
     private fun subscribeObservers() {
+        viewModel.isLoading.observe(this, {
+            swipeRefreshLayout.isRefreshing = it ?: return@observe
+        })
+
+        viewModel.postData.observe(this) {
+            val result = it ?: return@observe
+            showPostData(DriverPostViewObj.mapFromDriverPostModel(result))
+        }
 
     }
 
@@ -73,10 +80,10 @@ class DriverPostActivity : BaseActivity() {
                 if (it) hasAC = ", " + getString(R.string.air_conditioner)
             }
 
-            tvCarInfo.text = it.carModel?.name + ", "+
-                    it.carYear.toString() + ", "+
+            tvCarInfo.text = it.carModel?.name + ", " +
+                    it.carYear.toString() + ", " +
                     /*it.carColor?.name + ", "+*/
-                    it.carNumber + ", "+
+                    it.carNumber + ", " +
                     it.fuelType +
                     hasAC
 
@@ -87,11 +94,14 @@ class DriverPostActivity : BaseActivity() {
         }
 
 
-
     }
 
     private fun attachListeners() {
-        btnOfferARide.setOnClickListener {
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getPostById(driverPost.id)
+        }
+
+        btnJumpIn.setOnClickListener {
             val dialog = DialogJoinARideFragment()
             dialog.arguments = Bundle().apply { putParcelable(ARG_DRIVER_POST, driverPost) }
             dialog.show(supportFragmentManager, "")

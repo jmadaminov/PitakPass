@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -28,7 +27,7 @@ class ActiveTripsFragment : Fragment(R.layout.fragment_active_trips) {
 
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
-    val viewmodel: ActiveTripsViewModel by viewModels()
+    val viewModel: ActiveTripsViewModel by viewModels()
 
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +36,12 @@ class ActiveTripsFragment : Fragment(R.layout.fragment_active_trips) {
         setupViews()
         setupListeners()
         subscribeObservers()
-        viewmodel.getActivePosts()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getActivePosts()
+
     }
 
 
@@ -50,14 +54,14 @@ class ActiveTripsFragment : Fragment(R.layout.fragment_active_trips) {
     private fun setupListeners() {
         swipeRefreshLayout.setOnRefreshListener {
             noActiveOrdersTxt.visibility = View.GONE
-            viewmodel.getActivePosts()
+            viewModel.getActivePosts()
         }
     }
 
     @ExperimentalSplittiesApi
     private fun subscribeObservers() {
 
-        viewmodel.activePostsResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.activePostsResponse.observe(viewLifecycleOwner, Observer {
             val response = it ?: return@Observer
             when (response) {
                 is ErrorWrapper.ResponseError -> {
@@ -115,11 +119,10 @@ class ActiveTripsFragment : Fragment(R.layout.fragment_active_trips) {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == REQ_POST_MANIPULATED) {
-                viewmodel.getActivePosts()
+                viewModel.getActivePosts()
             }
         }
     }
-
 
 
 }

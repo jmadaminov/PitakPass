@@ -9,7 +9,7 @@ import com.badcompany.pitakpass.util.ResponseWrapper
 interface DriverPostRemote {
 
     suspend fun filterDriverPost(filter: Filter): ResponseWrapper<DriverPostsPagination>
-    suspend fun getPostById(id: Int): ResponseWrapper<DriverPost>
+    suspend fun getPostById(id: Long): ResponseWrapper<DriverPost>
     suspend fun joinARide(myOffer: PassengerOffer): ResponseWrapper<Any>
 
 }

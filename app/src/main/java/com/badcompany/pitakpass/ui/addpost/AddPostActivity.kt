@@ -55,8 +55,8 @@ class AddPostActivity : BaseActivity() {
                                       passengerPostViewObj.to.regionId,
                                       passengerPostViewObj.to.lat,
                                       passengerPostViewObj.to.lon,
-                                      passengerPostViewObj.from.regionName,
-                                      passengerPostViewObj.from.name)
+                                      passengerPostViewObj.to.regionName,
+                                      passengerPostViewObj.to.name)
 
             viewModel.timeFirstPart = passengerPostViewObj.timeFirstPart
             viewModel.timeSecondPart = passengerPostViewObj.timeSecondPart

@@ -11,7 +11,7 @@ import com.badcompany.pitakpass.util.ResultWrapper
 interface DriverPostDataStore {
 
 //    suspend fun filterDriverPost(filter: Filter): ResultWrapper<List<DriverPost>>
-    suspend fun getPostById(id: Int): ResponseWrapper<DriverPost>
+    suspend fun getPostById(id: Long): ResponseWrapper<DriverPost>
     suspend fun joinARide(myOffer: PassengerOffer): ResponseWrapper<Any>
 
 }

@@ -228,7 +228,7 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/btnOfferARide"
+                android:id="@+id/btnJumpIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"

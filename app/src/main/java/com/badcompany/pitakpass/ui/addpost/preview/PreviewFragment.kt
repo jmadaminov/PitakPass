@@ -6,21 +6,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.ui.EPostType
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
-import com.badcompany.pitakpass.util.Constants
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
 import com.google.android.material.snackbar.Snackbar
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_preview.*
 import splitties.experimental.ExperimentalSplittiesApi
@@ -30,25 +25,14 @@ import javax.inject.Inject
 //@FlowPreview
 //@ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class PreviewFragment @Inject constructor() :
-    Fragment(R.layout.fragment_preview) {
-
-
-    private val adapter = GroupAdapter<GroupieViewHolder>()
-    private var placeFrom: Place? = null
-    private var placeTo: Place? = null
+class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview) {
 
     private val activityViewModel: AddPostViewModel by activityViewModels()
 
     private val viewModel: PreviewViewModel by viewModels()
 
-    //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        activityViewModel.cancelActiveJobs()
-    }
 
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,21 +41,27 @@ class PreviewFragment @Inject constructor() :
         setupListeners()
         setupViews()
         navController = findNavController()
-//        confirm.isEnabled = true
-//
-//        code.setText(args.password)
-//
-//        confirm.setOnClickListener {
-//            viewModel.confirm(args.phone, code.text.toString())
-//        }
 
-//        setupCarList()
     }
 
     private fun setupViews() {
-        if (activityViewModel.isEditing) navBack.visibility = View.INVISIBLE
-        labelFrom.text = activityViewModel.placeFrom!!.name
-        labelTo.text = activityViewModel.placeTo!!.name
+        if (activityViewModel.isEditing) {
+            navBack.visibility = View.INVISIBLE
+            postCreate.text = getString(R.string.update)
+        }
+
+        val fromLbl = StringBuilder()
+        val toLbl = StringBuilder()
+
+        activityViewModel.placeFrom?.regionName?.let { fromLbl.append(it) }
+        activityViewModel.placeFrom?.districtName?.let { fromLbl.append(" $it") }
+        if (fromLbl.isBlank()) activityViewModel.placeFrom?.name?.let { fromLbl.append(it) }
+        activityViewModel.placeTo?.regionName?.let { toLbl.append(it) }
+        activityViewModel.placeTo?.districtName?.let { toLbl.append(" $it") }
+        if (toLbl.isBlank()) activityViewModel.placeTo?.name?.let { toLbl.append(it) }
+
+        labelFrom.text = fromLbl
+        labelTo.text = toLbl
 
 
         var time = ""
@@ -169,21 +159,6 @@ class PreviewFragment @Inject constructor() :
 
     }
 
-//    private fun setupCarList() {
-//        selectedCarList.layoutManager =
-//            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-//        selectedCarList.setHasFixedSize(true)
-//        adapter.clear()
-//        selectedCarList.adapter = adapter
-//        adapter.add(CarItemSelectionView(activityViewModel.car!!, object : MyItemClickListener {
-//            override fun onClick(pos: Int, view: View) {
-//                super.onClick(pos)
-//                navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToCarAndTextFragment(
-//                    true))
-//            }
-//        }))
-//    }
-
     @ExperimentalSplittiesApi
     private fun setupObservers() {
         viewModel.createResponse.observe(viewLifecycleOwner, Observer {
@@ -223,7 +198,6 @@ class PreviewFragment @Inject constructor() :
 
     override fun onResume() {
         super.onResume()
-//        (activity as AddPostActivity).showActionBar()
     }
 
 

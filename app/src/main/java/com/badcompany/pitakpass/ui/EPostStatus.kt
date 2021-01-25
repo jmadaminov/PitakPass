@@ -1,5 +1,7 @@
 package com.badcompany.pitakpass.ui
 
 enum class EPostStatus {
-    ACTIVE
+    CREATED,
+    ACTIVE,
+    WAITING_FOR_START
 }

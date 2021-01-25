@@ -15,7 +15,6 @@ import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
-import com.badcompany.pitakpass.viewobjects.PlaceViewObj
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_passenger_post.*
 import splitties.activities.start
@@ -189,38 +188,11 @@ import java.text.DecimalFormat
 
         cancel.setOnClickListener {
             DialogDeletePost().show(supportFragmentManager, "")
-//            viewModel.deletePost(post.id.toString())
         }
 
         edit.setOnClickListener {
-            val from = PlaceViewObj(post.from.districtId,
-                                    post.from.regionId,
-                                    post.from.lat,
-                                    post.from.lon,
-                                    post.from.regionName,
-                                    post.from.name)
-
-            val to = PlaceViewObj(post.to.districtId,
-                                  post.to.regionId,
-                                  post.to.lat,
-                                  post.to.lon,
-                                  post.from.regionName,
-                                  post.from.name)
-
             start<AddPostActivity> {
-
-                putExtra(Constants.TXT_PASSENGER_POST,
-                         PassengerPostViewObj(from,
-                                              to,
-                                              post.price,
-                                              post.departureDate,
-                                              post.timeFirstPart,
-                                              post.timeSecondPart,
-                                              post.timeThirdPart,
-                                              post.timeFourthPart,
-                                              post.remark,
-                                              post.seat,
-                                              post.postType))
+                putExtra(Constants.TXT_PASSENGER_POST, PassengerPostViewObj.fromPassengerPost(post))
             }
         }
     }
