@@ -58,7 +58,7 @@ class PostFilterAdapter() :
                     ivCarPhoto.loadImageUrl(it)
                 }
 
-                post.profileDTO?.let { driverProfile ->
+                post.profile?.let { driverProfile ->
                     driverProfile.rating?.let { rating ->
                         ratingBarDriver.rating = rating
                     }
@@ -83,7 +83,7 @@ class PostFilterAdapter() :
 
                 }
 
-                post.profileDTO?.let {
+                post.profile?.let {
                     tvDriverName.text = it.name + " " + it.surname
                 }
 

@@ -31,7 +31,7 @@ interface AuthorizedApiService {
     suspend fun sendFeedback(@Body body: FeedbackBody): RespFormatter<Any>
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @GET("driver_post/action/{id}")
+    @GET("driver_post/action/{id}/as_passenger")
     suspend fun getDriverPostById(@Path(value = "id", encoded = true) identifier: Long,
                                   @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<DriverPost>
 

@@ -69,7 +69,7 @@ class DriverPostActivity : BaseActivity() {
             ivCarPhoto.loadImageUrl(it)
         }
 
-        post.profileDTO?.image?.link?.let {
+        post.profile?.image?.link?.let {
             ivDriver.loadCircleImageUrl(it)
         }
 
@@ -89,7 +89,7 @@ class DriverPostActivity : BaseActivity() {
 
         }
 
-        post.profileDTO?.let {
+        post.profile?.let {
             tvDriverName.text = it.name + " " + it.surname
         }
 

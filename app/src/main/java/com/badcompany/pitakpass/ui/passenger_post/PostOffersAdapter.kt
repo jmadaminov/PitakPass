@@ -48,13 +48,13 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                         context.getString(R.string.your_price)
                 }
 
-                tvName.text = offer.profileDTO.name + " " + offer.profileDTO.surname
+                tvName.text = offer.profile.name + " " + offer.profile.surname
 
                 offer.car?.image?.link?.let {
                     ivCarPhoto.loadImageUrl(it)
                 }
 
-                offer.profileDTO.image?.link?.let {
+                offer.profile.image?.link?.let {
                     ivAvatar.loadCircleImageUrl(it)
                 }
 

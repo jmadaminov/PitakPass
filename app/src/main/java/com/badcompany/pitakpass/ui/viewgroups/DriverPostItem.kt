@@ -42,7 +42,7 @@
 //                ivCarPhoto.loadImageUrl(it)
 //            }
 //
-//            post.profileDTO?.image?.link?.let {
+//            post.profile?.image?.link?.let {
 //                ivDriver.loadCircleImageUrl(it)
 //            }
 //
@@ -54,7 +54,7 @@
 //                it.fuelType
 //            }
 //
-//            post.profileDTO?.let {
+//            post.profile?.let {
 //                tvDriverName.text = it.name + " " + it.surname
 //            }
 //
