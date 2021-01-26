@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @AndroidEntryPoint
 class LoginFragment @Inject constructor() :
     Fragment(R.layout.fragment_login) {

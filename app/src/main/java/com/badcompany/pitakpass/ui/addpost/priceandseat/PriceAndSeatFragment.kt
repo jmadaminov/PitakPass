@@ -21,8 +21,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @AndroidEntryPoint
 class PriceAndSeatFragment @Inject constructor() :
     Fragment(R.layout.fragment_price_and_seat) {

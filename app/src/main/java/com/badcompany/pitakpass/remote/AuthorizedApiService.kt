@@ -32,7 +32,7 @@ interface AuthorizedApiService {
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("driver_post/action/{id}")
-    suspend fun getDriverPostById(@Path(value = "id", encoded = true) identifier: Int,
+    suspend fun getDriverPostById(@Path(value = "id", encoded = true) identifier: Long,
                                   @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<DriverPost>
 
     //END PASSENGER POST API

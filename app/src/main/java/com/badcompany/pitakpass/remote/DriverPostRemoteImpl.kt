@@ -22,7 +22,7 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
         getFormattedResponse { authorizedApiService.filterDriverPost(filter) }
 
 
-    override suspend fun getPostById(id: Int): ResponseWrapper<DriverPost> =
+    override suspend fun getPostById(id: Long): ResponseWrapper<DriverPost> =
         getFormattedResponse { authorizedApiService.getDriverPostById(id) }
 
     override suspend fun joinARide(myOffer: PassengerOffer) =

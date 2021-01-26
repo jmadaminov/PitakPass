@@ -9,8 +9,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 abstract class BaseViewModel : ViewModel() {
 
 

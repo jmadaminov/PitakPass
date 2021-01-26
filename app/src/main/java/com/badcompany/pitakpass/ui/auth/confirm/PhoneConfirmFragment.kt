@@ -22,8 +22,7 @@ import splitties.preferences.edit
 import javax.inject.Inject
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @ObsoleteCoroutinesApi
 @AndroidEntryPoint
 class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_phone_confirm) {

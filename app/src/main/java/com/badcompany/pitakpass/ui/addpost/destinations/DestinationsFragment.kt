@@ -33,8 +33,7 @@ import javax.inject.Inject
 
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @ExperimentalSplittiesApi
 @AndroidEntryPoint
 class DestinationsFragment @Inject constructor() :

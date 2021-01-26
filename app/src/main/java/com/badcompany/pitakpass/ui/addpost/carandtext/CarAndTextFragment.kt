@@ -23,8 +23,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @AndroidEntryPoint
 class CarAndTextFragment @Inject constructor() :
     Fragment(R.layout.fragment_car_and_note) {

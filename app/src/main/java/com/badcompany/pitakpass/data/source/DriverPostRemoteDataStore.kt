@@ -6,6 +6,7 @@ import com.badcompany.pitakpass.data.repository.PlaceDataStore
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.PassengerOffer
+import com.badcompany.pitakpass.util.ResponseWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
 
@@ -21,7 +22,9 @@ open class DriverPostRemoteDataStore @Inject constructor(private val postRemote:
 //        return postRemote.filterDriverPost(filter)
 //    }
 
-    override suspend fun getPostById(id: Int) = postRemote.getPostById(id)
+    override suspend fun getPostById(id: Long) = postRemote.getPostById(id)
+
+
     override suspend fun joinARide(myOffer: PassengerOffer) = postRemote.joinARide(myOffer)
 
 }

@@ -12,6 +12,7 @@ import com.badcompany.pitakpass.ui.edit_profile.EditProfileActivity
 import com.badcompany.pitakpass.ui.feedback.FeedbackActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnSignOut
 import com.badcompany.pitakpass.ui.main.MainActivity
+import com.badcompany.pitakpass.ui.settings.SettingsActivity
 import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.xwray.groupie.GroupAdapter
@@ -23,8 +24,7 @@ import splitties.fragments.start
 import splitties.preferences.edit
 import javax.inject.Inject
 
-//@FlowPreview
-//@ExperimentalCoroutinesApi
+
 @AndroidEntryPoint
 class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile), IOnSignOut {
 
@@ -71,6 +71,9 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
 
         btnFeedback.setOnClickListener {
             start<FeedbackActivity> {}
+        }
+        settings.setOnClickListener {
+            start<SettingsActivity> {}
         }
 
         cardProfile.setOnClickListener {
