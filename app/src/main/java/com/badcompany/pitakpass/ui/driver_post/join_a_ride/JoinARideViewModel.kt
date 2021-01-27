@@ -29,11 +29,15 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
 
     val offeringPostId = MutableLiveData<Long>()
 
-    fun joinARide(postId: Long, myPrice: Int?, message: String, seats: Int, driverPost: DriverPostViewObj) {
+    fun joinARide(postId: Long,
+                  myPrice: Int?,
+                  message: String,
+                  seats: Int,
+                  driverPost: DriverPostViewObj) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
             if (offeringPostId.value == null) createPost(driverPost)
-            sendAnOffer(postId, myPrice, message,seats)
+            sendAnOffer(postId, myPrice, message, seats)
         }
 
     }
@@ -57,7 +61,7 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
             driverPost.to.regionName,
             driverPost.to.name,
         )
-        val passengerPost = PassengerPost(null,placeFrom, placeTo, driverPost.price,
+        val passengerPost = PassengerPost(null, placeFrom, placeTo, driverPost.price,
                                           driverPost.departureDate,
                                           driverPost.finishedDate,
                                           null,
@@ -66,6 +70,7 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
                                           driverPost.timeSecondPart,
                                           driverPost.timeThirdPart,
                                           driverPost.timeFourthPart,
+                                          null,
                                           null,
                                           null,
                                           null,
@@ -103,7 +108,7 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
             println("COBUG:  ${Thread.currentThread().name}")
             val responseOfferCreate =
                 repository.joinARide(PassengerOffer(postId, myPrice, message, seats,
-                                                     offeringPostId.valueNN))
+                                                    offeringPostId.valueNN))
             withContext(Dispatchers.Main) {
                 when (responseOfferCreate) {
                     is ResponseError -> {

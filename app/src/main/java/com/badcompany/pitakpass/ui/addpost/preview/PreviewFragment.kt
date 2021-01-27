@@ -22,7 +22,6 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
 
-
 @AndroidEntryPoint
 class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview) {
 
@@ -149,6 +148,7 @@ class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview
                                                         activityViewModel.timeSecondPart,
                                                         activityViewModel.timeThirdPart,
                                                         activityViewModel.timeFourthPart,
+                                                        null,
                                                         null,
                                                         activityViewModel.note!!,
                                                         null,

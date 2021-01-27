@@ -48,6 +48,15 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name Surname" />
 
+
+        <RatingBar
+            android:id="@+id/ratingBarDriver"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/tvName" />
+
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="0dp"
@@ -57,7 +66,7 @@
             app:layout_constraintEnd_toStartOf="@id/ivAccept"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="@id/tvName"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@id/ratingBarDriver"
             tools:text="Description text that is sent from offer creator..." />
 
 

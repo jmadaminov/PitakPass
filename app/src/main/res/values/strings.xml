@@ -124,5 +124,6 @@
     <string name="we_will_create_an_order_for_you">We will create an order for you with the destinations of the passenger post!</string>
     <string name="offers">Offers</string>
     <string name="settings">Settings</string>
+    <string name="my_driver">My driver</string>
 
 </resources>

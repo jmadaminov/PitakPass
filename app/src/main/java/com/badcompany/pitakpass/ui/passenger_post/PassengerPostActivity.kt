@@ -1,19 +1,20 @@
 package com.badcompany.pitakpass.ui.passenger_post
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.BaseActivity
+import com.badcompany.pitakpass.ui.EPostStatus
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.exhaustive
+import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_passenger_post.*
@@ -60,7 +61,7 @@ import java.text.DecimalFormat
         rvOffers.adapter = offersAdapter
 
         viewModel.getPostById(postId)
-        viewModel.getOffersForPost(postId)
+
 
         attachListeners()
         subscribes()
@@ -68,15 +69,15 @@ import java.text.DecimalFormat
 
     private fun subscribes() {
 
-        viewModel.postOffers.observe(this, {
-            val value = it ?: return@observe
-            offersAdapter.submitData(lifecycle, value)
-            rvOffers.requestLayout()
-        })
-
         viewModel.postData.observe(this, {
             post = it ?: return@observe
             showPostData()
+        })
+
+        viewModel.postOffers?.observe(this, {
+            val value = it ?: return@observe
+            offersAdapter.submitData(lifecycle, value)
+            rvOffers.requestLayout()
         })
 
         viewModel.offerActionLoading.observe(this, {
@@ -158,6 +159,9 @@ import java.text.DecimalFormat
     }
 
     private fun showPostData() {
+        edit.isVisible = post.postStatus == EPostStatus.CREATED
+        done.isVisible = post.postStatus == EPostStatus.START
+
         date.text = post.departureDate
         from.text = post.from.regionName
         to.text = post.to.regionName
@@ -171,7 +175,50 @@ import java.text.DecimalFormat
             note.visibility = View.GONE
         }
 
+        if (post.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)
 
+        post.driverPost?.let { driver ->
+
+            driver.price.also {
+                tvOfferingPrice.text =
+                    DecimalFormat("#,###").format(it) + " " + getString(R.string.sum)
+            }
+
+            tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
+
+            driver.car?.image?.link?.let {
+                ivCarPhoto.loadImageUrl(it)
+            }
+
+            driver.profile?.image?.link?.let {
+                ivDriverAvatar.loadCircleImageUrl(it)
+            }
+
+            driver.profile?.rating?.let {
+                ratingBarDriver.rating = it
+            }
+
+            driver.car?.let { car ->
+                var hasAC = ""
+
+                car.airConditioner?.let {
+                    if (it) hasAC = ", " + getString(R.string.air_conditioner)
+                }
+
+                tvCarInfo.text = car.carModel?.name + ", " +
+                        car.carYear.toString() + ", " +
+                        car.carColor?.name + ", " +
+                        car.carNumber + ", " +
+                        car.fuelType +
+                        hasAC
+
+            }
+            fabCallDriver.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:+${driver.profile!!.phoneNum}")
+                startActivity(intent)
+            }
+        }
     }
 
     private fun attachListeners() {

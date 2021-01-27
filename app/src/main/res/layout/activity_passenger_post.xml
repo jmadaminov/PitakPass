@@ -132,13 +132,13 @@
                                 android:drawableRight="@drawable/ic_baseline_money_24"
                                 android:drawablePadding="10dp"
                                 android:gravity="center_vertical|end"
-                                tools:text="50,000 sum"
                                 android:textColor="@color/dark_grey"
                                 app:layout_constraintBottom_toTopOf="@id/note"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_weight="1"
                                 app:layout_constraintStart_toStartOf="@id/date"
-                                app:layout_constraintTop_toBottomOf="@id/seats" />
+                                app:layout_constraintTop_toBottomOf="@id/seats"
+                                tools:text="50,000 sum" />
 
                             <TextView
                                 android:id="@+id/seats"
@@ -165,12 +165,12 @@
                                 android:drawableRight="@drawable/ic_baseline_calendar_today_24"
                                 android:drawablePadding="10dp"
                                 android:gravity="center_vertical|end"
-                                tools:text="02.05.2200"
                                 android:textColor="@color/dark_grey"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_weight="1"
                                 app:layout_constraintStart_toEndOf="@id/from"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="02.05.2200" />
                         </LinearLayout>
 
 
@@ -199,6 +199,7 @@
                     android:layout_height="50dp"
                     android:clickable="true"
                     android:focusable="true"
+                    android:visibility="gone"
                     android:foreground="?android:selectableItemBackground"
                     android:padding="12dp"
                     android:src="@drawable/outline_edit_black_24dp"
@@ -223,6 +224,125 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/lblMyDriver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:text="@string/my_driver" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:id="@+id/ivDriverAvatar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintEnd_toStartOf="@id/tvDriverName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tvDriverName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="start"
+                        app:layout_constraintEnd_toStartOf="@id/fabCallDriver"
+                        app:layout_constraintStart_toEndOf="@id/ivDriverAvatar"
+                        app:layout_constraintTop_toTopOf="@id/ivDriverAvatar"
+                        tools:text="Name Surname" />
+
+
+                    <RatingBar
+                        android:id="@+id/ratingBarDriver"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/tvDriverName"
+                        app:layout_constraintTop_toBottomOf="@id/tvDriverName" />
+
+
+                    <ImageView
+                        android:id="@+id/fabCallDriver"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_circle_primary"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:selectableItemBackground"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_baseline_phone_enabled_24"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#fff" />
+
+
+                    <TextView
+                        android:id="@+id/tvCarInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="start"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="12dp"
+                        app:layout_constraintEnd_toStartOf="@id/ivCarPhoto"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivDriverAvatar"
+                        tools:text="Car Model 2 uz Qizil PETROL 2013 xa107u" />
+
+                    <ImageView
+                        android:id="@+id/ivCarPhoto"
+                        android:layout_width="0dp"
+                        android:layout_height="?android:actionBarSize"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/tvCarInfo"
+                        app:layout_constraintTop_toTopOf="@id/tvCarInfo" />
+
+                    <TextView
+                        android:id="@+id/tvOfferingPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:drawableRight="@drawable/ic_baseline_money_24"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:padding="7dp"
+                        app:drawableRightCompat="@drawable/ic_baseline_money_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
+                        tools:text="150,000 sum"
+                        tools:visibility="visible" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/llOffersContainer"

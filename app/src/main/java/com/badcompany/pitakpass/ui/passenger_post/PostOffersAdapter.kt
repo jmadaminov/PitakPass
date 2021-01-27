@@ -11,6 +11,7 @@ import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
+import kotlinx.android.synthetic.main.activity_passenger_post.*
 import kotlinx.android.synthetic.main.item_offer.view.*
 import kotlinx.android.synthetic.main.item_offer.view.ivCarPhoto
 import kotlinx.android.synthetic.main.item_offer.view.tvCarInfo
@@ -56,6 +57,10 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
 
                 offer.profile.image?.link?.let {
                     ivAvatar.loadCircleImageUrl(it)
+                }
+
+                offer.profile.rating?.let {
+                    ratingBarDriver.rating = it
                 }
 
                 offer.car?.let {

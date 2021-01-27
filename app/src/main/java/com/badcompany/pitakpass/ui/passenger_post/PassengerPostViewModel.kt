@@ -2,6 +2,7 @@ package com.badcompany.pitakpass.ui.passenger_post
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -24,7 +25,7 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
                                                           val finishPost: FinishPassengerPost) :
     BaseViewModel() {
 
-    val postData = SingleLiveEvent<PassengerPost>()
+    val postData = MutableLiveData<PassengerPost>()
     val errorMessage = SingleLiveEvent<String>()
     val isLoading = SingleLiveEvent<Boolean>()
     val offerActionLoading = SingleLiveEvent<Boolean>()
@@ -46,7 +47,7 @@ class PassengerPostViewModel @ViewModelInject constructor(val postRepository: Pa
         }
     }
 
-    lateinit var postOffers: LiveData<PagingData<OfferDTO>>
+     var postOffers: LiveData<PagingData<OfferDTO>>?=null
     fun getOffersForPost(id: Long) {
         postOffers = postOffersRepository.getOffersForPost(id).cachedIn(viewModelScope)
     }
