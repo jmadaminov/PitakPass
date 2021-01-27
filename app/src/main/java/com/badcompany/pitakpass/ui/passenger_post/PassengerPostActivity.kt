@@ -29,7 +29,7 @@ import java.text.DecimalFormat
         const val REQ_POST_MANIPULATED: Int = 89
     }
 
-    private lateinit var post: PassengerPost
+    var post: PassengerPost? = null
     var postId: Long = 0
     private val viewModel: PassengerPostViewModel by viewModels()
 
@@ -74,11 +74,7 @@ import java.text.DecimalFormat
             showPostData()
         })
 
-        viewModel.postOffers?.observe(this, {
-            val value = it ?: return@observe
-            offersAdapter.submitData(lifecycle, value)
-            rvOffers.requestLayout()
-        })
+
 
         viewModel.offerActionLoading.observe(this, {
             progressOfferAction.visibility = if (it ?: return@observe) View.VISIBLE else View.GONE
@@ -159,66 +155,77 @@ import java.text.DecimalFormat
     }
 
     private fun showPostData() {
-        edit.isVisible = post.postStatus == EPostStatus.CREATED
-        done.isVisible = post.postStatus == EPostStatus.START
+        post?.let { postNonNull ->
 
-        date.text = post.departureDate
-        from.text = post.from.regionName
-        to.text = post.to.regionName
-        price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
-        seats.text = post.seat.toString()
+            if (postNonNull.postStatus == EPostStatus.CREATED) {
+                viewModel.postOffers?.observe(this, {
+                    val value = it ?: return@observe
+                    offersAdapter.submitData(lifecycle, value)
+                    rvOffers.requestLayout()
+                })
+            }
+            edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
+            done.isVisible = postNonNull.postStatus == EPostStatus.START
 
-        post.remark?.also {
-            note.visibility = View.VISIBLE
-            note.text = post.remark
-        } ?: run {
-            note.visibility = View.GONE
-        }
+            date.text = postNonNull.departureDate
+            from.text = postNonNull.from.regionName
+            to.text = postNonNull.to.regionName
+            price.text =
+                DecimalFormat("#,###").format(postNonNull.price) + " " + getString(R.string.sum)
+            seats.text = postNonNull.seat.toString()
 
-        if (post.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)
-
-        post.driverPost?.let { driver ->
-
-            driver.price.also {
-                tvOfferingPrice.text =
-                    DecimalFormat("#,###").format(it) + " " + getString(R.string.sum)
+            postNonNull.remark?.also {
+                note.visibility = View.VISIBLE
+                note.text = postNonNull.remark
+            } ?: run {
+                note.visibility = View.GONE
             }
 
-            tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
-            driver.car?.image?.link?.let {
-                ivCarPhoto.loadImageUrl(it)
-            }
+            postNonNull.driverPost?.let { driver ->
 
-            driver.profile?.image?.link?.let {
-                ivDriverAvatar.loadCircleImageUrl(it)
-            }
-
-            driver.profile?.rating?.let {
-                ratingBarDriver.rating = it
-            }
-
-            driver.car?.let { car ->
-                var hasAC = ""
-
-                car.airConditioner?.let {
-                    if (it) hasAC = ", " + getString(R.string.air_conditioner)
+                driver.price.also {
+                    tvOfferingPrice.text =
+                        DecimalFormat("#,###").format(it) + " " + getString(R.string.sum)
                 }
 
-                tvCarInfo.text = car.carModel?.name + ", " +
-                        car.carYear.toString() + ", " +
-                        car.carColor?.name + ", " +
-                        car.carNumber + ", " +
-                        car.fuelType +
-                        hasAC
+                tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
-            }
-            fabCallDriver.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:+${driver.profile!!.phoneNum}")
-                startActivity(intent)
+                driver.car?.image?.link?.let {
+                    ivCarPhoto.loadImageUrl(it)
+                }
+
+                driver.profile?.image?.link?.let {
+                    ivDriverAvatar.loadCircleImageUrl(it)
+                }
+
+                driver.profile?.rating?.let {
+                    ratingBarDriver.rating = it
+                }
+
+                driver.car?.let { car ->
+                    var hasAC = ""
+
+                    car.airConditioner?.let {
+                        if (it) hasAC = ", " + getString(R.string.air_conditioner)
+                    }
+
+                    tvCarInfo.text = car.carModel?.name + ", " +
+                            car.carYear.toString() + ", " +
+                            car.carColor?.name + ", " +
+                            car.carNumber + ", " +
+                            car.fuelType +
+                            hasAC
+
+                }
+                fabCallDriver.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_DIAL)
+                    intent.data = Uri.parse("tel:+${driver.profile!!.phoneNum}")
+                    startActivity(intent)
+                }
             }
         }
+
     }
 
     private fun attachListeners() {
@@ -239,7 +246,8 @@ import java.text.DecimalFormat
 
         edit.setOnClickListener {
             start<AddPostActivity> {
-                putExtra(Constants.TXT_PASSENGER_POST, PassengerPostViewObj.fromPassengerPost(post))
+                putExtra(Constants.TXT_PASSENGER_POST,
+                         PassengerPostViewObj.fromPassengerPost(post!!))
             }
         }
     }
@@ -260,8 +268,8 @@ import java.text.DecimalFormat
         return super.onOptionsItemSelected(item)
     }
 
-    fun finishPost() = viewModel.finishPost(post.id.toString())
-    fun deletePost() = viewModel.deletePost(post.id.toString())
+    fun finishPost() = viewModel.finishPost(post!!.id.toString())
+    fun deletePost() = viewModel.deletePost(post!!.id.toString())
     fun acceptOffer(offer: OfferDTO) = viewModel.acceptOffer(offer.id)
     fun cancelOffer(offer: OfferDTO) = viewModel.cancelOffer(offer.id)
 
