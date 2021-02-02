@@ -20,12 +20,6 @@ class App : Application() {
         lateinit var uuid: String
         private var INSTANCE: App? = null
 
-        const val TYPE_CONSUMER = 1
-        const val TYPE_DOCTOR = 2
-
-        fun getSharedPreferences(name: String, mode: Int): SharedPreferences? =
-            INSTANCE?.getSharedPreferences(name, mode)
-
         fun getResources() = INSTANCE?.resources
         fun getAppContext() = INSTANCE
         fun getInstance(): Context? = INSTANCE
@@ -34,7 +28,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        INSTANCE = this
 
         // Logging set to help debug issues, remove before releasing your app.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.NONE)

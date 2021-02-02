@@ -20,6 +20,8 @@ import java.text.DecimalFormat
 class PostFilterAdapter() :
     PagingDataAdapter<DriverPost, PostFilterAdapter.DriverPostViewHolder>(FILTER_COMPARATOR) {
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DriverPostViewHolder {
         val viewHolder =
             LayoutInflater.from(parent.context).inflate(R.layout.item_driver_post, parent, false)
@@ -34,7 +36,7 @@ class PostFilterAdapter() :
     class DriverPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: DriverPost) {
             itemView.apply {
-                seats.text = post.seat.toString()
+                seats.text =   (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
                 date.text = post.departureDate
                 from.text = post.from.regionName
                 to.text = post.to.regionName

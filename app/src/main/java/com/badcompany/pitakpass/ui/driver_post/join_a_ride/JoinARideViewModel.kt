@@ -10,6 +10,7 @@ import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.usecases.CreatePassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetActivePassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
+import com.badcompany.pitakpass.ui.EPostStatus
 import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.coroutines.Dispatchers
@@ -73,7 +74,7 @@ class JoinARideViewModel @ViewModelInject constructor(private val repository: Dr
                                           null,
                                           null,
                                           null,
-                                          null,
+                                          EPostStatus.CREATED,
                                           driverPost.seat
         )
         when (val response = createPassengerPost.execute(passengerPost)) {

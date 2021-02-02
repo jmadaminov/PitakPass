@@ -233,6 +233,8 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         viewModel.postOffers.observe(viewLifecycleOwner, {
             val value = it ?: return@observe
             postsAdapter.submitData(lifecycle, value)
+//            motionLayout.getTransition(R.id.search_trip_panel_trans)
+//                .setEnable(postsAdapter.itemCount > 1)
         })
 
         viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {

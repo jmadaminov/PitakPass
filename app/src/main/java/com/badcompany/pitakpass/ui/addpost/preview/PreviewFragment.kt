@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
+import com.badcompany.pitakpass.ui.EPostStatus
 import com.badcompany.pitakpass.ui.EPostType
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.util.ErrorWrapper
@@ -151,7 +152,7 @@ class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview
                                                         null,
                                                         null,
                                                         activityViewModel.note!!,
-                                                        null,
+                                                        EPostStatus.CREATED,
                                                         activityViewModel.seat!!,
                                                         EPostType.PASSENGER_SM))
         }

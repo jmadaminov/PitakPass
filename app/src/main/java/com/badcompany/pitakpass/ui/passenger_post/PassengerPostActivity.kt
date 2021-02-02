@@ -86,6 +86,7 @@ import java.text.DecimalFormat
 
         viewModel.offerActionResp.observe(this, {
             viewModel.getOffersForPost(postId)
+            offersAdapter.refresh()
         })
 
         viewModel.isLoading.observe(this, {
@@ -173,6 +174,14 @@ import java.text.DecimalFormat
             note.text = post.remark
         } ?: run {
             note.visibility = View.GONE
+        }
+
+        if (post.driverPost != null) {
+            lblMyDriver.text = getString(R.string.your_driver)
+            cardDriver.visibility = View.VISIBLE
+        } else {
+            lblMyDriver.text = getString(R.string.no_driver_assigned_yet)
+            cardDriver.visibility = View.GONE
         }
 
         if (post.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)

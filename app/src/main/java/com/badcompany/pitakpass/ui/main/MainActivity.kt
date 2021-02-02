@@ -1,6 +1,7 @@
 package com.badcompany.pitakpass.ui.main
 
 import android.animation.LayoutTransition
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckedTextView
@@ -16,6 +17,8 @@ import com.badcompany.pitakpass.ui.main.mytrips.MyTripsFragment
 import com.badcompany.pitakpass.ui.main.notifications.NotificationsFragment
 import com.badcompany.pitakpass.ui.main.profile.ProfileFragment
 import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
+import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
+import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.badcompany.pitakpass.util.AppPrefs
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
@@ -25,12 +28,22 @@ class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
     private val viewModel: MainViewModel by viewModels()
+    private var notificationPostId: Long? = null
 
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         checkUserLogin()
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
+
+        notificationPostId = intent.extras?.getLong(EXTRA_POST_ID)
+
+        notificationPostId?.let {
+            startActivity(Intent(this, PassengerPostActivity::class.java).apply {
+                putExtra(EXTRA_POST_ID, notificationPostId)
+            })
+        }
+
         setContentView(R.layout.activity_main)
         app_bar.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         setupActionBar()
@@ -39,7 +52,6 @@ class MainActivity : BaseActivity() {
 //        onRestoreInstanceState()
 //        setupBottomNavigationView(savedInstanceState)
 
-//        nav_view.setupWithNavController(findNavController(R.id.nav_host_fragment))
         navController = findNavController(R.id.nav_host_fragment)
     }
 

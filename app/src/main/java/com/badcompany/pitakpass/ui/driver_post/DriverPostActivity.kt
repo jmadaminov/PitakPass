@@ -17,9 +17,6 @@ import java.text.DecimalFormat
 
 class DriverPostActivity : BaseActivity() {
 
-    companion object {
-        const val EXTRA_POST_ID = "EXTRA_POST_ID"
-    }
 
     private val viewModel: DriverPostViewModel by viewModels()
     private lateinit var driverPost: DriverPostViewObj
