@@ -20,6 +20,7 @@ import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.ContextUtils.setLocale
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity() {
 
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLocale(AppPrefs.language, this)
         checkUserLogin()
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)

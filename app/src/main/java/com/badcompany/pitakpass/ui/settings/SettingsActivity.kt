@@ -43,6 +43,10 @@ class SettingsActivity : BaseActivity() {
 //            btnSend.isEnabled = !text.isNullOrBlank()
 //        }
 
+        cl_language.setOnClickListener {
+            DialogLanguage().show(supportFragmentManager, "")
+        }
+
     }
 
     private fun setupActionbar() {

@@ -10,6 +10,7 @@ import splitties.preferences.Preferences
 
 @ExperimentalSplittiesApi object AppPrefs : Preferences("myPrefs") {
 
+    var userId by StringPref("USER_ID", "")
     var token by StringPref("TOKEN", "")
     var language by StringPref("LANGUAGE", "ru")
     var name by StringPref("NAME", "")

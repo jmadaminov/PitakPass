@@ -21,5 +21,6 @@ data class DriverPost(@SerializedName("id") val id: Long,
                       @SerializedName("remark") val remark: String?=null,
                       @SerializedName("seat") val seat: Int,
                       @SerializedName("availableSeats") val availableSeats: Int,
+                      @SerializedName("passengerList") val passengerList: List<Passenger>? = null,
                       @SerializedName("postType") val postType: EPostType = EPostType.DRIVER_SM)
 

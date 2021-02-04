@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.badcompany.pitakpass.ui.driver_post.jump_in.DialogJoinARideFragment
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
@@ -29,7 +33,9 @@ class DriverPostActivity : BaseActivity() {
 
         attachListeners()
         subscribeObservers()
-        showPostData(driverPost)
+        viewModel.getPostById(driverPost.id)
+
+//        showPostData(driverPost)
     }
 
     private fun subscribeObservers() {
@@ -39,19 +45,28 @@ class DriverPostActivity : BaseActivity() {
 
         viewModel.postData.observe(this) {
             val result = it ?: return@observe
-            showPostData(DriverPostViewObj.mapFromDriverPostModel(result))
+            showPostData(result)
         }
 
     }
 
-    private fun showPostData(post: DriverPostViewObj) {
+    private fun showPostData(post: DriverPost) {
+        btnJumpIn.isVisible = true
+        post.passengerList?.forEach { passenger ->
+            if (passenger.profile!!.id == AppPrefs.userId) {
+                btnJumpIn.isEnabled = false
+                btnJumpIn.text = getString(R.string.you_are_already_in)
+                btnJumpIn.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.neutralColor)
+                return@forEach
+            }
+        }
 
         seats.text = post.seat.toString()
         date.text = post.departureDate
         from.text = post.from.regionName
         to.text = post.to.regionName
-        price.text =
-            DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
+        price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
 
         post.remark?.also {
             note.visibility = View.VISIBLE

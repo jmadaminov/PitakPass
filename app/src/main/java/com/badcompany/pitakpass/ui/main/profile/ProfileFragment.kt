@@ -21,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
-import splitties.preferences.edit
 import javax.inject.Inject
 
 
@@ -98,18 +97,13 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
 
     override fun onSignOut() {
         requireActivity().finish()
-        AppPrefs.edit {
-            token = ""
-            name = ""
-            surname = ""
-            phone = ""
-        }
+        AppPrefs.prefs.edit().clear().apply()
         start<AuthActivity> {}
     }
 
     override fun onResume() {
         super.onResume()
-        if (AppPrefs.avatar.isNotBlank())     profilePhoto.loadImageUrl(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) profilePhoto.loadImageUrl(AppPrefs.avatar)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
     }
 }

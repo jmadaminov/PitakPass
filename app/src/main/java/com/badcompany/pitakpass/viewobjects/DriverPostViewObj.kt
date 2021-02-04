@@ -21,18 +21,30 @@ data class DriverPostViewObj(val id: Long,
                              val car: CarInPostViewObj? = null,
                              val remark: String? = null,
                              val seat: Int,
+                             val passengerList: List<PassengerViewObj>? = null,
                              val postType: EPostType) : Parcelable {
 
     companion object {
         fun mapFromDriverPostModel(model: DriverPost): DriverPostViewObj {
             val profile = ProfileViewObj(model.profile?.phoneNum,
-                                            model.profile?.name,
-                                            model.profile?.surname,
-                                            model.profile?.id,
-                                            ImageViewObj(
-                                                model.profile?.image?.id,
-                                                model.profile?.image?.link,
-                                            ))
+                                         model.profile?.name,
+                                         model.profile?.surname,
+                                         model.profile?.id,
+                                         ImageViewObj(
+                                             model.profile?.image?.id,
+                                             model.profile?.image?.link,
+                                         ))
+            val passengerList = arrayListOf<PassengerViewObj>()
+            model.passengerList?.forEach {
+                passengerList.add(PassengerViewObj(it.id,
+                                                   ProfileViewObj(it.profile?.phoneNum,
+                                                                  it.profile?.name,
+                                                                  it.profile?.surname,
+                                                                  it.profile?.id,
+                                                                  ImageViewObj(it.profile?.image?.id,
+                                                                               it.profile?.image?.link))))
+            }
+
             return DriverPostViewObj(
                 model.id,
                 PlaceViewObj(model.from.districtId,
@@ -69,12 +81,18 @@ data class DriverPostViewObj(val id: Long,
                                  model.car.airConditioner),
                 model.remark,
                 model.seat,
+                passengerList,
                 model.postType
             )
         }
     }
 }
 
+
+@Parcelize
+data class PassengerViewObj(var id: Long? = null,
+                            var profile: ProfileViewObj? = null,
+                            var submitDate: String? = null) : Parcelable
 
 /**
  * Representation for a [CarInPost] fetched from the API
@@ -93,4 +111,4 @@ data class CarInPostViewObj(var id: Long? = null,
 
 @Parcelize
 data class CarModelViewObj(val id: Long,
-                           val name: String) : Parcelable
+                           val name: String?=null) : Parcelable

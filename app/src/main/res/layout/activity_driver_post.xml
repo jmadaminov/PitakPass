@@ -236,6 +236,7 @@
                 android:text="@string/offer_a_ride"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:backgroundTint="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
