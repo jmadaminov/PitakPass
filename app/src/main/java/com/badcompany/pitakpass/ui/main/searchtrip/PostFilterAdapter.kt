@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
-import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
+import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj

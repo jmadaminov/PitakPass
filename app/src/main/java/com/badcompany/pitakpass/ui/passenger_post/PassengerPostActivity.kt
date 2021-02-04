@@ -61,6 +61,7 @@ import java.text.DecimalFormat
         rvOffers.adapter = offersAdapter
 
         viewModel.getPostById(postId)
+        viewModel.getOffersForPost(postId)
 
 
         attachListeners()
@@ -80,6 +81,7 @@ import java.text.DecimalFormat
         })
 
         viewModel.offerActionResp.observe(this, {
+            viewModel.getPostById(postId)
             viewModel.getOffersForPost(postId)
             offersAdapter.refresh()
         })

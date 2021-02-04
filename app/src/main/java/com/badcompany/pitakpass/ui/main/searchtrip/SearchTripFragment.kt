@@ -113,9 +113,9 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     }
 
     private fun setupListeners() {
-        swipeRefreshLayout.setOnRefreshListener {
-            postsAdapter.refresh()
-        }
+//        swipeRefreshLayout.setOnRefreshListener {
+//            postsAdapter.refresh()
+//        }
 
         filterBtn.setOnClickListener {
             slidingLayer.openLayer(true)
@@ -275,7 +275,8 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         )
 
         postsAdapter.addLoadStateListener { loadState ->
-            swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
+//            swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
+            progress.isVisible = loadState.source.refresh is LoadState.Loading
             rvPosts.isVisible = loadState.source.refresh is LoadState.NotLoading
             tv_error.isVisible = loadState.source.refresh is LoadState.Error
             if (loadState.source.refresh is LoadState.Error) {

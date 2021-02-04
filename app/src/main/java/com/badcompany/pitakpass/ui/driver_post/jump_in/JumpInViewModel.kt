@@ -1,4 +1,4 @@
-package com.badcompany.pitakpass.ui.driver_post.join_a_ride
+package com.badcompany.pitakpass.ui.driver_post.jump_in
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -18,9 +18,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class JoinARideViewModel @ViewModelInject constructor(private val repository: DriverPostRepository,
-                                                      private val createPassengerPost: CreatePassengerPost,
-                                                      private val getActivePassengerPost: GetActivePassengerPost
+class JumpInViewModel @ViewModelInject constructor(private val repository: DriverPostRepository,
+                                                   private val createPassengerPost: CreatePassengerPost,
+                                                   private val getActivePassengerPost: GetActivePassengerPost
 ) :
     BaseViewModel() {
 

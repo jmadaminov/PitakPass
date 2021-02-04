@@ -1,4 +1,4 @@
-package com.badcompany.pitakpass.ui.driver_post.join_a_ride
+package com.badcompany.pitakpass.ui.driver_post.jump_in
 
 import android.content.Context
 import android.os.Bundle
@@ -20,6 +20,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_offer_a_ride.*
 import splitties.experimental.ExperimentalSplittiesApi
+import java.text.DecimalFormat
 
 const val ARG_DRIVER_POST = "DRIVER_POST"
 
@@ -28,7 +29,7 @@ class DialogJoinARideFragment : DialogFragment() {
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
     private lateinit var driverPost: DriverPostViewObj
-    val viewModel: JoinARideViewModel by viewModels()
+    val viewModel: JumpInViewModel by viewModels()
 
     override fun getTheme() = R.style.Theme_Dialog
 
@@ -46,6 +47,9 @@ class DialogJoinARideFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        edtPrice.hint =
+//            DecimalFormat("#,###").format(driverPost.price) + " " + getString(R.string.sum)
         rvMyPosts.adapter = adapter
         attachListeners()
         subscribeObservers()
@@ -110,7 +114,7 @@ class DialogJoinARideFragment : DialogFragment() {
 
         btnSendOffer.setOnClickListener {
             viewModel.joinARide(driverPost.id,
-                                if (edtPrice.text.isNullOrBlank()) null else edtPrice.text.toString()
+                                if (edtPrice.text.isNullOrBlank()) driverPost.price else edtPrice.text.toString()
                                     .toInt(),
                                 messageInput.text.toString(),
                                 tvSeats.text.toString().toInt(),

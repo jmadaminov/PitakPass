@@ -6,8 +6,8 @@ import android.view.View
 import androidx.activity.viewModels
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.BaseActivity
-import com.badcompany.pitakpass.ui.driver_post.join_a_ride.ARG_DRIVER_POST
-import com.badcompany.pitakpass.ui.driver_post.join_a_ride.DialogJoinARideFragment
+import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
+import com.badcompany.pitakpass.ui.driver_post.jump_in.DialogJoinARideFragment
 import com.badcompany.pitakpass.util.loadCircleImageUrl
 import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
