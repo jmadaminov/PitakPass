@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
 import java.text.DecimalFormat
 
-class PostFilterAdapter() :
+class PostFilterAdapter :
     PagingDataAdapter<DriverPost, PostFilterAdapter.DriverPostViewHolder>(FILTER_COMPARATOR) {
 
 
@@ -56,9 +56,9 @@ class PostFilterAdapter() :
                     }
                 }
 
-                post.car?.image?.link?.let {
-                    ivCarPhoto.loadImageUrl(it)
-                }
+//                post.car?.image?.link?.let {
+//                    ivCarPhoto.loadImageUrl(it)
+//                }
 
                 post.profile?.let { driverProfile ->
                     driverProfile.rating?.let { rating ->
@@ -76,12 +76,12 @@ class PostFilterAdapter() :
                         if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
                     }
 
-                    tvCarInfo.text = it.carModel?.name + ", " +
-                            it.carYear.toString() + ", " +
-                            it.carColor?.name + ", " +
-                            it.carNumber + ", " +
-                            it.fuelType +
-                            hasAC
+//                    tvCarInfo.text = it.carModel?.name + ", " +
+//                            it.carYear.toString() + ", " +
+//                            it.carColor?.name + ", " +
+//                            it.carNumber + ", " +
+//                            it.fuelType +
+//                            hasAC
 
                 }
 

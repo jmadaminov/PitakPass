@@ -5,12 +5,12 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:selectableItemBackground"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
-    app:cardUseCompatPadding="true">
+    app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -122,6 +122,25 @@
             app:layout_constraintTop_toBottomOf="@id/to"
             tools:text="note note sohisdf asdfasdf sadfas fsd fsadf asdfsd" />
 
+        <ImageView
+            android:id="@+id/ivFuelType"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_gascan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
+            app:tint="@color/red" />
+
+        <ImageView
+            android:id="@+id/ivAC"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_ac_unit_24"
+            app:layout_constraintEnd_toStartOf="@id/ivFuelType"
+            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
+            app:tint="#4DD0E1" />
 
         <LinearLayout
             android:id="@+id/llPriceSeatsDate"
@@ -130,7 +149,7 @@
             android:layout_marginTop="14dp"
             android:paddingLeft="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tvCarInfo">
+            app:layout_constraintTop_toBottomOf="@id/ivFuelType">
 
             <TextView
                 android:id="@+id/price"
@@ -178,33 +197,36 @@
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/from"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/tvCarInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="start"
-            android:textColor="@color/dark_grey"
-            android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/note"
-            tools:text="Car Model 2 uz Qizil PETROL 2013 xa107u" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvCarInfo"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="12dp"-->
+        <!--            android:layout_marginTop="12dp"-->
+        <!--            android:gravity="start"-->
+        <!--            android:textColor="@color/dark_grey"-->
+        <!--            android:textSize="12dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/note"-->
+        <!--            tools:text="Car Model 2 uz Qizil PETROL 2013 xa107u" />-->
 
         <ImageView
             android:id="@+id/ivCarPhoto"
-            android:layout_width="0dp"
-            android:layout_height="?android:actionBarSize"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
+            android:scaleX="-1"
+            android:src="@drawable/spark"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
