@@ -12,9 +12,7 @@ object Constants {
     const val errPhoneFormat = -99
     const val TXT_CAR = "CAR"
     const val TXT_PASSENGER_POST = "PASSENGER_POST"
-    const val FUEL_TYPE_PROPANE = "PROPANE"
-    const val FUEL_TYPE_METHANE = "METHANE"
-    const val FUEL_TYPE_PETROL = "PETROL"
+
     const val TXT_TOKEN = "TOKEN"
     const val TXT_ID = "ID"
     const val TXT_POSITION = "POSITION"

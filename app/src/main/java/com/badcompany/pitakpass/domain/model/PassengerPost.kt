@@ -1,7 +1,6 @@
 package com.badcompany.pitakpass.domain.model
-import com.badcompany.pitakpass.ui.EPostStatus
-import com.badcompany.pitakpass.ui.EPostType
-import com.badcompany.pitakpass.util.Constants
+import com.badcompany.pitakpass.core.enums.EPostStatus
+import com.badcompany.pitakpass.core.enums.EPostType
 import com.google.gson.annotations.SerializedName
 
 /**

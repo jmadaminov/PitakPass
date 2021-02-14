@@ -1,4 +1,4 @@
-package com.badcompany.pitakpass.ui
+package com.badcompany.pitakpass.core.enums
 
 enum class EPostStatus {
     WAITING_FOR_START,

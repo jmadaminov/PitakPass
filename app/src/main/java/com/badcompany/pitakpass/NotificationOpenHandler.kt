@@ -1,7 +1,7 @@
 package com.badcompany.pitakpass
 
 import android.content.Intent
-import com.badcompany.pitakpass.ui.ENotificationType
+import com.badcompany.pitakpass.core.enums.ENotificationType
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.onesignal.OSNotificationOpenResult

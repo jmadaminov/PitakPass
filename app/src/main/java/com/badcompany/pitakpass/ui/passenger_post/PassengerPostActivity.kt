@@ -11,7 +11,7 @@ import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.BaseActivity
-import com.badcompany.pitakpass.ui.EPostStatus
+import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.badcompany.pitakpass.ui.addpost.AddPostActivity
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.*
