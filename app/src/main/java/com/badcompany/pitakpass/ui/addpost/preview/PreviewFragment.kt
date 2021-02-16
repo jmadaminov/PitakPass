@@ -10,8 +10,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.ui.EPostStatus
-import com.badcompany.pitakpass.ui.EPostType
+import com.badcompany.pitakpass.core.enums.EPostStatus
+import com.badcompany.pitakpass.core.enums.EPostType
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper

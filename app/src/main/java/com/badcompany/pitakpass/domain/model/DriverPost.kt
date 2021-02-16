@@ -1,8 +1,6 @@
 package com.badcompany.pitakpass.domain.model
 
-import com.badcompany.pitakpass.ui.EPostType
-import com.badcompany.pitakpass.util.Constants
-import com.badcompany.pitakpass.util.ResponseParent
+import com.badcompany.pitakpass.core.enums.EPostType
 import com.google.gson.annotations.SerializedName
 
 data class DriverPost(@SerializedName("id") val id: Long,

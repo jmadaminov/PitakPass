@@ -10,7 +10,7 @@ import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.usecases.CreatePassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetActivePassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.ui.EPostStatus
+import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.coroutines.Dispatchers

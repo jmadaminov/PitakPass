@@ -2,10 +2,9 @@ package com.badcompany.pitakpass.remote.model
 
 import android.os.Parcelable
 import com.badcompany.pitakpass.domain.model.CarInPost
-import com.badcompany.pitakpass.domain.model.CarModel
 import com.badcompany.pitakpass.domain.model.ProfileDTO
-import com.badcompany.pitakpass.ui.EOfferStatus
-import com.badcompany.pitakpass.ui.EPostType
+import com.badcompany.pitakpass.core.enums.EOfferStatus
+import com.badcompany.pitakpass.core.enums.EPostType
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

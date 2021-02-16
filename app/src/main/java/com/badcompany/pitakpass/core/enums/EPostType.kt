@@ -1,4 +1,4 @@
-package com.badcompany.pitakpass.ui
+package com.badcompany.pitakpass.core.enums
 
 enum class EPostType {
     DRIVER_SM,

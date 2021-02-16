@@ -1,4 +1,4 @@
-package com.badcompany.pitakpass.ui
+package com.badcompany.pitakpass.core.enums
 
 enum class ENotificationType {
     OFFER_CREATE

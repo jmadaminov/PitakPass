@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.ui.EPostStatus
+import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_active_post.view.*

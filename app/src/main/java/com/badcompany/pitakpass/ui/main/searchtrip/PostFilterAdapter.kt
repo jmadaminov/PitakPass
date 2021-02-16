@@ -7,11 +7,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.core.enums.EFuelType
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
 import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
+import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.util.loadCircleImageUrl
-import com.badcompany.pitakpass.util.loadImageUrl
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
@@ -19,7 +20,6 @@ import java.text.DecimalFormat
 
 class PostFilterAdapter :
     PagingDataAdapter<DriverPost, PostFilterAdapter.DriverPostViewHolder>(FILTER_COMPARATOR) {
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DriverPostViewHolder {
@@ -36,7 +36,8 @@ class PostFilterAdapter :
     class DriverPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: DriverPost) {
             itemView.apply {
-                seats.text =   (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
+                seats.text =
+                    (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
                 date.text = post.departureDate
                 from.text = post.from.regionName
                 to.text = post.to.regionName
@@ -76,12 +77,17 @@ class PostFilterAdapter :
                         if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
                     }
 
-//                    tvCarInfo.text = it.carModel?.name + ", " +
-//                            it.carYear.toString() + ", " +
-//                            it.carColor?.name + ", " +
-//                            it.carNumber + ", " +
-//                            it.fuelType +
-//                            hasAC
+                    when (it.fuelType!!) {
+                        EFuelType.PROPANE -> {
+                            ivFuelType.setImageResource(R.drawable.ic_propane)
+                        }
+                        EFuelType.METHANE -> {
+                            ivFuelType.setImageResource(R.drawable.ic_methane)
+                        }
+                        EFuelType.PETROL -> {
+                            ivFuelType.setImageResource(R.drawable.ic_gascan)
+                        }
+                    }.exhaustive
 
                 }
 

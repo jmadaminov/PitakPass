@@ -3,7 +3,7 @@ package com.badcompany.pitakpass.data.source
 import androidx.paging.PagingSource
 import com.badcompany.pitakpass.remote.AuthorizedApiService
 import com.badcompany.pitakpass.remote.model.OfferDTO
-import com.badcompany.pitakpass.ui.EOfferStatus
+import com.badcompany.pitakpass.core.enums.EOfferStatus
 import retrofit2.HttpException
 import java.io.IOException
 
