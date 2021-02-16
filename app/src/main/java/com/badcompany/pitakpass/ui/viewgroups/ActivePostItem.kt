@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_active_post.view.*
 import java.text.DecimalFormat
 
 
-class ActivePostItem(var post: PassengerPost/*, var onPostActionListener: IOnPostActionListener*/,
+class ActivePostItem(var post: PassengerPost,
                      var onClick: () -> Unit) :
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
@@ -20,6 +20,13 @@ class ActivePostItem(var post: PassengerPost/*, var onPostActionListener: IOnPos
             from.text = post.from.regionName
             to.text = post.to.regionName
             price.text = post.price.toString()
+
+            if (post.offerCount > 0) {
+                tvOffersCount.visibility = View.VISIBLE
+                tvOffersCount.text = post.offerCount.toString()
+            }else{
+                tvOffersCount.visibility = View.GONE
+            }
 
             post.remark?.also {
                 note.visibility = View.VISIBLE
@@ -33,13 +40,13 @@ class ActivePostItem(var post: PassengerPost/*, var onPostActionListener: IOnPos
 
             val currentStatusStr = when (post.postStatus) {
                 EPostStatus.WAITING_FOR_START -> {
-                    status.backgroundTintList =
+                    llStatus.backgroundTintList =
                         ContextCompat.getColorStateList(context, R.color.colorNavIdle)
 
                     context.getString(R.string.waiting)
                 }
                 EPostStatus.START -> {
-                    status.backgroundTintList =
+                    llStatus.backgroundTintList =
                         ContextCompat.getColorStateList(context, R.color.colorPrimary)
 
                     context.getString(R.string.on_the_way)
@@ -54,7 +61,7 @@ class ActivePostItem(var post: PassengerPost/*, var onPostActionListener: IOnPos
                     context.getString(R.string.rejected)
                 }
                 EPostStatus.CREATED -> {
-                    status.backgroundTintList =
+                    llStatus.backgroundTintList =
                         ContextCompat.getColorStateList(context, R.color.neutralColor)
                     context.getString(R.string.boarding)
                 }

@@ -75,7 +75,8 @@ class JumpInViewModel @ViewModelInject constructor(private val repository: Drive
                                           null,
                                           null,
                                           EPostStatus.CREATED,
-                                          driverPost.seat
+                                          driverPost.seat,
+                                          0
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
             is ErrorWrapper.ResponseError -> {
