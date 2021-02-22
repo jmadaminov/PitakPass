@@ -101,7 +101,7 @@
         <string name="have_you_completed_the_ride">Вы завершили эту поездку?</string>
         <string name="post">Пост: %1$d</string>
         <string name="do_you_want_to_cancel_this_offer">Вы хотите отменить это предложение?</string>
-        <string name="offer_a_ride">Предложить поездку</string>
+        <string name="offer_a_ride">Присоединиться!</string>
         <string name="send_offer">Отправить предложение</string>
         <string name="message">Сообщение</string>
         <string name="your_price">Ваша цена</string>
@@ -127,5 +127,8 @@
         <string name="rejected">Отклонено</string>
         <string name="boarding">Посадка</string>
         <string name="language">Язык</string>
+    <string name="ok">Ok</string>
+    <string name="app_version_too_old">The version of the app is too old! Please update from Google Play Market.</string>
+    <string name="finish">Finish</string>
 
 </resources>

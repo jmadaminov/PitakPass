@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.badcompany.pitakpass.App
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.User
-import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -36,7 +35,7 @@ class RegisterFragment @Inject constructor() :
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         setupObservers()
-        phone.setMaskedText(args.phone.numericOnly().substring(3, args.phone.numericOnly().length))
+        phone.setText(args.phone)
 
         register.isEnabled = true
 

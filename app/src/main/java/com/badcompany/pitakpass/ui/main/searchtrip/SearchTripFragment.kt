@@ -117,6 +117,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 //            postsAdapter.refresh()
 //        }
 
+
+        btn_retry.setOnClickListener {
+            postsAdapter.refresh()
+        }
+
         filterBtn.setOnClickListener {
             slidingLayer.openLayer(true)
         }
@@ -303,7 +308,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        postsAdapter.removeLoadStateListener { }
         autoCompleteManager.dispose()
     }
 

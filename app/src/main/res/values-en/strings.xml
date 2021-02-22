@@ -135,9 +135,9 @@
     <string name="no_driver_assigned_yet">No driver assigned yet, please wait...</string>
     <string name="you_are_already_in">You are already in!</string>
     <string name="language">Language</string>
-
-
-
+    <string name="ok">Ok</string>
+    <string name="app_version_too_old">The version of the app is too old! Please update from Google Play Market.</string>
+    <string name="finish">Finish</string>
 
 
 </resources>

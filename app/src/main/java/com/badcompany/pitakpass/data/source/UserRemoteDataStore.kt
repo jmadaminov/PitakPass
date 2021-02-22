@@ -26,4 +26,6 @@ open class UserRemoteDataStore @Inject constructor(private val userRemote: UserR
                                         surName: String,
                                         uploadedAvatarId: Long?) = userRemote.updateUserInfo(name, surName, uploadedAvatarId)
 
+    override suspend fun getActiveAppVersions() = userRemote.getActiveAppVersions()
+
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +9,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_margin="25dp"
         app:cardCornerRadius="10dp">
@@ -71,7 +72,6 @@
                 app:layout_constraintTop_toTopOf="@id/tvSeats" />
 
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/seatLayout"
                 android:layout_width="wrap_content"
@@ -81,14 +81,14 @@
                 app:layout_constraintBottom_toTopOf="@id/messageLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvSeats" >
+                app:layout_constraintTop_toBottomOf="@id/tvSeats">
 
-            <EditText
-                android:id="@+id/edtPrice"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/your_price"
-                android:inputType="number"/>
+                <EditText
+                    android:id="@+id/edtPrice"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/your_price"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,8 +99,8 @@
                 android:layout_margin="15dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/lblSelectPost"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/seatLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -200,4 +200,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+</RelativeLayout>
