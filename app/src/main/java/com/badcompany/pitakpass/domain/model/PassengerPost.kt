@@ -23,4 +23,5 @@ data class PassengerPost(@SerializedName("id") val id: Long?=null,
                          @SerializedName("remark") val remark: String?=null,
                          @SerializedName("postStatus") val postStatus: EPostStatus,
                          @SerializedName("seat") val seat: Int,
+                         @SerializedName("offerCount") val offerCount: Int,
                          @SerializedName("postType") val postType: EPostType = EPostType.PASSENGER_SM)

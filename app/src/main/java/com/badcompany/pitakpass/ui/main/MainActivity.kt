@@ -55,6 +55,7 @@ class MainActivity : BaseActivity() {
 //        setupBottomNavigationView(savedInstanceState)
 
         navController = findNavController(R.id.nav_host_fragment)
+        viewModel.getActiveAppVersions()
     }
 
     private fun setupListeners() {
@@ -123,7 +124,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun subscribeObservers() {
-//        TODO("Not yet implemented")
+        viewModel.isAppVersionDeprecated.observe(this) { isDeprecated ->
+            if (isDeprecated) DialogForceUpdate().show(supportFragmentManager, "")
+        }
     }
 
 

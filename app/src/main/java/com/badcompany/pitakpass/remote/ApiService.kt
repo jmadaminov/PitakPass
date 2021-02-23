@@ -1,11 +1,9 @@
 package com.badcompany.pitakpass.remote
 
+import com.badcompany.pitakpass.core.enums.EAppType
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
-import com.badcompany.pitakpass.remote.model.AuthResponse
-import com.badcompany.pitakpass.remote.model.AuthSuccessResponse
-import com.badcompany.pitakpass.remote.model.LoginRequest
-import com.badcompany.pitakpass.remote.model.PhotoUploadResponse
+import com.badcompany.pitakpass.remote.model.*
 import com.badcompany.pitakpass.util.RespFormatter
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -37,6 +35,12 @@ interface ApiService {
     @Multipart
     @POST("attach/image")
     suspend fun uploadPhoto(@Part file: MultipartBody.Part): PhotoUploadResponse
+
+
+    @GET("force_update/action/versions")
+    suspend fun getActiveAppVersions(@Query("appType") appType: String = EAppType.PASSENGER.name,
+                                     @Query("platformType") platformType: String = "ANDROID"): RespFormatter<List<IdVersionDTO>>
+
 
     //END FILE UPLOAD API
 

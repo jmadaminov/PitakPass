@@ -3,7 +3,7 @@ package com.badcompany.pitakpass.viewobjects
 import android.os.Parcelable
 import com.badcompany.pitakpass.core.enums.EFuelType
 import com.badcompany.pitakpass.domain.model.DriverPost
-import com.badcompany.pitakpass.core.enums.EPostType
+import com.badcompany.pitakpass.core.enums.EFuelType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -112,4 +112,4 @@ data class CarInPostViewObj(var id: Long? = null,
 
 @Parcelize
 data class CarModelViewObj(val id: Long,
-                           val name: String?=null) : Parcelable
+                           val name: String? = null) : Parcelable

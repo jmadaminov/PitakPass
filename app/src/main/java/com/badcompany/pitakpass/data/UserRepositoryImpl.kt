@@ -30,4 +30,7 @@ class UserRepositoryImpl @Inject constructor(private val factory: UserDataStoreF
                                         surName: String,
                                         uploadedAvatarId: Long?) = factory.retrieveDataStore(false)
         .updateUserInfo(name, surName, uploadedAvatarId)
+
+    override suspend fun getActiveAppVersions() = factory.retrieveDataStore(false)
+        .getActiveAppVersions()
 }

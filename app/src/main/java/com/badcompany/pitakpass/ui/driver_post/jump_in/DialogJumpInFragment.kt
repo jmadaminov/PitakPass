@@ -18,9 +18,8 @@ import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_offer_a_ride.*
+import kotlinx.android.synthetic.main.dialog_jump_in.*
 import splitties.experimental.ExperimentalSplittiesApi
-import java.text.DecimalFormat
 
 const val ARG_DRIVER_POST = "DRIVER_POST"
 
@@ -41,7 +40,7 @@ class DialogJoinARideFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_offer_a_ride, container)
+        return inflater.inflate(R.layout.dialog_jump_in, container)
     }
 
 

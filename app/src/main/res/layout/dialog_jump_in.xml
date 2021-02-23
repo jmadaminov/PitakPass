@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_margin="25dp"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvSubtractSeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="5dp"
+                android:text="-"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvSeats"
+                app:layout_constraintEnd_toStartOf="@id/tvSeats"
+                app:layout_constraintTop_toTopOf="@id/tvSeats" />
+
+
+            <TextView
+                android:id="@+id/tvSeats"
+                android:layout_width="?android:actionBarSize"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@id/seatLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tvAddSeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroke_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="5dp"
+                android:text="+"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvSeats"
+                app:layout_constraintStart_toEndOf="@id/tvSeats"
+                app:layout_constraintTop_toTopOf="@id/tvSeats" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/seatLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toTopOf="@id/messageLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSeats">
+
+                <EditText
+                    android:id="@+id/edtPrice"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/your_price"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/messageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toTopOf="@id/lblSelectPost"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seatLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/messageInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|top"
+                    android:hint="@string/message"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="120"
+                    android:maxLines="6"
+                    android:textColor="@color/dark_grey" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/ivClearSelected"
+                android:layout_width="?android:actionBarSize"
+                android:layout_height="?android:actionBarSize"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackgroundBorderless"
+                android:padding="15dp"
+                android:src="@drawable/close_icon"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tvSelectedPost"
+                app:layout_constraintStart_toEndOf="@id/tvSelectedPost"
+                app:layout_constraintTop_toTopOf="@id/tvSelectedPost"
+                tools:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/tvSelectedPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:text="Offering Post ID: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/rvContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messageLayout"
+                tools:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/lblSelectPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/rvContainer"
+                app:layout_constraintTop_toBottomOf="@id/messageLayout"
+                tools:text="@string/select_your_trip_if_you_have_one" />
+
+
+            <RelativeLayout
+                android:id="@+id/rvContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:layout_constraintBottom_toTopOf="@id/btnSendOffer"
+                app:layout_constraintTop_toBottomOf="@id/lblSelectPost">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMyPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_active_post" />
+            </RelativeLayout>
+
+
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/btnSendOffer"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/send_offer"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:finalCornerAngle="50dp"
+                app:initialCornerAngle="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

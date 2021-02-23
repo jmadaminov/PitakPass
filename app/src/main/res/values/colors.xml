@@ -17,6 +17,8 @@
     <color name="greyBackground">@android:color/background_light</color>
     <color name="textColorGreyDark">#6e6e70</color>
     <color name="orange">#FFA000</color>
+    <color name="orangeDarker">#F57C00</color>
+
     <color name="ic_grey" >#a1a9c3</color>
     <color name="light_grey" >#ebebee</color>
 

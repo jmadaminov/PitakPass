@@ -26,6 +26,10 @@
             android:label="@string/edit_profile"
             android:theme="@style/AppTheme" />
         <activity
+            android:name="com.badcompany.pitak.ui.history_post.HistoryPostActivity"
+            android:label="@string/history"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.feedback.FeedbackActivity"
             android:label="@string/feedback"
             android:theme="@style/AppTheme" />
@@ -33,12 +37,7 @@
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme" />
-        <!-- <activity -->
-        <!-- android:name=".ui.addcar.AddCarActivity" -->
-        <!-- android:label="@string/title_add_car" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/AppTheme" -->
-        <!-- android:windowSoftInputMode="adjustPan" /> -->
+
         <activity
             android:name=".ui.addpost.AddPostActivity"
             android:label="@string/title_add_post"

@@ -24,9 +24,8 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
     override suspend fun registerUser(user: User): ResultWrapper<String> {
         return try {
             val response = apiService.userRegister(user)
-            if (response.code == 1) ResultWrapper.Success(response.data!!.password!!)
+            if (response.code == 1) ResultWrapper.Success("")
             else ErrorWrapper.ResponseError(response.code, response.message)
-
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -55,5 +54,19 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
                                                                          IdName(uploadedAvatarId)
                                                                      }))
         }
+
+    override suspend fun getActiveAppVersions(): ResponseWrapper<List<String>> {
+        val response = getFormattedResponse { apiService.getActiveAppVersions() }
+        return when (response) {
+            is ResponseError -> response
+            is ResponseSuccess -> {
+                val versions = arrayListOf<String>()
+                response.value.forEach {
+                    versions.add(it.version)
+                }
+                ResponseSuccess(versions)
+            }
+        }.exhaustive
+    }
 
 }

@@ -4,6 +4,7 @@ package com.badcompany.pitakpass
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.util.Log
 import com.onesignal.OneSignal
 import dagger.hilt.android.HiltAndroidApp
@@ -18,11 +19,12 @@ class App : Application() {
 
     companion object {
         lateinit var uuid: String
-        private var INSTANCE: App? = null
+        lateinit var INSTANCE: App
+        lateinit var versionName: String
 
-        fun getResources() = INSTANCE?.resources
+        fun getResources() = INSTANCE.resources
         fun getAppContext() = INSTANCE
-        fun getInstance(): Context? = INSTANCE
+        fun getInstance(): Context = INSTANCE
     }
 
 
@@ -47,7 +49,8 @@ class App : Application() {
             uuid = userId
         }
 
-
+        val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+        versionName = info.versionName
     }
 
 

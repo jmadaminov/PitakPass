@@ -154,6 +154,7 @@ class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview
                                                         activityViewModel.note!!,
                                                         EPostStatus.CREATED,
                                                         activityViewModel.seat!!,
+                                                        0,
                                                         EPostType.PASSENGER_SM))
         }
 

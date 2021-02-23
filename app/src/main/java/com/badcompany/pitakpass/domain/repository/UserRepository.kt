@@ -13,5 +13,6 @@ interface UserRepository {
     suspend fun smsConfirm(userCredentials: UserCredentials): ResultWrapper<AuthBody>
     suspend fun sendFeedback(feedback:String): ResponseWrapper<Any?>
     suspend fun updateUserInfo(name: String, surName: String, uploadedAvatarId: Long?): ResponseWrapper<Any?>
+    suspend fun getActiveAppVersions(): ResponseWrapper<List<String>>
 
 }
