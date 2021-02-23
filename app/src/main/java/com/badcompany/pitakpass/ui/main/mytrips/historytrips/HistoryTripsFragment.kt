@@ -1,29 +1,13 @@
 package com.badcompany.pitakpass.ui.main.mytrips.historytrips
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log.wtf
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
-import com.badcompany.pitakpass.util.exhaustive
+import androidx.paging.LoadState
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.domain.model.PassengerPost
-import com.badcompany.pitakpass.ui.interfaces.IOnPostActionListener
-import com.badcompany.pitakpass.ui.main.MainViewModel
-import com.badcompany.pitakpass.ui.viewgroups.HistoryPostItem
-import com.badcompany.pitakpass.ui.viewgroups.LoadingItemSmall
-import com.google.android.material.snackbar.Snackbar
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import com.badcompany.pitakpass.ui.main.searchtrip.PostLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_history_trips.*
 import splitties.experimental.ExperimentalSplittiesApi
@@ -35,209 +19,70 @@ class HistoryTripsFragment @Inject constructor() :
     Fragment(R.layout.fragment_history_trips) {
 
 
-    private val adapter = GroupAdapter<GroupieViewHolder>()
-    val viewmodel: HistoryTripsViewModel by viewModels()
+    var postsAdapter = HistoryPostAdapter()
 
-
-    private val activityViewModel: MainViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    val viewModel: HistoryTripsViewModel by viewModels()
 
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        setupRecyclerView()
+        setupViews()
         setupListeners()
+        viewModel.getHistoryPost()
         subscribeObservers()
-        viewmodel.getHistoryPosts(0)
     }
 
-    override fun onStart() {
-        super.onStart()
-//        if (viewmodel.historyPostsResponse.value != ResultWrapper.InProgress) {
-//            swipeRefreshLayout.isRefreshing = true
-//        } else {
-//            swipeRefreshLayout.isRefreshing =
-//                viewmodel.historyPostsResponse.value == ResultWrapper.InProgress
-//        }
-    }
+    private fun setupViews() {
 
+        rvPosts.adapter = postsAdapter.withLoadStateHeaderAndFooter(
+            header = PostLoadStateAdapter { postsAdapter.retry() },
+            footer = PostLoadStateAdapter { postsAdapter.retry() }
+        )
 
-    override fun onResume() {
-        super.onResume()
-
-
-    }
-
-    @ExperimentalSplittiesApi
-    private fun setupRecyclerView() {
-        historyPostsList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-        historyPostsList.setHasFixedSize(true)
-        adapter.clear()
-        historyPostsList.adapter = adapter
-
-        historyPostsList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (adapter.itemCount % 10 == 0) viewmodel.getHistoryPosts(adapter.itemCount / 10)
-                    wtf("-----", "end")
-                }
+        postsAdapter.addLoadStateListener { loadState ->
+//            swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
+            swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
+            rvPosts.isVisible = loadState.source.refresh is LoadState.NotLoading
+            tv_error.isVisible = loadState.source.refresh is LoadState.Error
+            if (loadState.source.refresh is LoadState.Error) {
+                tv_error.text = (loadState.source.refresh as LoadState.Error).error.localizedMessage
             }
-        })
+            btn_retry.isVisible = loadState.source.refresh is LoadState.Error
 
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && postsAdapter.itemCount < 1) {
+                rvPosts.isVisible = false
+                tv_error.isVisible = true
+                tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
+
+            } else if (loadState.source.refresh !is LoadState.Error) {
+                rvPosts.isVisible = true
+                tv_error.isVisible = false
+            }
+        }
     }
+
 
     @ExperimentalSplittiesApi
     private fun setupListeners() {
         swipeRefreshLayout.setOnRefreshListener {
-            noHistoryPostsTxt.visibility = View.GONE
-            viewmodel.getHistoryPosts(0)
+            postsAdapter.refresh()
         }
     }
 
     @ExperimentalSplittiesApi
     private fun subscribeObservers() {
+        viewModel.postOffers.observe(viewLifecycleOwner, {
+            val value = it ?: return@observe
+            postsAdapter.submitData(lifecycle, value)
 
-//        activityViewModel.deletedOrderItem.observe(viewLifecycleOwner, Observer {
-//            val order = it ?: return@Observer
-//            adapter.remove(adapter.getItem(order.adapterPosition!!))
-//            adapter.notifyItemRemoved(order.adapterPosition!!)
-//            if (adapter.itemCount == 0) noActiveOrdersTxt.visibility = View.VISIBLE
-//
-//        })
-
-//        activityViewModel.updatedOrderItem.observe(viewLifecycleOwner, Observer {
-//            val order = it ?: return@Observer
-//            val target = adapter.getItem(order.adapterPosition!!)
-//            (target as ActiveOrderItem).order = order
-//            adapter.notifyItemChanged(order.adapterPosition!!)
-//        })
-
-        viewmodel.historyPostsResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
-                    removeLoadingMore()
-                }
-                is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
-                    removeLoadingMore()
-                }
-                is ResultWrapper.Success -> {
-                    removeLoadingMore()
-                    loadData(response.value)
-                }
-                ResultWrapper.InProgress -> {
-                    addLoading()
-                }
-            }.exhaustive
         })
-
-        viewmodel.cancelOrderReponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
-
-                }
-                is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
-                }
-                is ResultWrapper.Success -> {
-
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-        })
-
-
     }
 
-    private fun addLoading() {
-        if (viewmodel.currentPage == 0) {
-            swipeRefreshLayout.isRefreshing = true
-        } else {
-            adapter.add(LoadingItemSmall())
-            adapter.notifyItemInserted(adapter.itemCount - 1)
-        }
-
-    }
-
-    private fun removeLoadingMore() {
-        if (viewmodel.currentPage == 0) {
-            swipeRefreshLayout.isRefreshing = false
-        } else {
-            adapter.remove(adapter.getItem(adapter.itemCount - 1))
-            adapter.notifyItemRemoved(adapter.itemCount - 1)
-        }
-    }
-
-
-    var dialog: AlertDialog? = null
-
-//    @ExperimentalSplittiesApi
-//    val onOrderActionListener = object : IOnOrderActionListener {
-//        override fun onModifyClick(order: OrderData) {
-//            val dialog = EditOrderBottomSheetDialog(viewModelFactory)
-//            val args = Bundle()
-//            args.putParcelable(Constants.ARG_ORDER, order)
-//            dialog.arguments = args
-//            dialog.showsDialog
-//            dialog.show(childFragmentManager, "Edit_Order_BSD")
-//        }
-//
-//        override fun onEditClick(order: OrderData) {
-//        }
-//
-//    }
-
-    @ExperimentalSplittiesApi
-    private fun loadData(orders: List<PassengerPost>) {
-        if (viewmodel.currentPage == 0) {
-            adapter.clear()
-            if (orders.isEmpty()) noHistoryPostsTxt.visibility = View.VISIBLE
-            else noHistoryPostsTxt.visibility = View.GONE
-        }
-
-        orders.forEach {
-            adapter.add(HistoryPostItem(it, onOrderActionListener))
-        }
-        adapter.notifyDataSetChanged()
-
-    }
-
-
-    private val onOrderActionListener = object : IOnPostActionListener {
-        override fun onEditClick(post: PassengerPost) {
-        }
-
-        override fun onCancelClick(position: Int, post: PassengerPost, parentView: View) {
-        }
-
-        override fun onDoneClick(position: Int, post: PassengerPost, parentView: View) {
-
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        postsAdapter.removeLoadStateListener { }
+        rvPosts.adapter = null
     }
 
 
