@@ -1,10 +1,12 @@
 package com.badcompany.pitakpass.ui.main.searchtrip
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.CalendarView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,6 +37,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     lateinit var autoCompleteManager: AutoCompleteManager
     var postsAdapter = PostFilterAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -46,9 +53,9 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         setupDateBalloon()
     }
 
+
     private fun setupDateBalloon() {
         date.text = getString(R.string.anytime)
-
         balloon = Balloon.Builder(requireContext())
             .setLayout(R.layout.layout_calendar)
             .setArrowSize(10)
@@ -113,18 +120,8 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     }
 
     private fun setupListeners() {
-//        swipeRefreshLayout.setOnRefreshListener {
-//            postsAdapter.refresh()
-//        }
-
-
-        btn_retry.setOnClickListener {
-            postsAdapter.refresh()
-        }
-
-        filterBtn.setOnClickListener {
-            slidingLayer.openLayer(true)
-        }
+        btn_retry.setOnClickListener { postsAdapter.refresh() }
+        filterBtn.setOnClickListener { slidingLayer.openLayer(true) }
         applyFilter.setOnClickListener {
             viewModel.applyFilter()
             slidingLayer.closeLayer(true)
@@ -194,6 +191,36 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             viewModel.seatCountChanged(count)
         }
 
+
+        fromInput.setOnFocusChangeListener { v, hasFocus ->
+            val drawable =
+                DrawableCompat.wrap(resources.getDrawable(R.drawable.ic_round_my_location_24))
+            if (hasFocus) {
+                DrawableCompat.setTint(drawable,
+                                       ContextCompat.getColor(requireContext(),
+                                                              R.color.colorAccent))
+            } else {
+                DrawableCompat.setTint(drawable,
+                                       ContextCompat.getColor(requireContext(), R.color.ic_grey))
+            }
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_ATOP)
+            fromInput.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        }
+
+        toInput.setOnFocusChangeListener { v, hasFocus ->
+            val drawable =
+                DrawableCompat.wrap(resources.getDrawable(R.drawable.ic_round_location_on_24))
+            if (hasFocus) {
+                DrawableCompat.setTint(drawable,
+                                       ContextCompat.getColor(requireContext(),
+                                                              R.color.colorAccent))
+            } else {
+                DrawableCompat.setTint(drawable,
+                                       ContextCompat.getColor(requireContext(), R.color.ic_grey))
+            }
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_ATOP)
+            toInput.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        }
     }
 
 
@@ -291,8 +318,8 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
             if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && postsAdapter.itemCount < 1) {
                 rvPosts.isVisible = false
-                tv_error.isVisible = true
-                tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
+                infoText.isVisible = true
+                infoText.setText(R.string.there_are_no_posts_yet_come_back_later)
                 motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
             } else if (loadState.source.refresh !is LoadState.Error) {
                 rvPosts.isVisible = true
