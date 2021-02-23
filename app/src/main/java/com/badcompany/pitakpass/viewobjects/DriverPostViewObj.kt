@@ -1,9 +1,9 @@
 package com.badcompany.pitakpass.viewobjects
 
 import android.os.Parcelable
-import com.badcompany.pitakpass.core.enums.EFuelType
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.core.enums.EFuelType
+import com.badcompany.pitakpass.core.enums.EPostType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
