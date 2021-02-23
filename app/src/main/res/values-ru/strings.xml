@@ -130,5 +130,6 @@
     <string name="ok">Ok</string>
     <string name="app_version_too_old">The version of the app is too old! Please update from Google Play Market.</string>
     <string name="finish">Finish</string>
+    <string name="go_to_play_market">Go to Play Market</string>
 
 </resources>
