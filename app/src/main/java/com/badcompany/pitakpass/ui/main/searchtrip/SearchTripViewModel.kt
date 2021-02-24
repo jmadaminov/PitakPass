@@ -30,7 +30,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
     val count: LiveData<Int> get() = _count
 
 
-   var postOffers: LiveData<PagingData<DriverPost>> = MutableLiveData()
+    var postOffers: LiveData<PagingData<DriverPost>> = MutableLiveData()
     fun getPassengerPost() {
         postOffers = postFilterRepository.getFilteredPosts(_filter.valueNN).cachedIn(viewModelScope)
     }
@@ -106,7 +106,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
         val properMonthIndex = month + 1
         val monthString =
             if (properMonthIndex.toString().length == 1) "0$properMonthIndex" else properMonthIndex.toString()
-       _filter.valueNN.departureDate = "$dayOfMonth.$monthString.$year"
+        _filter.valueNN.departureDate = "$dayOfMonth.$monthString.$year"
         applyFilter()
     }
 
@@ -132,7 +132,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
             appliedFilterCount++
         }
         if (_filter.valueNN.airConditioner == true) appliedFilterCount++
-        if (_filter.valueNN.seat != 1) appliedFilterCount++
+        if (_filter.valueNN.seat != null && _filter.valueNN.seat != 1) appliedFilterCount++
         if (_filter.valueNN.timeFirstPart == true || _filter.valueNN.timeSecondPart == true || _filter.valueNN.timeThirdPart == true || _filter.valueNN.timeFourthPart == true) appliedFilterCount++
         _count.value = appliedFilterCount
     }

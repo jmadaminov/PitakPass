@@ -4,7 +4,6 @@ import com.badcompany.pitakpass.domain.model.*
 import com.badcompany.pitakpass.remote.model.*
 import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.RespFormatter
-import retrofit2.Response
 import retrofit2.http.*
 import splitties.experimental.ExperimentalSplittiesApi
 
@@ -22,8 +21,7 @@ interface AuthorizedApiService {
     suspend fun filterDriverPost(@Body filter: Filter,
                                  @Query("page") page: Int = 0,
                                  @Query("size") size: Int = 10,
-                                 @Header("Accept-Language") lang: String = AppPrefs.language):RespFormatter< DriverPostsPagination>
-
+                                 @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<DriverPostsPagination>
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
@@ -129,6 +127,22 @@ interface AuthorizedApiService {
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("offer/passenger/action")
     suspend fun joinARide(@Body myOfferBody: PassengerOffer): RespFormatter<Any>
+
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("driver_rating/action/{id}")
+    suspend fun getMyRatingForDriver(@Path(value = "id",
+                                           encoded = true) id: Long): RespFormatter<ObjRating>
+
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @PUT("driver_rating/action/{id}")
+    suspend fun editMyRatingForDriver(@Path(value = "id", encoded = true) id: Long,
+                                      @Body objRating: ObjRating): RespFormatter<ObjRating>
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @POST("driver_rating/action")
+    suspend fun postMyRatingForDriver(@Body objRating: ObjRating): RespFormatter<ObjRating>
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")

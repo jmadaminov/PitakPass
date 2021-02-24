@@ -12,7 +12,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 
 
-class DestFeedPresenter(val ctx: Context, val inputEditText: EditText,
+class DestFeedPresenter(ctx: Context, val inputEditText: EditText,
                         private val onQueryListener: IOnPlaceSearchQueryListener,
                         val isFrom: Boolean = true) :
     RecyclerViewPresenter<PlaceFeedItemView>(ctx) {

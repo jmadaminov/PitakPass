@@ -37,11 +37,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     lateinit var autoCompleteManager: AutoCompleteManager
     var postsAdapter = PostFilterAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)

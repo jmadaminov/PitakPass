@@ -26,7 +26,7 @@
             android:label="@string/edit_profile"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.badcompany.pitak.ui.history_post.HistoryPostActivity"
+            android:name=".ui.history_post.HistoryPostActivity"
             android:label="@string/history"
             android:theme="@style/AppTheme" />
         <activity

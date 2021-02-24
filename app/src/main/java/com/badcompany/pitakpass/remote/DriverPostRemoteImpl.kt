@@ -4,9 +4,10 @@ import com.badcompany.pitakpass.data.repository.DriverPostRemote
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.Filter
 import com.badcompany.pitakpass.domain.model.PassengerOffer
+import com.badcompany.pitakpass.remote.model.ObjRating
 import com.badcompany.pitakpass.util.ResponseWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.getFormattedResponse
+import com.badcompany.pitakpass.util.getFormattedResponseNullable
 import javax.inject.Inject
 
 /**
@@ -27,5 +28,21 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
 
     override suspend fun joinARide(myOffer: PassengerOffer) =
         getFormattedResponse { authorizedApiService.joinARide(myOffer) }
+
+    override suspend fun getMyRatingForDriver(id: Long) =
+        getFormattedResponseNullable { authorizedApiService.getMyRatingForDriver(id) }
+
+    override suspend fun editMyRatingForDriver(ratingId: Long, id: Long, rating: Float) =
+        getFormattedResponseNullable {
+            authorizedApiService.editMyRatingForDriver(ratingId,
+                                                       ObjRating(driverId = id,
+                                                                 id = ratingId,
+                                                                 rating = rating))
+        }
+
+    override suspend fun postMyRatingForDriver(id: Long, rating: Float) =
+        getFormattedResponse {
+            authorizedApiService.postMyRatingForDriver(ObjRating(driverId = id, rating = rating))
+        }
 
 }

@@ -1,14 +1,9 @@
 package com.badcompany.pitakpass.data
 
 import com.badcompany.pitakpass.data.source.DriverPostDataStoreFactory
-import com.badcompany.pitakpass.domain.model.Filter
-import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.domain.model.PassengerOffer
 import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.repository.PlaceRepository
-import com.badcompany.pitakpass.util.ErrorWrapper
-import com.badcompany.pitakpass.util.ResponseWrapper
-import com.badcompany.pitakpass.util.ResultWrapper
 import javax.inject.Inject
 
 /**
@@ -35,10 +30,21 @@ class DriverPostRepositoryImpl @Inject constructor(private val factoryDriver: Dr
 //    }
 
     override suspend fun getDriverPostById(id: Long) = factoryDriver.retrieveDataStore(false)
-    .getPostById(id)
+        .getPostById(id)
 
     override suspend fun joinARide(myOffer: PassengerOffer) = factoryDriver.retrieveDataStore(false)
         .joinARide(myOffer)
+
+    override suspend fun getMyRatingForDriver(id: Long) = factoryDriver.retrieveDataStore(false)
+        .getMyRatingForDriver(id)
+
+    override suspend fun editMyRatingForDriver(ratingId:Long,id: Long, rating: Float) =
+        factoryDriver.retrieveDataStore(false)
+            .editMyRatingForDriver(ratingId,id, rating)
+
+    override suspend fun postMyRatingForDriver(id: Long, rating: Float) =
+        factoryDriver.retrieveDataStore(false)
+            .postMyRatingForDriver(id, rating)
 
 
 }

@@ -16,7 +16,7 @@ class PlaceFeedItemView(val place: Place,
         viewHolder.itemView.placeName.text = place.name
         viewHolder.itemView.regionName.text = place.regionName
 
-        if (position == 0) viewHolder.itemView.autocompleteItemparent.setBackgroundColor(Color.parseColor("#33008577"))
+        if (position == 0) viewHolder.itemView.autocompleteItemparent.setBackgroundColor(Color.parseColor("#3342a5f5"))
 
         viewHolder.itemView.autocompleteItemparent.setOnClickListener {
             presenter.dispatchItemClick(this)

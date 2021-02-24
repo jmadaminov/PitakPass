@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.badcompany.pitak.ui.history_post.HistoryPostActivity
+import com.badcompany.pitakpass.ui.history_post.HistoryPostActivity
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
