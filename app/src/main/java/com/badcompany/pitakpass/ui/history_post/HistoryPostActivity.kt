@@ -39,7 +39,7 @@ class HistoryPostActivity : BaseActivity() {
 
         rbYourRate.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
             btnSubmitRating.visibility =
-                if (viewModel.myRating.value == null || rating != viewModel.myRating.value!!.rating) View.VISIBLE else View.GONE
+                if (viewModel.myRating.value == null || rating != viewModel.myRating.value!!.rating || rating != .0F) View.VISIBLE else View.GONE
         }
     }
 
