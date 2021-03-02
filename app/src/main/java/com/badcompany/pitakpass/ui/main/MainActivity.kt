@@ -38,9 +38,9 @@ class MainActivity : BaseActivity() {
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
 
-        notificationPostId = intent.extras?.getLong(EXTRA_POST_ID)
+        notificationPostId = intent.extras?.getLong(EXTRA_POST_ID, -1)
 
-        notificationPostId?.let {
+        if (notificationPostId != null && notificationPostId != -1L) {
             startActivity(Intent(this, PassengerPostActivity::class.java).apply {
                 putExtra(EXTRA_POST_ID, notificationPostId)
             })

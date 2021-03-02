@@ -45,7 +45,6 @@ class HistoryPostActivity : BaseActivity() {
 
     private fun subscribes() {
 
-
         viewModel.postData.observe(this, {
             showPostData(it ?: return@observe)
         })
