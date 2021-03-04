@@ -260,8 +260,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         viewModel.postOffers.observe(viewLifecycleOwner, {
             val value = it ?: return@observe
             postsAdapter.submitData(lifecycle, value)
-//            motionLayout.getTransition(R.id.search_trip_panel_trans)
-//                .setEnable(postsAdapter.itemCount > 1)
         })
 
         viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {
@@ -306,20 +304,22 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             progress.isVisible = loadState.source.refresh is LoadState.Loading
             rvPosts.isVisible = loadState.source.refresh is LoadState.NotLoading
             tv_error.isVisible = loadState.source.refresh is LoadState.Error
-            btn_retry.isVisible = loadState.source.refresh is LoadState.Error
             if (loadState.source.refresh is LoadState.Error) {
                 tv_error.text = (loadState.source.refresh as LoadState.Error).error.localizedMessage
+                btn_retry.isVisible = true
                 motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
             } else if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && postsAdapter.itemCount < 1) {
                 rvPosts.isVisible = false
                 infoText.isVisible = true
                 tv_error.isVisible = false
+                btn_retry.isVisible = false
                 infoText.setText(R.string.there_are_no_posts_yet_come_back_later)
                 motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(false)
             } else if (loadState.source.refresh !is LoadState.Error) {
                 rvPosts.isVisible = true
                 infoText.isVisible = false
                 tv_error.isVisible = false
+                btn_retry.isVisible = false
                 motionLayout.getTransition(R.id.search_trip_panel_trans).setEnable(true)
             }
         }
