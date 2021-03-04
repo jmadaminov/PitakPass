@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class DriverPostViewObj(val id: Long,
                              val from: PlaceViewObj,
                              val to: PlaceViewObj,
-                             val price: Int,
+                             var price: Int,
                              val departureDate: String,
                              val finishedDate: String? = null,
                              val timeFirstPart: Boolean,
@@ -21,7 +21,7 @@ data class DriverPostViewObj(val id: Long,
                              val carId: Long? = null,
                              val car: CarInPostViewObj? = null,
                              val remark: String? = null,
-                             val seat: Int,
+                             var seat: Int,
                              val passengerList: List<PassengerViewObj>? = null,
                              val postType: EPostType) : Parcelable {
 

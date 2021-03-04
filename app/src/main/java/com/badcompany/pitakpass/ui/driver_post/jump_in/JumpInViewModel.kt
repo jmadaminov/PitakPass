@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.ui.driver_post.jump_in
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.badcompany.pitakpass.domain.model.PassengerOffer
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.domain.model.Place
@@ -10,7 +11,6 @@ import com.badcompany.pitakpass.domain.repository.DriverPostRepository
 import com.badcompany.pitakpass.domain.usecases.CreatePassengerPost
 import com.badcompany.pitakpass.domain.usecases.GetActivePassengerPost
 import com.badcompany.pitakpass.ui.BaseViewModel
-import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +20,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 
 class JumpInViewModel @ViewModelInject constructor(private val repository: DriverPostRepository,
                                                    private val createPassengerPost: CreatePassengerPost,
-                                                   private val getActivePassengerPost: GetActivePassengerPost
-) :
+                                                   private val getActivePassengerPost: GetActivePassengerPost) :
     BaseViewModel() {
 
     val isOffering = MutableLiveData<Boolean>()
@@ -37,6 +36,8 @@ class JumpInViewModel @ViewModelInject constructor(private val repository: Drive
                   driverPost: DriverPostViewObj) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
+            myPrice?.let { driverPost.price = myPrice }
+            driverPost.seat = seats
             if (offeringPostId.value == null) createPost(driverPost)
             sendAnOffer(postId, myPrice, message, seats)
         }

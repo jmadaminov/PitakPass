@@ -158,6 +158,8 @@ import java.text.DecimalFormat
 
     private fun showPostData() {
         post?.let { postNonNull ->
+            cancel.isVisible =
+                postNonNull.postStatus == EPostStatus.CREATED || postNonNull.postStatus == EPostStatus.WAITING_FOR_START
 
             if (postNonNull.postStatus == EPostStatus.CREATED) {
                 viewModel.postOffers?.observe(this, {

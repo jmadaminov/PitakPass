@@ -74,7 +74,9 @@ class DialogJoinARideFragment : DialogFragment() {
                 is ErrorWrapper.SystemError -> {
                 }
                 is ResultWrapper.Success -> {
-                    loadData(response.value)
+                    loadData(response.value.filter { myPost ->
+                        myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferable()
+                    })
                 }
                 ResultWrapper.InProgress -> {
                 }
