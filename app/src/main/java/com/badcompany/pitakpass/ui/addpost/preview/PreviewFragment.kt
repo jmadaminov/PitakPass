@@ -2,6 +2,7 @@ package com.badcompany.pitakpass.ui.addpost.preview
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -9,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.core.enums.EPostStatus
 import com.badcompany.pitakpass.core.enums.EPostType
+import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.ui.addpost.AddPostViewModel
 import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
@@ -52,12 +53,21 @@ class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview
         val fromLbl = StringBuilder()
         val toLbl = StringBuilder()
 
-        activityViewModel.placeFrom?.regionName?.let { fromLbl.append(it) }
-        activityViewModel.placeFrom?.districtName?.let { fromLbl.append(" $it") }
+        activityViewModel.placeFrom?.districtName?.let {
+            fromLbl.append(" $it")
+        }
         if (fromLbl.isBlank()) activityViewModel.placeFrom?.name?.let { fromLbl.append(it) }
-        activityViewModel.placeTo?.regionName?.let { toLbl.append(it) }
+        activityViewModel.placeFrom?.regionName?.let {
+            labelFromRegion.isVisible = true
+            labelFromRegion.text = it
+        }
+
         activityViewModel.placeTo?.districtName?.let { toLbl.append(" $it") }
         if (toLbl.isBlank()) activityViewModel.placeTo?.name?.let { toLbl.append(it) }
+        activityViewModel.placeTo?.regionName?.let {
+            labelToRegion.isVisible = true
+            labelToRegion.text = it
+        }
 
         labelFrom.text = fromLbl
         labelTo.text = toLbl
