@@ -5,38 +5,75 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.badcompany.pitakpass.ui.auth.AuthActivity">
+    tools:background="@drawable/bg"
+    tools:context=".ui.auth.AuthActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="250dp"-->
+    <!--        android:scaleType="centerCrop"-->
+    <!--        android:src="@drawable/bg_three"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:src="@drawable/bg_three" />-->
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PITAKPASS"
-        android:textColor="@color/colorAccent"
-        android:textSize="50dp"
-        android:textStyle="bold"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="?android:actionBarSize"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@id/phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/logoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        android:rotation="-45"
+        android:shadowColor="@color/black"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:text="itak"
+        android:textColor="@color/darkLogoColor"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/logo"
+        app:layout_constraintEnd_toEndOf="@id/logo" />
 
     <com.github.pinball83.maskededittext.MaskedEditText
         android:id="@+id/phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/shape_rounded_corners_white"
-        android:padding="10dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:hint="@string/prompt_phone_number"
-        android:imeOptions="actionDone"
-        android:inputType="phone"
+        android:longClickable="false"
         android:maxLength="19"
-        android:selectAllOnFocus="true"
+        android:padding="10dp"
+        android:textIsSelectable="false"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +81,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:mask="+998(**) ***-**-**"
         app:notMaskedSymbol="*" />
+    <!--    android:selectAllOnFocus="true"-->
 
+    <!--
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="50dp"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    -->
 
     <TextView
         android:id="@+id/errorMessage"
@@ -56,31 +112,255 @@
         android:text="server error"
         android:textColor="@color/error_red"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/login"
+        app:layout_constraintBottom_toTopOf="@id/numberGrid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone" />
 
 
-    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-        android:id="@+id/login"
+    <!--    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton-->
+    <!--        android:id="@+id/login"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="?android:actionBarSize"-->
+    <!--        android:layout_gravity="start"-->
+    <!--        android:layout_marginStart="48dp"-->
+    <!--        android:layout_marginTop="48dp"-->
+    <!--        android:layout_marginEnd="48dp"-->
+    <!--        android:background="@drawable/button_shape_orange_gradient_rounded"-->
+    <!--        android:enabled="false"-->
+    <!--        android:text="@string/authorize"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:textColor="#fff"-->
+    <!--        app:finalCornerAngle="50dp"-->
+    <!--        app:initialCornerAngle="50dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/phone"-->
+    <!--        app:spinning_bar_color="#fff" />-->
+
+
+    <GridLayout
+        android:id="@+id/numberGrid"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/button_shape_default_rounded"
-        android:elevation="3dp"
-        android:enabled="false"
-        android:text="@string/authorize"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        app:finalCornerAngle="50dp"
-        app:initialCornerAngle="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone"
-        app:spinning_bar_color="#fff" />
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="4"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="4"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="6"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="7"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv8"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="8"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv9"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="9"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/ivBackspace"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:padding="15dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:src="@drawable/ic_round_backspace_24" />
+
+        <TextView
+            android:id="@+id/tv0"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/tvGo"
+            android:layout_width="0dp"
+            android:layout_height="?android:actionBarSize"
+            android:layout_columnWeight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:padding="15dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:src="@drawable/ic_round_arrow_forward_24"
+            android:textColor="@color/white"
+            android:textSize="30dp" />
+
+
+    </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

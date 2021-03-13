@@ -2,6 +2,8 @@ package com.badcompany.pitakpass.ui.auth.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -38,32 +40,84 @@ class LoginFragment @Inject constructor() :
     }
 
     private fun attachListeners() {
-        login.setOnClickListener {
+        tvGo.setOnClickListener {
             viewModel.login(phone.text.toString())
         }
+
+        phone.doOnTextChanged { text, start, before, count ->
+            tvGo.isEnabled = phone.unmaskedText.length == 9
+        }
+
+
+
+        tv1.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("1"))
+        }
+
+        tv2.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("2"))
+        }
+
+        tv3.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("3"))
+        }
+
+        tv4.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("4"))
+        }
+
+        tv5.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("5"))
+        }
+
+        tv6.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("6"))
+        }
+
+        tv7.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("7"))
+        }
+
+        tv8.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("8"))
+        }
+
+        tv9.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("9"))
+        }
+
+        tv0.setOnClickListener {
+            phone.setMaskedText(phone.unmaskedText.plus("0"))
+        }
+
+        ivBackspace.setOnClickListener {
+
+            if (phone.unmaskedText.isEmpty()) return@setOnClickListener
+            phone.setMaskedText(phone.unmaskedText.substring(0, phone.unmaskedText.length - 1))
+        }
+
     }
 
     private fun setupViews() {
+        phone.isFocusable = false
+        phone.isFocusableInTouchMode = false
+        tvGo.isEnabled = false
         navController = findNavController()
-        setHasOptionsMenu(true)
 
-        login.isEnabled = true
+//        login.isEnabled = true
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
+
 
     private fun subscribeObservers() {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading ?: return@observe) {
                 errorMessage.visibility = View.INVISIBLE
-                login.startAnimation()
+                progress.isVisible = true
             } else {
-                login.revertAnimation()
+                progress.isVisible = false
             }
-
         }
 
 
@@ -72,7 +126,6 @@ class LoginFragment @Inject constructor() :
 
             when (response) {
                 is ResponseError -> {
-                    login.revertAnimation()
                     if (response.code == -1) {
                         val action =
                             LoginFragmentDirections.actionNavLoginFragmentToNavRegisterFragment(
@@ -86,7 +139,6 @@ class LoginFragment @Inject constructor() :
                     }
                 }
                 is ResponseSuccess -> {
-                    login.revertAnimation()
                     val action =
                         LoginFragmentDirections.actionNavLoginFragmentToNavPhoneConfirmFragment(
                             password = response.value?.password,

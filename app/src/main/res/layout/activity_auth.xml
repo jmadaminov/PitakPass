@@ -6,12 +6,17 @@
     android:layout_height="match_parent">
 
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"/>
 
     <fragment
         android:id="@+id/auth_fragments_container"

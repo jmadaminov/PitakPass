@@ -1,6 +1,7 @@
 package com.badcompany.pitakpass.ui.auth.confirm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,8 @@ import com.badcompany.pitakpass.domain.model.AuthBody
 import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.util.*
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_phone_confirm.*
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -42,8 +45,31 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
         setupViews()
         attachListeners()
         subscribeObserver()
+        startSmsBroadcastReceiver()
     }
 
+    private fun startSmsBroadcastReceiver() {
+        // Get an instance of SmsRetrieverClient, used to start listening for a matching
+        // SMS message.
+        val client = SmsRetriever.getClient(requireContext())
+        // Starts SmsRetriever, which waits for ONE matching SMS message until timeout
+        // (5 minutes). The matching SMS message will be sent via a Broadcast Intent with
+        // action SmsRetriever#SMS_RETRIEVED_ACTION.
+        val task: Task<Void> = client.startSmsRetriever()
+        // Listen for success/failure of the start Task. If in a background thread, this
+        // can be made blocking using Tasks.await(task, [timeout]);
+        task.addOnSuccessListener {
+            // Successfully started retriever, expect broadcast intent
+            Log.d("SMSSSS", "")
+        }
+
+        task.addOnFailureListener {
+            // Failed to start retriever, inspect Exception for more details
+            Log.d("SMSSSS", "")
+
+        }
+
+    }
     private fun setupViews() {
         navController = findNavController()
         confirm.isEnabled = true
@@ -87,6 +113,7 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
                     confirm.revertAnimation()
                     saveCredentials(response)
                     context?.start<MainActivity> { }
+                    requireActivity().finish()
                 }
                 ResultWrapper.InProgress -> {
                     errorMessage.visibility = View.INVISIBLE
@@ -134,12 +161,6 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
             phone = response.value.phoneNum!!
         }
     }
-
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 
 }
 
