@@ -3,6 +3,7 @@ package com.badcompany.pitakpass.ui.main.mytrips.historytrips
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -34,8 +35,27 @@ class HistoryPostAdapter :
             itemView.apply {
 
                 date.text = post.departureDate
-                from.text = post.from.regionName
-                to.text = post.to.regionName
+                val fromLbl = StringBuilder()
+                val toLbl = StringBuilder()
+
+                post.from.districtName?.let {
+                    fromLbl.append(" $it")
+                }
+                if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
+                post.from.regionName?.let {
+                    fromDistrict.isVisible = true
+                    fromDistrict.text = it
+                }
+
+                post.to.districtName?.let { toLbl.append(" $it") }
+                if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
+                post.to.regionName?.let {
+                    toDistrict.isVisible = true
+                    toDistrict.text = it
+                }
+
+                from.text = fromLbl
+                to.text = toLbl
                 price.text =
                     DecimalFormat("#,###").format(post.price) + " " + itemView.context.getString(R.string.sum)
                 seats.text = post.seat.toString()

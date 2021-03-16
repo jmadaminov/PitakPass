@@ -1,5 +1,9 @@
 package com.badcompany.pitakpass.ui.auth.confirm
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,10 +15,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.AuthBody
-import com.badcompany.pitakpass.ui.auth.AuthActivity
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.util.*
 import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.auth.api.phone.SmsRetriever.SEND_PERMISSION
+import com.google.android.gms.auth.api.phone.SmsRetriever.SMS_RETRIEVED_ACTION
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_phone_confirm.*
@@ -23,7 +30,6 @@ import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.preferences.edit
 import javax.inject.Inject
-
 
 
 @ObsoleteCoroutinesApi
@@ -46,6 +52,11 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
         attachListeners()
         subscribeObserver()
         startSmsBroadcastReceiver()
+        val intentFilter = IntentFilter(SMS_RETRIEVED_ACTION)
+        requireActivity().registerReceiver(receiver,
+                                           intentFilter,
+                                           SEND_PERMISSION,
+                                           null)
     }
 
     private fun startSmsBroadcastReceiver() {
@@ -70,16 +81,17 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
         }
 
     }
+
     private fun setupViews() {
         navController = findNavController()
         confirm.isEnabled = true
-        code.setText(args.password)
+        edtCode.setText(args.password)
     }
 
     private fun attachListeners() {
 
         confirm.setOnClickListener {
-            viewModel.confirm(args.phone, code.text.toString())
+            viewModel.confirm(args.phone, edtCode.text.toString())
         }
 
         tvRequestCodeAgain.setOnClickListener {
@@ -98,7 +110,7 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
                 is ErrorWrapper.ResponseError -> {
                     confirm.revertAnimation()
                     if (response.code == Constants.errPhoneFormat) {
-                        code.error = getString(R.string.incorrect_phone_number_format)
+                        edtCode.error = getString(R.string.incorrect_phone_number_format)
                     } else {
                         errorMessage.visibility = View.VISIBLE
                         errorMessage.text = response.message
@@ -162,6 +174,35 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
         }
     }
 
+    fun smsCodeReceived(code: String) {
+        edtCode.setText(code)
+        confirm.performClick()
+    }
+
+    val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            if (SMS_RETRIEVED_ACTION == intent!!.action) {
+                val extras = intent.extras
+                val status: Status = extras!![SmsRetriever.EXTRA_STATUS] as Status
+                when (status.statusCode) {
+                    CommonStatusCodes.SUCCESS -> {    // Get SMS message contents
+                        val message = extras[SmsRetriever.EXTRA_SMS_MESSAGE] as String?
+                        message?.let {
+                            smsCodeReceived(it.replace(" ", "").split(":")[1].substring(0, 5))
+                        }
+                    }
+                    CommonStatusCodes.TIMEOUT -> {
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        requireActivity().unregisterReceiver(receiver)
+        super.onDestroyView()
+    }
 }
 
 

@@ -17,7 +17,22 @@ import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_driver_post.*
 import kotlinx.android.synthetic.main.activity_passenger_post.*
+import kotlinx.android.synthetic.main.activity_passenger_post.date
+import kotlinx.android.synthetic.main.activity_passenger_post.from
+import kotlinx.android.synthetic.main.activity_passenger_post.fromDistrict
+import kotlinx.android.synthetic.main.activity_passenger_post.ivCarPhoto
+import kotlinx.android.synthetic.main.activity_passenger_post.note
+import kotlinx.android.synthetic.main.activity_passenger_post.price
+import kotlinx.android.synthetic.main.activity_passenger_post.seats
+import kotlinx.android.synthetic.main.activity_passenger_post.swipeRefreshLayout
+import kotlinx.android.synthetic.main.activity_passenger_post.to
+import kotlinx.android.synthetic.main.activity_passenger_post.toDistrict
+import kotlinx.android.synthetic.main.activity_passenger_post.tvCarInfo
+import kotlinx.android.synthetic.main.activity_passenger_post.tvDriverName
+import kotlinx.android.synthetic.main.activity_passenger_post.tvMessage
+import kotlinx.android.synthetic.main.item_active_post.view.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
@@ -172,17 +187,36 @@ import java.text.DecimalFormat
             done.isVisible = postNonNull.postStatus == EPostStatus.START
 
             date.text = postNonNull.departureDate
-            from.text = postNonNull.from.regionName
-            to.text = postNonNull.to.regionName
+            val fromLbl = StringBuilder()
+            val toLbl = StringBuilder()
+
+            postNonNull.from.districtName?.let {
+                fromLbl.append(" $it")
+            }
+            if (fromLbl.isBlank()) postNonNull.from.name?.let { fromLbl.append(it) }
+            postNonNull.from.regionName?.let {
+                fromDistrict.isVisible = true
+                fromDistrict.text = it
+            }
+
+            postNonNull.to.districtName?.let { toLbl.append(" $it") }
+            if (toLbl.isBlank()) postNonNull.to.name?.let { toLbl.append(it) }
+            postNonNull.to.regionName?.let {
+                toDistrict.isVisible = true
+                toDistrict.text = it
+            }
+
+            from.text = fromLbl
+            to.text = toLbl
             price.text =
                 DecimalFormat("#,###").format(postNonNull.price) + " " + getString(R.string.sum)
             seats.text = postNonNull.seat.toString()
 
-            postNonNull.remark?.also {
+            if (postNonNull.remark.isNullOrBlank()){
+                note.visibility = View.GONE
+            }else{
                 note.visibility = View.VISIBLE
                 note.text = postNonNull.remark
-            } ?: run {
-                note.visibility = View.GONE
             }
 
             if (post!!.driverPost != null) {

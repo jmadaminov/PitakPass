@@ -17,6 +17,15 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp">
 
+        <ImageView
+            android:id="@+id/ivCarPhoto"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:src="@drawable/lacetti"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/ivDriver"
@@ -52,7 +61,7 @@
 
         <View
             android:id="@+id/line"
-            android:layout_width="3dp"
+            android:layout_width="2dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/ic_grey"
@@ -64,25 +73,27 @@
 
         <ImageView
             android:id="@+id/circleFrom"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/shape_round_disabled"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivDriver" />
+            app:layout_constraintTop_toBottomOf="@id/ivDriver"
+            app:tint="@color/colorPrimary" />
 
 
         <ImageView
             android:id="@+id/circleTo"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="4.5dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/shape_circle_disabled"
+            android:src="@drawable/ic_round_location_on_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/circleFrom" />
+            app:layout_constraintTop_toBottomOf="@id/circleFrom"
+            app:tint="@color/error_red" />
 
 
         <TextView
@@ -90,23 +101,47 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            android:text="TASHKENT"
+            android:text="Tashkent city"
             android:textColor="@color/dark_grey"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/circleFrom"
             app:layout_constraintStart_toEndOf="@id/circleFrom"
             app:layout_constraintTop_toTopOf="@id/circleFrom" />
 
         <TextView
+            android:id="@+id/fromDistrict"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Tashkent"
+            android:textColor="@color/textColorGreyDark"
+            android:textSize="11dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/from"
+            app:layout_constraintTop_toBottomOf="@id/from"
+            tools:visibility="visible" />
+
+        <TextView
             android:id="@+id/to"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="12dp"
-            android:text="ANDIJAN"
+            android:layout_marginStart="5dp"
+            android:text="Andijan city"
             android:textColor="@color/dark_grey"
-            app:layout_constraintBottom_toBottomOf="@id/circleTo"
-            app:layout_constraintStart_toEndOf="@id/circleTo"
-            app:layout_constraintTop_toTopOf="@id/circleTo" />
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@id/toDistrict"
+            app:layout_constraintStart_toEndOf="@id/circleTo" />
 
+        <TextView
+            android:id="@+id/toDistrict"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Andijan"
+            android:textColor="@color/textColorGreyDark"
+            android:textSize="11dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/circleTo"
+            app:layout_constraintStart_toStartOf="@id/to"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/note"
@@ -115,32 +150,52 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
+            android:maxLines="4"
             android:textColor="@color/dark_grey"
+            android:textSize="14dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/to"
-            tools:text="note note sohisdf asdfasdf sadfas fsd fsadf asdfsd" />
+            app:layout_constraintTop_toBottomOf="@id/circleTo"
+            tools:text="note note sohisdf asdfasdf sadfas fsd fsadf asdfsd"
+            tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/ivFuelType"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_propane"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
-             />
 
-        <ImageView
+        <TextView
             android:id="@+id/ivAC"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_baseline_ac_unit_24"
+            android:background="@drawable/selector_rounded_corners_ten_radius"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingStart="10dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="10dp"
+            android:textStyle="bold"
+            android:paddingBottom="2dp"
+            android:text="@string/ac"
+            android:textColor="@color/white"
+            android:textSize="12dp"
             app:layout_constraintEnd_toStartOf="@id/ivFuelType"
-            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
-            app:tint="#4DD0E1" />
+            app:layout_constraintBottom_toBottomOf="@id/circleTo" />
+
+        <TextView
+            android:id="@+id/ivFuelType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/selector_rounded_corners_ten_radius"
+            android:backgroundTint="@color/orangeDarker"
+            android:textStyle="bold"
+            android:paddingStart="10dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="2dp"
+            android:text="@string/petrol"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/circleTo" />
 
         <LinearLayout
             android:id="@+id/llPriceSeatsDate"
@@ -149,7 +204,7 @@
             android:layout_marginTop="14dp"
             android:paddingLeft="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/ivFuelType">
+            app:layout_constraintTop_toBottomOf="@id/note">
 
             <TextView
                 android:id="@+id/price"
@@ -201,14 +256,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivCarPhoto"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:src="@drawable/lacetti"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

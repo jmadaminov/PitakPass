@@ -40,8 +40,30 @@ class PostFilterAdapter :
                 seats.text =
                     (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
                 date.text = post.departureDate
-                from.text = post.from.regionName
-                to.text = post.to.regionName
+
+
+                val fromLbl = StringBuilder()
+                val toLbl = StringBuilder()
+
+                post.from.districtName?.let {
+                    fromLbl.append(" $it")
+                }
+                if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
+                post.from.regionName?.let {
+                    fromDistrict.isVisible = true
+                    fromDistrict.text = it
+                }
+
+                post.to.districtName?.let { toLbl.append(" $it") }
+                if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
+                post.to.regionName?.let {
+                    toDistrict.isVisible = true
+                    toDistrict.text = it
+                }
+
+                from.text = fromLbl
+                to.text = toLbl
+
                 price.text =
                     DecimalFormat("#,###").format(post.price) + " " + context.getString(R.string.sum)
 
@@ -77,13 +99,13 @@ class PostFilterAdapter :
 
                     when (it.fuelType!!) {
                         EFuelType.PROPANE -> {
-                            ivFuelType.setImageResource(R.drawable.ic_propane)
+                            ivFuelType.text = context.getString(R.string.propane)
                         }
                         EFuelType.METHANE -> {
-                            ivFuelType.setImageResource(R.drawable.ic_methane)
+                            ivFuelType.text = context.getString(R.string.methane)
                         }
                         EFuelType.PETROL -> {
-                            ivFuelType.setImageResource(R.drawable.ic_gascan)
+                            ivFuelType.text = context.getString(R.string.petrol)
                         }
                     }.exhaustive
 

@@ -15,7 +15,7 @@
     <color name="red">#D50000</color>
     <color name="line_textColorGrey">#b9b9bc</color>
     <color name="greyBackground">@android:color/background_light</color>
-    <color name="textColorGreyDark">#6e6e70</color>
+    <color name="textColorGreyDark">#7e7e90</color>
     <color name="orange">#FFA000</color>
     <color name="orangeDarker">#F57C00</color>
 

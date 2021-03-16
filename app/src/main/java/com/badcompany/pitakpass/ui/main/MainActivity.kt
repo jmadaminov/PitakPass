@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckedTextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -20,6 +21,7 @@ import com.badcompany.pitakpass.ui.main.searchtrip.SearchTripFragment
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity
 import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.badcompany.pitakpass.util.AppPrefs
+import com.badcompany.pitakpass.util.AppSignatureHelper
 import com.badcompany.pitakpass.util.ContextUtils.setLocale
 import kotlinx.android.synthetic.main.activity_main.*
 import splitties.activities.start
@@ -37,6 +39,11 @@ class MainActivity : BaseActivity() {
         checkUserLogin()
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
+
+//        GZQa4cPru4n  DEBUG
+//        DqdXBBbaxnT  RELEASE
+
+//        Toast.makeText(this, AppSignatureHelper(this).appSignatures[0]!!, Toast.LENGTH_LONG).show()
 
         notificationPostId = intent.extras?.getLong(EXTRA_POST_ID, -1)
 

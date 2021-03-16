@@ -53,7 +53,7 @@ class HistoryTripsFragment @Inject constructor() :
             if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && postsAdapter.itemCount < 1) {
                 rvPosts.isVisible = false
                 tv_error.isVisible = true
-                tv_error.setText(R.string.there_are_no_posts_yet_come_back_later)
+                tv_error.setText(R.string.no_history_posts)
 
             } else if (loadState.source.refresh !is LoadState.Error) {
                 rvPosts.isVisible = true

@@ -2,6 +2,7 @@ package com.badcompany.pitakpass.ui.viewgroups
 
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.domain.model.PassengerPost
 import com.badcompany.pitakpass.core.enums.EPostStatus
@@ -17,8 +18,27 @@ class ActivePostItem(var post: PassengerPost,
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
             date.text = post.departureDate
-            from.text = post.from.regionName
-            to.text = post.to.regionName
+            val fromLbl = StringBuilder()
+            val toLbl = StringBuilder()
+
+            post.from.districtName?.let {
+                fromLbl.append(" $it")
+            }
+            if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
+            post.from.regionName?.let {
+                fromDistrict.isVisible = true
+                fromDistrict.text = it
+            }
+
+            post.to.districtName?.let { toLbl.append(" $it") }
+            if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
+            post.to.regionName?.let {
+                toDistrict.isVisible = true
+                toDistrict.text = it
+            }
+
+            from.text = fromLbl
+            to.text = toLbl
             price.text = post.price.toString()
 
             if (post.offerCount > 0) {
@@ -28,11 +48,11 @@ class ActivePostItem(var post: PassengerPost,
                 tvOffersCount.visibility = View.GONE
             }
 
-            post.remark?.also {
+            if (post.remark.isNullOrBlank()){
+                note.visibility = View.GONE
+            }else{
                 note.visibility = View.VISIBLE
                 note.text = post.remark
-            } ?: run {
-                note.visibility = View.GONE
             }
 
             price.text =
