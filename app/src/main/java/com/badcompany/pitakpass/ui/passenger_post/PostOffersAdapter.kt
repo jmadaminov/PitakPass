@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
-import com.badcompany.pitakpass.util.loadCircleImageUrl
-import com.badcompany.pitakpass.util.loadImageUrl
-import kotlinx.android.synthetic.main.activity_passenger_post.*
+import com.badcompany.pitakpass.util.loadRound
+import com.badcompany.pitakpass.util.load
 import kotlinx.android.synthetic.main.item_offer.view.*
 import kotlinx.android.synthetic.main.item_offer.view.ivCarPhoto
 import kotlinx.android.synthetic.main.item_offer.view.tvCarInfo
@@ -52,11 +51,11 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                 tvName.text = offer.profile.name + " " + offer.profile.surname
 
                 offer.car?.image?.link?.let {
-                    ivCarPhoto.loadImageUrl(it)
+                    ivCarPhoto.load(it)
                 }
 
                 offer.profile.image?.link?.let {
-                    ivAvatar.loadCircleImageUrl(it)
+                    ivAvatar.loadRound(it)
                 }
 
                 offer.profile.rating?.let {

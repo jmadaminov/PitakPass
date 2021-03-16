@@ -137,7 +137,7 @@
                     android:background="@drawable/shape_round_alert"
                     android:paddingStart="4dp"
                     android:paddingTop="1dp"
-                    android:text="3"
+                    tools:text="3"
                     android:textColor="#fff"
                     android:textSize="10dp"
                     android:textStyle="bold"

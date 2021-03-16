@@ -4,7 +4,7 @@ import androidx.core.content.ContextCompat
 import com.badcompany.pitakpass.domain.model.CarDetails
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.interfaces.MyItemClickListener
-import com.badcompany.pitakpass.util.loadImageUrl
+import com.badcompany.pitakpass.util.load
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_car_selection.view.*
@@ -13,7 +13,7 @@ class CarItemSelectionView(val car: CarDetails, val onItemClickListener: MyItemC
 
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.carAvatar.loadImageUrl(car.image!!.link!!)
+        viewHolder.itemView.carAvatar.load(car.image!!.link!!)
         viewHolder.itemView.plateNumber.text = car.carNumber
 //        viewHolder.itemView.plateNumber.setTextFuture(
 //            PrecomputedTextCompat.getTextFuture(car.carNumber!!,

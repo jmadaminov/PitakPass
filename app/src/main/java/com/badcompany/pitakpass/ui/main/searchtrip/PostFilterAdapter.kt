@@ -13,7 +13,7 @@ import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.driver_post.DriverPostActivity
 import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.badcompany.pitakpass.util.exhaustive
-import com.badcompany.pitakpass.util.loadCircleImageUrl
+import com.badcompany.pitakpass.util.loadRound
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
@@ -42,27 +42,23 @@ class PostFilterAdapter :
                 date.text = post.departureDate
 
 
-                val fromLbl = StringBuilder()
-                val toLbl = StringBuilder()
-
-                post.from.districtName?.let {
-                    fromLbl.append(" $it")
-                }
-                if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
-                post.from.regionName?.let {
+                if (post.from.name == null && post.from.districtName == null) {
+                    fromDistrict.isVisible = false
+                    from.text = post.from.regionName
+                } else {
                     fromDistrict.isVisible = true
-                    fromDistrict.text = it
+                    fromDistrict.text = post.from.regionName ?: post.from.name
+                    from.text = post.from.districtName
                 }
 
-                post.to.districtName?.let { toLbl.append(" $it") }
-                if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
-                post.to.regionName?.let {
+                if (post.to.name == null && post.to.districtName == null) {
+                    toDistrict.isVisible = false
+                    to.text = post.to.regionName
+                } else {
                     toDistrict.isVisible = true
-                    toDistrict.text = it
+                    toDistrict.text = post.to.regionName ?: post.to.name
+                    to.text = post.to.districtName
                 }
-
-                from.text = fromLbl
-                to.text = toLbl
 
                 price.text =
                     DecimalFormat("#,###").format(post.price) + " " + context.getString(R.string.sum)
@@ -89,7 +85,7 @@ class PostFilterAdapter :
                         ratingBarDriver.rating = rating
                     }
                     driverProfile.image?.link?.let { avatarLink ->
-                        ivDriver.loadCircleImageUrl(avatarLink)
+                        ivDriver.loadRound(avatarLink)
                     }
                 }
 

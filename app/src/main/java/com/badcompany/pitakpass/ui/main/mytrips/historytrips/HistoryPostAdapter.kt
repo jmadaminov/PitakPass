@@ -35,27 +35,23 @@ class HistoryPostAdapter :
             itemView.apply {
 
                 date.text = post.departureDate
-                val fromLbl = StringBuilder()
-                val toLbl = StringBuilder()
-
-                post.from.districtName?.let {
-                    fromLbl.append(" $it")
-                }
-                if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
-                post.from.regionName?.let {
+                if (post.from.name == null && post.from.districtName == null) {
+                    fromDistrict.isVisible = false
+                    from.text = post.from.regionName
+                } else {
                     fromDistrict.isVisible = true
-                    fromDistrict.text = it
+                    fromDistrict.text = post.from.regionName ?: post.from.name
+                    from.text = post.from.districtName
                 }
 
-                post.to.districtName?.let { toLbl.append(" $it") }
-                if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
-                post.to.regionName?.let {
+                if (post.to.name == null && post.to.districtName == null) {
+                    toDistrict.isVisible = false
+                    to.text = post.to.regionName
+                } else {
                     toDistrict.isVisible = true
-                    toDistrict.text = it
+                    toDistrict.text = post.to.regionName ?: post.to.name
+                    to.text = post.to.districtName
                 }
-
-                from.text = fromLbl
-                to.text = toLbl
                 price.text =
                     DecimalFormat("#,###").format(post.price) + " " + itemView.context.getString(R.string.sum)
                 seats.text = post.seat.toString()

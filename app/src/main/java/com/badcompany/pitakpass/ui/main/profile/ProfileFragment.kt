@@ -14,7 +14,7 @@ import com.badcompany.pitakpass.ui.interfaces.IOnSignOut
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.ui.settings.SettingsActivity
 import com.badcompany.pitakpass.util.AppPrefs
-import com.badcompany.pitakpass.util.loadImageUrl
+import com.badcompany.pitakpass.util.load
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -103,7 +103,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
 
     override fun onResume() {
         super.onResume()
-        if (AppPrefs.avatar.isNotBlank()) profilePhoto.loadImageUrl(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) profilePhoto.load(AppPrefs.avatar)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
     }
 }

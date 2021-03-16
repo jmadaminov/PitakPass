@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -97,7 +98,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:gravity="center"
-                android:text="Trips: 88"
+                tools:text="Trips: 88"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -110,7 +111,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:gravity="center"
-                android:text="Polonchiev Polonchi"
+                tools:text="Polonchiev Polonchi"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintStart_toEndOf="@id/profilePhoto"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -122,7 +123,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:gravity="center"
-                android:text="+998909998877"
+                tools:text="+998909998877"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintStart_toEndOf="@id/profilePhoto"
                 app:layout_constraintTop_toBottomOf="@id/nameSurname" />

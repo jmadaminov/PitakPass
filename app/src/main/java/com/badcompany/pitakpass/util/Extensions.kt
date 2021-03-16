@@ -12,10 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 
 
@@ -43,22 +44,27 @@ fun CoroutineScope.launchPeriodicAsync(
     }
 }
 
-fun ImageView.loadImageUrl(url: String) {
+fun ImageView.load(url: String) {
     Glide.with(this.context).load(url).into(this)
 }
 
-fun ImageView.loadCircleImageUrl(url: String) {
+fun ImageView.loadRound(url: String) {
     Glide.with(this.context).load(url).apply(RequestOptions().circleCrop()).into(this)
 }
 
-fun ImageView.loadBitmap(bitmap: Bitmap) {
+fun ImageView.loadRounded(url: String, radius: Int = 10) {
+    Glide.with(this.context).load(url)
+        .transform(CenterCrop(), RoundedCorners(radius)).into(this)
+}
+
+fun ImageView.load(bitmap: Bitmap) {
     Glide.with(this.context).load(bitmap).into(this)
 }
+
 fun View.hideKeyboard() {
     val imm = this.context!!.getSystemService(Context.INPUT_METHOD_SERVICE)!! as InputMethodManager
     imm.hideSoftInputFromWindow(this.windowToken, 0)
 }
-
 
 
 fun Uri.getRealPathFromURI(context: Context): String? {

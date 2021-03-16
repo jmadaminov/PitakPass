@@ -7,15 +7,29 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.badcompany.pitakpass.R
+import com.badcompany.pitakpass.core.enums.EFuelType
 import com.badcompany.pitakpass.domain.model.DriverPost
 import com.badcompany.pitakpass.ui.BaseActivity
 import com.badcompany.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.badcompany.pitakpass.ui.driver_post.jump_in.DialogJoinARideFragment
 import com.badcompany.pitakpass.util.AppPrefs
-import com.badcompany.pitakpass.util.loadCircleImageUrl
-import com.badcompany.pitakpass.util.loadImageUrl
+import com.badcompany.pitakpass.util.exhaustive
+import com.badcompany.pitakpass.util.load
+import com.badcompany.pitakpass.util.loadRound
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
+import kotlinx.android.synthetic.main.activity_driver_post.date
+import kotlinx.android.synthetic.main.activity_driver_post.from
+import kotlinx.android.synthetic.main.activity_driver_post.fromDistrict
+import kotlinx.android.synthetic.main.activity_driver_post.ivCarPhoto
+import kotlinx.android.synthetic.main.activity_driver_post.note
+import kotlinx.android.synthetic.main.activity_driver_post.price
+import kotlinx.android.synthetic.main.activity_driver_post.ratingBarDriver
+import kotlinx.android.synthetic.main.activity_driver_post.seats
+import kotlinx.android.synthetic.main.activity_driver_post.to
+import kotlinx.android.synthetic.main.activity_driver_post.toDistrict
+import kotlinx.android.synthetic.main.activity_driver_post.tvDriverName
+import kotlinx.android.synthetic.main.activity_history_post.*
 import kotlinx.android.synthetic.main.item_driver_post.view.*
 import java.text.DecimalFormat
 
@@ -64,29 +78,25 @@ class DriverPostActivity : BaseActivity() {
 
         seats.text = post.seat.toString()
         date.text = post.departureDate
+        post.profile?.rating?.let { ratingBarDriver.rating = it }
 
-
-        val fromLbl = StringBuilder()
-        val toLbl = StringBuilder()
-
-        post.from.districtName?.let {
-            fromLbl.append(" $it")
-        }
-        if (fromLbl.isBlank()) post.from.name?.let { fromLbl.append(it) }
-        post.from.regionName?.let {
+        if (post.from.name == null && post.from.districtName == null) {
+            fromDistrict.isVisible = false
+            from.text = post.from.regionName
+        } else {
             fromDistrict.isVisible = true
-            fromDistrict.text = it
+            fromDistrict.text = post.from.regionName ?: post.from.name
+            from.text = post.from.districtName
         }
 
-        post.to.districtName?.let { toLbl.append(" $it") }
-        if (toLbl.isBlank()) post.to.name?.let { toLbl.append(it) }
-        post.to.regionName?.let {
+        if (post.to.name == null && post.to.districtName == null) {
+            toDistrict.isVisible = false
+            to.text = post.to.regionName
+        } else {
             toDistrict.isVisible = true
-            toDistrict.text = it
+            toDistrict.text = post.to.regionName ?: post.to.name
+            to.text = post.to.districtName
         }
-
-        from.text = fromLbl
-        to.text = toLbl
 
 
 
@@ -102,27 +112,29 @@ class DriverPostActivity : BaseActivity() {
 
 
         post.car?.image?.link?.let {
-            ivCarPhoto.loadImageUrl(it)
+            ivCarPhoto.load(it)
         }
 
         post.profile?.image?.link?.let {
-            ivDriver.loadCircleImageUrl(it)
+            ivDriver.loadRound(it)
         }
 
         post.car?.let {
-            var hasAC = ""
+            plateNumber.text = it.carNumber
+            carModel.text = it.carModel?.name
+            ivAC.isVisible = it.airConditioner ?: false
 
-            it.airConditioner?.let {
-                if (it) hasAC = ", " + getString(R.string.air_conditioner)
-            }
-
-            tvCarInfo.text = it.carModel?.name + ", " +
-                    it.carYear.toString() + ", " +
-                    /*it.carColor?.name + ", "+*/
-                    it.carNumber + ", " +
-                    it.fuelType +
-                    hasAC
-
+            when (it.fuelType!!) {
+                EFuelType.PROPANE -> {
+                    ivFuelType.text = getString(R.string.propane)
+                }
+                EFuelType.METHANE -> {
+                    ivFuelType.text = getString(R.string.methane)
+                }
+                EFuelType.PETROL -> {
+                    ivFuelType.text = getString(R.string.petrol)
+                }
+            }.exhaustive
         }
 
         post.profile?.let {

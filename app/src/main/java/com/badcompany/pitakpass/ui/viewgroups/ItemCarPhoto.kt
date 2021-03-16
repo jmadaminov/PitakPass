@@ -2,7 +2,7 @@ package com.badcompany.pitakpass.ui.viewgroups
 
 import com.badcompany.pitakpass.domain.model.PhotoBody
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.util.loadImageUrl
+import com.badcompany.pitakpass.util.load
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
@@ -15,7 +15,7 @@ class ItemCarPhoto(val photoBody: PhotoBody, val deleteClickListener: OnItemClic
         viewHolder.itemView.iv_delete.setOnClickListener {
             deleteClickListener.onItemClick(this, it)
         }
-        viewHolder.itemView.iv_car_photo.loadImageUrl(photoBody.link!!)
+        viewHolder.itemView.iv_car_photo.load(photoBody.link!!)
     }
 
     override fun getLayout() = R.layout.item_car_photo

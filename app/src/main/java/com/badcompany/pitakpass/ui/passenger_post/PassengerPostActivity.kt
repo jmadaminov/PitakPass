@@ -17,7 +17,6 @@ import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.badcompany.pitakpass.util.*
 import com.badcompany.pitakpass.viewobjects.PassengerPostViewObj
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_driver_post.*
 import kotlinx.android.synthetic.main.activity_passenger_post.*
 import kotlinx.android.synthetic.main.activity_passenger_post.date
 import kotlinx.android.synthetic.main.activity_passenger_post.from
@@ -32,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_passenger_post.toDistrict
 import kotlinx.android.synthetic.main.activity_passenger_post.tvCarInfo
 import kotlinx.android.synthetic.main.activity_passenger_post.tvDriverName
 import kotlinx.android.synthetic.main.activity_passenger_post.tvMessage
-import kotlinx.android.synthetic.main.item_active_post.view.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
@@ -187,27 +185,23 @@ import java.text.DecimalFormat
             done.isVisible = postNonNull.postStatus == EPostStatus.START
 
             date.text = postNonNull.departureDate
-            val fromLbl = StringBuilder()
-            val toLbl = StringBuilder()
-
-            postNonNull.from.districtName?.let {
-                fromLbl.append(" $it")
-            }
-            if (fromLbl.isBlank()) postNonNull.from.name?.let { fromLbl.append(it) }
-            postNonNull.from.regionName?.let {
+            if (postNonNull.from.name == null && postNonNull.from.districtName == null) {
+                fromDistrict.isVisible = false
+                from.text = postNonNull.from.regionName
+            } else {
                 fromDistrict.isVisible = true
-                fromDistrict.text = it
+                fromDistrict.text = postNonNull.from.regionName ?: postNonNull.from.name
+                from.text = postNonNull.from.districtName
             }
 
-            postNonNull.to.districtName?.let { toLbl.append(" $it") }
-            if (toLbl.isBlank()) postNonNull.to.name?.let { toLbl.append(it) }
-            postNonNull.to.regionName?.let {
+            if (postNonNull.to.name == null && postNonNull.to.districtName == null) {
+                toDistrict.isVisible = false
+                to.text = postNonNull.to.regionName
+            } else {
                 toDistrict.isVisible = true
-                toDistrict.text = it
+                toDistrict.text = postNonNull.to.regionName ?: postNonNull.to.name
+                to.text = postNonNull.to.districtName
             }
-
-            from.text = fromLbl
-            to.text = toLbl
             price.text =
                 DecimalFormat("#,###").format(postNonNull.price) + " " + getString(R.string.sum)
             seats.text = postNonNull.seat.toString()
@@ -226,7 +220,6 @@ import java.text.DecimalFormat
                 lblMyDriver.text = getString(R.string.no_driver_assigned_yet)
                 cardDriver.visibility = View.GONE
             }
-
             if (post!!.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)
 
             postNonNull.driverPost?.let { driver ->
@@ -239,11 +232,11 @@ import java.text.DecimalFormat
                 tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
                 driver.car?.image?.link?.let {
-                    ivCarPhoto.loadImageUrl(it)
+                    ivCarPhoto.load(it)
                 }
 
                 driver.profile?.image?.link?.let {
-                    ivDriverAvatar.loadCircleImageUrl(it)
+                    ivDriverAvatar.loadRound(it)
                 }
 
                 driver.profile?.rating?.let {

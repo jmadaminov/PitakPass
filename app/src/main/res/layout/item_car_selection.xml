@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardParent"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:text="Nexia"
+            tools:text="Nexia"
             app:layout_constraintStart_toEndOf="@id/carAvatar"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:text="01CAX046ss"
+            tools:text="01CAX046ss"
             app:layout_constraintStart_toEndOf="@id/carAvatar"
             app:layout_constraintTop_toBottomOf="@id/carModel" />
 
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:text="1922"
+            tools:text="1922"
             app:layout_constraintStart_toEndOf="@id/carAvatar"
             app:layout_constraintTop_toBottomOf="@id/plateNumber" />
 
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            android:text="PETROL"
+            tools:text="PETROL"
             app:layout_constraintStart_toEndOf="@id/carAvatar"
             app:layout_constraintTop_toBottomOf="@id/carYear" />
 
@@ -76,7 +77,7 @@
             android:clickable="false"
             android:enabled="false"
             android:focusable="false"
-            android:text="AC"
+            tools:text="AC"
             app:layout_constraintStart_toStartOf="@id/carAvatar"
             app:layout_constraintTop_toBottomOf="@id/carAvatar" />
 

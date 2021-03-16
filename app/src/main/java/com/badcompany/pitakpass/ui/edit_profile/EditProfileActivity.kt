@@ -125,12 +125,12 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
         edtSurname.setText(AppPrefs.surname)
         edtName.setText(AppPrefs.name)
-        if (AppPrefs.avatar.isNotBlank()) ivAvatar.loadImageUrl(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) ivAvatar.load(AppPrefs.avatar)
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {
         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-        ivAvatar.loadBitmap(bitmap)
+        ivAvatar.load(bitmap)
         viewModel.uploadAvatar(File(uri.getRealPathFromURI(this)))
     }
 
