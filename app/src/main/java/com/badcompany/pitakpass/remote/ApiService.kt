@@ -4,6 +4,7 @@ import com.badcompany.pitakpass.core.enums.EAppType
 import com.badcompany.pitakpass.domain.model.User
 import com.badcompany.pitakpass.domain.model.UserCredentials
 import com.badcompany.pitakpass.remote.model.*
+import com.badcompany.pitakpass.util.AppPrefs
 import com.badcompany.pitakpass.util.RespFormatter
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -16,12 +17,14 @@ interface ApiService {
     //AUTH API
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/auth")
-    suspend fun userLogin(@Body loginReq: LoginRequest): RespFormatter<UserCredentials>
+    suspend fun userLogin(@Body loginReq: LoginRequest,
+                          @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<UserCredentials>
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/reg")
-    suspend fun userRegister(@Body user: User): AuthResponse
+    suspend fun userRegister(@Body user: User,
+                             @Header("Accept-Language") lang: String = AppPrefs.language): AuthResponse
 
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("prof/mb/confirm")
