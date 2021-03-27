@@ -9,7 +9,7 @@ import java.util.*
  */
 
 
-const val MAX_PRICE = 1000000
+const val MAX_PRICE = 500000
 const val MIN_PRICE = 10000
 
 data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean? = null,

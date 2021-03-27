@@ -8,6 +8,7 @@ import android.widget.CalendarView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,7 +42,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (activity as MainActivity).hideTabLayout()
-        setupListeners()
+        attachListeners()
         setupViews()
         viewModel.getPassengerPost()
         subscribeObservers()
@@ -114,7 +115,25 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         }
     }
 
-    private fun setupListeners() {
+    private fun attachListeners() {
+        ivClearFrom.setOnClickListener {
+            fromInput.setText("")
+            ivClearFrom.visibility = View.GONE
+        }
+
+        ivClearTo.setOnClickListener {
+            toInput.setText("")
+            ivClearTo.visibility = View.GONE
+        }
+
+        fromInput.doOnTextChanged { text, start, before, count ->
+            ivClearFrom.visibility = if (!text.isNullOrBlank()) View.VISIBLE else View.GONE
+        }
+
+        toInput.doOnTextChanged { text, start, before, count ->
+            ivClearTo.visibility = if (!text.isNullOrBlank()) View.VISIBLE else View.GONE
+        }
+
         btn_retry.setOnClickListener { postsAdapter.refresh() }
         filterBtn.setOnClickListener { slidingLayer.openLayer(true) }
         applyFilter.setOnClickListener {
@@ -244,12 +263,13 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 is ErrorWrapper.SystemError -> {
                 }
                 is ResultWrapper.Success -> {
-                    autoCompleteManager.fromPresenter.getAdr()!!.clear()
-                    response.value.forEach { place ->
-                        autoCompleteManager.fromPresenter.getAdr()!!
-                            .add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
+                    autoCompleteManager.fromPresenter.getAdr()?.let { adapter ->
+                        adapter.clear()
+                        response.value.forEach { place ->
+                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
+                        }
+                        adapter.notifyDataSetChanged()
                     }
-                    autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
                 }
                 ResultWrapper.InProgress -> {
                 }
@@ -271,15 +291,12 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 is ErrorWrapper.SystemError -> {
                 }
                 is ResultWrapper.Success -> {
-                    if (autoCompleteManager.toPresenter.getAdr() != null) {
-                        autoCompleteManager.toPresenter.getAdr()!!.clear()
+                    autoCompleteManager.toPresenter.getAdr()?.let { adapter ->
+                        adapter.clear()
                         response.value.forEach { place ->
-                            autoCompleteManager.toPresenter.getAdr()!!
-                                .add(PlaceFeedItemView(place, autoCompleteManager.toPresenter))
+                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.toPresenter))
                         }
-                        autoCompleteManager.toPresenter.getAdr()!!
-                            .notifyDataSetChanged()
-                    } else {
+                        adapter.notifyDataSetChanged()
                     }
                 }
                 ResultWrapper.InProgress -> {

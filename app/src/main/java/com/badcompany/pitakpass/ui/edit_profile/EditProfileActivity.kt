@@ -129,6 +129,7 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {
+        checkInputs()
         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
         ivAvatar.load(bitmap)
         viewModel.uploadAvatar(File(uri.getRealPathFromURI(this)))
