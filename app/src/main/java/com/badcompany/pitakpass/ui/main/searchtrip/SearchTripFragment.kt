@@ -14,8 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.paging.LoadState
 import com.badcompany.pitakpass.R
-import com.badcompany.pitakpass.domain.model.MAX_PRICE
-import com.badcompany.pitakpass.domain.model.MIN_PRICE
 import com.badcompany.pitakpass.ui.main.MainActivity
 import com.badcompany.pitakpass.ui.viewgroups.PlaceFeedItemView
 import com.badcompany.pitakpass.util.*
@@ -119,19 +117,21 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         ivClearFrom.setOnClickListener {
             fromInput.setText("")
             ivClearFrom.visibility = View.GONE
+            fromInput.clearFocus()
         }
 
         ivClearTo.setOnClickListener {
             toInput.setText("")
             ivClearTo.visibility = View.GONE
+            toInput.clearFocus()
         }
 
         fromInput.doOnTextChanged { text, start, before, count ->
-            ivClearFrom.visibility = if (!text.isNullOrBlank()) View.VISIBLE else View.GONE
+            ivClearFrom.isVisible = !text.isNullOrBlank()
         }
 
         toInput.doOnTextChanged { text, start, before, count ->
-            ivClearTo.visibility = if (!text.isNullOrBlank()) View.VISIBLE else View.GONE
+            ivClearTo.isVisible = !text.isNullOrBlank()
         }
 
         btn_retry.setOnClickListener { postsAdapter.refresh() }
@@ -162,8 +162,6 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             timeThirdPart.isChecked = false
             timeFourthPart.isChecked = false
             aCCheck.isChecked = false
-            range_slider.min = MIN_PRICE
-            range_slider.max = MAX_PRICE
             number_picker.resetText()
         }
 

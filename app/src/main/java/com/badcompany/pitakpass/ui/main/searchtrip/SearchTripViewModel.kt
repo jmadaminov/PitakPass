@@ -8,7 +8,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.badcompany.pitakpass.data.repository.PostFilterRepository
-import com.badcompany.pitakpass.domain.model.*
+import com.badcompany.pitakpass.domain.model.DriverPost
+import com.badcompany.pitakpass.domain.model.Filter
+import com.badcompany.pitakpass.domain.model.Filter.Companion.MAX_PRICE
+import com.badcompany.pitakpass.domain.model.Filter.Companion.MIN_PRICE
+import com.badcompany.pitakpass.domain.model.Place
 import com.badcompany.pitakpass.domain.usecases.GetPlacesFeed
 import com.badcompany.pitakpass.ui.BaseViewModel
 import com.badcompany.pitakpass.util.ResultWrapper

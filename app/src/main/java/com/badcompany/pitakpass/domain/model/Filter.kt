@@ -9,8 +9,7 @@ import java.util.*
  */
 
 
-const val MAX_PRICE = 500000
-const val MIN_PRICE = 10000
+
 
 data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean? = null,
                   @SerializedName("departureDate") var departureDate: String? = null,
@@ -25,4 +24,12 @@ data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean?
                   @SerializedName("timeFirstPart") var timeFirstPart: Boolean? = null,
                   @SerializedName("timeFourthPart") var timeFourthPart: Boolean? = null,
                   @SerializedName("timeSecondPart") var timeSecondPart: Boolean? = null,
-                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null)
+                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null){
+
+    companion object {
+        const val MAX_PRICE = 500000
+        const val MIN_PRICE = 10000
+        const val STEP = 10000
+    }
+
+}

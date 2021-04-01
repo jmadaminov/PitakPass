@@ -1,7 +1,6 @@
 package com.badcompany.pitakpass.ui.auth
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.ui.BaseActivity
