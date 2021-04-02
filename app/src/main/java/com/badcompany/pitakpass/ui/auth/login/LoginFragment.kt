@@ -15,10 +15,8 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 
-
 @AndroidEntryPoint
-class LoginFragment @Inject constructor() :
-    Fragment(R.layout.fragment_login) {
+class LoginFragment @Inject constructor() : Fragment(R.layout.fragment_login) {
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -36,62 +34,27 @@ class LoginFragment @Inject constructor() :
         setupViews()
         attachListeners()
         subscribeObservers()
-
     }
 
     private fun attachListeners() {
-        tvGo.setOnClickListener {
-            viewModel.login(phone.text.toString())
-        }
+        tvGo.setOnClickListener { viewModel.login(phone.text.toString()) }
 
         phone.doOnTextChanged { text, start, before, count ->
             tvGo.isEnabled = phone.unmaskedText.length == 9
         }
 
-
-
-        tv1.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("1"))
-        }
-
-        tv2.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("2"))
-        }
-
-        tv3.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("3"))
-        }
-
-        tv4.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("4"))
-        }
-
-        tv5.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("5"))
-        }
-
-        tv6.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("6"))
-        }
-
-        tv7.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("7"))
-        }
-
-        tv8.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("8"))
-        }
-
-        tv9.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("9"))
-        }
-
-        tv0.setOnClickListener {
-            phone.setMaskedText(phone.unmaskedText.plus("0"))
-        }
+        tv1.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("1")) }
+        tv2.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("2")) }
+        tv3.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("3")) }
+        tv4.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("4")) }
+        tv5.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("5")) }
+        tv6.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("6")) }
+        tv7.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("7")) }
+        tv8.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("8")) }
+        tv9.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("9")) }
+        tv0.setOnClickListener { phone.setMaskedText(phone.unmaskedText.plus("0")) }
 
         ivBackspace.setOnClickListener {
-
             if (phone.unmaskedText.isEmpty()) return@setOnClickListener
             phone.setMaskedText(phone.unmaskedText.substring(0, phone.unmaskedText.length - 1))
         }
@@ -106,7 +69,6 @@ class LoginFragment @Inject constructor() :
 
 //        login.isEnabled = true
     }
-
 
 
     private fun subscribeObservers() {
