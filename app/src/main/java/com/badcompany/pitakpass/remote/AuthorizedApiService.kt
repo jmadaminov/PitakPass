@@ -52,7 +52,7 @@ interface AuthorizedApiService {
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
-    @GET("offer/post/action/{id}")
+    @GET("offer/passenger/post/{id}")
     suspend fun getOffersForPost(@Path(value = "id", encoded = true) id: Long,
                                  @Query("page") page: Int = 0,
                                  @Query("size") size: Int = 10,

@@ -16,9 +16,20 @@ data class DriverPost(@SerializedName("id") val id: Long,
                       @SerializedName("carId") val carId: Long? = null,
                       @SerializedName("car") val car: CarInPost? = null,
                       @SerializedName("profile") val profile: ProfileDTO? = null,
-                      @SerializedName("remark") val remark: String?=null,
+                      @SerializedName("remark") val remark: String? = null,
                       @SerializedName("seat") val seat: Int,
                       @SerializedName("availableSeats") val availableSeats: Int,
+                      @SerializedName("myOffer") val myLastOffer: UserOffer? = null,
                       @SerializedName("passengerList") val passengerList: List<Passenger>? = null,
                       @SerializedName("postType") val postType: EPostType = EPostType.DRIVER_SM)
+
+
+data class UserOffer(@SerializedName("id") val id: Long,
+                     @SerializedName("postId") val postId: Long,
+                     @SerializedName("repliedPostId") val repliedPostId: Long,
+                     @SerializedName("status") val status: String,
+                     @SerializedName("message") val message: String,
+                     @SerializedName("submitDate") val submitDate: String,
+                     @SerializedName("priceInt") val priceInt: Int,
+                     @SerializedName("seat") val seat: Int)
 
