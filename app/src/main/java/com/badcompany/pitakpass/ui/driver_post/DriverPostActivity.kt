@@ -47,7 +47,7 @@ class DriverPostActivity : BaseActivity() {
 
         attachListeners()
         subscribeObservers()
-        viewModel.getPostById(driverPost.id)
+
 
 //        showPostData(driverPost)
     }
@@ -59,6 +59,7 @@ class DriverPostActivity : BaseActivity() {
 
         viewModel.postData.observe(this) {
             val result = it ?: return@observe
+            driverPost = DriverPostViewObj.mapFromDriverPostModel(result)
             showPostData(result)
         }
 
@@ -117,6 +118,8 @@ class DriverPostActivity : BaseActivity() {
 
         post.profile?.image?.link?.let {
             ivDriver.loadRound(it)
+        } ?: run {
+            ivDriver.setImageResource(R.drawable.ic_baseline_account_circle_24)
         }
 
         post.car?.let {
@@ -174,4 +177,12 @@ class DriverPostActivity : BaseActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        refreshPost()
+    }
+
+    fun refreshPost() {
+        viewModel.getPostById(driverPost.id)
+    }
 }

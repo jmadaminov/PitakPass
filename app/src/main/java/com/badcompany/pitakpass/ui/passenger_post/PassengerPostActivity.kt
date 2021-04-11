@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_passenger_post.toDistrict
 import kotlinx.android.synthetic.main.activity_passenger_post.tvCarInfo
 import kotlinx.android.synthetic.main.activity_passenger_post.tvDriverName
 import kotlinx.android.synthetic.main.activity_passenger_post.tvMessage
+import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
@@ -237,6 +238,8 @@ import java.text.DecimalFormat
 
                 driver.profile?.image?.link?.let {
                     ivDriverAvatar.loadRound(it)
+                } ?: run{
+                    ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
                 }
 
                 driver.profile?.rating?.let {

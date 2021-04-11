@@ -82,10 +82,16 @@ class PostFilterAdapter :
 
                 post.profile?.let { driverProfile ->
                     driverProfile.rating?.let { rating ->
-                        ratingBarDriver.rating = rating
+                        ratingBarDriver.isVisible = true
+                        ratingBarDriver.text = rating.toString()
+                    } ?: run{
+                        ratingBarDriver.isVisible = false
+                        ratingBarDriver.text = ""
                     }
                     driverProfile.image?.link?.let { avatarLink ->
                         ivDriver.loadRound(avatarLink)
+                    } ?: run{
+                        ivDriver.setImageResource(R.drawable.ic_baseline_account_circle_24)
                     }
                 }
 

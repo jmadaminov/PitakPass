@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.badcompany.pitakpass.R
 import com.badcompany.pitakpass.remote.model.OfferDTO
 import com.badcompany.pitakpass.ui.interfaces.IOnOfferActionListener
-import com.badcompany.pitakpass.util.loadRound
 import com.badcompany.pitakpass.util.load
+import com.badcompany.pitakpass.util.loadRound
 import kotlinx.android.synthetic.main.item_offer.view.*
-import kotlinx.android.synthetic.main.item_offer.view.ivCarPhoto
-import kotlinx.android.synthetic.main.item_offer.view.tvCarInfo
 import java.text.DecimalFormat
 
 class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
@@ -56,6 +54,8 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
 
                 offer.profile.image?.link?.let {
                     ivAvatar.loadRound(it)
+                } ?: run {
+                    ivAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
                 }
 
                 offer.profile.rating?.let {
@@ -69,10 +69,10 @@ class PostOffersAdapter(val onOfferActionListener: IOnOfferActionListener) :
                         if (it) hasAC = ", " + context.getString(R.string.air_conditioner)
                     }
 
-                    tvCarInfo.text = it.carModel?.name + ", "+
-                            it.carYear.toString() + ", "+
-                            it.carColor?.name + ", "+
-                            it.carNumber + ", "+
+                    tvCarInfo.text = it.carModel?.name + ", " +
+                            it.carYear.toString() + ", " +
+                            it.carColor?.name + ", " +
+                            it.carNumber + ", " +
                             it.fuelType +
                             hasAC
 

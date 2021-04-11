@@ -22,6 +22,7 @@ data class DriverPostViewObj(val id: Long,
                              val car: CarInPostViewObj? = null,
                              val remark: String? = null,
                              var seat: Int,
+                             val myLastOffer: UserOfferViewObj? = null,
                              val passengerList: List<PassengerViewObj>? = null,
                              val postType: EPostType) : Parcelable {
 
@@ -45,6 +46,15 @@ data class DriverPostViewObj(val id: Long,
                                                                   ImageViewObj(it.profile?.image?.id,
                                                                                it.profile?.image?.link))))
             }
+            val myLastOffer =
+                if (model.myLastOffer != null) UserOfferViewObj(model.myLastOffer.id,
+                                                                model.myLastOffer.id,
+                                                                model.myLastOffer.repliedPostId,
+                                                                model.myLastOffer.status,
+                                                                model.myLastOffer.message,
+                                                                model.myLastOffer.submitDate,
+                                                                model.myLastOffer.priceInt,
+                                                                model.myLastOffer.seat) else null
 
             return DriverPostViewObj(
                 model.id,
@@ -82,6 +92,7 @@ data class DriverPostViewObj(val id: Long,
                                  model.car.airConditioner),
                 model.remark,
                 model.seat,
+                myLastOffer,
                 passengerList,
                 model.postType
             )
@@ -89,6 +100,15 @@ data class DriverPostViewObj(val id: Long,
     }
 }
 
+@Parcelize
+data class UserOfferViewObj(val id: Long,
+                            val postId: Long,
+                            val repliedPostId: Long,
+                            val status: String,
+                            val message: String,
+                            val submitDate: String,
+                            val priceInt: Int,
+                            val seat: Int) : Parcelable
 
 @Parcelize
 data class PassengerViewObj(var id: Long? = null,

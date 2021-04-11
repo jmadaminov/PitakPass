@@ -15,6 +15,7 @@ import com.badcompany.pitakpass.ui.passenger_post.PassengerPostActivity.Companio
 import com.badcompany.pitakpass.util.loadRound
 import com.badcompany.pitakpass.util.load
 import kotlinx.android.synthetic.main.activity_history_post.*
+import kotlinx.android.synthetic.main.item_driver_post.view.*
 import java.text.DecimalFormat
 
 class HistoryPostActivity : BaseActivity() {
@@ -125,7 +126,9 @@ class HistoryPostActivity : BaseActivity() {
 
         post.driverPost.car?.image?.link?.let { ivCarPhoto.load(it) }
 
-        post.driverPost.profile?.image?.link?.let { ivDriverAvatar.loadRound(it) }
+        post.driverPost.profile?.image?.link?.let { ivDriverAvatar.loadRound(it) } ?: run{
+            ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
+        }
 
         post.driverPost.profile?.rating?.let { ratingBarDriver.rating = it }
 

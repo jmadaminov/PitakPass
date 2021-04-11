@@ -142,5 +142,9 @@
     <string name="my_driver">My driver</string>
     <string name="no_driver_assigned_yet">No driver assigned yet, please wait...</string>
     <string name="you_are_already_in">You are already in!</string>
+    <string name="my_last_offer">My last offer</string>
+    <string name="price">Price</string>
+    <string name="attached_post_id">Attached post id</string>
+    <string name="update_offer">Update offer</string>
 
 </resources>

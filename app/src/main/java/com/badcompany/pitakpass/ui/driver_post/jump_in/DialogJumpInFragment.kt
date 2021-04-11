@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import com.badcompany.pitakpass.util.ErrorWrapper
 import com.badcompany.pitakpass.util.ResultWrapper
 import com.badcompany.pitakpass.util.exhaustive
 import com.badcompany.pitakpass.viewobjects.DriverPostViewObj
+import com.badcompany.pitakpass.viewobjects.UserOfferViewObj
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,9 +54,23 @@ class DialogJoinARideFragment : DialogFragment() {
         rvMyPosts.adapter = adapter
         attachListeners()
         subscribeObservers()
-        viewModel.getActivePosts()
+        driverPost.myLastOffer?.let { showOfferSent(driverPost.myLastOffer!!) } ?: run {
+            viewModel.getActivePosts()
+        }
 
     }
+
+    private fun showOfferSent(myLastOffer: UserOfferViewObj) {
+        viewModel.offeringPostId.value = myLastOffer.repliedPostId
+        rvContainer.isVisible = false
+        cardLastOffer.isVisible = true
+        tvLastOfferPrice.text = getString(R.string.price) + " " + myLastOffer.priceInt.toString()
+        tvLastOfferRepliedPostId.text =
+            getString(R.string.attached_post_id) + " " + myLastOffer.repliedPostId.toString()
+        tvLastOfferMessage.text = getString(R.string.message) + " " + myLastOffer.message
+        btnSendOffer.text = getString(R.string.update_offer)
+    }
+
 
     private fun subscribeObservers() {
 
@@ -114,7 +130,7 @@ class DialogJoinARideFragment : DialogFragment() {
         }
 
         btnSendOffer.setOnClickListener {
-            viewModel.joinARide(driverPost.id,
+            viewModel.joinARide( driverPost.id,
                                 if (edtPrice.text.isNullOrBlank()) driverPost.price else edtPrice.text.toString()
                                     .toInt(),
                                 messageInput.text.toString(),

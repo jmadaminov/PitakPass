@@ -106,6 +106,7 @@ dependencies {
     implementation "javax.inject:javax.inject:$javaxInjectVersion"
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation "junit:junit:4.12"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"

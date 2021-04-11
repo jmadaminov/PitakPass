@@ -34,6 +34,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_account_circle_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,19 +46,29 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/dark_grey"
             android:textSize="12dp"
-            app:layout_constraintEnd_toStartOf="@id/ivCarPhoto"
+            app:layout_constraintEnd_toStartOf="@id/ivAC"
             app:layout_constraintStart_toEndOf="@id/ivDriver"
             app:layout_constraintTop_toTopOf="@id/ivDriver"
             tools:text="Name Surname" />
 
 
-        <RatingBar
+        <TextView
             android:id="@+id/ratingBarDriver"
-            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tvDriverName"
-            app:layout_constraintTop_toBottomOf="@id/tvDriverName" />
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:gravity="center"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:textStyle="bold"
+            android:background="@drawable/selector_rounded_corners_primary"
+            android:drawableStart="@drawable/ic_round_star_24"
+            app:layout_constraintBottom_toBottomOf="@id/ivDriver"
+            app:layout_constraintTop_toBottomOf="@id/ivDriver"
+            app:layout_constraintEnd_toEndOf="@id/ivDriver"
+            app:layout_constraintStart_toStartOf="@id/ivDriver"
+            tools:text="2.5" />
 
         <View
             android:id="@+id/line"
@@ -101,23 +112,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            tools:text="Tashkent city"
             android:textColor="@color/dark_grey"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/circleFrom"
             app:layout_constraintStart_toEndOf="@id/circleFrom"
-            app:layout_constraintTop_toTopOf="@id/circleFrom" />
+            app:layout_constraintTop_toTopOf="@id/circleFrom"
+            tools:text="Tashkent city" />
 
         <TextView
             android:id="@+id/fromDistrict"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:text="Tashkent"
             android:textColor="@color/textColorGreyDark"
             android:textSize="11dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/from"
             app:layout_constraintTop_toBottomOf="@id/from"
+            tools:text="Tashkent"
             tools:visibility="visible" />
 
         <TextView
@@ -125,22 +136,22 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
-            tools:text="Andijan city"
             android:textColor="@color/dark_grey"
             android:textSize="14dp"
             app:layout_constraintBottom_toTopOf="@id/toDistrict"
-            app:layout_constraintStart_toEndOf="@id/circleTo" />
+            app:layout_constraintStart_toEndOf="@id/circleTo"
+            tools:text="Andijan city" />
 
         <TextView
             android:id="@+id/toDistrict"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:text="Andijan"
             android:textColor="@color/textColorGreyDark"
             android:textSize="11dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/circleTo"
             app:layout_constraintStart_toStartOf="@id/to"
+            tools:text="Andijan"
             tools:visibility="visible" />
 
         <TextView
@@ -165,28 +176,29 @@
             android:id="@+id/ivAC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/selector_rounded_corners_ten_radius"
             android:backgroundTint="@color/colorPrimaryDark"
             android:paddingStart="10dp"
             android:paddingTop="2dp"
             android:paddingEnd="10dp"
-            android:textStyle="bold"
             android:paddingBottom="2dp"
             android:text="@string/ac"
             android:textColor="@color/white"
             android:textSize="12dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/ivFuelType"
-            app:layout_constraintBottom_toBottomOf="@id/circleTo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ivFuelType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/selector_rounded_corners_ten_radius"
             android:backgroundTint="@color/orangeDarker"
-            android:textStyle="bold"
             android:paddingStart="10dp"
             android:paddingTop="2dp"
             android:paddingEnd="10dp"
@@ -194,8 +206,9 @@
             android:text="@string/petrol"
             android:textColor="@color/white"
             android:textSize="12dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/circleTo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/llPriceSeatsDate"
@@ -213,13 +226,13 @@
                 android:drawableRight="@drawable/ic_baseline_money_24"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical|end"
-                tools:text="50,000 sum"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintBottom_toTopOf="@id/note"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="@id/date"
-                app:layout_constraintTop_toBottomOf="@id/seats" />
+                app:layout_constraintTop_toBottomOf="@id/seats"
+                tools:text="50,000 sum" />
 
             <TextView
                 android:id="@+id/seats"
@@ -246,12 +259,12 @@
                 android:drawableRight="@drawable/ic_baseline_calendar_today_24"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical|end"
-                tools:text="02.05.2200"
                 android:textColor="@color/dark_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@id/from"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="02.05.2200" />
 
 
         </LinearLayout>

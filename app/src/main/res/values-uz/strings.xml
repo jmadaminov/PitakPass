@@ -142,6 +142,10 @@
     <string name="your_rating_for_this_ride">Your rating for this ride</string>
     <string name="submit">Submit</string>
     <string name="ac">Air conditioner</string>
+    <string name="my_last_offer">My last offer</string>
+    <string name="price">Price</string>
+    <string name="attached_post_id">Attached post id</string>
+    <string name="update_offer">Update offer</string>
 
 
 </resources>
