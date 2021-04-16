@@ -135,12 +135,12 @@
     <string name="submit">Submit</string>
     <string name="ac">Air conditioner</string>
     <string name="your_driver">Your driver</string>
-    <string name="driver_not_appointed_yet">Driver not appointed yet...</string>
-    <string name="no_offers_yet">You have no offers yet...</string>
+    <string name="driver_not_appointed_yet">Driver not appointed yet…</string>
+    <string name="no_offers_yet">You have no offers yet…</string>
     <string name="please_let_us_know_what_you_think_about_our_app">Please let us know what you think about our app…</string>
     <string name="have_you_reached_your_destination">Have you reached your destination?</string>
     <string name="my_driver">My driver</string>
-    <string name="no_driver_assigned_yet">No driver assigned yet, please wait...</string>
+    <string name="no_driver_assigned_yet">No driver assigned yet, please wait…</string>
     <string name="you_are_already_in">You are already in!</string>
     <string name="my_last_offer">My last offer</string>
     <string name="price">Price</string>
