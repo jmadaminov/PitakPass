@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.badcompany.pitakpass.ui.auth.AuthActivity">
+    tools:context="com.novatec.pitakpass.ui.auth.AuthActivity">
 
     <ImageView
         android:id="@+id/ivBack"

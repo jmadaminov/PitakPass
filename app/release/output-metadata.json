@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.badcompany.pitakpass",
+  "applicationId": "com.novatec.pitakpass",
   "variantName": "release",
   "elements": [
     {
