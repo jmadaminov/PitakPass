@@ -1,15 +1,15 @@
 package com.novatec.pitakpass.ui.addpost
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.novatec.pitakpass.R
-import com.novatec.pitakpass.domain.model.*
+import com.novatec.pitakpass.domain.model.Place
 import com.novatec.pitakpass.ui.BaseActivity
 import com.novatec.pitakpass.util.Constants
 import com.novatec.pitakpass.viewobjects.PassengerPostViewObj
+import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import splitties.experimental.ExperimentalSplittiesApi
@@ -79,7 +79,14 @@ class AddPostActivity : BaseActivity() {
 
 
     private fun setupListeners() {
-
+        tvClose.setOnClickListener {
+            finish()
+        }
+        ivBack.setOnClickListener {
+            if (!findNavController(R.id.add_post_fragments_container).popBackStack()) {
+                finish()
+            }
+        }
 
     }
 
@@ -89,35 +96,8 @@ class AddPostActivity : BaseActivity() {
     }
 
 
-//    var host: Fragment? = null
-//    lateinit var navHost: Fragment
-//
-//    private fun onRestoreInstanceState() {
-//        host = supportFragmentManager.findFragmentById(R.id.add_post_fragments_container)
-//        host?.let { /*do nothing*/ } ?: createNavHost()
-//    }
-//
-//    private fun createNavHost() {
-//        navHost = AddPostNavHostFragment.create(R.navigation.add_post_nav_graph)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.add_post_fragments_container, navHost, getString(R.string.AuthNavHost))
-//            .setPrimaryNavigationFragment(navHost)
-//            .commit()
-//    }
-
-
     private fun setupActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        setSupportActionBar(toolbar)
     }
 
 

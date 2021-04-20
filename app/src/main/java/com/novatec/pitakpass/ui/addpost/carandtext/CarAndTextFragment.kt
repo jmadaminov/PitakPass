@@ -92,9 +92,9 @@ class CarAndTextFragment @Inject constructor() :
             navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_carAndTextFragment_to_previewFragment else R.id.action_carAndTextFragment_to_previewFragment)
         }
 
-        navBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        navBack.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
     }
 
 

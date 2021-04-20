@@ -70,30 +70,30 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
 
     @ExperimentalSplittiesApi
     private fun setupListeners() {
-        asapCheck.setOnCheckedChangeListener { buttonView, isChecked ->
+//        asapCheck.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            checkSecondPartDay.isEnabled = !isChecked
-            checkThirdPartDay.isEnabled = !isChecked
-            checkFirstPartDay.isEnabled = !isChecked
-            checkFourthPartDay.isEnabled = !isChecked
+//            checkSecondPartDay.isEnabled = !isChecked
+//            checkThirdPartDay.isEnabled = !isChecked
+//            checkFirstPartDay.isEnabled = !isChecked
+//            checkFourthPartDay.isEnabled = !isChecked
 
-            checkSecondPartDay.isChecked = isChecked
-            checkThirdPartDay.isChecked = isChecked
-            checkFirstPartDay.isChecked = isChecked
-            checkFourthPartDay.isChecked = isChecked
+        checkFirstPartDay.isChecked = true
+        checkSecondPartDay.isChecked = true
+        checkThirdPartDay.isChecked = true
+        checkFourthPartDay.isChecked = true
 
 
-            if (isChecked) {
+//            if (isChecked) {
 //                calendar.selectedDate = CalendarDay.today()
 //                calendar.state().edit()
 //                    .setMinimumDate(CalendarDay.today())
 //                    .setMaximumDate(CalendarDay.today())
 //                    .commit()
 
-                var cal = Calendar.getInstance().timeInMillis
-                calendar.date = cal
-                selectedDate = dateFormat.format(cal)
-            } else {
+        var cal = Calendar.getInstance().timeInMillis
+        calendar.date = cal
+        selectedDate = dateFormat.format(cal)
+//            } else {
 //                val todayPlusThreeMonths = DateTime.now().plusMonths(3)
 //                calendar.state().edit().setMinimumDate(CalendarDay.today())
 //                    .setMaximumDate(CalendarDay.from(todayPlusThreeMonths.year,
@@ -101,9 +101,9 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
 //                                                     todayPlusThreeMonths.dayOfMonth)).commit()
 
 
-            }
+//            }
 
-        }
+//        }
 
 
         checkFirstPartDay.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -141,9 +141,9 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
             navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_dateTimeFragment_to_previewFragment else R.id.action_dateTimeFragment_to_priceAndSeatFragment)
         }
 
-        navBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        navBack.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
 
 
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
@@ -152,7 +152,7 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
             cal[Calendar.MONTH] = month
             cal[Calendar.DAY_OF_MONTH] = dayOfMonth
             selectedDate = dateFormat.format(cal.time)
-            asapCheck.isChecked = false
+//            asapCheck.isChecked = false
         }
 
     }

@@ -2,42 +2,29 @@ package com.novatec.pitakpass.ui.addpost.destinations
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.text.Editable
-import android.text.Spannable
-import android.view.Gravity
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.novatec.pitakpass.MapsActivity
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.ui.addpost.AddPostViewModel
-import com.novatec.pitakpass.ui.interfaces.IOnPlaceSearchQueryListener
 import com.novatec.pitakpass.ui.viewgroups.PlaceFeedItemView
 import com.novatec.pitakpass.util.*
-import com.otaliastudios.autocomplete.Autocomplete
-import com.otaliastudios.autocomplete.AutocompleteCallback
-import com.otaliastudios.autocomplete.AutocompletePolicy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_destinations.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
-import javax.inject.Inject
-
-
 
 
 @ExperimentalSplittiesApi
 @AndroidEntryPoint
-class DestinationsFragment @Inject constructor() :
-    Fragment(R.layout.fragment_destinations) {
+class DestinationsFragment : Fragment(R.layout.fragment_destinations) {
 
     val args: DestinationsFragmentArgs by navArgs()
 
@@ -91,17 +78,17 @@ class DestinationsFragment @Inject constructor() :
             viewModel.placeFrom = activityViewModel.placeFrom
             fromInput.setText(viewModel.placeFrom!!.regionName)
             toInput.setText(viewModel.placeTo!!.regionName)
-            navBack.visibility = View.VISIBLE
+//            navBack.visibility = View.VISIBLE
         } else {
-            navBack.visibility = View.INVISIBLE
+//            navBack.visibility = View.INVISIBLE
         }
     }
 
     private fun setupListeners() {
 
-        navBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        navBack.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
 
         next.setOnClickListener {
             activityViewModel.placeFrom = viewModel.placeFrom

@@ -88,9 +88,9 @@ class PriceAndSeatFragment @Inject constructor() :
 //            navController.navigate(R.id.action_priceAndSeatFragment_to_previewFragment)
             navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_priceAndSeatFragment_to_previewFragment else R.id.action_priceAndSeatFragment_to_carAndTextFragment)
         }
-        navBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        navBack.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
 
 
         priceInput.doOnTextChanged { text, start, before, count ->

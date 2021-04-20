@@ -65,11 +65,11 @@
     <string name="departure_asap">Departing as soon as full</string>
     <string name="first_part_of_day">Dawn \n(00:00–6:00)</string>
     <string name="second_part_of_day">Forenoon \n(6:00–12:00)</string>
-    <string name="third_part_of_day">Afternoon \n(18:00–12:00)</string>
-    <string name="fourth_part_of_day">Evening \n(00:00–18:00)</string>
+    <string name="third_part_of_day">Afternoon \n(12:00–18:00)</string>
+    <string name="fourth_part_of_day">Evening \n(18:00–00:00)</string>
     <string name="first_part_of_day_one_line">Dawn (00:00–6:00)</string>
     <string name="second_part_of_day_one_line">Forenoon (6:00–12:00)</string>
-    <string name="third_part_of_day_one_line">Afternoon (18:00–12:00)</string>
+    <string name="third_part_of_day_one_line">Afternoon (12:00–18:00)</string>
     <string name="fourth_part_of_day_one_line">Evening (00:00–18:00)</string>
     <string name="time">Time</string>
     <string name="day">Day</string>
@@ -147,6 +147,7 @@
     <string name="attached_post_id">Attached post id</string>
     <string name="update_offer">Update offer</string>
     <string name="you_have_no_offers_yet_come_back_later">You have no offers yet, please come back later!</string>
+    <string name="close">Close</string>
 
 
 </resources>

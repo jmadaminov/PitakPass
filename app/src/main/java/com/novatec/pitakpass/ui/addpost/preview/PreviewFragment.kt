@@ -102,9 +102,9 @@ class PreviewFragment @Inject constructor() : Fragment(R.layout.fragment_preview
     private fun setupListeners() {
 
 
-        navBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        navBack.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
 
         layoutDestinations.setOnClickListener {
             navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToDestinationsFragment(
