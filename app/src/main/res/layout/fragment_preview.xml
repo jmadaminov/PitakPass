@@ -186,60 +186,26 @@
 
     </ScrollView>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/postCreate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:id="@+id/navBack"
-            android:layout_width="0dp"
-            android:layout_height="?android:actionBarSize"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="24dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_neutral_border"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:selectableItemBackground"
-            android:gravity="center"
-            android:text="@string/back"
-            android:textColor="@color/dark_grey"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/postCreate"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/postCreate"
-            android:layout_width="0dp"
-            android:layout_height="?android:actionBarSize"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_primary"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:selectableItemBackground"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:text="@string/create"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            app:finalCornerAngle="50dp"
-            app:initialCornerAngle="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/navBack"
-            app:layout_constraintTop_toTopOf="parent"
-            app:spinning_bar_color="#fff" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="?android:actionBarSize"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/selector_primary"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/create"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        app:finalCornerAngle="50dp"
+        app:initialCornerAngle="8dp"
+        android:layout_gravity="center_horizontal"
+        app:spinning_bar_color="#fff" />
 
 </LinearLayout>

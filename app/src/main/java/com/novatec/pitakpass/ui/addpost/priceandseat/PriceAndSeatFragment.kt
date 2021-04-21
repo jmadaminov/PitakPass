@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,35 +17,19 @@ import com.novatec.pitakpass.util.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_price_and_seat.*
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
-
 
 
 @AndroidEntryPoint
-class PriceAndSeatFragment @Inject constructor() :
-    Fragment(R.layout.fragment_price_and_seat) {
+class PriceAndSeatFragment : Fragment(R.layout.fragment_price_and_seat) {
 
     val args: PriceAndSeatFragmentArgs by navArgs()
-
-
     private var passengerCount: Int? = null
-
-
     private val activityViewModel: AddPostViewModel by activityViewModels()
-
-    //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        activityViewModel.cancelActiveJobs()
-    }
 
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         setupNumberPicker()
 
         if (args.ISFROMPOSTPREVIEW) {
@@ -58,13 +41,6 @@ class PriceAndSeatFragment @Inject constructor() :
         setupObservers()
         setupListeners()
         navController = findNavController()
-//        confirm.isEnabled = true
-//
-//        code.setText(args.password)
-//
-//        confirm.setOnClickListener {
-//            viewModel.confirm(args.phone, code.text.toString())
-//        }
 
         updateNextButtonState()
     }
@@ -126,50 +102,9 @@ class PriceAndSeatFragment @Inject constructor() :
 
     @ExperimentalSplittiesApi
     private fun setupObservers() {
-//        viewModel.fromPlacesResponse.observe(viewLifecycleOwner, Observer {
-//            val response = it ?: return@Observer
-//
-//            when (response) {
-//                is ErrorWrapper.ResponseError -> {
-//
-//                }
-//                is ErrorWrapper.SystemError -> {
-//
-//                }
-//                is ResultWrapper.Success -> {
-//                    fromAutocompletePresenter.getAdr().clear()
-//                    response.value.forEach { place ->
-//                        fromAutocompletePresenter.getAdr().add(PlaceAutocompleteItemView(place,
-//                                                                                        fromAutocompletePresenter))
-//
-//                    }
-//                    fromAutocompletePresenter.getAdr().notifyDataSetChanged()
-//                }
-//                ResultWrapper.InProgress -> {
-//                    if (fromAutocompletePresenter.getAdr().itemCount == 0 || fromAutocompletePresenter.getAdr().getItem(
-//                            fromAutocompletePresenter.getAdr().itemCount - 1) !is LoadingItemSmall) {
-//                        fromAutocompletePresenter.getAdr().add(LoadingItemSmall())
-//                        fromAutocompletePresenter.getAdr().notifyDataSetChanged()
-//                    } else {
-//
-//                    }
-//                }
-//            }.exhaustive
-//
-//        })
 
     }
 
-
-    override fun onPause() {
-        super.onPause()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        (activity as AddPostActivity).showActionBar()
-    }
 
 
 }

@@ -152,7 +152,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-
         android:background="@drawable/selector_primary"
         android:clickable="true"
         android:focusable="true"

@@ -26,7 +26,6 @@ class AddPostActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_post)
         setupActionBar()
-//        onRestoreInstanceState()
 
         subscribeObservers()
         setupListeners()

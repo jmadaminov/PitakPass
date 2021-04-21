@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,13 +19,10 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_car_and_note.*
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
-
 
 
 @AndroidEntryPoint
-class CarAndTextFragment @Inject constructor() :
-    Fragment(R.layout.fragment_car_and_note) {
+class CarAndTextFragment : Fragment(R.layout.fragment_car_and_note) {
 
     val args: CarAndTextFragmentArgs by navArgs()
 
@@ -38,13 +34,8 @@ class CarAndTextFragment @Inject constructor() :
 
     private val viewModel: CarAndTextViewModel by viewModels()
 
-    //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        activityViewModel.cancelActiveJobs()
-    }
 
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -167,10 +158,6 @@ class CarAndTextFragment @Inject constructor() :
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-
-    }
 
     @ExperimentalSplittiesApi
     override fun onResume() {

@@ -25,15 +25,13 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
     val args: DateAndTimeFragmentArgs by navArgs()
 
     private var selectedDate: String? = null
-    private var timeFirstPart = false
-    private var timeSecondPart = false
-    private var timeThirdPart = false
-    private var timeFourthPart = false
+    private var timeFirstPart = true
+    private var timeSecondPart = true
+    private var timeThirdPart = true
+    private var timeFourthPart = true
     val dateFormat = SimpleDateFormat("dd.MM.yyyy")
 
     private val activityViewModel: AddPostViewModel by activityViewModels()
-
-    //    val args: PhoneConfirmFragmentArgs by navArgs()
     lateinit var navController: NavController
 
     @ExperimentalSplittiesApi
@@ -81,7 +79,6 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
         checkSecondPartDay.isChecked = true
         checkThirdPartDay.isChecked = true
         checkFourthPartDay.isChecked = true
-
 
 //            if (isChecked) {
 //                calendar.selectedDate = CalendarDay.today()
