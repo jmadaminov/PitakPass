@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.domain.model.Place
 import com.novatec.pitakpass.ui.BaseActivity
+import com.novatec.pitakpass.ui.addpost.destinations.DestinationsFragmentDirections
 import com.novatec.pitakpass.util.Constants
 import com.novatec.pitakpass.viewobjects.PassengerPostViewObj
 import kotlinx.android.synthetic.main.activity_add_post.*
@@ -64,14 +66,8 @@ class AddPostActivity : BaseActivity() {
             viewModel.departureDate = passengerPostViewObj.departureDate
             viewModel.note = passengerPostViewObj.remark
 
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.previewFragment, true)
-                .build()
-
-            findNavController(R.id.add_post_fragments_container)
-                .navigate(R.id.action_destinationsFragment_to_previewFragment,
-                          null,
-                          navOptions)
+            add_post_fragments_container.findNavController()
+                .navigate(DestinationsFragmentDirections.actionDestinationsFragmentToPreviewFragmentClearBackstack())
         }
 
     }
