@@ -1,15 +1,21 @@
 package com.novatec.pitakpass.ui.viewgroups
 
+import android.text.format.DateFormat
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.novatec.pitakpass.R
-import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.core.enums.EPostStatus
+import com.novatec.pitakpass.domain.model.PassengerPost
+import com.novatec.pitakpass.util.PostUtils
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_active_post.view.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 
 class ActivePostItem(var post: PassengerPost,
@@ -17,7 +23,24 @@ class ActivePostItem(var post: PassengerPost,
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
-            date.text = post.departureDate
+            llSeatsContainer.removeAllViews()
+            for (i in 0 until post.seat) {
+                val seat = ImageView(context)
+                seat.layoutParams =
+                    LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                              ViewGroup.LayoutParams.WRAP_CONTENT)
+                seat.setImageResource(R.drawable.ic_round_emoji_people_24)
+                llSeatsContainer.addView(seat)
+            }
+            time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
+                                                   post.timeSecondPart,
+                                                   post.timeThirdPart,
+                                                   post.timeFourthPart)
+
+            date.text = DateFormat.format("dd MMMM",
+                                          SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+                .toString()
+
             if (post.from.name == null && post.from.districtName == null) {
                 fromDistrict.isVisible = false
                 from.text = post.from.regionName
@@ -35,20 +58,12 @@ class ActivePostItem(var post: PassengerPost,
                 toDistrict.text = post.to.regionName ?: post.to.name
                 to.text = post.to.districtName
             }
-            price.text = post.price.toString()
 
             if (post.offerCount > 0) {
                 tvOffersCount.visibility = View.VISIBLE
                 tvOffersCount.text = post.offerCount.toString()
-            }else{
+            } else {
                 tvOffersCount.visibility = View.GONE
-            }
-
-            if (post.remark.isNullOrBlank()){
-                note.visibility = View.GONE
-            }else{
-                note.visibility = View.VISIBLE
-                note.text = post.remark
             }
 
             price.text =
@@ -58,7 +73,6 @@ class ActivePostItem(var post: PassengerPost,
                 EPostStatus.WAITING_FOR_START -> {
                     llStatus.backgroundTintList =
                         ContextCompat.getColorStateList(context, R.color.colorNavIdle)
-
                     context.getString(R.string.waiting)
                 }
                 EPostStatus.START -> {

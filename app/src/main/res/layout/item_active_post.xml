@@ -16,12 +16,55 @@
         android:focusable="true"
         android:foreground="?android:selectableItemBackground">
 
+
+        <LinearLayout
+            android:id="@+id/llStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_top_left_primary"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="7dp"
+                android:paddingBottom="4dp"
+                android:text="ACTIVE"
+                android:textColor="#fff"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvOffersCount"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_round_alert"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="3"
+                tools:visibility="visible" />
+
+
+        </LinearLayout>
+
+
         <View
             android:id="@+id/line"
-            android:layout_width="2dp"
+            android:layout_width="50dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/ic_grey"
+            android:background="@drawable/line_dash"
+            android:rotation="-90"
             app:layout_constraintBottom_toTopOf="@id/circleTo"
             app:layout_constraintEnd_toEndOf="@id/circleFrom"
             app:layout_constraintStart_toStartOf="@id/circleFrom"
@@ -36,7 +79,7 @@
             android:layout_marginTop="12dp"
             android:src="@drawable/shape_round_disabled"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llStatus"
             app:tint="@color/colorPrimary" />
 
 
@@ -58,23 +101,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
-            tools:text="Tashkent city"
             android:textColor="@color/dark_grey"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/circleFrom"
             app:layout_constraintStart_toEndOf="@id/circleFrom"
-            app:layout_constraintTop_toTopOf="@id/circleFrom" />
+            app:layout_constraintTop_toTopOf="@id/circleFrom"
+            tools:text="Tashkent city" />
 
         <TextView
             android:id="@+id/fromDistrict"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            tools:text="Tashkent"
             android:textColor="@color/textColorGreyDark"
             android:textSize="11dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/from"
             app:layout_constraintTop_toBottomOf="@id/from"
+            tools:text="Tashkent"
             tools:visibility="visible" />
 
         <TextView
@@ -100,99 +143,90 @@
             app:layout_constraintStart_toStartOf="@id/to"
             tools:visibility="visible" />
 
-        <LinearLayout
-            android:id="@+id/llStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_top_right_primary"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center"
-                android:paddingStart="12dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="4dp"
-                android:text="ACTIVE"
-                android:textColor="#fff"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/tvOffersCount"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/shape_round_alert"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tools:text="3" />
-
-
-        </LinearLayout>
-
 
         <TextView
-            android:id="@+id/note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:maxLines="4"
-            android:text="note note sohisdf asdfasdf sadfas fsd fsadf asdfsd"
-            android:textColor="@color/dark_grey"
-            android:textSize="14dp"
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/round_top_right_primary"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical|end"
+            android:paddingStart="5dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/circleTo" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="50,000 sum" />
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/llPriceSeatsDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="10dp"
-            android:paddingEnd="12dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="7dp"
+            android:paddingEnd="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/note">
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/llSeatsContainer"
+            app:layout_constraintTop_toBottomOf="@id/circleTo">
 
             <TextView
-                android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/round_top_right_primary"
-                android:drawablePadding="10dp"
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical|end"
                 android:paddingStart="5dp"
-                android:paddingTop="2dp"
                 android:paddingEnd="5dp"
-                android:paddingBottom="2dp"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                tools:text="50,000 sum" />
+                android:textColor="@color/dark_grey"
+                android:textSize="14dp"
+                app:drawableEndCompat="@drawable/ic_round_access_time_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/from"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="18:00 - 24:00" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableRight="@drawable/ic_baseline_calendar_today_24"
-                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="7dp"
                 android:gravity="center_vertical|end"
-                android:text="02.05.2200"
-                android:textColor="@color/dark_grey" />
+                android:paddingStart="5dp"
+                android:textColor="@color/dark_grey"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_round_today_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/from"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="11.05.21" />
+
         </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/llSeatsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginBottom="7dp"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:rowCount="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/llPriceSeatsDate"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,23 +1,27 @@
 package com.novatec.pitakpass.ui.main.mytrips.historytrips
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.novatec.pitakpass.ui.history_post.HistoryPostActivity
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.domain.model.PassengerPost
+import com.novatec.pitakpass.ui.history_post.HistoryPostActivity
 import com.novatec.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
+import com.novatec.pitakpass.util.PostUtils.timeFromDayParts
 import kotlinx.android.synthetic.main.item_history_post.view.*
 import splitties.activities.start
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 class HistoryPostAdapter :
-    PagingDataAdapter<PassengerPost, HistoryPostAdapter.DriverPostViewHolder>(
-        FILTER_COMPARATOR) {
+    PagingDataAdapter<PassengerPost, HistoryPostAdapter.DriverPostViewHolder>(FILTER_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DriverPostViewHolder {
         val viewHolder =
@@ -34,7 +38,23 @@ class HistoryPostAdapter :
         fun bind(post: PassengerPost) {
             itemView.apply {
 
-                date.text = post.departureDate
+                llSeatsContainer.removeAllViews()
+                for (i in 0 until post.seat) {
+                    val seat = ImageView(context)
+                    seat.layoutParams =
+                        LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT)
+                    seat.setImageResource(R.drawable.ic_round_emoji_people_24)
+                    llSeatsContainer.addView(seat)
+                }
+                time.text = timeFromDayParts(post.timeFirstPart,
+                                             post.timeSecondPart,
+                                             post.timeThirdPart,
+                                             post.timeFourthPart)
+
+                date.text = DateFormat.format("dd MMMM yyyy",
+                                              SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+                    .toString()
                 if (post.from.name == null && post.from.districtName == null) {
                     fromDistrict.isVisible = false
                     from.text = post.from.regionName
@@ -53,15 +73,16 @@ class HistoryPostAdapter :
                     to.text = post.to.districtName
                 }
                 price.text =
-                    DecimalFormat("#,###").format(post.price) + " " + itemView.context.getString(R.string.sum)
-                seats.text = post.seat.toString()
+                    DecimalFormat("#,###").format(post.price * post.seat) + " " + itemView.context.getString(
+                        R.string.sum)
+//                seats.text = post.seat.toString()
 
-                post.remark?.also {
-                    note.visibility = View.VISIBLE
-                    note.text = post.remark
-                } ?: run {
-                    note.visibility = View.GONE
-                }
+//                post.remark?.also {
+//                    note.visibility = View.VISIBLE
+//                    note.text = post.remark
+//                } ?: run {
+//                    note.visibility = View.GONE
+//                }
                 cardHistoryItem.setOnClickListener {
                     context.start<HistoryPostActivity> {
                         putExtra(EXTRA_POST_ID, post.id)
