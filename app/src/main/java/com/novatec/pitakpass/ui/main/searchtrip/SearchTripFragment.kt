@@ -315,6 +315,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         )
 
         postsAdapter.addLoadStateListener { loadState ->
+            if (progress == null) return@addLoadStateListener
 //            swipeRefreshLayout.isRefreshing = loadState.source.refresh is LoadState.Loading
             progress.isVisible = loadState.source.refresh is LoadState.Loading
             rvPosts.isVisible = loadState.source.refresh is LoadState.NotLoading
