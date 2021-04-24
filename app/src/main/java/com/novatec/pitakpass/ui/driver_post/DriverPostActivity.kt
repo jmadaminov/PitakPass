@@ -1,8 +1,12 @@
 package com.novatec.pitakpass.ui.driver_post
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -12,10 +16,7 @@ import com.novatec.pitakpass.domain.model.DriverPost
 import com.novatec.pitakpass.ui.BaseActivity
 import com.novatec.pitakpass.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.novatec.pitakpass.ui.driver_post.jump_in.DialogJoinARideFragment
-import com.novatec.pitakpass.util.AppPrefs
-import com.novatec.pitakpass.util.exhaustive
-import com.novatec.pitakpass.util.load
-import com.novatec.pitakpass.util.loadRound
+import com.novatec.pitakpass.util.*
 import com.novatec.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
 import kotlinx.android.synthetic.main.activity_driver_post.date
@@ -25,13 +26,11 @@ import kotlinx.android.synthetic.main.activity_driver_post.ivCarPhoto
 import kotlinx.android.synthetic.main.activity_driver_post.note
 import kotlinx.android.synthetic.main.activity_driver_post.price
 import kotlinx.android.synthetic.main.activity_driver_post.ratingBarDriver
-import kotlinx.android.synthetic.main.activity_driver_post.seats
 import kotlinx.android.synthetic.main.activity_driver_post.to
 import kotlinx.android.synthetic.main.activity_driver_post.toDistrict
 import kotlinx.android.synthetic.main.activity_driver_post.tvDriverName
-import kotlinx.android.synthetic.main.activity_history_post.*
-import kotlinx.android.synthetic.main.item_driver_post.view.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 class DriverPostActivity : BaseActivity() {
 
@@ -77,9 +76,33 @@ class DriverPostActivity : BaseActivity() {
             }
         }
 
-        seats.text = post.seat.toString()
-        date.text = post.departureDate
-        post.profile?.rating?.let { ratingBarDriver.rating = it }
+        llSeatsContainer.removeAllViews()
+        var availableSeats = post.availableSeats
+        for (i in 0 until post.seat) {
+            val seat = ImageView(this)
+            seat.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                                          ViewGroup.LayoutParams.WRAP_CONTENT)
+            seat.setImageResource(R.drawable.ic_round_event_seat_24)
+            if (availableSeats > 0) {
+                seat.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary))
+                availableSeats--
+            } else {
+                seat.setColorFilter(ContextCompat.getColor(this, R.color.error_red))
+            }
+            llSeatsContainer.addView(seat)
+        }
+
+//                seats.text =
+//                    (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
+
+        time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
+                                               post.timeSecondPart,
+                                               post.timeThirdPart,
+                                               post.timeFourthPart)
+
+        date.text = DateFormat.format("dd MMMM",
+                                      SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+            .toString()
 
         if (post.from.name == null && post.from.districtName == null) {
             fromDistrict.isVisible = false
@@ -100,7 +123,6 @@ class DriverPostActivity : BaseActivity() {
         }
 
 
-
         price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
 
         post.remark?.also {
@@ -110,18 +132,24 @@ class DriverPostActivity : BaseActivity() {
             note.visibility = View.GONE
         }
 
-
-
         post.car?.image?.link?.let {
             ivCarPhoto.load(it)
         }
 
-        post.profile?.image?.link?.let {
-            ivDriver.loadRound(it)
-        } ?: run {
-            ivDriver.setImageResource(R.drawable.ic_baseline_account_circle_24)
+        post.profile?.let { driverProfile ->
+            if (driverProfile.rating == null || driverProfile.rating == 0.0F) {
+                ratingBarDriver.isVisible = false
+                ratingBarDriver.text = ""
+            } else {
+                ratingBarDriver.isVisible = true
+                ratingBarDriver.text = driverProfile.rating.toString()
+            }
+            driverProfile.image?.link?.let { avatarLink ->
+                ivDriver.loadRound(avatarLink)
+            } ?: run {
+                ivDriver.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            }
         }
-
         post.car?.let {
             plateNumber.text = it.carNumber
             carModel.text = it.carModel?.name
