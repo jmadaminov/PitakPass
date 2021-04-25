@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_car.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_add_car.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_car.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_car_color.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_car_model.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_car_photo.xml" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/item_car_selection.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

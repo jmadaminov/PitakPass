@@ -76,9 +76,9 @@
 
     <fragment
         android:id="@+id/carAndTextFragment"
-        android:name="com.novatec.pitakpass.ui.addpost.carandtext.CarAndTextFragment"
+        android:name="com.novatec.pitakpass.ui.addpost.carandtext.NoteFragment"
         android:label="@string/car_and_text"
-        tools:layout="@layout/fragment_car_and_note">
+        tools:layout="@layout/fragment_note">
         <action
             android:id="@+id/action_carAndTextFragment_to_previewFragment"
             app:destination="@id/previewFragment"

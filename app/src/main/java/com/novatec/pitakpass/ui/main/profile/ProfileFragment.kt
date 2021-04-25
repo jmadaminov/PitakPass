@@ -25,16 +25,9 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile), IOnSignOut {
-
-    private val adapter = GroupAdapter<GroupieViewHolder>()
+class ProfileFragment : Fragment(R.layout.fragment_profile), IOnSignOut {
 
     private val viewModel: ProfileViewModel by viewModels()
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +46,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
     @ExperimentalSplittiesApi
     private fun setupViews() {
         (activity as MainActivity).hideTabLayout()
-        cardProfile.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
+//        cardProfile.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
         phone.text = "+${AppPrefs.phone}"
 
@@ -61,7 +54,6 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
 
 
     private fun subscribeObservers() {
-
 
     }
 
@@ -75,7 +67,7 @@ class ProfileFragment @Inject constructor() : Fragment(R.layout.fragment_profile
             start<SettingsActivity> {}
         }
 
-        cardProfile.setOnClickListener {
+        ivEditProfile.setOnClickListener {
             start<EditProfileActivity> {}
         }
 
