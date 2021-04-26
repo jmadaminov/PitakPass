@@ -19,16 +19,6 @@ import com.novatec.pitakpass.ui.driver_post.jump_in.DialogJoinARideFragment
 import com.novatec.pitakpass.util.*
 import com.novatec.pitakpass.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
-import kotlinx.android.synthetic.main.activity_driver_post.date
-import kotlinx.android.synthetic.main.activity_driver_post.from
-import kotlinx.android.synthetic.main.activity_driver_post.fromDistrict
-import kotlinx.android.synthetic.main.activity_driver_post.ivCarPhoto
-import kotlinx.android.synthetic.main.activity_driver_post.note
-import kotlinx.android.synthetic.main.activity_driver_post.price
-import kotlinx.android.synthetic.main.activity_driver_post.ratingBarDriver
-import kotlinx.android.synthetic.main.activity_driver_post.to
-import kotlinx.android.synthetic.main.activity_driver_post.toDistrict
-import kotlinx.android.synthetic.main.activity_driver_post.tvDriverName
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -125,11 +115,11 @@ class DriverPostActivity : BaseActivity() {
 
         price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
 
-        post.remark?.also {
+        if (post.remark.isNullOrBlank()) {
+            note.visibility = View.GONE
+        } else {
             note.visibility = View.VISIBLE
             note.text = post.remark
-        } ?: run {
-            note.visibility = View.GONE
         }
 
         post.car?.image?.link?.let {

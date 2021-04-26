@@ -31,10 +31,8 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="?android:actionBarSize"
-        android:layout_marginBottom="25dp"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@id/phone"
+        app:layout_constraintBottom_toTopOf="@id/logoTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,20 +41,19 @@
         android:id="@+id/logoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="50dp"
-        android:padding="10dp"
-        android:rotation="-45"
+        android:paddingBottom="10dp"
         android:shadowColor="@color/black"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="5"
-        android:text="itak"
+        android:text="E-Pitak"
         android:textColor="@color/darkLogoColor"
         android:textSize="45dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/logo"
-        app:layout_constraintEnd_toEndOf="@id/logo" />
+        app:layout_constraintEnd_toEndOf="@id/logo"
+        app:layout_constraintStart_toStartOf="@id/logo"
+      app:layout_constraintBottom_toTopOf="@id/phone"
+        />
 
     <com.github.pinball83.maskededittext.MaskedEditText
         android:id="@+id/phone"

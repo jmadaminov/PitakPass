@@ -14,73 +14,66 @@
         android:layout_margin="25dp"
         app:cardCornerRadius="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvSubtractSeat"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/stroke_primary"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:paddingStart="12dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="5dp"
-                android:text="-"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@id/tvSeats"
-                app:layout_constraintEnd_toStartOf="@id/tvSeats"
-                app:layout_constraintTop_toTopOf="@id/tvSeats" />
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvSubtractSeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackground"
+                    android:paddingStart="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="5dp"
+                    android:text="-"
+                    android:textSize="20dp"/>
 
 
-            <TextView
-                android:id="@+id/tvSeats"
-                android:layout_width="?android:actionBarSize"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:text="1"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/seatLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/tvSeats"
+                    android:layout_width="?android:actionBarSize"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="20dp" />
 
 
-            <TextView
-                android:id="@+id/tvAddSeat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/stroke_primary"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:paddingStart="12dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="5dp"
-                android:text="+"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="@id/tvSeats"
-                app:layout_constraintStart_toEndOf="@id/tvSeats"
-                app:layout_constraintTop_toTopOf="@id/tvSeats" />
-
+                <TextView
+                    android:id="@+id/tvAddSeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/stroke_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackground"
+                    android:paddingStart="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="5dp"
+                    android:text="+"
+                    android:textSize="20dp" />
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/seatLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clipChildren="false"
-                android:clipToPadding="false"
-                app:layout_constraintBottom_toTopOf="@id/messageLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvSeats">
+                android:clipToPadding="false">
 
                 <EditText
                     android:id="@+id/edtPrice"
@@ -97,9 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:clipChildren="false"
-                android:clipToPadding="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seatLayout">
+                android:clipToPadding="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/messageInput"
@@ -116,56 +107,61 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <ImageView
-                android:id="@+id/ivClearSelected"
-                android:layout_width="?android:actionBarSize"
-                android:layout_height="?android:actionBarSize"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackgroundBorderless"
-                android:padding="15dp"
-                android:src="@drawable/close_icon"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tvSelectedPost"
-                app:layout_constraintStart_toEndOf="@id/tvSelectedPost"
-                app:layout_constraintTop_toTopOf="@id/tvSelectedPost"
-                tools:visibility="visible" />
-
-
-            <TextView
-                android:id="@+id/tvSelectedPost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="Offering Post ID: "
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/rvContainer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/messageLayout"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/lblSelectPost"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/messageLayout"
-                tools:text="@string/select_your_trip_if_you_have_one" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivClearSelected"
+                    android:layout_width="?android:actionBarSize"
+                    android:layout_height="?android:actionBarSize"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackgroundBorderless"
+                    android:padding="15dp"
+                    android:src="@drawable/close_icon"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tvSelectedPost"
+                    app:layout_constraintStart_toEndOf="@id/tvSelectedPost"
+                    app:layout_constraintTop_toTopOf="@id/tvSelectedPost"
+                    tools:visibility="visible" />
+
+
+                <TextView
+                    android:id="@+id/tvSelectedPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="Offering Post ID: "
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/lblSelectPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/select_your_trip_if_you_have_one" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
                 android:id="@+id/cardLastOffer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/btnSendOffer"
                 app:layout_constraintTop_toBottomOf="@id/lblSelectPost"
                 tools:visibility="visible">
@@ -175,48 +171,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/my_last_offer"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="@string/my_last_offer"/>
 
                 <TextView
                     android:id="@+id/tvLastOfferRepliedPostId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvLastOfferTitle" />
+                    android:gravity="center"/>
 
 
                 <TextView
                     android:id="@+id/tvLastOfferPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvLastOfferRepliedPostId" />
+                    android:gravity="center" />
 
                 <TextView
                     android:id="@+id/tvLastOfferMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvLastOfferPrice" />
+                    android:gravity="center" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rvContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:layout_constraintBottom_toTopOf="@id/btnSendOffer"
-                app:layout_constraintTop_toBottomOf="@id/lblSelectPost">
+                android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvMyPosts"
@@ -233,6 +214,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/button_shape_orange_gradient_rounded"
                 android:elevation="3dp"
                 android:text="@string/send_offer"
@@ -240,12 +222,9 @@
                 android:textColor="@color/white"
                 app:finalCornerAngle="50dp"
                 app:initialCornerAngle="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:spinning_bar_color="#fff" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
