@@ -12,6 +12,7 @@
     <color name="splashGradientStart">#CBB5FF</color>
     <color name="button_grey">#B6B6B6</color>
     <color name="dark_grey">#FF393939</color>
+    <color name="text_color">#737373</color>
     <color name="error_red">#F44336</color>
     <color name="red">#D50000</color>
     <color name="line_textColorGrey">#b9b9bc</color>

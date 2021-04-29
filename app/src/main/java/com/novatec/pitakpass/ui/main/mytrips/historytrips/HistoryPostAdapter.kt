@@ -75,14 +75,7 @@ class HistoryPostAdapter :
                 price.text =
                     DecimalFormat("#,###").format(post.price * post.seat) + " " + itemView.context.getString(
                         R.string.sum)
-//                seats.text = post.seat.toString()
 
-//                post.remark?.also {
-//                    note.visibility = View.VISIBLE
-//                    note.text = post.remark
-//                } ?: run {
-//                    note.visibility = View.GONE
-//                }
                 cardHistoryItem.setOnClickListener {
                     context.start<HistoryPostActivity> {
                         putExtra(EXTRA_POST_ID, post.id)

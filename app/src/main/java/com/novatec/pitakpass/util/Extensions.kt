@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.novatec.pitakpass.util.SizeUtils.dpToPx
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -54,11 +55,14 @@ fun ImageView.loadRound(url: String) {
 
 fun ImageView.loadRounded(url: String, radius: Int = 10) {
     Glide.with(this.context).load(url)
-        .transform(CenterCrop(), RoundedCorners(radius)).into(this)
+        .transform(CenterCrop(), RoundedCorners(dpToPx(this.context, radius).toInt())).into(this)
 }
 
 fun ImageView.load(bitmap: Bitmap) {
     Glide.with(this.context).load(bitmap).into(this)
+}
+fun ImageView.loadRound(bitmap: Bitmap) {
+    Glide.with(this.context).load(bitmap).apply(RequestOptions().circleCrop()).into(this)
 }
 
 fun View.hideKeyboard() {

@@ -38,7 +38,6 @@ class DriverPostActivity : BaseActivity() {
         subscribeObservers()
 
 
-//        showPostData(driverPost)
     }
 
     private fun subscribeObservers() {
@@ -81,9 +80,6 @@ class DriverPostActivity : BaseActivity() {
             }
             llSeatsContainer.addView(seat)
         }
-
-//                seats.text =
-//                    (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
 
         time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
                                                post.timeSecondPart,

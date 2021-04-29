@@ -4,19 +4,24 @@ import android.animation.LayoutTransition
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.ui.BaseActivity
 import com.novatec.pitakpass.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
-import com.novatec.pitakpass.util.loadRound
+import com.novatec.pitakpass.util.PostUtils
 import com.novatec.pitakpass.util.load
+import com.novatec.pitakpass.util.loadRound
 import kotlinx.android.synthetic.main.activity_history_post.*
-import kotlinx.android.synthetic.main.item_driver_post.view.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 class HistoryPostActivity : BaseActivity() {
 
@@ -88,8 +93,21 @@ class HistoryPostActivity : BaseActivity() {
                 viewModel.editMyRating(post.driverPost.profile!!.id.toLong(), rbYourRate.rating)
             }
         }
-
-        date.text = post.departureDate
+        for (i in 0 until post.seat) {
+            val seat = ImageView(this)
+            seat.layoutParams =
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                          ViewGroup.LayoutParams.WRAP_CONTENT)
+            seat.setImageResource(R.drawable.ic_round_emoji_people_24)
+            llSeatsContainer.addView(seat)
+        }
+        time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
+                                               post.timeSecondPart,
+                                               post.timeThirdPart,
+                                               post.timeFourthPart)
+        date.text = DateFormat.format("dd MMMM",
+                                      SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+            .toString()
         if (post.from.name == null && post.from.districtName == null) {
             fromDistrict.isVisible = false
             from.text = post.from.regionName
@@ -107,42 +125,42 @@ class HistoryPostActivity : BaseActivity() {
             toDistrict.text = post.to.regionName ?: post.to.name
             to.text = post.to.districtName
         }
-        seats.text = post.seat.toString()
-        price.text = DecimalFormat("#,###").format(post.price) + " " + getString(R.string.sum)
 
-        post.remark?.also {
+        if (post.remark.isNullOrBlank()){
+            note.visibility = View.GONE
+        }else{
             note.visibility = View.VISIBLE
             note.text = post.remark
-        } ?: run { note.visibility = View.GONE }
-
+        }
 
 
         post.driverPost.price.also {
             tvOfferingPrice.text =
-                DecimalFormat("#,###").format(it) + " " + getString(R.string.sum)
+                getString(R.string.agreed_price, DecimalFormat("#,###").format(it))
         }
 
         tvDriverName.text = post.driverPost.profile?.name + " " + post.driverPost.profile?.surname
 
         post.driverPost.car?.image?.link?.let { ivCarPhoto.load(it) }
 
-        post.driverPost.profile?.image?.link?.let { ivDriverAvatar.loadRound(it) } ?: run{
-            ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
+        post.driverPost.profile?.let { driverProfile ->
+            if (driverProfile.rating == null || driverProfile.rating == 0.0F) {
+                ratingBarDriver.isVisible = false
+                ratingBarDriver.text = ""
+            } else {
+                ratingBarDriver.isVisible = true
+                ratingBarDriver.text = driverProfile.rating.toString()
+            }
+            driverProfile.image?.link?.let { avatarLink ->
+                ivDriverAvatar.loadRound(avatarLink)
+            } ?: run {
+                ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            }
         }
 
-        post.driverPost.profile?.rating?.let { ratingBarDriver.rating = it }
-
         post.driverPost.car?.let { car ->
-            var hasAC = ""
-
-            car.airConditioner?.let { if (it) hasAC = ", " + getString(R.string.air_conditioner) }
-
-            tvCarInfo.text = car.carModel?.name + ", " +
-                    car.carYear.toString() + ", " +
-                    car.carColor?.name + ", " +
-                    car.carNumber + ", " +
-                    car.fuelType +
-                    hasAC
+            carModel.text = car.carModel?.name
+            plateNumber.text = car.carNumber
         }
         fabCallDriver.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)

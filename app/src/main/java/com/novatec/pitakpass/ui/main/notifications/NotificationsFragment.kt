@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.novatec.pitakpass.R
+import com.novatec.pitakpass.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class NotificationsFragment @Inject constructor() : Fragment(R.layout.fragment_n
     @ExperimentalSplittiesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).hideTabLayout()
         setupListeners()
         subscribeObservers()
         setupViews()
@@ -42,10 +44,7 @@ class NotificationsFragment @Inject constructor() : Fragment(R.layout.fragment_n
     private fun setupListeners() {
 
 
-
-
     }
-
 
 
 }

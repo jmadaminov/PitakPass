@@ -13,11 +13,11 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.asksira.bsimagepicker.BSImagePicker
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.ui.BaseActivity
 import com.novatec.pitakpass.util.*
-import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import java.io.File
 
@@ -42,7 +42,7 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
         edtSurname.doOnTextChanged { text, start, before, count -> checkInputs() }
 
-        cardAvatar.setOnClickListener {
+        ivAvatar.setOnClickListener {
             val singleSelectionPicker: BSImagePicker =
                 BSImagePicker.Builder("com.novatec.pitakpass.fileprovider")
                     .setSpanCount(3) //Default: 3. This is the number of columns
@@ -125,13 +125,13 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
 
         edtSurname.setText(AppPrefs.surname)
         edtName.setText(AppPrefs.name)
-        if (AppPrefs.avatar.isNotBlank()) ivAvatar.load(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) ivAvatar.loadRound(AppPrefs.avatar)
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {
         checkInputs()
         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-        ivAvatar.load(bitmap)
+        ivAvatar.loadRound(bitmap)
         viewModel.uploadAvatar(File(uri.getRealPathFromURI(this)))
     }
 

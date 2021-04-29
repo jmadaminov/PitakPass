@@ -1,6 +1,5 @@
 package com.novatec.pitakpass.ui.main.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,14 +13,11 @@ import com.novatec.pitakpass.ui.interfaces.IOnSignOut
 import com.novatec.pitakpass.ui.main.MainActivity
 import com.novatec.pitakpass.ui.settings.SettingsActivity
 import com.novatec.pitakpass.util.AppPrefs
-import com.novatec.pitakpass.util.load
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import com.novatec.pitakpass.util.loadRound
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.start
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -95,7 +91,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IOnSignOut {
 
     override fun onResume() {
         super.onResume()
-        if (AppPrefs.avatar.isNotBlank()) profilePhoto.load(AppPrefs.avatar)
+        if (AppPrefs.avatar.isNotBlank()) profilePhoto.loadRound(AppPrefs.avatar)
         nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
     }
 }

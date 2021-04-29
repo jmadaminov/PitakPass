@@ -3,39 +3,30 @@ package com.novatec.pitakpass.ui.passenger_post
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
+import com.google.android.material.snackbar.Snackbar
 import com.novatec.pitakpass.R
+import com.novatec.pitakpass.core.enums.EPostStatus
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.remote.model.OfferDTO
 import com.novatec.pitakpass.ui.BaseActivity
-import com.novatec.pitakpass.core.enums.EPostStatus
 import com.novatec.pitakpass.ui.addpost.AddPostActivity
 import com.novatec.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.novatec.pitakpass.util.*
 import com.novatec.pitakpass.viewobjects.PassengerPostViewObj
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_passenger_post.*
-import kotlinx.android.synthetic.main.activity_passenger_post.date
-import kotlinx.android.synthetic.main.activity_passenger_post.from
-import kotlinx.android.synthetic.main.activity_passenger_post.fromDistrict
-import kotlinx.android.synthetic.main.activity_passenger_post.ivCarPhoto
-import kotlinx.android.synthetic.main.activity_passenger_post.note
-import kotlinx.android.synthetic.main.activity_passenger_post.price
-import kotlinx.android.synthetic.main.activity_passenger_post.seats
-import kotlinx.android.synthetic.main.activity_passenger_post.swipeRefreshLayout
-import kotlinx.android.synthetic.main.activity_passenger_post.to
-import kotlinx.android.synthetic.main.activity_passenger_post.toDistrict
-import kotlinx.android.synthetic.main.activity_passenger_post.tvCarInfo
-import kotlinx.android.synthetic.main.activity_passenger_post.tvDriverName
-import kotlinx.android.synthetic.main.activity_passenger_post.tvMessage
-import kotlinx.android.synthetic.main.item_driver_post.view.*
 import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 @ExperimentalSplittiesApi class PassengerPostActivity : BaseActivity() {
 
@@ -82,7 +73,7 @@ import java.text.DecimalFormat
 
                 }
                 is LoadState.Error -> {
-7
+
                 }
             }
         }
@@ -200,7 +191,24 @@ import java.text.DecimalFormat
             edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
             done.isVisible = postNonNull.postStatus == EPostStatus.START
 
-            date.text = postNonNull.departureDate
+            for (i in 0 until postNonNull.seat) {
+                val seat = ImageView(this)
+                seat.layoutParams =
+                    LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                              ViewGroup.LayoutParams.WRAP_CONTENT)
+                seat.setImageResource(R.drawable.ic_round_emoji_people_24)
+                llSeatsContainer.addView(seat)
+            }
+            time.text = PostUtils.timeFromDayParts(postNonNull.timeFirstPart,
+                                                   postNonNull.timeSecondPart,
+                                                   postNonNull.timeThirdPart,
+                                                   postNonNull.timeFourthPart)
+            date.text = DateFormat.format("dd MMMM",
+                                          SimpleDateFormat("dd.MM.yyyy").parse(postNonNull.departureDate))
+                .toString()
+
+
+
             if (postNonNull.from.name == null && postNonNull.from.districtName == null) {
                 fromDistrict.isVisible = false
                 from.text = postNonNull.from.regionName
@@ -220,11 +228,10 @@ import java.text.DecimalFormat
             }
             price.text =
                 DecimalFormat("#,###").format(postNonNull.price) + " " + getString(R.string.sum)
-            seats.text = postNonNull.seat.toString()
 
-            if (postNonNull.remark.isNullOrBlank()){
+            if (postNonNull.remark.isNullOrBlank()) {
                 note.visibility = View.GONE
-            }else{
+            } else {
                 note.visibility = View.VISIBLE
                 note.text = postNonNull.remark
             }
@@ -248,33 +255,28 @@ import java.text.DecimalFormat
                 tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
                 driver.car?.image?.link?.let {
-                    ivCarPhoto.load(it)
+                    ivCarPhoto.loadRounded(it, 10)
                 }
 
-                driver.profile?.image?.link?.let {
-                    ivDriverAvatar.loadRound(it)
-                } ?: run{
-                    ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                }
 
-                driver.profile?.rating?.let {
-                    ratingBarDriver.rating = it
+                driver.profile?.let { driverProfile ->
+                    if (driverProfile.rating == null || driverProfile.rating == 0.0F) {
+                        ratingBarDriver.isVisible = false
+                        ratingBarDriver.text = ""
+                    } else {
+                        ratingBarDriver.isVisible = true
+                        ratingBarDriver.text = driverProfile.rating.toString()
+                    }
+                    driverProfile.image?.link?.let { avatarLink ->
+                        ivDriverAvatar.loadRound(avatarLink)
+                    } ?: run {
+                        ivDriverAvatar.setImageResource(R.drawable.ic_baseline_account_circle_24)
+                    }
                 }
 
                 driver.car?.let { car ->
-                    var hasAC = ""
-
-                    car.airConditioner?.let {
-                        if (it) hasAC = ", " + getString(R.string.air_conditioner)
-                    }
-
-                    tvCarInfo.text = car.carModel?.name + ", " +
-                            car.carYear.toString() + ", " +
-                            car.carColor?.name + ", " +
-                            car.carNumber + ", " +
-                            car.fuelType +
-                            hasAC
-
+                    carModel.text = car.carModel?.name
+                    plateNumber.text = car.carNumber
                 }
                 fabCallDriver.setOnClickListener {
                     val intent = Intent(Intent.ACTION_DIAL)
