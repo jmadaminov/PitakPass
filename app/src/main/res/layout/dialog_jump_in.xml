@@ -217,7 +217,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_shape_orange_gradient_rounded"
                 android:elevation="3dp"
-                android:text="@string/send_offer"
+                android:text="@string/send"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:finalCornerAngle="50dp"

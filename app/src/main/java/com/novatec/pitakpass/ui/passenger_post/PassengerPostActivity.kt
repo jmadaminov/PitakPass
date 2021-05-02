@@ -101,9 +101,7 @@ import java.text.SimpleDateFormat
         })
 
         viewModel.offerActionResp.observe(this, {
-            viewModel.getPostById(postId)
-            viewModel.getOffersForPost(postId)
-            offersAdapter.refresh()
+            refreshAll()
         })
 
         viewModel.isLoading.observe(this, {
@@ -291,9 +289,7 @@ import java.text.SimpleDateFormat
     private fun attachListeners() {
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getPostById(postId)
-            viewModel.getOffersForPost(postId)
-            offersAdapter.refresh()
+            refreshAll()
         }
 
         done.setOnClickListener {
@@ -305,10 +301,9 @@ import java.text.SimpleDateFormat
         }
 
         edit.setOnClickListener {
-            start<AddPostActivity> {
-                putExtra(Constants.TXT_PASSENGER_POST,
-                         PassengerPostViewObj.fromPassengerPost(post!!))
-            }
+            startActivityForResult(Intent(this, AddPostActivity::class.java).apply {
+                putExtra(Constants.TXT_PASSENGER_POST, PassengerPostViewObj.fromPassengerPost(post!!))
+            }, REQ_POST_MANIPULATED)
         }
     }
 
@@ -333,5 +328,16 @@ import java.text.SimpleDateFormat
     fun acceptOffer(offer: OfferDTO) = viewModel.acceptOffer(offer.id)
     fun cancelOffer(offer: OfferDTO) = viewModel.cancelOffer(offer.id)
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == REQ_POST_MANIPULATED) {
+            refreshAll()
+        }
+    }
 
+    private fun refreshAll() {
+        viewModel.getPostById(postId)
+        offersAdapter.refresh()
+    }
 }
+
