@@ -15,7 +15,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     PassengerPostRemote {
 
     override suspend fun createPassengerPost(
-        post: PassengerPost): ResultWrapper<PassengerPost> {
+        post: PassengerPost): ResultWrapper<PassengerPost?> {
         val response =
 
         if (post.id != null) getFormattedResponseNullable { authorizedApiService.editPost(post.id, post) }

@@ -96,7 +96,7 @@ class JumpInViewModel @ViewModelInject constructor(private val repository: Drive
             }
             is ResultWrapper.Success -> {
                 withContext(Dispatchers.Main) {
-                    offeringPostId.value = response.value.id
+                    offeringPostId.value = response.value!!.id
                 }
             }
             else -> {

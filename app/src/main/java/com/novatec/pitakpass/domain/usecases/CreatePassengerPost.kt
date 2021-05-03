@@ -10,9 +10,9 @@ import com.novatec.pitakpass.util.ResultWrapper
  *
  */
 class CreatePassengerPost(val repositoryPassenger: PassengerPostRepository) :
-    UseCaseWithParams<PassengerPost, ResultWrapper<PassengerPost>>() {
+    UseCaseWithParams<PassengerPost, ResultWrapper<PassengerPost?>>() {
 
-    override suspend fun buildUseCase(params: PassengerPost): ResultWrapper<PassengerPost> {
+    override suspend fun buildUseCase(params: PassengerPost): ResultWrapper<PassengerPost?> {
         return repositoryPassenger.createPassengerPost(params)
 
     }

@@ -172,10 +172,10 @@
             android:gravity="center_vertical"
             android:paddingLeft="7dp"
             android:paddingEnd="7dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/llSeatsContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/llSeatsContainer"
-            app:layout_constraintTop_toBottomOf="@id/circleTo">
+            app:layout_constraintTop_toTopOf="@id/llSeatsContainer">
 
             <TextView
                 android:id="@+id/time"
@@ -222,10 +222,12 @@
             android:layout_marginBottom="7dp"
             android:columnCount="4"
             android:orientation="horizontal"
+            android:layout_marginTop="10dp"
             android:rowCount="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/llPriceSeatsDate"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circleTo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

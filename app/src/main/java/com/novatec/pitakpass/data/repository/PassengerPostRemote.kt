@@ -9,7 +9,7 @@ import com.novatec.pitakpass.util.ResultWrapper
 
 interface PassengerPostRemote {
 
-    suspend fun createPassengerPost(post: PassengerPost): ResultWrapper<PassengerPost>
+    suspend fun createPassengerPost(post: PassengerPost): ResultWrapper<PassengerPost?>
     suspend fun deletePassengerPost(identifier: String): ResultWrapper<Unit>
     suspend fun finishPassengerPost(identifier: String): ResultWrapper<Unit>
     suspend fun getActivePassengerPosts(): ResultWrapper<List<PassengerPost>>

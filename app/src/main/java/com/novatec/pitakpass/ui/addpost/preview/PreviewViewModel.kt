@@ -18,7 +18,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 class PreviewViewModel @ViewModelInject constructor(private val createPassengerPost: CreatePassengerPost) :
     BaseViewModel() {
 
-    val createResponse = SingleLiveEvent<ResultWrapper<PassengerPost>>()
+    val createResponse = SingleLiveEvent<ResultWrapper<PassengerPost?>>()
 
 
     @ExperimentalSplittiesApi
