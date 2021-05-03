@@ -43,6 +43,13 @@ interface AuthorizedApiService {
     suspend fun createPost(@Body passengerPostBody: PassengerPost,
                            @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<PassengerPost>
 
+    //DRIVER POST API
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @PUT("passenger_post/action/{identifier}")
+    suspend fun editPost(@Path(value = "identifier",
+                               encoded = true) identifier: Long,
+                         @Body passengerPost: PassengerPost): RespFormatter<PassengerPost>
+
     @Headers("Content-Type:application/json", "Accept: application/json")
     @GET("passenger_post/action/{id}")
     suspend fun getPassengerPostById(@Path(value = "id",

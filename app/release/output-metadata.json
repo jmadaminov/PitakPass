@@ -1,20 +1,18 @@
 {
-  "version": 1,
+  "version": 2,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "com.novatec.pitakpass",
-  "variantName": "release",
+  "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "properties": [],
       "versionCode": 1,
-      "versionName": "1.0",
-      "enabled": true,
-      "outputFile": "Pitak_PASSENGER-release-1.0.apk"
+      "versionName": "1.0.0",
+      "outputFile": "PitakPass-release-1.0.0.apk"
     }
   ]
 }

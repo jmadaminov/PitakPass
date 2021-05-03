@@ -1,5 +1,6 @@
 package com.novatec.pitakpass.core.enums
 
 enum class ENotificationType {
-    OFFER_CREATE
+    OFFER_CREATE,
+    POST_FINISHED
 }

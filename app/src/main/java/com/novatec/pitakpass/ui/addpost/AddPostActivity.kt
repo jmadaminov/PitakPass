@@ -42,6 +42,8 @@ class AddPostActivity : BaseActivity() {
 
     private fun checkIfEditing(passengerPostViewObj: PassengerPostViewObj?) {
         if (passengerPostViewObj != null) {
+            viewModel.id = passengerPostViewObj.id
+
             viewModel.isEditing = true
             viewModel.price = passengerPostViewObj.price
             viewModel.seat = passengerPostViewObj.seat

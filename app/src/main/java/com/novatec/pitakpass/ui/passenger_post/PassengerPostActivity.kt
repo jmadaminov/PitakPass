@@ -188,7 +188,7 @@ import java.text.SimpleDateFormat
             }
             edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
             done.isVisible = postNonNull.postStatus == EPostStatus.START
-
+            llSeatsContainer.removeAllViews()
             for (i in 0 until postNonNull.seat) {
                 val seat = ImageView(this)
                 seat.layoutParams =

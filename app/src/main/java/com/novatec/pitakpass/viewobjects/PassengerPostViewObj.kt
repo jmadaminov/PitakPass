@@ -8,7 +8,8 @@ import com.novatec.pitakpass.core.enums.EPostType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PassengerPostViewObj(val from: PlaceViewObj,
+data class PassengerPostViewObj(val id: Long? = null,
+                                val from: PlaceViewObj,
                                 val to: PlaceViewObj,
                                 val price: Int,
                                 val departureDate: String,
@@ -24,7 +25,8 @@ data class PassengerPostViewObj(val from: PlaceViewObj,
     companion object {
 
         fun fromPassengerPost(post: PassengerPost): PassengerPostViewObj {
-            return PassengerPostViewObj(PlaceViewObj.fromPlace(post.from),
+            return PassengerPostViewObj(post.id,
+                                        PlaceViewObj.fromPlace(post.from),
                                         PlaceViewObj.fromPlace(post.to),
                                         post.price,
                                         post.departureDate,

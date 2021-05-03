@@ -45,7 +45,8 @@ class RegisterFragment @Inject constructor() :
             viewModel.register(User(phone.text.toString().numericOnly(),
                                     name.text.toString(),
                                     surname.text.toString(),
-                                    App.uuid))
+                                    App.uuid,
+                                    Constants.ROLE_PASSENGER))
         }
 
         ivBack.setOnClickListener {

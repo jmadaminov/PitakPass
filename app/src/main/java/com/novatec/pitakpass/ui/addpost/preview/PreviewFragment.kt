@@ -119,7 +119,7 @@ class PreviewFragment  : Fragment(R.layout.fragment_preview) {
         }
 
         postCreate.setOnClickListener {
-            viewModel.createPassengerPost(PassengerPost(null,
+            viewModel.createPassengerPost(PassengerPost(activityViewModel.id,
                                                         activityViewModel.placeFrom!!,
                                                         activityViewModel.placeTo!!,
                                                         activityViewModel.price!!,

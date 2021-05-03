@@ -29,7 +29,12 @@ import splitties.activities.start
                     addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 })
-        } else {
+        } /*else if(postId != null && notificationType == ENotificationType.POST_FINISHED.name) {
+            App.getInstance()?.start<MainActivity> {
+                addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        } */else {
             App.getInstance()?.start<MainActivity> {
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
