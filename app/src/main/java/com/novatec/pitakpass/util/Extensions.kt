@@ -11,10 +11,12 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.novatec.pitakpass.R
 import com.novatec.pitakpass.util.SizeUtils.dpToPx
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -46,7 +48,12 @@ fun CoroutineScope.launchPeriodicAsync(
 }
 
 fun ImageView.load(url: String) {
-    Glide.with(this.context).load(url).into(this)
+    val circularProgressDrawable = CircularProgressDrawable(this.context)
+    circularProgressDrawable.strokeWidth = 5f
+    circularProgressDrawable.centerRadius = 30f
+    circularProgressDrawable.start()
+
+    Glide.with(this.context).load(url).placeholder( circularProgressDrawable).into(this)
 }
 
 fun ImageView.loadRound(url: String) {

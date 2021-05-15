@@ -2,6 +2,7 @@ package com.novatec.pitakpass.domain.model
 import com.novatec.pitakpass.core.enums.EPostStatus
 import com.novatec.pitakpass.core.enums.EPostType
 import com.google.gson.annotations.SerializedName
+import com.novatec.pitakpass.remote.model.OfferDTO
 
 /**
  * Representation for a [PassengerPost] fetched from the API
@@ -24,4 +25,5 @@ data class PassengerPost(@SerializedName("id") val id: Long?=null,
                          @SerializedName("postStatus") val postStatus: EPostStatus,
                          @SerializedName("seat") val seat: Int,
                          @SerializedName("offerCount") val offerCount: Int,
+                         @SerializedName("offer") val offer: OfferDTO?=null,
                          @SerializedName("postType") val postType: EPostType = EPostType.PASSENGER_SM)

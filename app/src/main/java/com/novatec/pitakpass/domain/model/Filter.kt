@@ -21,10 +21,10 @@ data class Filter(@SerializedName("airConditioner") var airConditioner: Boolean?
                   @SerializedName("minPrice") var minPrice: Int? = null,
                   @SerializedName("priceOrder") var priceOrder: String? = null,
                   @SerializedName("seat") var seat: Int? = null,
-                  @SerializedName("timeFirstPart") var timeFirstPart: Boolean? = null,
-                  @SerializedName("timeFourthPart") var timeFourthPart: Boolean? = null,
-                  @SerializedName("timeSecondPart") var timeSecondPart: Boolean? = null,
-                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean? = null){
+                  @SerializedName("timeFirstPart") var timeFirstPart: Boolean = true,
+                  @SerializedName("timeFourthPart") var timeFourthPart: Boolean = true,
+                  @SerializedName("timeSecondPart") var timeSecondPart: Boolean = true,
+                  @SerializedName("timeThirdPart") var timeThirdPart: Boolean = true){
 
     companion object {
         const val MAX_PRICE = 500000

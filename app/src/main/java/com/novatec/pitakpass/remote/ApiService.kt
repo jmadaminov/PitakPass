@@ -40,7 +40,7 @@ interface ApiService {
     suspend fun uploadPhoto(@Part file: MultipartBody.Part): PhotoUploadResponse
 
 
-    @GET("force_update/action/versions")
+    @GET("force_update/action/version")
     suspend fun getActiveAppVersions(@Query("appType") appType: String = EAppType.PASSENGER.name,
                                      @Query("platformType") platformType: String = "ANDROID"): RespFormatter<List<IdVersionDTO>>
 

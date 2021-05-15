@@ -22,9 +22,11 @@ data class DriverPostViewObj(val id: Long,
                              val car: CarInPostViewObj? = null,
                              val remark: String? = null,
                              var seat: Int,
+                             val availableSeats: Int,
                              val myLastOffer: UserOfferViewObj? = null,
                              val passengerList: List<PassengerViewObj>? = null,
                              val postType: EPostType) : Parcelable {
+
 
     companion object {
         fun mapFromDriverPostModel(model: DriverPost): DriverPostViewObj {
@@ -92,6 +94,7 @@ data class DriverPostViewObj(val id: Long,
                                  model.car.airConditioner),
                 model.remark,
                 model.seat,
+                model.availableSeats,
                 myLastOffer,
                 passengerList,
                 model.postType

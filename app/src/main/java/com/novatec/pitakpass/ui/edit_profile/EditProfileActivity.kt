@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.observe
 import com.asksira.bsimagepicker.BSImagePicker
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -68,7 +69,7 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
     fun subscribeObservers() {
 
         viewModel.uploadPhotoResp.observe(this) {
-            val result = it ?: return@observe
+            val result = it
             when (result) {
                 is ErrorWrapper.ResponseError -> {
                     ivAvatar.visibility = View.VISIBLE

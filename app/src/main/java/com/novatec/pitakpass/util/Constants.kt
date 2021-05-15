@@ -5,7 +5,7 @@ package com.novatec.pitakpass.util
  */
 object Constants {
 
-    const val BASE_URL = "http://178.218.207.92:9091/api/v1/"
+    const val BASE_URL = "https://api.epitak.uz/api/v1/"
 //    const val BASE_URL = "http://codeuz.uz:9091/"
     const val ROLE_PASSENGER = "PASSENGER"
     const val TXT_IS_FROM_POST_PREVIEW = "IS_FROM_POST_PREVIEW"

@@ -154,5 +154,7 @@
     <string name="passengers">Passengers</string>
     <string name="willing_price_for_one">Willing price for one</string>
     <string name="any">Any</string>
+    <string name="lbl_agreed_price">Agreed price</string>
+    <string name="response_error">Response error occurred!</string>
 
 </resources>

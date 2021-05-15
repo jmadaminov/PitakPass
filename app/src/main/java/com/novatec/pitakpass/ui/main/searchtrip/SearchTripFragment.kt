@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.paging.LoadState
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.ui.main.MainActivity
@@ -157,10 +157,10 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
             filter_count.visibility = View.INVISIBLE
             filter_count.text = ""
-            timeFirstPart.isChecked = false
-            timeSecondPart.isChecked = false
-            timeThirdPart.isChecked = false
-            timeFourthPart.isChecked = false
+            timeFirstPart.isChecked = true
+            timeSecondPart.isChecked = true
+            timeThirdPart.isChecked = true
+            timeFourthPart.isChecked = true
             aCCheck.isChecked = false
             number_picker.resetText()
         }
@@ -237,11 +237,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
 
     private fun subscribeObservers() {
-        viewModel.filter.observe(viewLifecycleOwner, {
+        viewModel.filter.observe(viewLifecycleOwner) {
             postsAdapter.refresh()
-        })
+        }
 
-        viewModel.count.observe(viewLifecycleOwner, { count ->
+        viewModel.count.observe(viewLifecycleOwner) { count ->
             if (count > 0) {
                 filter_count.visibility = View.VISIBLE
                 filter_count.text = count.toString()
@@ -249,11 +249,11 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 filter_count.visibility = View.INVISIBLE
                 filter_count.text = "0"
             }
-        })
+        }
 
 
-        viewModel.fromPlacesResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
+        viewModel.fromPlacesResponse.observe(viewLifecycleOwner){
+            val response = it ?: return@observe
 
             when (response) {
                 is ErrorWrapper.ResponseError -> {
@@ -273,15 +273,14 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 }
             }.exhaustive
 
-        })
+        }
 
-        viewModel.postOffers.observe(viewLifecycleOwner, {
-            val value = it ?: return@observe
-            postsAdapter.submitData(lifecycle, value)
-        })
+        viewModel.postOffers.observe(viewLifecycleOwner) {
+            postsAdapter.submitData(lifecycle, it)
+        }
 
-        viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
+        viewModel.toPlacesResponse.observe(viewLifecycleOwner) {
+            val response = it ?: return@observe
 
             when (response) {
                 is ErrorWrapper.ResponseError -> {
@@ -301,7 +300,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 }
             }.exhaustive
 
-        })
+        }
 
 
     }

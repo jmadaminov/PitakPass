@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
+import com.google.android.material.snackbar.Snackbar
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.ui.viewgroups.ActivePostItem
@@ -75,20 +77,27 @@ class DialogJoinARideFragment : DialogFragment() {
 
     private fun subscribeObservers() {
 
-        viewModel.isOffering.observe(viewLifecycleOwner, { isLoading ->
+        viewModel.isOffering.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) btnSendOffer.startAnimation() else btnSendOffer.revertAnimation()
-        })
 
-        viewModel.hasFinished.observe(viewLifecycleOwner, { hasFinished ->
+        }
+
+        viewModel.hasFinished.observe(viewLifecycleOwner) { hasFinished ->
             if (hasFinished) dismiss()
-        })
+        }
 
-        viewModel.activePostsResponse.observe(viewLifecycleOwner, {
+        viewModel.activePostsResponse.observe(viewLifecycleOwner) {
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
+                    Snackbar.make(rl_parent,
+                                  response.message ?: getString(R.string.response_error),
+                                  Snackbar.LENGTH_SHORT).show()
                 }
                 is ErrorWrapper.SystemError -> {
+                    Snackbar.make(rl_parent,
+                                  response.err.localizedMessage ?: getString(R.string.system_error),
+                                  Snackbar.LENGTH_SHORT).show()
                 }
                 is ResultWrapper.Success -> {
                     loadData(response.value.filter { myPost ->
@@ -98,7 +107,7 @@ class DialogJoinARideFragment : DialogFragment() {
                 ResultWrapper.InProgress -> {
                 }
             }.exhaustive
-        })
+        }
     }
 
     @ExperimentalSplittiesApi
@@ -145,7 +154,7 @@ class DialogJoinARideFragment : DialogFragment() {
         }
 
         tvAddSeat.setOnClickListener {
-            if (driverPost.seat > tvSeats.text.toString().toInt())
+            if (driverPost.availableSeats > tvSeats.text.toString().toInt())
                 tvSeats.text = (tvSeats.text.toString().toInt() + 1).toString()
         }
 

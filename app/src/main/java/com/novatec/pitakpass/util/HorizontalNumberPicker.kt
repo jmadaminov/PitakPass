@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.novatec.pitakpass.R
-import kotlinx.android.synthetic.main.number_picker_horizontal.view.*
 
 class HorizontalNumberPicker(context: Context?, attrs: AttributeSet?) :
     LinearLayout(context, attrs) {

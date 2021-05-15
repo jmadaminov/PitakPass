@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.novatec.pitakpass.R
@@ -108,37 +109,6 @@ class LoginFragment @Inject constructor() : Fragment(R.layout.fragment_login) {
                     findNavController().navigate(action)
                 }
             }.exhaustive
-
-//            when (response) {
-//                is ErrorWrapper.ResponseError -> {
-//                    login.revertAnimation()
-//                    if (response.code == -1) {
-//                        val action =
-//                            LoginFragmentDirections.actionNavLoginFragmentToNavRegisterFragment(
-//                                viewModel.phoneNum)
-//                        findNavController().navigate(action)
-//                    } else if (response.code == Constants.errPhoneFormat) {
-//                        phone.error = getString(R.string.incorrect_phone_number_format)
-////                        errorMessage.visibility = View.VISIBLE
-////                        errorMessage.text = response.message
-//                    } else {
-//                        errorMessage.visibility = View.VISIBLE
-//                        errorMessage.text = response.message
-//                    }
-//                }
-//                is ErrorWrapper.SystemError -> {
-//                    errorMessage.visibility = View.VISIBLE
-//                    errorMessage.text = response.err.localizedMessage
-//                    login.revertAnimation()
-//                }
-//                is ResultWrapper.Success -> {
-//
-//                }
-//                ResultWrapper.InProgress -> {
-//                    errorMessage.visibility = View.INVISIBLE
-//                    login.startAnimation()
-//                }
-//            }.exhaustive
 
         }
     }

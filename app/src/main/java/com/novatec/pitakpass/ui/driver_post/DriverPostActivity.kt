@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.observe
 import com.novatec.pitakpass.R
 import com.novatec.pitakpass.core.enums.EFuelType
 import com.novatec.pitakpass.domain.model.DriverPost
@@ -41,9 +42,9 @@ class DriverPostActivity : BaseActivity() {
     }
 
     private fun subscribeObservers() {
-        viewModel.isLoading.observe(this, {
+        viewModel.isLoading.observe(this) {
             swipeRefreshLayout.isRefreshing = it ?: return@observe
-        })
+        }
 
         viewModel.postData.observe(this) {
             val result = it ?: return@observe

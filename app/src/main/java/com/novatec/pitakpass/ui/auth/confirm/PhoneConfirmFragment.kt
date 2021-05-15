@@ -10,6 +10,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -171,6 +172,7 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
             name = response.value.name!!
             surname = response.value.surname!!
             phone = response.value.phoneNum!!
+            response.value.image?.let { avatar = it.link!! }
         }
     }
 

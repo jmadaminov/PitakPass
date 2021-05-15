@@ -137,6 +137,7 @@ class PreviewFragment  : Fragment(R.layout.fragment_preview) {
                                                         EPostStatus.CREATED,
                                                         activityViewModel.seat!!,
                                                         0,
+                                                        null,
                                                         EPostType.PASSENGER_SM))
         }
 

@@ -136,7 +136,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
         }
         if (_filter.valueNN.airConditioner == true) appliedFilterCount++
         if (_filter.valueNN.seat != null) appliedFilterCount++
-        if (_filter.valueNN.timeFirstPart == true || _filter.valueNN.timeSecondPart == true || _filter.valueNN.timeThirdPart == true || _filter.valueNN.timeFourthPart == true) appliedFilterCount++
+        if (!_filter.valueNN.timeFirstPart || !_filter.valueNN.timeSecondPart  || !_filter.valueNN.timeThirdPart || !_filter.valueNN.timeFourthPart ) appliedFilterCount++
         _count.value = appliedFilterCount
     }
 

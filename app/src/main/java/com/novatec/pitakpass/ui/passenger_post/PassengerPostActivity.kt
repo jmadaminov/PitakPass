@@ -1,6 +1,7 @@
 package com.novatec.pitakpass.ui.passenger_post
 
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.observe
 import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.pitakpass.R
@@ -23,7 +25,6 @@ import com.novatec.pitakpass.ui.interfaces.IOnOfferActionListener
 import com.novatec.pitakpass.util.*
 import com.novatec.pitakpass.viewobjects.PassengerPostViewObj
 import kotlinx.android.synthetic.main.activity_passenger_post.*
-import splitties.activities.start
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -90,26 +91,26 @@ import java.text.SimpleDateFormat
 
     private fun subscribes() {
 
-        viewModel.postData.observe(this, {
+        viewModel.postData.observe(this) {
             post = it ?: return@observe
             showPostData()
-        })
+        }
 
 
-        viewModel.offerActionLoading.observe(this, {
+        viewModel.offerActionLoading.observe(this) {
             progressOfferAction.visibility = if (it ?: return@observe) View.VISIBLE else View.GONE
-        })
+        }
 
-        viewModel.offerActionResp.observe(this, {
+        viewModel.offerActionResp.observe(this) {
             refreshAll()
-        })
+        }
 
-        viewModel.isLoading.observe(this, {
+        viewModel.isLoading.observe(this) {
             val value = it ?: return@observe
             swipeRefreshLayout.isRefreshing = value
-        })
+        }
 
-        viewModel.errorMessage.observe(this, {
+        viewModel.errorMessage.observe(this) {
             if (it.isNullOrBlank()) {
                 tvMessage.visibility = View.GONE
                 llOffersContainer.visibility = View.VISIBLE
@@ -118,13 +119,13 @@ import java.text.SimpleDateFormat
                 tvMessage.visibility = View.VISIBLE
                 tvMessage.text = it
             }
-        })
+        }
 
-        viewModel.offerActionError.observe(this, {
+        viewModel.offerActionError.observe(this) {
             Snackbar.make(swipeRefreshLayout, it ?: return@observe, Snackbar.LENGTH_SHORT).show()
-        })
+        }
 
-        viewModel.deletePostReponse.observe(this, {
+        viewModel.deletePostReponse.observe(this) {
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
@@ -145,9 +146,9 @@ import java.text.SimpleDateFormat
                 ResultWrapper.InProgress -> {
                 }
             }.exhaustive
-        })
+        }
 
-        viewModel.finishPostResponse.observe(this, {
+        viewModel.finishPostResponse.observe(this) {
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
@@ -169,7 +170,7 @@ import java.text.SimpleDateFormat
                 ResultWrapper.InProgress -> {
                 }
             }.exhaustive
-        })
+        }
 
 
     }
@@ -180,11 +181,11 @@ import java.text.SimpleDateFormat
                 postNonNull.postStatus == EPostStatus.CREATED || postNonNull.postStatus == EPostStatus.WAITING_FOR_START
 
             if (postNonNull.postStatus == EPostStatus.CREATED) {
-                viewModel.postOffers?.observe(this, {
+                viewModel.postOffers?.observe(this) {
                     val value = it ?: return@observe
                     offersAdapter.submitData(lifecycle, value)
                     rvOffers.requestLayout()
-                })
+                }
             }
             edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
             done.isVisible = postNonNull.postStatus == EPostStatus.START
@@ -243,12 +244,14 @@ import java.text.SimpleDateFormat
             }
             if (post!!.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)
 
-            postNonNull.driverPost?.let { driver ->
+            postNonNull.offer?.let{
+                price.paintFlags = price.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvOfferingPrice.text =
+                        DecimalFormat("#,###").format(it.price) + " " + getString(R.string.sum)
 
-                driver.price.also {
-                    tvOfferingPrice.text =
-                        DecimalFormat("#,###").format(it) + " " + getString(R.string.sum)
-                }
+            }
+
+            postNonNull.driverPost?.let { driver ->
 
                 tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
