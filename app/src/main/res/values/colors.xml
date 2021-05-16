@@ -36,8 +36,8 @@
     <color name="black_fifty_opacity">#D0000000</color>
 
     <color name="darkLogoColor">#0f2f3f</color>
-
-
+    <color name="error_red_darker">#B71C1C</color>
+    <color name="black_80_opacity">#CC000000</color>
 
 
 </resources>

@@ -1,7 +1,6 @@
 package com.novatec.pitakpass.ui.main.searchtrip
 
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,14 +17,17 @@ import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.ResultWrapper
 import com.novatec.pitakpass.util.SingleLiveEvent
 import com.novatec.pitakpass.util.valueNN
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
+import javax.inject.Inject
 
-class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository: PostFilterRepository,
-                                                       private val getPlacesFeed: GetPlacesFeed) :
+@HiltViewModel
+class SearchTripViewModel @Inject constructor(val postFilterRepository: PostFilterRepository,
+                                              private val getPlacesFeed: GetPlacesFeed) :
     BaseViewModel() {
 
     private val _filter = MutableLiveData(Filter())
@@ -136,7 +138,7 @@ class SearchTripViewModel @ViewModelInject constructor(val postFilterRepository:
         }
         if (_filter.valueNN.airConditioner == true) appliedFilterCount++
         if (_filter.valueNN.seat != null) appliedFilterCount++
-        if (!_filter.valueNN.timeFirstPart || !_filter.valueNN.timeSecondPart  || !_filter.valueNN.timeThirdPart || !_filter.valueNN.timeFourthPart ) appliedFilterCount++
+        if (!_filter.valueNN.timeFirstPart || !_filter.valueNN.timeSecondPart || !_filter.valueNN.timeThirdPart || !_filter.valueNN.timeFourthPart) appliedFilterCount++
         _count.value = appliedFilterCount
     }
 

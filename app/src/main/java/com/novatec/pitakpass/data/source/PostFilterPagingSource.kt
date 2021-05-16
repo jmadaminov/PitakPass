@@ -2,6 +2,7 @@ package com.novatec.pitakpass.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.novatec.pitakpass.domain.model.DriverPost
 import com.novatec.pitakpass.domain.model.Filter
 import com.novatec.pitakpass.remote.AuthorizedApiService
@@ -33,5 +34,9 @@ class PostFilterPagingSource(
             LoadResult.Error(exception)
         }
 
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, DriverPost>): Int? {
+        return state.anchorPosition
     }
 }

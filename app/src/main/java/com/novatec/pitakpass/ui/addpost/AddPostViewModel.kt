@@ -1,10 +1,10 @@
 package com.novatec.pitakpass.ui.addpost
 
-import androidx.hilt.lifecycle.ViewModelInject
 import com.novatec.pitakpass.domain.model.CarDetails
 import com.novatec.pitakpass.domain.model.Place
 import com.novatec.pitakpass.App
 import com.novatec.pitakpass.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import splitties.init.appCtx
 import javax.inject.Inject
@@ -12,7 +12,8 @@ import javax.inject.Inject
 /**
  * Created by jahon on 28-Apr-20
  */
-class AddPostViewModel  @ViewModelInject constructor() :
+@HiltViewModel
+class AddPostViewModel  @Inject constructor() :
     BaseViewModel() {
 
     var isEditing: Boolean = false

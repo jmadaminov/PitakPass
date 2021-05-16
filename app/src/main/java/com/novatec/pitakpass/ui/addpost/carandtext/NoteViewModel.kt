@@ -1,10 +1,12 @@
 package com.novatec.pitakpass.ui.addpost.carandtext
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import com.novatec.pitakpass.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
-class NoteViewModel @ViewModelInject constructor() : BaseViewModel() {
+@HiltViewModel
+class NoteViewModel @Inject constructor() : BaseViewModel() {
 
 
 }

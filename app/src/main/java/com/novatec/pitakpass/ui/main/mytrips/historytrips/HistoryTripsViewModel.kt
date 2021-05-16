@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.main.mytrips.historytrips
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,8 +8,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-class HistoryTripsViewModel @ViewModelInject constructor(val historyPostRepository: HistoryPostRepository) :
+@HiltViewModel
+class HistoryTripsViewModel @Inject constructor(val historyPostRepository: HistoryPostRepository) :
     BaseViewModel() {
 
 

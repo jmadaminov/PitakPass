@@ -1,10 +1,12 @@
 package com.novatec.pitakpass.ui.main.profile
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import com.novatec.pitakpass.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
-class ProfileViewModel @ViewModelInject constructor() : BaseViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor() : BaseViewModel() {
 
 
 }

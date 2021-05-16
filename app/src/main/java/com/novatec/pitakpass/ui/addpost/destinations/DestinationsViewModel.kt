@@ -1,12 +1,13 @@
 package com.novatec.pitakpass.ui.addpost.destinations
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.domain.model.Place
 import com.novatec.pitakpass.domain.usecases.GetPlacesFeed
 import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.ResultWrapper
 import com.novatec.pitakpass.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
 
-class DestinationsViewModel @ViewModelInject constructor(private val getPlacesFeed: GetPlacesFeed) :
+@HiltViewModel
+class DestinationsViewModel @Inject constructor(private val getPlacesFeed: GetPlacesFeed) :
     BaseViewModel() {
 
     var placeFrom: Place? = null

@@ -1,6 +1,5 @@
 package com.novatec.pitakpass.ui.passenger_post
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,12 +13,15 @@ import com.novatec.pitakpass.domain.usecases.FinishPassengerPost
 import com.novatec.pitakpass.remote.model.OfferDTO
 import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class PassengerPostViewModel @ViewModelInject constructor(val postRepository: PassengerPostRepository,
+import javax.inject.Inject
+@HiltViewModel
+class PassengerPostViewModel @Inject constructor(val postRepository: PassengerPostRepository,
                                                           val postOffersRepository: PostOffersRepository,
                                                           val deletePost: DeletePassengerPost,
                                                           val finishPost: FinishPassengerPost) :

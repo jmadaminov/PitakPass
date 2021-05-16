@@ -1,6 +1,5 @@
 package com.novatec.pitakpass.ui.main
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +9,7 @@ import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.ResponseError
 import com.novatec.pitakpass.util.ResponseSuccess
 import com.novatec.pitakpass.util.exhaustive
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +18,8 @@ import javax.inject.Inject
 /**
  * Created by jahon on 13-Apr-20
  */
-class MainViewModel  @ViewModelInject constructor(private val userRepository: UserRepository) : BaseViewModel() {
+@HiltViewModel
+class MainViewModel  @Inject constructor(private val userRepository: UserRepository) : BaseViewModel() {
 
     val isAppVersionDeprecated = MutableLiveData<Boolean>()
 

@@ -4,12 +4,12 @@ package com.novatec.pitakpass.hilt
 //import com.novatec.remote.UserRemoteImpl
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class FragmentModule {
 
 //    @JvmStatic

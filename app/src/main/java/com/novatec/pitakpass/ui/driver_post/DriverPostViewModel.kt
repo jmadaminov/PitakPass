@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.driver_post
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.domain.model.DriverPost
 import com.novatec.pitakpass.domain.repository.DriverPostRepository
@@ -9,11 +9,13 @@ import com.novatec.pitakpass.util.ResponseError
 import com.novatec.pitakpass.util.ResponseSuccess
 import com.novatec.pitakpass.util.SingleLiveEvent
 import com.novatec.pitakpass.util.exhaustive
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DriverPostViewModel @ViewModelInject constructor(val repository: DriverPostRepository) :
+@HiltViewModel
+class DriverPostViewModel @Inject constructor(val repository: DriverPostRepository) :
     BaseViewModel() {
 
     val postData = SingleLiveEvent<DriverPost>()

@@ -1,5 +1,6 @@
 package com.novatec.pitakpass.util
 
+import androidx.lifecycle.MutableLiveData
 import org.json.JSONObject
 import retrofit2.HttpException
 
@@ -8,6 +9,44 @@ data class ResponseError(val message: String? = null, val code: Int? = null) :
     ResponseWrapper<Nothing>()
 
 data class ResponseSuccess<out V>(val value: V) : ResponseWrapper<V>()
+
+
+
+suspend fun <T> getApiResult(action: suspend () -> T): ResponseWrapper<T> {
+    return try {
+        ResponseSuccess(action())
+    } catch (e: HttpException) {
+        val error = e.response()?.errorBody()?.string()
+        try {
+            ResponseError(if (!error.isNullOrBlank()) {
+                JSONObject(error)["message"].toString()
+            } else e.message(), e.code())
+        } catch (ex: java.lang.Exception) {
+            ResponseError(e.message(), e.code())
+        }
+    } catch (e: Exception) {
+        ResponseError(message = e.localizedMessage)
+    }
+}
+
+suspend fun <T> getApiResult(liveData: MutableLiveData<ResponseWrapper<T>>, action: suspend () -> T) {
+    try {
+        val result = action()
+        liveData.postValue(ResponseSuccess(result))
+    } catch (e: HttpException) {
+        val error = e.response()?.errorBody()?.string()
+        try {
+            liveData.postValue(ResponseError(if (!error.isNullOrBlank()) {
+                JSONObject(error)["message"].toString()
+            } else e.message(), e.code()))
+        } catch (ex: java.lang.Exception) {
+            liveData.postValue(ResponseError(e.message(), e.code()))
+        }
+    } catch (e: Exception) {
+        liveData.postValue(
+            ResponseError(message = e.localizedMessage))
+    }
+}
 
 
 suspend fun <T> getFormattedResponse(action: suspend () -> RespFormatter<T>): ResponseWrapper<T> {

@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.driver_post.jump_in
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.core.enums.EPostStatus
@@ -13,12 +13,14 @@ import com.novatec.pitakpass.domain.usecases.GetActivePassengerPost
 import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.*
 import com.novatec.pitakpass.viewobjects.DriverPostViewObj
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class JumpInViewModel @ViewModelInject constructor(private val repository: DriverPostRepository,
+@HiltViewModel
+class JumpInViewModel @Inject constructor(private val repository: DriverPostRepository,
                                                    private val createPassengerPost: CreatePassengerPost,
                                                    private val getActivePassengerPost: GetActivePassengerPost) :
     BaseViewModel() {

@@ -1,6 +1,7 @@
 package com.novatec.pitakpass.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.novatec.pitakpass.remote.AuthorizedApiService
 import com.novatec.pitakpass.remote.model.OfferDTO
 import com.novatec.pitakpass.core.enums.EOfferStatus
@@ -37,5 +38,9 @@ class PostOffersPagingSource(
             LoadResult.Error(exception)
         }
 
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, OfferDTO>): Int? {
+        return state.anchorPosition
     }
 }

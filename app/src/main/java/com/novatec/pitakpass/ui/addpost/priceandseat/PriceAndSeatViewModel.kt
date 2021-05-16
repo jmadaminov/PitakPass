@@ -17,7 +17,7 @@ package com.novatec.pitakpass.ui.addpost.priceandseat//package com.novatec.pitak
 //import javax.inject.Inject
 //
 //
-//class ChooseDateTimeViewModel  @ViewModelInject constructor(/*private val getPlacesFeed: GetPlacesFeed*/) :
+//class ChooseDateTimeViewModel  @Inject constructor(/*private val getPlacesFeed: GetPlacesFeed*/) :
 //    BaseViewModel() {
 //
 //    private var fromFeedJob: Job? = null

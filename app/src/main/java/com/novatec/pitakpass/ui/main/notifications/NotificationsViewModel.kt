@@ -1,10 +1,12 @@
 package com.novatec.pitakpass.ui.main.notifications
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import com.novatec.pitakpass.ui.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
+@HiltViewModel
 
-class NotificationsViewModel @ViewModelInject constructor() :
+class NotificationsViewModel @Inject constructor() :
     BaseViewModel() {
 
 

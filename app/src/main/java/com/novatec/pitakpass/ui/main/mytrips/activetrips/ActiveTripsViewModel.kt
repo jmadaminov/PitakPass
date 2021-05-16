@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.main.mytrips.activetrips
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.domain.usecases.DeletePassengerPost
@@ -10,12 +10,14 @@ import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.Constants
 import com.novatec.pitakpass.util.ResultWrapper
 import com.novatec.pitakpass.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
-class ActiveTripsViewModel @ViewModelInject constructor(val getActivePassengerPost: GetActivePassengerPost) :
+@HiltViewModel
+class ActiveTripsViewModel @Inject constructor(val getActivePassengerPost: GetActivePassengerPost) :
     BaseViewModel() {
 
     val activePostsResponse = SingleLiveEvent<ResultWrapper<List<PassengerPost>>>()

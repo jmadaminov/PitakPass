@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.history_post
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.domain.model.PassengerPost
@@ -12,13 +12,15 @@ import com.novatec.pitakpass.util.ResponseError
 import com.novatec.pitakpass.util.ResponseSuccess
 import com.novatec.pitakpass.util.SingleLiveEvent
 import com.novatec.pitakpass.util.exhaustive
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class HistoryPostViewModel @ViewModelInject constructor(val postRepository: PassengerPostRepository,
+@HiltViewModel
+class HistoryPostViewModel @Inject constructor(val postRepository: PassengerPostRepository,
                                                         val driverPostRepository: DriverPostRepository) :
     BaseViewModel() {
 

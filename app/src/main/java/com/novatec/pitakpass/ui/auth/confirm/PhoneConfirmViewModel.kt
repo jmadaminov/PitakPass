@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.auth.confirm
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -11,13 +11,13 @@ import com.novatec.pitakpass.domain.usecases.LogUserIn
 import com.novatec.pitakpass.domain.usecases.SmsConfirm
 import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 
-
-@ObsoleteCoroutinesApi
-class PhoneConfirmViewModel @ViewModelInject constructor(private val smsConfirm: SmsConfirm,
+@HiltViewModel
+class PhoneConfirmViewModel @Inject constructor(private val smsConfirm: SmsConfirm,
                                                          private val logUserIn: LogUserIn) :
     BaseViewModel() {
 

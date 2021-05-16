@@ -1,17 +1,19 @@
 package com.novatec.pitakpass.ui.auth.register
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.util.ResultWrapper
 import com.novatec.pitakpass.domain.model.User
 import com.novatec.pitakpass.domain.usecases.RegisterUser
 import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RegisterViewModel  @ViewModelInject constructor(private val registerUser: RegisterUser) :
+@HiltViewModel
+class RegisterViewModel  @Inject constructor(private val registerUser: RegisterUser) :
     BaseViewModel() {
 
     private val _registerForm = SingleLiveEvent<RegisterFormState>()

@@ -1,6 +1,6 @@
 package com.novatec.pitakpass.ui.auth.login
 
-import androidx.hilt.lifecycle.ViewModelInject
+import javax.inject.Inject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.pitakpass.domain.model.UserCredentials
@@ -9,13 +9,15 @@ import com.novatec.pitakpass.ui.BaseViewModel
 import com.novatec.pitakpass.util.ResponseWrapper
 import com.novatec.pitakpass.util.SingleLiveEvent
 import com.novatec.pitakpass.util.numericOnly
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class LoginViewModel @ViewModelInject constructor(private val logUserIn: LogUserIn) :
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val logUserIn: LogUserIn) :
     BaseViewModel() {
 
     val loginResponse = SingleLiveEvent<ResponseWrapper<UserCredentials?>>()

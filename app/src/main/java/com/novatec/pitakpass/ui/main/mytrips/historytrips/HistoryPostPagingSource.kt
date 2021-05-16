@@ -1,6 +1,7 @@
 package com.novatec.pitakpass.ui.main.mytrips.historytrips
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.novatec.pitakpass.domain.model.PassengerPost
 import com.novatec.pitakpass.remote.AuthorizedApiService
 
@@ -25,5 +26,9 @@ class HistoryPostPagingSource(private val authorizedApiService: AuthorizedApiSer
             LoadResult.Error(exception)
         }
 
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, PassengerPost>): Int? {
+        return state.anchorPosition
     }
 }
