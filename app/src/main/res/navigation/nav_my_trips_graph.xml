@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/navMyTripsFragment"
-        android:name="com.novatec.pitakpass.ui.main.mytrips.MyTripsFragment"
+        android:name="com.novatec.epitak_passenger.ui.main.mytrips.MyTripsFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_my_trips"/>
 

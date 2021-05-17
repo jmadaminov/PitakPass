@@ -17,7 +17,7 @@ apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
-        applicationId "com.novatec.pitakpass"
+        applicationId "com.novatec.epitak_passenger"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.versionCode
@@ -35,14 +35,14 @@ android {
 
     buildTypes {
         release {
-            testCoverageEnabled = true
+//            testCoverageEnabled = true
 //            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         debug {
             testCoverageEnabled = true
-            minifyEnabled false
+//            minifyEnabled false
         }
     }
 
@@ -58,6 +58,10 @@ android {
         testLogging {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
     }
 }
 

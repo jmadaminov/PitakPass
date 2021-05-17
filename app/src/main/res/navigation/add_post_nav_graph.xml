@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/destinationsFragment"
-        android:name="com.novatec.pitakpass.ui.addpost.destinations.DestinationsFragment"
+        android:name="com.novatec.epitak_passenger.ui.addpost.destinations.DestinationsFragment"
         android:label="@string/destinations"
         tools:layout="@layout/fragment_destinations">
         <action
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/dateTimeFragment"
-        android:name="com.novatec.pitakpass.ui.addpost.datetime.DateAndTimeFragment"
+        android:name="com.novatec.epitak_passenger.ui.addpost.datetime.DateAndTimeFragment"
         android:label="@string/dateTime"
         tools:layout="@layout/fragment_date_and_time">
         <action
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/carAndTextFragment"
-        android:name="com.novatec.pitakpass.ui.addpost.carandtext.NoteFragment"
+        android:name="com.novatec.epitak_passenger.ui.addpost.carandtext.NoteFragment"
         android:label="@string/car_and_text"
         tools:layout="@layout/fragment_note">
         <action
@@ -97,7 +97,7 @@
 
     <fragment
         android:id="@+id/previewFragment"
-        android:name="com.novatec.pitakpass.ui.addpost.preview.PreviewFragment"
+        android:name="com.novatec.epitak_passenger.ui.addpost.preview.PreviewFragment"
         android:label="@string/preview_post"
         tools:layout="@layout/fragment_preview">
         <action
@@ -160,7 +160,7 @@
     <fragment
         android:id="@+id/priceAndSeatFragment"
 
-        android:name="com.novatec.pitakpass.ui.addpost.priceandseat.PriceAndSeatFragment"
+        android:name="com.novatec.epitak_passenger.ui.addpost.priceandseat.PriceAndSeatFragment"
         android:label="@string/price_and_seats"
         tools:layout="@layout/fragment_price_and_seat">
         <action
