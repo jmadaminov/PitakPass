@@ -58,12 +58,12 @@ object AppModule {
     fun provideGetCarModelsUseCase(carRepository: CarRepository): GetCarModels {
         return GetCarModels(carRepository)
     }
-
-    @Provides
-    @Singleton
-    fun provideUploadCarPhotoUseCase(fileUploadRepository: FileUploadRepository): UploadPhoto {
-        return UploadPhoto(fileUploadRepository)
-    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideUploadCarPhotoUseCase(fileUploadRepository: FileUploadRepository): UploadPhoto {
+//        return UploadPhoto(fileUploadRepository)
+//    }
 
     @Provides
     @Singleton

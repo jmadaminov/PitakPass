@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.preferences.edit
-import java.io.File
 
 
 @HiltViewModel
@@ -63,10 +62,10 @@ class EditProfileViewModel @Inject constructor(private val userRepository: UserR
    private var _uploadPhotoResp = MutableLiveData<ResultWrapper<PhotoBody>>()
     val uploadPhotoResp: LiveData<ResultWrapper<PhotoBody>> get() = _uploadPhotoResp
 
-    fun uploadAvatar(file: File) {
+    fun uploadAvatar(byteArray: ByteArray) {
      _uploadPhotoResp.value = ResultWrapper.InProgress
         viewModelScope.launch(IO) {
-            val response = fileUploadRepository.uploadPhoto(file)
+            val response = fileUploadRepository.uploadPhoto(byteArray)
             withContext(Main) {
                 _uploadPhotoResp.value = response
             }

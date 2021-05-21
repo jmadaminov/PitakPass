@@ -13,8 +13,8 @@ import javax.inject.Inject
 open class FileUploadRemoteDataStore @Inject constructor(private val fileUploadRemote: FileUploadRemote) :
     FileUploadDataStore {
 
-    override suspend fun uploadPhoto(file: File): ResultWrapper<PhotoBody> {
-        return fileUploadRemote.uploadPhoto(file)
+    override suspend fun uploadPhoto(bytes: ByteArray): ResultWrapper<PhotoBody> {
+        return fileUploadRemote.uploadPhoto(bytes)
     }
 
 

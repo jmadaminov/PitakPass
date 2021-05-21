@@ -43,17 +43,17 @@ class DialogLanguage : DialogFragment() {
 
 
         layout_ru.setOnClickListener {
-            setLocale(Constants.RU, requireContext())
+            setLocale(Constants.RU, requireActivity())
             restart()
         }
 
         layout_en.setOnClickListener {
-            setLocale(Constants.EN, requireContext())
+            setLocale(Constants.EN, requireActivity())
             restart()
         }
 
         layout_uzb.setOnClickListener {
-            setLocale(Constants.UZ, requireContext())
+            setLocale(Constants.UZ, requireActivity())
             restart()
         }
 

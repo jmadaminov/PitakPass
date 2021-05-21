@@ -18,6 +18,7 @@ import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.ui.BaseActivity
 import com.novatec.epitak_passenger.ui.addpost.AddPostActivity
 import com.novatec.epitak_passenger.ui.auth.AuthActivity
+import com.novatec.epitak_passenger.ui.intro.IntroActivity
 import com.novatec.epitak_passenger.ui.main.mytrips.MyTripsFragment
 import com.novatec.epitak_passenger.ui.main.notifications.NotificationsFragment
 import com.novatec.epitak_passenger.ui.main.profile.ProfileFragment
@@ -52,9 +53,13 @@ class MainActivity : BaseActivity() {
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         setLocale(AppPrefs.language, this)
-        checkUserLogin()
         setTheme(R.style.NoActionBar)
+        if (AppPrefs.isFirstTime) {
+            startActivity(Intent(this, IntroActivity::class.java))
+            finish()
+        } else checkUserLogin()
         super.onCreate(savedInstanceState)
+
 
 //        GZQa4cPru4n  DEBUG
 //        DqdXBBbaxnT  RELEASE
@@ -79,7 +84,7 @@ class MainActivity : BaseActivity() {
         viewModel.getActiveAppVersions()
 
 
-        if (!AppPrefs.hasSeenTutorial) {
+        if (AppPrefs.token.isNotBlank() && !AppPrefs.hasSeenTutorial) {
             showAddBtnTutorial()
             AppPrefs.edit {
                 hasSeenTutorial = true

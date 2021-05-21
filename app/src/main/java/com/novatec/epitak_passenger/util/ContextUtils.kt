@@ -1,6 +1,7 @@
 package com.novatec.epitak_passenger.util
 
 import android.content.Context
+import com.novatec.epitak_passenger.App
 import splitties.preferences.edit
 import java.util.*
 

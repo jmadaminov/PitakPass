@@ -80,10 +80,14 @@ suspend fun <T> getFormattedResponseNullable(action: suspend () -> RespFormatter
             else -> ResponseError(resp.message, resp.code)
         }
     } catch (e: HttpException) {
-        ResponseError(
-            JSONObject(e.response()!!.errorBody()!!.string())["message"].toString(),
-            e.code()
-        )
+        val error = e.response()?.errorBody()?.string()
+        try {
+            ResponseError(if (!error.isNullOrBlank()) {
+                JSONObject(error)["message"].toString()
+            } else e.message(), e.code())
+        } catch (ex: java.lang.Exception) {
+            ResponseError(e.message(), e.code())
+        }
     } catch (e: Exception) {
         ResponseError(message = e.localizedMessage)
     }

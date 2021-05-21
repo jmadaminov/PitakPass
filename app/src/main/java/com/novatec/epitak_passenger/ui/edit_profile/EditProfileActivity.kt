@@ -1,5 +1,7 @@
 package com.novatec.epitak_passenger.ui.edit_profile
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.observe
 import com.asksira.bsimagepicker.BSImagePicker
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +21,9 @@ import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.ui.BaseActivity
 import com.novatec.epitak_passenger.util.*
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import java.io.File
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+
 
 class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedListener,
     BSImagePicker.ImageLoaderDelegate {
@@ -54,8 +57,10 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
         }
 
         btnUpdate.setOnClickListener {
-            viewModel.updateProfile(edtName.text.toString(),
-                                    edtSurname.text.toString())
+            viewModel.updateProfile(
+                edtName.text.toString(),
+                edtSurname.text.toString()
+            )
         }
 
 
@@ -74,9 +79,11 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
                 is ErrorWrapper.ResponseError -> {
                     ivAvatar.visibility = View.VISIBLE
                     progressAvatar.visibility = View.INVISIBLE
-                    Snackbar.make(llParent,
-                                  result.message ?: getString(R.string.system_error),
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        llParent,
+                        result.message ?: getString(R.string.system_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 is ErrorWrapper.SystemError -> {
                     ivAvatar.visibility = View.VISIBLE
@@ -111,18 +118,24 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
             tvError.text = it
         }
         viewModel.updateSuccess.observe(this) {
-            btnUpdate.doneLoadingAnimation(Color.GREEN,
-                                           ContextCompat.getDrawable(this,
-                                                                     R.drawable.ic_baseline_check_24)!!
-                                               .toBitmap())
+            btnUpdate.doneLoadingAnimation(
+                Color.GREEN,
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_check_24
+                )!!
+                    .toBitmap()
+            )
             finish()
         }
 
     }
 
     fun setupViews() {
+
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         edtSurname.setText(AppPrefs.surname)
         edtName.setText(AppPrefs.name)
@@ -132,8 +145,11 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
     override fun onSingleImageSelected(uri: Uri, tag: String?) {
         checkInputs()
         val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
-        ivAvatar.loadRound(bitmap)
-        viewModel.uploadAvatar(File(uri.getRealPathFromURI(this)))
+        val out = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, out)
+        val decoded = BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
+        ivAvatar.loadRound(decoded)
+        viewModel.uploadAvatar(out.toByteArray())
     }
 
     override fun loadImage(imageUri: Uri?, ivImage: ImageView) {

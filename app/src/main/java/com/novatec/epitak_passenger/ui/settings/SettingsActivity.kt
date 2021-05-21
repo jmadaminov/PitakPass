@@ -43,6 +43,7 @@ class SettingsActivity : BaseActivity() {
     private fun setupActionbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setTitle(R.string.settings)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

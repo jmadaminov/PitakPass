@@ -6,7 +6,6 @@ import com.novatec.epitak_passenger.domain.repository.FileUploadRepository
 import com.novatec.epitak_passenger.domain.repository.UserRepository
 import com.novatec.epitak_passenger.util.ErrorWrapper
 import com.novatec.epitak_passenger.util.ResultWrapper
-import java.io.File
 import javax.inject.Inject
 
 /**
@@ -16,9 +15,9 @@ import javax.inject.Inject
 class FileUploadRepositoryImpl @Inject constructor(private val factory: FileUploadDataStoreFactory) :
     FileUploadRepository {
 
-    override suspend fun uploadPhoto(file: File): ResultWrapper<PhotoBody> {
+    override suspend fun uploadPhoto(bytes: ByteArray): ResultWrapper<PhotoBody> {
         val response = factory.retrieveDataStore(false)
-            .uploadPhoto(file)
+            .uploadPhoto(bytes)
         return when (response) {
             is ErrorWrapper.ResponseError -> response
             is ErrorWrapper.SystemError -> response

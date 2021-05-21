@@ -24,18 +24,22 @@
         <activity
             android:name=".ui.edit_profile.EditProfileActivity"
             android:label="@string/edit_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.history_post.HistoryPostActivity"
             android:label="@string/history"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.feedback.FeedbackActivity"
             android:label="@string/feedback"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity
@@ -60,6 +64,11 @@
             android:name=".ui.driver_post.DriverPostActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".ui.intro.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -84,7 +93,6 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
