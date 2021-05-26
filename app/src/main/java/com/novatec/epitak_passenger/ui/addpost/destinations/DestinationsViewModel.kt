@@ -25,26 +25,20 @@ class DestinationsViewModel @Inject constructor(private val getPlacesFeed: GetPl
 
     private var fromFeedJob: Job? = null
     private var toFeedJob: Job? = null
-    val fromPlacesResponse = SingleLiveEvent<ResultWrapper<List<Place>>>()
-    val toPlacesResponse = SingleLiveEvent<ResultWrapper<List<Place>>>()
+    val placesResponse = SingleLiveEvent<ResultWrapper<List<Place>>>()
 
+    var preSelectedPlace: Place? = null
 
     @ExperimentalSplittiesApi
     fun getPlacesFeed(queryString: String, isFrom: Boolean = true) {
-        if (isFrom) fromPlacesResponse.value = ResultWrapper.InProgress
-        else toPlacesResponse.value = ResultWrapper.InProgress
-        resetFromFeedJob(isFrom)
+        placesResponse.value = ResultWrapper.InProgress
+        resetFromFeedJob()
         viewModelScope.launch(Dispatchers.IO + if (isFrom) fromFeedJob!! else toFeedJob!!) {
-            val response = getPlacesFeed.execute(queryString)
-
-            withContext(Main) {
-                if (isFrom) fromPlacesResponse.value = response
-                else toPlacesResponse.value = response
-            }
+            placesResponse.postValue(getPlacesFeed.execute(queryString))
         }
     }
 
-    private fun resetFromFeedJob(isFrom: Boolean) {
+    private fun resetFromFeedJob() {
         fromFeedJob?.cancel()
         fromFeedJob = Job()
         toFeedJob?.cancel()
@@ -52,23 +46,10 @@ class DestinationsViewModel @Inject constructor(private val getPlacesFeed: GetPl
 
     }
 
-    // A placeholder username validation check
-    private fun isCodeValid(code: String): Boolean {
-        return code.length == 5
-    }
-
-
-    // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
-    }
-
-
     override fun onCleared() {
         super.onCleared()
         fromFeedJob?.cancel()
         toFeedJob?.cancel()
     }
-
 
 }

@@ -12,11 +12,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.observe
 import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EPostStatus
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.remote.model.OfferDTO
 import com.novatec.epitak_passenger.ui.BaseActivity
@@ -29,7 +29,8 @@ import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
-@ExperimentalSplittiesApi class PassengerPostActivity : BaseActivity() {
+@ExperimentalSplittiesApi
+class PassengerPostActivity : BaseActivity() {
 
     companion object {
         const val EXTRA_POST_ID = "EXTRA_POST_ID"
@@ -129,15 +130,19 @@ import java.text.SimpleDateFormat
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        swipeRefreshLayout,
+                        response.message!!,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
                 is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        swipeRefreshLayout,
+                        response.err.localizedMessage.toString(),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 is ResultWrapper.Success -> {
                     setResult(RESULT_OK)
@@ -152,15 +157,19 @@ import java.text.SimpleDateFormat
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.message!!,
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        swipeRefreshLayout,
+                        response.message!!,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
                 is ErrorWrapper.SystemError -> {
-                    Snackbar.make(swipeRefreshLayout,
-                                  response.err.localizedMessage.toString(),
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        swipeRefreshLayout,
+                        response.err.localizedMessage.toString(),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 is ResultWrapper.Success -> {
                     setResult(RESULT_OK)
@@ -177,6 +186,36 @@ import java.text.SimpleDateFormat
 
     private fun showPostData() {
         post?.let { postNonNull ->
+
+            if (postNonNull.postType == EPostType.PARCEL_SM) {
+                lblPricePerSeat.text = getString(R.string.price)
+                cbTakeParcel.isVisible = true
+                parcelImage.isVisible = true
+                llSeatsContainer.isVisible = false
+                lblPassengersCount.isVisible = false
+                postNonNull.imageList?.forEach {
+                    parcelImage.loadRounded(it.link!!, 10)
+                }
+            } else {
+                lblPricePerSeat.text = getString(R.string.price_for_one)
+                cbTakeParcel.isVisible = false
+                parcelImage.isVisible = false
+                llSeatsContainer.isVisible = true
+                lblPassengersCount.isVisible = true
+
+                llSeatsContainer.removeAllViews()
+                for (i in 0 until postNonNull.seat) {
+                    val seat = ImageView(this)
+                    seat.layoutParams =
+                        LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
+                    seat.setImageResource(R.drawable.ic_round_emoji_people_24)
+                    llSeatsContainer.addView(seat)
+                }
+            }
+
             cancel.isVisible =
                 postNonNull.postStatus == EPostStatus.CREATED || postNonNull.postStatus == EPostStatus.WAITING_FOR_START
 
@@ -189,21 +228,17 @@ import java.text.SimpleDateFormat
             }
             edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
             done.isVisible = postNonNull.postStatus == EPostStatus.START
-            llSeatsContainer.removeAllViews()
-            for (i in 0 until postNonNull.seat) {
-                val seat = ImageView(this)
-                seat.layoutParams =
-                    LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                              ViewGroup.LayoutParams.WRAP_CONTENT)
-                seat.setImageResource(R.drawable.ic_round_emoji_people_24)
-                llSeatsContainer.addView(seat)
-            }
-            time.text = PostUtils.timeFromDayParts(postNonNull.timeFirstPart,
-                                                   postNonNull.timeSecondPart,
-                                                   postNonNull.timeThirdPart,
-                                                   postNonNull.timeFourthPart)
-            date.text = DateFormat.format("dd MMMM",
-                                          SimpleDateFormat("dd.MM.yyyy").parse(postNonNull.departureDate))
+
+            time.text = PostUtils.timeFromDayParts(
+                postNonNull.timeFirstPart,
+                postNonNull.timeSecondPart,
+                postNonNull.timeThirdPart,
+                postNonNull.timeFourthPart
+            )
+            date.text = DateFormat.format(
+                "dd MMMM",
+                SimpleDateFormat("dd.MM.yyyy").parse(postNonNull.departureDate)
+            )
                 .toString()
 
 
@@ -244,10 +279,10 @@ import java.text.SimpleDateFormat
             }
             if (post!!.postStatus == EPostStatus.CREATED) viewModel.getOffersForPost(postId)
 
-            postNonNull.offer?.let{
+            postNonNull.offer?.let {
                 price.paintFlags = price.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 tvOfferingPrice.text =
-                        DecimalFormat("#,###").format(it.price) + " " + getString(R.string.sum)
+                    DecimalFormat("#,###").format(it.price) + " " + getString(R.string.sum)
 
             }
 
@@ -305,7 +340,10 @@ import java.text.SimpleDateFormat
 
         edit.setOnClickListener {
             startActivityForResult(Intent(this, AddPostActivity::class.java).apply {
-                putExtra(Constants.TXT_PASSENGER_POST, PassengerPostViewObj.fromPassengerPost(post!!))
+                putExtra(
+                    Constants.TXT_PASSENGER_POST,
+                    PassengerPostViewObj.fromPassengerPost(post!!)
+                )
             }, REQ_POST_MANIPULATED)
         }
     }

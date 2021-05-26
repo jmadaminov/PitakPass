@@ -12,14 +12,14 @@ import javax.inject.Inject
  * operations in which data store implementation layers can carry out.
  */
 class PlaceRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                          private val authorizedApiService: AuthorizedApiService) :
+                                          private val authApiService: AuthApiService) :
     PlaceRemote {
 
     override suspend fun getPlacesAutocomplete(
 
                                                queryString: String): ResultWrapper<List<Place>> {
         return try {
-            val response = authorizedApiService.getPlacesFeed(queryString)
+            val response = authApiService.getPlacesFeed(queryString)
             if (response.code == 1) {
                 val places = arrayListOf<Place>()
                 response.data!!.forEach {

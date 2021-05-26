@@ -27,9 +27,9 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (args.ISFROMPOSTPREVIEW) {
-            noteInput.setText(actViewModel.note)
-        }
+//        if (args.ISFROMPOSTPREVIEW) {
+//            noteInput.setText(actViewModel.note)
+//        }
 
         attachListeners()
         subscribeObservers()
@@ -41,10 +41,10 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     @ExperimentalSplittiesApi
     private fun attachListeners() {
         navNext.setOnClickListener {
-            actViewModel.note =
-                if (!noteInput.text.isNullOrBlank()) noteInput.text.toString() else ""
-
-            navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_carAndTextFragment_to_previewFragment else R.id.action_carAndTextFragment_to_previewFragment)
+//            actViewModel.note =
+//                if (!noteInput.text.isNullOrBlank()) noteInput.text.toString() else ""
+//
+//            navController.navigate(if (args.ISFROMPOSTPREVIEW) R.id.action_carAndTextFragment_to_previewFragment else R.id.action_carAndTextFragment_to_previewFragment)
         }
     }
 

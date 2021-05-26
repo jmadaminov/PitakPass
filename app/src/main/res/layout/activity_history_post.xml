@@ -245,6 +245,7 @@
                         app:layout_constraintStart_toStartOf="@id/ivDriverAvatar"
                         app:layout_constraintTop_toBottomOf="@id/ivDriverAvatar"
                         tools:text="2.5" />
+
                     <TextView
                         android:id="@+id/tvDriverName"
                         android:layout_width="0dp"
@@ -256,7 +257,6 @@
                         app:layout_constraintStart_toEndOf="@id/ivDriverAvatar"
                         app:layout_constraintTop_toTopOf="@id/ivDriverAvatar"
                         tools:text="Name Surname" />
-
 
 
                     <ImageView
@@ -280,7 +280,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/colorPrimary"
+                        android:background="@drawable/selector_rounded_corners_primary"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:textColor="@color/white"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"

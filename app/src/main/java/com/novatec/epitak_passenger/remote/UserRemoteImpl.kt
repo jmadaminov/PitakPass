@@ -13,7 +13,7 @@ import javax.inject.Inject
  * operations in which data store implementation layers can carry out.
  */
 class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                         private val authorizedApiService: AuthorizedApiService) :
+                                         private val authApiService: AuthApiService) :
     UserRemote {
 
 
@@ -42,13 +42,13 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
     }
 
     override suspend fun sendFeedback(feedback: String) =
-        getFormattedResponseNullable { authorizedApiService.sendFeedback(FeedbackBody(feedback)) }
+        getFormattedResponseNullable { authApiService.sendFeedback(FeedbackBody(feedback)) }
 
     override suspend fun updateUserInfo(name: String,
                                         surName: String,
                                         uploadedAvatarId: Long?) =
         getFormattedResponseNullable {
-            authorizedApiService.updateUserInfo(ReqUpdateProfileInfo(name,
+            authApiService.updateUserInfo(ReqUpdateProfileInfo(name,
                                                                      surName,
                                                                      uploadedAvatarId?.let {
                                                                          IdName(uploadedAvatarId)

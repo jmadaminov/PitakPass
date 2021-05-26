@@ -73,9 +73,9 @@
     <string name="fourth_part_of_day_one_line">Kechqurun (18:00–00:00)</string>
     <string name="time">Vaqt</string>
     <string name="day">Kun</string>
-    <string name="price_for_one_passenger">Bitta yo\'lovchining narxi</string>
+    <string name="price_for_one_passenger">Bir yo\'lovchi narxi</string>
     <string name="number_of_seats">O\'rindiqlar soni</string>
-    <string name="please_add_notes_if_needed">Agar kerak bo\'lsa, iltimos, izoh qo\'shing…</string>
+    <string name="please_add_notes_if_needed">Izoh qo\'shing (ixtiyoriy)</string>
     <string name="your_car_for_this_ride">Ushbu safar uchun sizning avtomobilingiz</string>
     <string name="asap">Iloji boricha tez</string>
     <string name="departure_date_and_time">Sana: %1$s Vaqt: %2$s</string>
@@ -102,7 +102,7 @@
     <string name="post">Sayohat: %1$d</string>
     <string name="do_you_want_to_cancel_this_offer">Shu taklifni bekor qilmoqchimisiz?</string>
     <string name="offer_a_ride">Sayohatga taklif</string>
-    <string name="send_offer">taklif yuborish</string>
+    <string name="send_offer">Taklif yuborish</string>
     <string name="message">Xabar</string>
     <string name="search">Qidirish</string>
     <string name="are_you_sure_to_sign_out">Chiqmoqchimisiz?</string>
@@ -115,28 +115,28 @@
     <string name="sum">Sum</string>
     <string name="select_your_trip_if_you_have_one">Mavjud sayohatingizni tanlang, aks holda biz siz uchun yangi sayohat yaratamiz!</string>
     <string name="offering_post_id">"Sayohat taklif ID: %1$d"</string>
-    <string name="we_will_create_an_order_for_you">Siz uchun yo\'lovchi postining yo\'nalishlari bilan sayohat yaratamiz!</string>
-    <string name="offers">takliflar</string>
+    <string name="we_will_create_an_order_for_you">Siz uchun yo\'lovchi postining yo\'nalishlari bilan e\'lon yaratamiz!</string>
+    <string name="offers">Takliflar</string>
     <string name="settings">Sozlamalar</string>
     <string name="ok">Ok</string>
-    <string name="start">Start</string>
+    <string name="start">Boshlash</string>
     <string name="waiting">Kutish</string>
     <string name="on_the_way">Yo\'lda</string>
     <string name="canceled">Bekor qilindi</string>
     <string name="completed">Bajarildi</string>
     <string name="rejected">Rad etildi</string>
-    <string name="boarding">Boarding</string>
+    <string name="boarding">Faoliyatda</string>
     <string name="language">Til</string>
     <string name="app_version_too_old">Ilova versiyasi eskirdi! Iltimos, Google Play Market-dan yangilang.</string>
-    <string name="finish">Finish</string>
-    <string name="go_to_play_market">Go to Play Market</string>
+    <string name="finish">Tugatish</string>
+    <string name="go_to_play_market">Play Marketga o\'tish</string>
     <string name="my_last_offer">Mening oxirgi taklifim</string>
     <string name="attached_post_id">Biriktirilgan sayohat ID</string>
     <string name="price">Narx</string>
-    <string name="update_offer">taklifni Yangilash</string>
+    <string name="update_offer">Taklifni yangilash</string>
     <string name="you_have_no_offers_yet_come_back_later">Sizda hali takliflar yo\'q, iltimos keyinroq qayta kiring!</string>
     <string name="close">Yopmoq</string>
-    <string name="passengers">Yo\'lovshilar</string>
+    <string name="passengers">Yo\'lovchilar</string>
     <string name="price_for_one">Bir kishiga narx</string>
     <string name="seats">O\'rindiqlar</string>
     <string name="willing_price_for_one">Bir kishi uchun soralgan narx</string>
@@ -164,5 +164,13 @@
     <string name="got_it">Tushunarli</string>
     <string name="no_notifications_yet">Xabarlar mavjud emas…</string>
 
+    <string name="no_destination_found">Yo\'nalish topilmadi...</string>
+    <string name="enter_search_location">Manzilni kiriting...</string>
+    <string name="date">Sana</string>
+    <string name="can_take_package">Po\'chta olaman</string>
+    <string name="parcel">Pochta</string>
+    <string name="add_parcel_photo">Posilka rasmini qo\'shing</string>
+    <string name="price_for_parcel">Po\'chta yetkazish narxi</string>
+    <string name="offer_parcel">Posilka taklif qilish</string>
 
 </resources>

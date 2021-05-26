@@ -75,7 +75,7 @@
     <string name="day">Day</string>
     <string name="price_for_one_passenger">Price for one passenger</string>
     <string name="number_of_seats">Number of seats</string>
-    <string name="please_add_notes_if_needed">Please add notes if needed…</string>
+    <string name="please_add_notes_if_needed">Add note (optional)</string>
     <string name="your_car_for_this_ride">Your car for this ride</string>
     <string name="asap">ASAP</string>
     <string name="departure_date_and_time">Date: %1$s Time: %2$s</string>
@@ -160,5 +160,14 @@
     <string name="add_post_btn_description">Click this button in order to make a post about your planned trip!</string>
     <string name="got_it">Got it</string>
     <string name="no_notifications_yet">No notifications yet…</string>
+
+    <string name="no_destination_found">No location found…</string>
+    <string name="enter_search_location">Enter location name…</string>
+    <string name="date">Date</string>
+    <string name="can_take_package">Can take parcel</string>
+    <string name="parcel">Parcel</string>
+    <string name="add_parcel_photo">Add parcel image</string>
+    <string name="price_for_parcel">Delivery price</string>
+    <string name="offer_parcel">Offer parcel</string>
 
 </resources>

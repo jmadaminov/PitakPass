@@ -46,6 +46,7 @@ class PostFilterAdapter :
     class DriverPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: DriverPost) {
             itemView.apply {
+                cbTakeParcel.isVisible = post.pkg
                 llSeatsContainer.removeAllViews()
                 var availableSeats = post.availableSeats
                 for (i in 0 until post.seat) {
@@ -64,13 +65,17 @@ class PostFilterAdapter :
 //                seats.text =
 //                    (post.seat - post.availableSeats!!).toString() + "/" + post.seat.toString()
 
-                time.text = timeFromDayParts(post.timeFirstPart,
-                                             post.timeSecondPart,
-                                             post.timeThirdPart,
-                                             post.timeFourthPart)
+                time.text = timeFromDayParts(
+                    post.timeFirstPart,
+                    post.timeSecondPart,
+                    post.timeThirdPart,
+                    post.timeFourthPart
+                )
 
-                date.text = DateFormat.format("dd MMMM",
-                                              SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+                date.text = DateFormat.format(
+                    "dd MMMM",
+                    SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate)
+                )
                     .toString()
 
 
@@ -109,21 +114,23 @@ class PostFilterAdapter :
                 }
 
                 post.car?.carModel?.id?.let { id ->
-                    ivCarPhoto.setImageResource(when (id) {
-                                                    Constants.ID_GENTRA_LACETTI -> R.drawable.lacetti
-                                                    Constants.ID_COBALT -> R.drawable.cobalt
-                                                    Constants.ID_SPARK -> R.drawable.spark
-                                                    Constants.ID_MATIZ -> R.drawable.matiz
-                                                    Constants.ID_NEXIA_I -> R.drawable.nexia1
-                                                    Constants.ID_NEXIA_II -> R.drawable.nexia2
-                                                    Constants.ID_NEXIA_III -> R.drawable.nexia3
-                                                    Constants.ID_DAMAS -> R.drawable.damas
-                                                    Constants.ID_MALIBU_I -> R.drawable.malibu1
-                                                    Constants.ID_MALIBU_II -> R.drawable.malibu2
-                                                    Constants.ID_CAPTIVA -> R.drawable.captiva
-                                                    Constants.ID_OTHERS -> R.drawable.nocarphoto
-                                                    else -> R.drawable.lacetti
-                                                })
+                    ivCarPhoto.setImageResource(
+                        when (id) {
+                            Constants.ID_GENTRA_LACETTI -> R.drawable.lacetti
+                            Constants.ID_COBALT -> R.drawable.cobalt
+                            Constants.ID_SPARK -> R.drawable.spark
+                            Constants.ID_MATIZ -> R.drawable.matiz
+                            Constants.ID_NEXIA_I -> R.drawable.nexia1
+                            Constants.ID_NEXIA_II -> R.drawable.nexia2
+                            Constants.ID_NEXIA_III -> R.drawable.nexia3
+                            Constants.ID_DAMAS -> R.drawable.damas
+                            Constants.ID_MALIBU_I -> R.drawable.malibu1
+                            Constants.ID_MALIBU_II -> R.drawable.malibu2
+                            Constants.ID_CAPTIVA -> R.drawable.captiva
+                            Constants.ID_OTHERS -> R.drawable.nocarphoto
+                            else -> R.drawable.lacetti
+                        }
+                    )
                 }
 
 

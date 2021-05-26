@@ -15,6 +15,7 @@ import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EFuelType
 import com.novatec.epitak_passenger.domain.model.DriverPost
 import com.novatec.epitak_passenger.ui.BaseActivity
+import com.novatec.epitak_passenger.ui.bsd_offer_parcel.OfferParcelBSD
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.DialogJoinARideFragment
 import com.novatec.epitak_passenger.util.*
@@ -56,6 +57,10 @@ class DriverPostActivity : BaseActivity() {
 
     private fun showPostData(post: DriverPost) {
         btnJumpIn.isVisible = true
+
+        cbTakeParcel.isVisible = post.pkg
+        btnOfferParcel.isVisible = post.pkg
+
         post.passengerList?.forEach { passenger ->
             if (passenger.profile!!.id == AppPrefs.userId) {
                 btnJumpIn.isEnabled = false
@@ -70,8 +75,10 @@ class DriverPostActivity : BaseActivity() {
         var availableSeats = post.availableSeats
         for (i in 0 until post.seat) {
             val seat = ImageView(this)
-            seat.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                          ViewGroup.LayoutParams.WRAP_CONTENT)
+            seat.layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             seat.setImageResource(R.drawable.ic_round_event_seat_24)
             if (availableSeats > 0) {
                 seat.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -82,13 +89,17 @@ class DriverPostActivity : BaseActivity() {
             llSeatsContainer.addView(seat)
         }
 
-        time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
-                                               post.timeSecondPart,
-                                               post.timeThirdPart,
-                                               post.timeFourthPart)
+        time.text = PostUtils.timeFromDayParts(
+            post.timeFirstPart,
+            post.timeSecondPart,
+            post.timeThirdPart,
+            post.timeFourthPart
+        )
 
-        date.text = DateFormat.format("dd MMMM",
-                                      SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+        date.text = DateFormat.format(
+            "dd MMMM",
+            SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate)
+        )
             .toString()
 
         if (post.from.name == null && post.from.districtName == null) {
@@ -120,7 +131,7 @@ class DriverPostActivity : BaseActivity() {
         }
 
         post.car?.image?.link?.let {
-            ivCarPhoto.load(it)
+            ivCarPhoto.loadRounded(it, 10)
         }
 
         post.profile?.let { driverProfile ->
@@ -169,6 +180,12 @@ class DriverPostActivity : BaseActivity() {
 
         btnJumpIn.setOnClickListener {
             val dialog = DialogJoinARideFragment()
+            dialog.arguments = Bundle().apply { putParcelable(ARG_DRIVER_POST, driverPost) }
+            dialog.show(supportFragmentManager, "")
+        }
+
+        btnOfferParcel.setOnClickListener {
+            val dialog = OfferParcelBSD()
             dialog.arguments = Bundle().apply { putParcelable(ARG_DRIVER_POST, driverPost) }
             dialog.show(supportFragmentManager, "")
         }

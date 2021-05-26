@@ -1,6 +1,5 @@
 package com.novatec.epitak_passenger.ui.driver_post.jump_in
 
-import javax.inject.Inject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.epitak_passenger.core.enums.EPostStatus
@@ -18,11 +17,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
+import javax.inject.Inject
 
 @HiltViewModel
-class JumpInViewModel @Inject constructor(private val repository: DriverPostRepository,
-                                                   private val createPassengerPost: CreatePassengerPost,
-                                                   private val getActivePassengerPost: GetActivePassengerPost) :
+class JumpInViewModel @Inject constructor(
+    private val repository: DriverPostRepository,
+    private val createPassengerPost: CreatePassengerPost,
+    private val getActivePassengerPost: GetActivePassengerPost
+) :
     BaseViewModel() {
 
     val isOffering = MutableLiveData<Boolean>()
@@ -31,11 +33,13 @@ class JumpInViewModel @Inject constructor(private val repository: DriverPostRepo
 
     val offeringPostId = MutableLiveData<Long>()
 
-    fun joinARide(postId: Long,
-                  myPrice: Int?,
-                  message: String,
-                  seats: Int,
-                  driverPost: DriverPostViewObj) {
+    fun joinARide(
+        postId: Long,
+        myPrice: Int?,
+        message: String,
+        seats: Int,
+        driverPost: DriverPostViewObj
+    ) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
             myPrice?.let { driverPost.price = myPrice }
@@ -45,6 +49,7 @@ class JumpInViewModel @Inject constructor(private val repository: DriverPostRepo
         }
 
     }
+
 
 
     private suspend fun createPost(driverPost: DriverPostViewObj) {
@@ -65,21 +70,22 @@ class JumpInViewModel @Inject constructor(private val repository: DriverPostRepo
             driverPost.to.regionName,
             driverPost.to.name,
         )
-        val passengerPost = PassengerPost(null, placeFrom, placeTo, driverPost.price,
-                                          driverPost.departureDate,
-                                          driverPost.finishedDate,
-                                          null,
-                                          null,
-                                          driverPost.timeFirstPart,
-                                          driverPost.timeSecondPart,
-                                          driverPost.timeThirdPart,
-                                          driverPost.timeFourthPart,
-                                          null,
-                                          null,
-                                          null,
-                                          EPostStatus.CREATED,
-                                          driverPost.seat,
-                                          0
+        val passengerPost = PassengerPost(
+            null, placeFrom, placeTo, driverPost.price,
+            driverPost.departureDate,
+            driverPost.finishedDate,
+            null,
+            null,
+            driverPost.timeFirstPart,
+            driverPost.timeSecondPart,
+            driverPost.timeThirdPart,
+            driverPost.timeFourthPart,
+            null,
+            null,
+            null,
+            EPostStatus.CREATED,
+            driverPost.seat,
+            0
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
             is ErrorWrapper.ResponseError -> {
@@ -112,8 +118,12 @@ class JumpInViewModel @Inject constructor(private val repository: DriverPostRepo
         viewModelScope.launch(Dispatchers.IO) {
             println("COBUG:  ${Thread.currentThread().name}")
             val responseOfferCreate =
-                repository.joinARide(PassengerOffer(postId, myPrice, message, seats,
-                                                    offeringPostId.valueNN))
+                repository.joinARide(
+                    PassengerOffer(
+                        postId, myPrice, message, seats,
+                        offeringPostId.valueNN
+                    )
+                )
             withContext(Dispatchers.Main) {
                 when (responseOfferCreate) {
                     is ResponseError -> {

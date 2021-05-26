@@ -14,12 +14,12 @@ import javax.inject.Inject
  * operations in which data store implementation layers can carry out.
  */
 class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                        private val authorizedApiService: AuthorizedApiService) :
+                                        private val authApiService: AuthApiService) :
     CarRemote {
 
     override suspend fun getCarModels(): ResultWrapper<List<CarModel>> {
         return try {
-            val response = authorizedApiService.getCarModels()
+            val response = authApiService.getCarModels()
             if (response.code == 1) {
                 val newCarModels = ArrayList<CarModel>()
                 response.data!!.forEach {
@@ -34,7 +34,7 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
 
     override suspend fun getCarColors(): ResultWrapper<List<CarColor>> {
         return try {
-            val response = authorizedApiService.getCarColors()
+            val response = authApiService.getCarColors()
             if (response.code == 1) {
                 val newCarColors = ArrayList<CarColor>()
                 response.data!!.forEach {

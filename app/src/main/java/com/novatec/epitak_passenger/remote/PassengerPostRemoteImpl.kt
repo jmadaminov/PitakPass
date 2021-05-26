@@ -1,5 +1,6 @@
 package com.novatec.epitak_passenger.remote
 
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.data.repository.PassengerPostRemote
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.util.*
@@ -10,69 +11,62 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                                  private val authorizedApiService: AuthorizedApiService) :
+class PassengerPostRemoteImpl @Inject constructor(private val authApiService: AuthApiService) :
     PassengerPostRemote {
 
-    override suspend fun createPassengerPost(
-        post: PassengerPost): ResultWrapper<PassengerPost?> {
-        val response =
+    override suspend fun createPost(post: PassengerPost): ResultWrapper<PassengerPost?> {
+        val response = if (post.id != null) getFormattedResponseNullable {
+            authApiService.editPost(post.id, post)
+        } else getFormattedResponse {
+            if (post.postType == EPostType.PARCEL_SM) authApiService.createParcelPost(post)
+            else authApiService.createPost(post)
+        }
 
-        if (post.id != null) getFormattedResponseNullable { authorizedApiService.editPost(post.id, post) }
-        else getFormattedResponse { authorizedApiService.createPost(post) }
-
-        (return when (response) {
+        return when (response) {
             is ResponseError -> {
                 ErrorWrapper.ResponseError(message = response.message, code = response.code)
             }
             is ResponseSuccess -> {
                 ResultWrapper.Success(response.value)
             }
-        }).exhaustive
+        }
 
     }
 
-    override suspend fun deletePassengerPost(
-        identifier: String): ResultWrapper<Unit> {
+    override suspend fun deletePost(identifier: String): ResultWrapper<Unit> {
         return try {
-            val response = authorizedApiService.deletePost(identifier)
-            if (response.code == 1) {
-                ResultWrapper.Success(Unit)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            val response = authApiService.deletePost(identifier)
+            if (response.code == 1) ResultWrapper.Success(Unit)
+            else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
     }
 
-    override suspend fun finishPassengerPost(
-        identifier: String): ResultWrapper<Unit> {
+    override suspend fun finishPost(id: String): ResultWrapper<Unit> {
         return try {
-            val response = authorizedApiService.finishPost(identifier)
-            if (response.code == 1) {
-                ResultWrapper.Success(Unit)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            val response = authApiService.finishPost(id)
+            if (response.code == 1) ResultWrapper.Success(Unit)
+            else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
     }
 
-    override suspend fun getActivePassengerPosts(
-    ): ResultWrapper<List<PassengerPost>> {
-
+    override suspend fun getActivePosts(): ResultWrapper<List<PassengerPost>> {
         return try {
-            val response = authorizedApiService.getActivePosts()
-            if (response.code == 1) {
-                ResultWrapper.Success(response.data!!)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            val response = authApiService.getActivePosts()
+            if (response.code == 1) ResultWrapper.Success(response.data!!)
+            else ErrorWrapper.ResponseError(response.code, response.message)
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
     }
 
-    override suspend fun getHistoryPassengerPosts(page: Int): ResultWrapper<List<PassengerPost>> {
+    override suspend fun getHistoryPosts(page: Int): ResultWrapper<List<PassengerPost>> {
 
         return try {
-            val response = authorizedApiService.getHistoryPosts(page)
+            val response = authApiService.getHistoryPosts(page)
             if (response.code == 1) {
                 val posts = arrayListOf<PassengerPost>()
                 response.data?.data?.forEach { posts.add(it) }
@@ -84,16 +78,16 @@ class PassengerPostRemoteImpl @Inject constructor(private val apiService: ApiSer
     }
 
     override suspend fun getPassengerPostById(id: Long) =
-        getFormattedResponse { authorizedApiService.getPassengerPostById(id) }
+        getFormattedResponse { authApiService.getPassengerPostById(id) }
 
     override suspend fun acceptOffer(id: Long) =
-        getFormattedResponseNullable { authorizedApiService.acceptOffer(id) }
+        getFormattedResponseNullable { authApiService.acceptOffer(id) }
 
     override suspend fun rejectOffer(id: Long) =
-        getFormattedResponseNullable { authorizedApiService.rejectOffer(id) }
+        getFormattedResponseNullable { authApiService.rejectOffer(id) }
 
     override suspend fun cancelMyOffer(id: Long) =
-        getFormattedResponseNullable { authorizedApiService.cancelMyOffer(id) }
+        getFormattedResponseNullable { authApiService.cancelMyOffer(id) }
 
 
 }

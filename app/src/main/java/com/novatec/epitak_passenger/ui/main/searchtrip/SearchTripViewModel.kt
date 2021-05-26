@@ -26,8 +26,10 @@ import splitties.experimental.ExperimentalSplittiesApi
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchTripViewModel @Inject constructor(val postFilterRepository: PostFilterRepository,
-                                              private val getPlacesFeed: GetPlacesFeed) :
+class SearchTripViewModel @Inject constructor(
+    val postFilterRepository: PostFilterRepository,
+    private val getPlacesFeed: GetPlacesFeed
+) :
     BaseViewModel() {
 
     private val _filter = MutableLiveData(Filter())
@@ -90,6 +92,11 @@ class SearchTripViewModel @Inject constructor(val postFilterRepository: PostFilt
         else _filter.valueNN.airConditioner = null
     }
 
+    fun filterParcel(parcel: Boolean) {
+        if (parcel) _filter.valueNN.pkg = true
+        else _filter.valueNN.pkg = null
+    }
+
     fun setFilterPrices(minPrice: Int?, maxPrice: Int?) {
         _filter.valueNN.minPrice = minPrice
         _filter.valueNN.maxPrice = maxPrice
@@ -115,10 +122,12 @@ class SearchTripViewModel @Inject constructor(val postFilterRepository: PostFilt
         applyFilter()
     }
 
-    fun dayTimePartsChecked(timeFirstPart: Boolean,
-                            timeSecondPart: Boolean,
-                            timeThirdPart: Boolean,
-                            timeFourthPart: Boolean) {
+    fun dayTimePartsChecked(
+        timeFirstPart: Boolean,
+        timeSecondPart: Boolean,
+        timeThirdPart: Boolean,
+        timeFourthPart: Boolean
+    ) {
 
         _filter.valueNN.timeFirstPart = timeFirstPart
         _filter.valueNN.timeSecondPart = timeSecondPart
@@ -140,6 +149,18 @@ class SearchTripViewModel @Inject constructor(val postFilterRepository: PostFilt
         if (_filter.valueNN.seat != null) appliedFilterCount++
         if (!_filter.valueNN.timeFirstPart || !_filter.valueNN.timeSecondPart || !_filter.valueNN.timeThirdPart || !_filter.valueNN.timeFourthPart) appliedFilterCount++
         _count.value = appliedFilterCount
+    }
+
+    fun clearPlaceFromSelection() {
+        _filter.valueNN.fromRegionId = null
+        _filter.valueNN.fromDistrictId = null
+        applyFilter()
+    }
+
+    fun clearPlaceToSelection() {
+        _filter.valueNN.toRegionId = null
+        _filter.valueNN.toDistrictId = null
+        applyFilter()
     }
 
 

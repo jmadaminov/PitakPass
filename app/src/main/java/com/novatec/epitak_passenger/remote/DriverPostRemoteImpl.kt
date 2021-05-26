@@ -16,25 +16,25 @@ import javax.inject.Inject
  * operations in which data store implementation layers can carry out.
  */
 class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                               private val authorizedApiService: AuthorizedApiService) :
+                                               private val authApiService: AuthApiService) :
     DriverPostRemote {
 
     override suspend fun filterDriverPost(filter: Filter) =
-        getFormattedResponse { authorizedApiService.filterDriverPost(filter) }
+        getFormattedResponse { authApiService.filterDriverPost(filter) }
 
 
     override suspend fun getPostById(id: Long): ResponseWrapper<DriverPost> =
-        getFormattedResponse { authorizedApiService.getDriverPostById(id) }
+        getFormattedResponse { authApiService.getDriverPostById(id) }
 
     override suspend fun joinARide(myOffer: PassengerOffer) =
-        getFormattedResponse { authorizedApiService.joinARide(myOffer) }
+        getFormattedResponse { authApiService.joinARide(myOffer) }
 
     override suspend fun getMyRatingForDriver(id: Long) =
-        getFormattedResponseNullable { authorizedApiService.getMyRatingForDriver(id) }
+        getFormattedResponseNullable { authApiService.getMyRatingForDriver(id) }
 
     override suspend fun editMyRatingForDriver(ratingId: Long, id: Long, rating: Float) =
         getFormattedResponseNullable {
-            authorizedApiService.editMyRatingForDriver(ratingId,
+            authApiService.editMyRatingForDriver(ratingId,
                                                        ObjRating(driverId = id,
                                                                  id = ratingId,
                                                                  rating = rating))
@@ -42,7 +42,7 @@ class DriverPostRemoteImpl @Inject constructor(private val apiService: ApiServic
 
     override suspend fun postMyRatingForDriver(id: Long, rating: Float) =
         getFormattedResponse {
-            authorizedApiService.postMyRatingForDriver(ObjRating(driverId = id, rating = rating))
+            authApiService.postMyRatingForDriver(ObjRating(driverId = id, rating = rating))
         }
 
 }

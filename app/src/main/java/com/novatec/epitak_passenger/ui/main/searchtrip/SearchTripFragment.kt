@@ -14,9 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.paging.LoadState
 import com.novatec.epitak_passenger.R
+import com.novatec.epitak_passenger.ui.bsd_destination.ARG_IS_FROM
+import com.novatec.epitak_passenger.ui.bsd_destination.DestinationBSD
+import com.novatec.epitak_passenger.ui.bsd_destination.REQ_DESTINATION
+import com.novatec.epitak_passenger.ui.bsd_destination.RESULT_PLACE
 import com.novatec.epitak_passenger.ui.main.MainActivity
-import com.novatec.epitak_passenger.ui.viewgroups.PlaceFeedItemView
 import com.novatec.epitak_passenger.util.*
+import com.novatec.epitak_passenger.viewobjects.PlaceViewObj
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
@@ -33,7 +37,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
 
     private val viewModel: SearchTripViewModel by viewModels()
 
-    lateinit var autoCompleteManager: AutoCompleteManager
+    //    lateinit var autoCompleteManager: AutoCompleteManager
     var postsAdapter = PostFilterAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,34 +100,69 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
     }
 
     private fun setupAutoCompleteViews() {
-        autoCompleteManager = buildAutoCompleteManager {
-            with { requireContext() }
-            fromEditText { fromInput }
-            toEditText { toInput }
-            onQueryAction { queryStr, isFrom ->
-                viewModel.getPlacesFeed(queryStr, isFrom)
-            }
-            updateBtnStateAction {
-            }
-
-            popUpClickAction { isFrom, item ->
-                if (isFrom) viewModel.placeFromSelected(item.place)
-                else viewModel.placeToSelected(item.place)
-            }
-        }
+//        autoCompleteManager = buildAutoCompleteManager {
+//            with { requireContext() }
+//            fromEditText { fromInput }
+//            toEditText { toInput }
+//            onQueryAction { queryStr, isFrom ->
+//                viewModel.getPlacesFeed(queryStr, isFrom)
+//            }
+//            updateBtnStateAction {
+//            }
+//
+//            popUpClickAction { isFrom, item ->
+//                if (isFrom) viewModel.placeFromSelected(item.place)
+//                else viewModel.placeToSelected(item.place)
+//            }
+//        }
     }
 
     private fun attachListeners() {
+
+        fromInput.setOnClickListener {
+            DestinationBSD().also {
+                it.arguments = Bundle().apply { putBoolean(ARG_IS_FROM, true) }
+                this.childFragmentManager.setFragmentResultListener(
+                    REQ_DESTINATION,
+                    this
+                ) { key, bundle ->
+                    val place = bundle.getParcelable<PlaceViewObj>(RESULT_PLACE)!!
+                    fromInput.setText(place.name)
+                    viewModel.placeFromSelected(place.toPlace())
+                }
+            }.show(childFragmentManager, "")
+
+        }
+
+        toInput.setOnClickListener {
+            DestinationBSD().also {
+                it.arguments = Bundle().apply { putBoolean(ARG_IS_FROM, false) }
+                this.childFragmentManager.setFragmentResultListener(
+                    REQ_DESTINATION,
+                    this
+                ) { key, bundle ->
+                    val place = bundle.getParcelable<PlaceViewObj>(RESULT_PLACE)!!
+                    toInput.setText(place.name)
+                    viewModel.placeFromSelected(place.toPlace())
+                }
+            }.show(childFragmentManager, "")
+
+        }
+
+
+
         ivClearFrom.setOnClickListener {
             fromInput.setText("")
             ivClearFrom.visibility = View.GONE
             fromInput.clearFocus()
+            viewModel.clearPlaceFromSelection()
         }
 
         ivClearTo.setOnClickListener {
             toInput.setText("")
             ivClearTo.visibility = View.GONE
             toInput.clearFocus()
+            viewModel.clearPlaceToSelection()
         }
 
         fromInput.doOnTextChanged { text, start, before, count ->
@@ -146,8 +185,10 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
                 "${getString(R.string.price_range)} ${range_slider.getThumb(0).value} - ${
                     range_slider.getThumb(1).value
                 }"
-            viewModel.setFilterPrices(range_slider.getThumb(0).value,
-                                      range_slider.getThumb(1).value)
+            viewModel.setFilterPrices(
+                range_slider.getThumb(0).value,
+                range_slider.getThumb(1).value
+            )
         }
 
         resetFilter.setOnClickListener {
@@ -161,6 +202,7 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             timeSecondPart.isChecked = true
             timeThirdPart.isChecked = true
             timeFourthPart.isChecked = true
+            cbTakeParcel.isChecked = false
             aCCheck.isChecked = false
             number_picker.resetText()
         }
@@ -169,34 +211,46 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             viewModel.filterAC(isChecked)
         }
 
+        cbTakeParcel.setOnCheckedChangeListener { buttonView, isChecked ->
+            viewModel.filterParcel(isChecked)
+        }
+
         date.setOnClickListener {
             balloon.showAlignRight(date)
             slidingLayer.closeLayer(true)
         }
 
         timeFirstPart.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.dayTimePartsChecked(timeFirstPart.isChecked,
-                                          timeSecondPart.isChecked,
-                                          timeThirdPart.isChecked,
-                                          timeFourthPart.isChecked)
+            viewModel.dayTimePartsChecked(
+                timeFirstPart.isChecked,
+                timeSecondPart.isChecked,
+                timeThirdPart.isChecked,
+                timeFourthPart.isChecked
+            )
         }
         timeSecondPart.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.dayTimePartsChecked(timeFirstPart.isChecked,
-                                          timeSecondPart.isChecked,
-                                          timeThirdPart.isChecked,
-                                          timeFourthPart.isChecked)
+            viewModel.dayTimePartsChecked(
+                timeFirstPart.isChecked,
+                timeSecondPart.isChecked,
+                timeThirdPart.isChecked,
+                timeFourthPart.isChecked
+            )
         }
         timeThirdPart.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.dayTimePartsChecked(timeFirstPart.isChecked,
-                                          timeSecondPart.isChecked,
-                                          timeThirdPart.isChecked,
-                                          timeFourthPart.isChecked)
+            viewModel.dayTimePartsChecked(
+                timeFirstPart.isChecked,
+                timeSecondPart.isChecked,
+                timeThirdPart.isChecked,
+                timeFourthPart.isChecked
+            )
         }
         timeFourthPart.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.dayTimePartsChecked(timeFirstPart.isChecked,
-                                          timeSecondPart.isChecked,
-                                          timeThirdPart.isChecked,
-                                          timeFourthPart.isChecked)
+            viewModel.dayTimePartsChecked(
+                timeFirstPart.isChecked,
+                timeSecondPart.isChecked,
+                timeThirdPart.isChecked,
+                timeFourthPart.isChecked
+            )
         }
 
         number_picker.addOnSeatCountChangeListener { count ->
@@ -208,12 +262,18 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             val drawable =
                 DrawableCompat.wrap(resources.getDrawable(R.drawable.ic_round_my_location_24))
             if (hasFocus) {
-                DrawableCompat.setTint(drawable,
-                                       ContextCompat.getColor(requireContext(),
-                                                              R.color.colorAccent))
+                DrawableCompat.setTint(
+                    drawable,
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
             } else {
-                DrawableCompat.setTint(drawable,
-                                       ContextCompat.getColor(requireContext(), R.color.ic_grey))
+                DrawableCompat.setTint(
+                    drawable,
+                    ContextCompat.getColor(requireContext(), R.color.ic_grey)
+                )
             }
             DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_ATOP)
             fromInput.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
@@ -223,12 +283,18 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             val drawable =
                 DrawableCompat.wrap(resources.getDrawable(R.drawable.ic_round_location_on_24))
             if (hasFocus) {
-                DrawableCompat.setTint(drawable,
-                                       ContextCompat.getColor(requireContext(),
-                                                              R.color.colorAccent))
+                DrawableCompat.setTint(
+                    drawable,
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent
+                    )
+                )
             } else {
-                DrawableCompat.setTint(drawable,
-                                       ContextCompat.getColor(requireContext(), R.color.ic_grey))
+                DrawableCompat.setTint(
+                    drawable,
+                    ContextCompat.getColor(requireContext(), R.color.ic_grey)
+                )
             }
             DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_ATOP)
             toInput.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
@@ -251,56 +317,56 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
             }
         }
 
-
-        viewModel.fromPlacesResponse.observe(viewLifecycleOwner){
-            val response = it ?: return@observe
-
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                }
-                is ErrorWrapper.SystemError -> {
-                }
-                is ResultWrapper.Success -> {
-                    autoCompleteManager.fromPresenter.getAdr()?.let { adapter ->
-                        adapter.clear()
-                        response.value.forEach { place ->
-                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-
-        }
+//
+//        viewModel.fromPlacesResponse.observe(viewLifecycleOwner) {
+//            val response = it ?: return@observe
+//
+//            when (response) {
+//                is ErrorWrapper.ResponseError -> {
+//                }
+//                is ErrorWrapper.SystemError -> {
+//                }
+//                is ResultWrapper.Success -> {
+//                    autoCompleteManager.fromPresenter.getAdr()?.let { adapter ->
+//                        adapter.clear()
+//                        response.value.forEach { place ->
+//                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.fromPresenter))
+//                        }
+//                        adapter.notifyDataSetChanged()
+//                    }
+//                }
+//                ResultWrapper.InProgress -> {
+//                }
+//            }.exhaustive
+//
+//        }
 
         viewModel.postOffers.observe(viewLifecycleOwner) {
             postsAdapter.submitData(lifecycle, it)
         }
 
-        viewModel.toPlacesResponse.observe(viewLifecycleOwner) {
-            val response = it ?: return@observe
-
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-                }
-                is ErrorWrapper.SystemError -> {
-                }
-                is ResultWrapper.Success -> {
-                    autoCompleteManager.toPresenter.getAdr()?.let { adapter ->
-                        adapter.clear()
-                        response.value.forEach { place ->
-                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.toPresenter))
-                        }
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-
-        }
+//        viewModel.toPlacesResponse.observe(viewLifecycleOwner) {
+//            val response = it ?: return@observe
+//
+//            when (response) {
+//                is ErrorWrapper.ResponseError -> {
+//                }
+//                is ErrorWrapper.SystemError -> {
+//                }
+//                is ResultWrapper.Success -> {
+//                    autoCompleteManager.toPresenter.getAdr()?.let { adapter ->
+//                        adapter.clear()
+//                        response.value.forEach { place ->
+//                            adapter.add(PlaceFeedItemView(place, autoCompleteManager.toPresenter))
+//                        }
+//                        adapter.notifyDataSetChanged()
+//                    }
+//                }
+//                ResultWrapper.InProgress -> {
+//                }
+//            }.exhaustive
+//
+//        }
 
 
     }
@@ -340,14 +406,15 @@ class SearchTripFragment : Fragment(R.layout.fragment_search_trip) {
         }
         lblPriceRange.text =
             getString(R.string.price_range) + " " + range_slider.getThumb(0).value + " - " + range_slider.getThumb(
-                1).value
+                1
+            ).value
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         postsAdapter.removeLoadStateListener { }
-        autoCompleteManager.dispose()
+//        autoCompleteManager.dispose()
     }
 
 

@@ -4,8 +4,6 @@ import com.novatec.epitak_passenger.data.repository.PassengerPostDataStore
 import com.novatec.epitak_passenger.data.repository.PassengerPostRemote
 import com.novatec.epitak_passenger.data.repository.PlaceDataStore
 import com.novatec.epitak_passenger.domain.model.PassengerPost
-import com.novatec.epitak_passenger.remote.model.OfferDTO
-import com.novatec.epitak_passenger.util.ResponseWrapper
 import javax.inject.Inject
 
 /**
@@ -16,18 +14,18 @@ open class PassengerPostRemoteDataStore @Inject constructor(private val passenge
     PassengerPostDataStore {
 
     override suspend fun createPassengerPost(post: PassengerPost) =
-        passengerPostRemote.createPassengerPost(post)
+        passengerPostRemote.createPost(post)
 
     override suspend fun deletePassengerPost(identifier: String) =
-        passengerPostRemote.deletePassengerPost(identifier)
+        passengerPostRemote.deletePost(identifier)
 
     override suspend fun finishPassengerPost(identifier: String) =
-        passengerPostRemote.finishPassengerPost(identifier)
+        passengerPostRemote.finishPost(identifier)
 
-    override suspend fun getActivePassengerPosts() = passengerPostRemote.getActivePassengerPosts()
+    override suspend fun getActivePassengerPosts() = passengerPostRemote.getActivePosts()
 
     override suspend fun getHistoryPassengerPosts(page: Int) =
-        passengerPostRemote.getHistoryPassengerPosts(page)
+        passengerPostRemote.getHistoryPosts(page)
 
     override suspend fun getPassengerPostById(id: Long) =
         passengerPostRemote.getPassengerPostById(id)

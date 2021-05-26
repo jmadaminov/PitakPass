@@ -151,7 +151,7 @@
 
     <string name="number_of_seats">Количество мест</string>
 
-    <string name="please_add_notes_if_needed">При необходимости добавьте примечания…</string>
+    <string name="please_add_notes_if_needed">Добавьте примечания (необязательно)</string>
 
     <string name="your_car_for_this_ride">Ваша машина для этой поездки</string>
 
@@ -254,14 +254,10 @@
 
     <string name="rejected">Отклонено</string>
 
-    <string name="boarding">Посадка</string>
-
+    <string name="boarding">Активный</string>
     <string name="language">Язык</string>
-
     <string name="app_version_too_old">Версия приложения устарела! Пожалуйста, обновите через Google Play Market.</string>
-
     <string name="finish">Финиш</string>
-
     <string name="go_to_play_market">Перейти в Play Market</string>
     <string name="my_last_offer">Мое последнее предложение</string>
     <string name="attached_post_id">Прикрепленное id поездки</string>
@@ -298,6 +294,15 @@
     <string name="add_post_btn_description">Нажмите эту кнопку, чтобы создать пост о планируемой поездке!</string>
     <string name="got_it">Понятно</string>
     <string name="no_notifications_yet">Уведомлений пока нет…</string>
+
+    <string name="no_destination_found">Маршрут не найден...</string>
+    <string name="enter_search_location">Введите адрес...</string>
+    <string name="date">Дата</string>
+    <string name="can_take_package">Могу взять посылку</string>
+    <string name="parcel">Посылка</string>
+    <string name="add_parcel_photo">Добавьте изображение посылки</string>
+    <string name="price_for_parcel">Стоимость доставки</string>
+    <string name="offer_parcel">Предложить посылку</string>
 
 
 </resources>

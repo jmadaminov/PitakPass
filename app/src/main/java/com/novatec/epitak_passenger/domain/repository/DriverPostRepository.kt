@@ -11,8 +11,14 @@ interface DriverPostRepository {
     suspend fun getDriverPostById(id: Long): ResponseWrapper<DriverPost>
     suspend fun joinARide(myOffer: PassengerOffer): ResponseWrapper<Any>
     suspend fun getMyRatingForDriver(id: Long): ResponseWrapper<ObjRating?>
-    suspend fun editMyRatingForDriver(ratingId:Long,id: Long, rating : Float): ResponseWrapper<ObjRating?>
-    suspend fun postMyRatingForDriver(id: Long, rating : Float): ResponseWrapper<ObjRating>
+    suspend fun editMyRatingForDriver(
+        ratingId: Long,
+        id: Long,
+        rating: Float
+    ): ResponseWrapper<ObjRating?>
+
+    suspend fun postMyRatingForDriver(id: Long, rating: Float): ResponseWrapper<ObjRating>
+    suspend fun offerParcel(parcel: ParcelOffer): ResponseWrapper<Any>
 
 
 }

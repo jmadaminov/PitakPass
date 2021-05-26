@@ -1,6 +1,5 @@
 package com.novatec.epitak_passenger.ui.addpost.datetime
 
-//import org.joda.time.DateTime
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
@@ -24,7 +23,7 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
 
     val args: DateAndTimeFragmentArgs by navArgs()
 
-    private var selectedDate: String? = null
+    private lateinit var selectedDate: String
     private var timeFirstPart = true
     private var timeSecondPart = true
     private var timeThirdPart = true
@@ -160,13 +159,17 @@ class DateAndTimeFragment : Fragment(R.layout.fragment_date_and_time) {
 
         if (navNext.isEnabled) {
             val bg = navNext.background
-            bg.setColorFilter(ContextCompat.getColor(requireContext(), R.color.colorPrimary),
-                              PorterDuff.Mode.SRC_ATOP)
+            bg.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+                PorterDuff.Mode.SRC_ATOP
+            )
             navNext.background = bg
         } else {
             val bg = navNext.background
-            bg.setColorFilter(ContextCompat.getColor(requireContext(), R.color.ic_grey),
-                              PorterDuff.Mode.SRC_ATOP)
+            bg.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.ic_grey),
+                PorterDuff.Mode.SRC_ATOP
+            )
             navNext.background = bg
         }
     }

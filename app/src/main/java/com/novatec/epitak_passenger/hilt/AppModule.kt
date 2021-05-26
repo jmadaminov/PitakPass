@@ -42,9 +42,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCarRemote(apiService: ApiService,
-                         authorizedApiService: AuthorizedApiService): CarRemote {
-        return CarRemoteImpl(apiService, authorizedApiService)
+    fun provideCarRemote(
+        apiService: ApiService,
+        authApiService: AuthApiService
+    ): CarRemote {
+        return CarRemoteImpl(apiService, authApiService)
     }
 
     @Provides
@@ -135,9 +137,8 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun providePassengerPostRemote(apiService: ApiService,
-                                   authorizedApiService: AuthorizedApiService): PassengerPostRemote {
-        return PassengerPostRemoteImpl(apiService, authorizedApiService)
+    fun providePassengerPostRemote(authApiService: AuthApiService): PassengerPostRemote {
+        return PassengerPostRemoteImpl(authApiService)
     }
 
 
@@ -207,18 +208,22 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun providePlaceRemote(apiService: ApiService,
-                           authorizedApiService: AuthorizedApiService): PlaceRemote {
-        return PlaceRemoteImpl(apiService, authorizedApiService)
+    fun providePlaceRemote(
+        apiService: ApiService,
+        authApiService: AuthApiService
+    ): PlaceRemote {
+        return PlaceRemoteImpl(apiService, authApiService)
     }
 
 
     @Provides
 
     @Singleton
-    fun provideDriverPostRemote(apiService: ApiService,
-                                authorizedApiService: AuthorizedApiService): DriverPostRemote {
-        return DriverPostRemoteImpl(apiService, authorizedApiService)
+    fun provideDriverPostRemote(
+        apiService: ApiService,
+        authApiService: AuthApiService
+    ): DriverPostRemote {
+        return DriverPostRemoteImpl(apiService, authApiService)
     }
 
 
@@ -266,9 +271,11 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun provideUserRemote(apiService: ApiService,
-                          authorizedApiService: AuthorizedApiService): UserRemote {
-        return UserRemoteImpl(apiService, authorizedApiService)
+    fun provideUserRemote(
+        apiService: ApiService,
+        authApiService: AuthApiService
+    ): UserRemote {
+        return UserRemoteImpl(apiService, authApiService)
     }
 
 

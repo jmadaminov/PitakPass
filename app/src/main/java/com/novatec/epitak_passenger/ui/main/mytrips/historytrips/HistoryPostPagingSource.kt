@@ -3,11 +3,11 @@ package com.novatec.epitak_passenger.ui.main.mytrips.historytrips
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.novatec.epitak_passenger.domain.model.PassengerPost
-import com.novatec.epitak_passenger.remote.AuthorizedApiService
+import com.novatec.epitak_passenger.remote.AuthApiService
 
 private const val POST_OFFER_STARTING_PAGE_INDEX = 0
 
-class HistoryPostPagingSource(private val authorizedApiService: AuthorizedApiService) :
+class HistoryPostPagingSource(private val authApiService: AuthApiService) :
     PagingSource<Int, PassengerPost>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PassengerPost> {
@@ -15,7 +15,7 @@ class HistoryPostPagingSource(private val authorizedApiService: AuthorizedApiSer
 
         return try {
             val response =
-                authorizedApiService.getHistoryPosts(position, params.loadSize)
+                authApiService.getHistoryPosts(position, params.loadSize)
             val posts = response.data?.data
             LoadResult.Page(
                 data = posts!!,

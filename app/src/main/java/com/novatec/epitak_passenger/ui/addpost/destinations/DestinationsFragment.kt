@@ -109,59 +109,59 @@ class DestinationsFragment : Fragment(R.layout.fragment_destinations) {
     }
 
     private fun setupObservers() {
-        viewModel.fromPlacesResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-
-                }
-                is ErrorWrapper.SystemError -> {
-
-                }
-                is ResultWrapper.Success -> {
-                    autoCompleteManager.fromPresenter.getAdr()!!.clear()
-                    response.value.forEach { place ->
-                        autoCompleteManager.fromPresenter.getAdr()!!
-                            .add(PlaceFeedItemView(place,
-                                                   autoCompleteManager.fromPresenter))
-
-                    }
-                    autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-
-        })
-        viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {
-            val response = it ?: return@Observer
-
-            when (response) {
-                is ErrorWrapper.ResponseError -> {
-
-                }
-                is ErrorWrapper.SystemError -> {
-
-                }
-                is ResultWrapper.Success -> {
-                    if (autoCompleteManager.toPresenter.getAdr() != null) {
-                        autoCompleteManager.toPresenter.getAdr()!!.clear()
-                        response.value.forEach { place ->
-                            autoCompleteManager.toPresenter.getAdr()!!
-                                .add(PlaceFeedItemView(place,
-                                                       autoCompleteManager.toPresenter))
-                        }
-                        autoCompleteManager.toPresenter.getAdr()!!
-                            .notifyDataSetChanged()
-                    } else {
-                    }
-                }
-                ResultWrapper.InProgress -> {
-                }
-            }.exhaustive
-
-        })
+//        viewModel.fromPlacesResponse.observe(viewLifecycleOwner, Observer {
+//            val response = it ?: return@Observer
+//
+//            when (response) {
+//                is ErrorWrapper.ResponseError -> {
+//
+//                }
+//                is ErrorWrapper.SystemError -> {
+//
+//                }
+//                is ResultWrapper.Success -> {
+//                    autoCompleteManager.fromPresenter.getAdr()!!.clear()
+//                    response.value.forEach { place ->
+//                        autoCompleteManager.fromPresenter.getAdr()!!
+//                            .add(PlaceFeedItemView(place,
+//                                                   autoCompleteManager.fromPresenter))
+//
+//                    }
+//                    autoCompleteManager.fromPresenter.getAdr()!!.notifyDataSetChanged()
+//                }
+//                ResultWrapper.InProgress -> {
+//                }
+//            }.exhaustive
+//
+//        })
+//        viewModel.toPlacesResponse.observe(viewLifecycleOwner, Observer {
+//            val response = it ?: return@Observer
+//
+//            when (response) {
+//                is ErrorWrapper.ResponseError -> {
+//
+//                }
+//                is ErrorWrapper.SystemError -> {
+//
+//                }
+//                is ResultWrapper.Success -> {
+//                    if (autoCompleteManager.toPresenter.getAdr() != null) {
+//                        autoCompleteManager.toPresenter.getAdr()!!.clear()
+//                        response.value.forEach { place ->
+//                            autoCompleteManager.toPresenter.getAdr()!!
+//                                .add(PlaceFeedItemView(place,
+//                                                       autoCompleteManager.toPresenter))
+//                        }
+//                        autoCompleteManager.toPresenter.getAdr()!!
+//                            .notifyDataSetChanged()
+//                    } else {
+//                    }
+//                }
+//                ResultWrapper.InProgress -> {
+//                }
+//            }.exhaustive
+//
+//        })
     }
 
 

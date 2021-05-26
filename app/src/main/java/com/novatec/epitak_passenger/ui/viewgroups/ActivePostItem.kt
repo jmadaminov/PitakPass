@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EPostStatus
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.util.PostUtils
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -18,8 +19,10 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 
-class ActivePostItem(var post: PassengerPost,
-                     var onClick: () -> Unit) :
+class ActivePostItem(
+    var post: PassengerPost,
+    var onClick: () -> Unit
+) :
     Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
@@ -27,18 +30,24 @@ class ActivePostItem(var post: PassengerPost,
             for (i in 0 until post.seat) {
                 val seat = ImageView(context)
                 seat.layoutParams =
-                    LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                              ViewGroup.LayoutParams.WRAP_CONTENT)
+                    LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
                 seat.setImageResource(R.drawable.ic_round_emoji_people_24)
                 llSeatsContainer.addView(seat)
             }
-            time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
-                                                   post.timeSecondPart,
-                                                   post.timeThirdPart,
-                                                   post.timeFourthPart)
+            time.text = PostUtils.timeFromDayParts(
+                post.timeFirstPart,
+                post.timeSecondPart,
+                post.timeThirdPart,
+                post.timeFourthPart
+            )
 
-            date.text = DateFormat.format("dd MMMM",
-                                          SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+            date.text = DateFormat.format(
+                "dd MMMM",
+                SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate)
+            )
                 .toString()
 
             if (post.from.name == null && post.from.districtName == null) {
@@ -110,6 +119,8 @@ class ActivePostItem(var post: PassengerPost,
             cl_parent.setOnClickListener {
                 onClick()
             }
+
+            ivPkg.isVisible = post.postType == EPostType.PARCEL_SM
         }
     }
 

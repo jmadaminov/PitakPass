@@ -12,9 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
-import com.novatec.epitak_passenger.core.enums.EPostStatus
-import com.novatec.epitak_passenger.core.enums.EPostType
-import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.ui.addpost.AddPostViewModel
 import com.novatec.epitak_passenger.util.ErrorWrapper
 import com.novatec.epitak_passenger.util.PostUtils.timeFromDayParts
@@ -23,11 +20,10 @@ import com.novatec.epitak_passenger.util.exhaustive
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_preview.*
 import splitties.experimental.ExperimentalSplittiesApi
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class PreviewFragment  : Fragment(R.layout.fragment_preview) {
+class PreviewFragment : Fragment(R.layout.fragment_preview) {
 
     private val activityViewModel: AddPostViewModel by activityViewModels()
 
@@ -75,24 +71,30 @@ class PreviewFragment  : Fragment(R.layout.fragment_preview) {
 
 
         dateTime.text =
-            getString(R.string.departure_date_and_time,
-                      activityViewModel.departureDate,
-                      timeFromDayParts(activityViewModel.timeFirstPart,
-                                       activityViewModel.timeSecondPart,
-                                       activityViewModel.timeThirdPart,
-                                       activityViewModel.timeFourthPart))
+            getString(
+                R.string.departure_date_and_time,
+                activityViewModel.departureDate,
+                timeFromDayParts(
+                    activityViewModel.timeFirstPart,
+                    activityViewModel.timeSecondPart,
+                    activityViewModel.timeThirdPart,
+                    activityViewModel.timeFourthPart
+                )
+            )
 
-        priceAndSeat.text = getString(R.string.price_and_seats_format,
-                                      activityViewModel.price.toString(),
-                                      activityViewModel.seat.toString())
+        priceAndSeat.text = getString(
+            R.string.price_and_seats_format,
+            activityViewModel.price.toString(),
+            activityViewModel.seat.toString()
+        )
 
 
-        if (activityViewModel.note.isNullOrBlank()) {
-            note.visibility = View.GONE
-        } else {
-            note.visibility = View.VISIBLE
-            note.text = activityViewModel.note
-        }
+//        if (activityViewModel.note.isNullOrBlank()) {
+//            note.visibility = View.GONE
+//        } else {
+//            note.visibility = View.VISIBLE
+//            note.text = activityViewModel.note
+//        }
 
 
     }
@@ -102,43 +104,56 @@ class PreviewFragment  : Fragment(R.layout.fragment_preview) {
     private fun setupListeners() {
 
         layoutDestinations.setOnClickListener {
-            navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToDestinationsFragment(
-                true))
+            navController.navigate(
+                PreviewFragmentDirections.actionPreviewFragmentToDestinationsFragment(
+                    true
+                )
+            )
         }
         dateTime.setOnClickListener {
-            navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToDateTimeFragment(
-                true))
+            navController.navigate(
+                PreviewFragmentDirections.actionPreviewFragmentToDateTimeFragment(
+                    true
+                )
+            )
         }
         priceAndSeat.setOnClickListener {
-            navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToPriceAndSeatFragment(
-                true))
+            navController.navigate(
+                PreviewFragmentDirections.actionPreviewFragmentToPriceAndSeatFragment(
+                    true
+                )
+            )
         }
         note.setOnClickListener {
-            navController.navigate(PreviewFragmentDirections.actionPreviewFragmentToCarAndTextFragment(
-                true))
+            navController.navigate(
+                PreviewFragmentDirections.actionPreviewFragmentToCarAndTextFragment(
+                    true
+                )
+            )
         }
 
         postCreate.setOnClickListener {
-            viewModel.createPassengerPost(PassengerPost(activityViewModel.id,
-                                                        activityViewModel.placeFrom!!,
-                                                        activityViewModel.placeTo!!,
-                                                        activityViewModel.price!!,
-                                                        activityViewModel.departureDate!!,
-                                                        null,
-                                                        null,
-                                                        null,
-                                                        activityViewModel.timeFirstPart,
-                                                        activityViewModel.timeSecondPart,
-                                                        activityViewModel.timeThirdPart,
-                                                        activityViewModel.timeFourthPart,
-                                                        null,
-                                                        null,
-                                                        activityViewModel.note!!,
-                                                        EPostStatus.CREATED,
-                                                        activityViewModel.seat!!,
-                                                        0,
-                                                        null,
-                                                        EPostType.PASSENGER_SM))
+//            viewModel.createPassengerPost(PassengerPost(activityViewModel.id,
+//                                                        activityViewModel.placeFrom!!,
+//                                                        activityViewModel.placeTo!!,
+//                                                        activityViewModel.price!!,
+//                                                        activityViewModel.departureDate!!,
+//                                                        null,
+//                                                        null,
+//                                                        null,
+//                                                        activityViewModel.timeFirstPart,
+//                                                        activityViewModel.timeSecondPart,
+//                                                        activityViewModel.timeThirdPart,
+//                                                        activityViewModel.timeFourthPart,
+//                                                        null,
+//                                                        null,
+//                                                        activityViewModel.note!!,
+//                                                        EPostStatus.CREATED,
+//                                                        activityViewModel.seat!!,
+//                                                        0,
+//                                                        null,
+//                                                        EPostType.PASSENGER_SM))
+//
         }
 
     }
@@ -156,9 +171,11 @@ class PreviewFragment  : Fragment(R.layout.fragment_preview) {
                 }
                 is ErrorWrapper.SystemError -> {
                     postCreate.revertAnimation()
-                    Snackbar.make(scrollView,
-                                  response.err.localizedMessage!!,
-                                  Snackbar.LENGTH_SHORT)
+                    Snackbar.make(
+                        scrollView,
+                        response.err.localizedMessage!!,
+                        Snackbar.LENGTH_SHORT
+                    )
                         .show()
                 }
                 is ResultWrapper.Success -> {

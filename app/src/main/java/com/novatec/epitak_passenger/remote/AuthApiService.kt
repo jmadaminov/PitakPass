@@ -11,7 +11,7 @@ import splitties.experimental.ExperimentalSplittiesApi
  * Defines the abstract methods used for interacting with the Bufferoo API
  */
 @ExperimentalSplittiesApi
-interface AuthorizedApiService {
+interface AuthApiService {
 
 
     //Passenger POST API
@@ -41,6 +41,11 @@ interface AuthorizedApiService {
     @Headers("Content-Type:application/json", "Accept: application/json")
     @POST("passenger_post/action")
     suspend fun createPost(@Body passengerPostBody: PassengerPost,
+                           @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<PassengerPost>
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
+    @POST("passenger_post/parcel/action")
+    suspend fun createParcelPost(@Body passengerPostBody: PassengerPost,
                            @Header("Accept-Language") lang: String = AppPrefs.language): RespFormatter<PassengerPost>
 
     //DRIVER POST API
