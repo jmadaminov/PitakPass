@@ -19,11 +19,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 
-class ActivePostItem(
-    var post: PassengerPost,
-    var onClick: () -> Unit
-) :
-    Item() {
+class ActivePostItem(var post: PassengerPost, var onClick: () -> Unit) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
             llSeatsContainer.removeAllViews()

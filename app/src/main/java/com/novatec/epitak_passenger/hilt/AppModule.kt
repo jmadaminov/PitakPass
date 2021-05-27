@@ -19,47 +19,47 @@ import javax.inject.Singleton
 object AppModule {
 
 
-    @Provides
-    @Singleton
-    fun provideCarRepository(carDataStoreFactory: CarDataStoreFactory): CarRepository {
-        return CarRepositoryImpl(carDataStoreFactory)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideCarRepository(carDataStoreFactory: CarDataStoreFactory): CarRepository {
+//        return CarRepositoryImpl(carDataStoreFactory)
+//    }
 
-    @Provides
-    @Singleton
-    fun provideCarDataStoreFactory(carRemoteDataStore: CarRemoteDataStore): CarDataStoreFactory {
-        return CarDataStoreFactory(carRemoteDataStore)
-    }
-
-
-    @Provides
-
-    @Singleton
-    fun provideCarRemoteDataStore(carRemote: CarRemote): CarRemoteDataStore {
-        return CarRemoteDataStore(carRemote)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideCarDataStoreFactory(carRemoteDataStore: CarRemoteDataStore): CarDataStoreFactory {
+//        return CarDataStoreFactory(carRemoteDataStore)
+//    }
 
 
-    @Provides
-    @Singleton
-    fun provideCarRemote(
-        apiService: ApiService,
-        authApiService: AuthApiService
-    ): CarRemote {
-        return CarRemoteImpl(apiService, authApiService)
-    }
+//    @Provides
+//
+//    @Singleton
+//    fun provideCarRemoteDataStore(carRemote: CarRemote): CarRemoteDataStore {
+//        return CarRemoteDataStore(carRemote)
+//    }
 
-    @Provides
-    @Singleton
-    fun provideGetCarColorsUseCase(carRepository: CarRepository): GetCarColors {
-        return GetCarColors(carRepository)
-    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideCarRemote(
+//        apiService: ApiService,
+//        authApiService: AuthApiService
+//    ): CarRemote {
+//        return CarRemoteImpl(apiService, authApiService)
+//    }
 
-    @Provides
-    @Singleton
-    fun provideGetCarModelsUseCase(carRepository: CarRepository): GetCarModels {
-        return GetCarModels(carRepository)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideGetCarColorsUseCase(carRepository: CarRepository): GetCarColors {
+//        return GetCarColors(carRepository)
+//    }
+
+//    @Provides
+//    @Singleton
+//    fun provideGetCarModelsUseCase(carRepository: CarRepository): GetCarModels {
+//        return GetCarModels(carRepository)
+//    }
 //
 //    @Provides
 //    @Singleton
@@ -177,7 +177,6 @@ object AppModule {
     }
 
     @Provides
-
     @Singleton
     fun providePlaceDataStoreFactory(placeRemoteDataStore: PlaceRemoteDataStore): PlaceDataStoreFactory {
         return PlaceDataStoreFactory(placeRemoteDataStore)
@@ -219,11 +218,8 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun provideDriverPostRemote(
-        apiService: ApiService,
-        authApiService: AuthApiService
-    ): DriverPostRemote {
-        return DriverPostRemoteImpl(apiService, authApiService)
+    fun provideDriverPostRemote(authApiService: AuthApiService): DriverPostRemote {
+        return DriverPostRemoteImpl(authApiService)
     }
 
 

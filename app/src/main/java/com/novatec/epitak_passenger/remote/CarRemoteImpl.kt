@@ -13,8 +13,10 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                        private val authApiService: AuthApiService) :
+class CarRemoteImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val authApiService: AuthApiService
+) :
     CarRemote {
 
     override suspend fun getCarModels(): ResultWrapper<List<CarModel>> {
@@ -26,7 +28,7 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
                     newCarModels.add(it)
                 }
                 ResultWrapper.Success(newCarModels)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            } else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -41,7 +43,7 @@ class CarRemoteImpl @Inject constructor(private val apiService: ApiService,
                     newCarColors.add(it)
                 }
                 ResultWrapper.Success(newCarColors)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            } else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }

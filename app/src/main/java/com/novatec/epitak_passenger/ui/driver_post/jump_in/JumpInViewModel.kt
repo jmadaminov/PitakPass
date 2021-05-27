@@ -3,7 +3,8 @@ package com.novatec.epitak_passenger.ui.driver_post.jump_in
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.epitak_passenger.core.enums.EPostStatus
-import com.novatec.epitak_passenger.domain.model.PassengerOffer
+import com.novatec.epitak_passenger.core.enums.EPostType
+import com.novatec.epitak_passenger.domain.model.Offer
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.domain.model.Place
 import com.novatec.epitak_passenger.domain.repository.DriverPostRepository
@@ -31,7 +32,7 @@ class JumpInViewModel @Inject constructor(
     val hasFinished = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
 
-    val offeringPostId = MutableLiveData<Long>()
+    val offeringPostId = MutableLiveData<Long?>()
 
     fun joinARide(
         postId: Long,
@@ -49,7 +50,6 @@ class JumpInViewModel @Inject constructor(
         }
 
     }
-
 
 
     private suspend fun createPost(driverPost: DriverPostViewObj) {
@@ -85,7 +85,8 @@ class JumpInViewModel @Inject constructor(
             null,
             EPostStatus.CREATED,
             driverPost.seat,
-            0
+            0,
+            postType = EPostType.PASSENGER_SM
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
             is ErrorWrapper.ResponseError -> {
@@ -118,10 +119,10 @@ class JumpInViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             println("COBUG:  ${Thread.currentThread().name}")
             val responseOfferCreate =
-                repository.joinARide(
-                    PassengerOffer(
+                repository.sendOffer(
+                    Offer(
                         postId, myPrice, message, seats,
-                        offeringPostId.valueNN
+                        offeringPostId.value!!
                     )
                 )
             withContext(Dispatchers.Main) {
@@ -154,8 +155,12 @@ class JumpInViewModel @Inject constructor(
         }
     }
 
-    fun setOfferingPost(id: Long?) {
+    fun setOfferingPost(id: Long) {
         offeringPostId.value = id
+    }
+
+    fun clearOfferingPost() {
+        offeringPostId.value = null
     }
 
 

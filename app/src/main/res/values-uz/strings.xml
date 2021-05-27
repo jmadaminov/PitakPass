@@ -58,7 +58,7 @@
     <string name="dateTime">Sana va vaqt</string>
     <string name="car_and_text">Avtomobil va izoh</string>
     <string name="preview_post">Qayta tekshirish</string>
-    <string name="price_and_seats">Narxlari va o\'rindiqlari</string>
+    <string name="price_and_seats">Narxlar va joylar</string>
     <string name="next">Keyingi</string>
     <string name="back">Orqaga</string>
     <string name="create">Yaratmoq</string>
@@ -74,12 +74,12 @@
     <string name="time">Vaqt</string>
     <string name="day">Kun</string>
     <string name="price_for_one_passenger">Bir yo\'lovchi narxi</string>
-    <string name="number_of_seats">O\'rindiqlar soni</string>
+    <string name="number_of_seats">Joylar soni</string>
     <string name="please_add_notes_if_needed">Izoh qo\'shing (ixtiyoriy)</string>
     <string name="your_car_for_this_ride">Ushbu safar uchun sizning avtomobilingiz</string>
     <string name="asap">Iloji boricha tez</string>
     <string name="departure_date_and_time">Sana: %1$s Vaqt: %2$s</string>
-    <string name="price_and_seats_format">Narx: %1$s * O\'rindiqlar: %2$s</string>
+    <string name="price_and_seats_format">Narx: %1$s * Joylar: %2$s</string>
     <string name="anytime">Har qanday vaqtda</string>
     <string name="active">Faol</string>
     <string name="history">Tarix</string>
@@ -138,7 +138,7 @@
     <string name="close">Yopmoq</string>
     <string name="passengers">Yo\'lovchilar</string>
     <string name="price_for_one">Bir kishiga narx</string>
-    <string name="seats">O\'rindiqlar</string>
+    <string name="seats">Joylar</string>
     <string name="willing_price_for_one">Bir kishi uchun soralgan narx</string>
     <string name="any">∞</string>
     <string name="agreed_price">Kelishilgan Narx: %1$s Sums</string>

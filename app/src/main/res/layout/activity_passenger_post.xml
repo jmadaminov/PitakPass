@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -254,14 +255,56 @@
                     tools:visibility="visible" />
 
 
-                <ImageView
-                    android:id="@+id/parcelImage"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imageContainer"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:layout_margin="12dp"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:clickable="true"
+                    android:foreground="?android:selectableItemBackground"
+                    app:cardBackgroundColor="@color/button_grey"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/icCam"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_camera"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ProgressBar
+                            android:id="@+id/progressImageAdding"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/parcelImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/lblMyDriver"
@@ -335,7 +378,6 @@
                             android:layout_height="40dp"
                             android:background="@drawable/shape_circle_primary"
                             android:clickable="true"
-                            android:focusable="true"
                             android:foreground="?android:selectableItemBackground"
                             android:padding="10dp"
                             android:src="@drawable/ic_baseline_phone_enabled_24"

@@ -37,7 +37,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApiService: Au
         return try {
             val response = authApiService.deletePost(identifier)
             if (response.code == 1) ResultWrapper.Success(Unit)
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -47,7 +47,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApiService: Au
         return try {
             val response = authApiService.finishPost(id)
             if (response.code == 1) ResultWrapper.Success(Unit)
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -57,7 +57,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApiService: Au
         return try {
             val response = authApiService.getActivePosts()
             if (response.code == 1) ResultWrapper.Success(response.data!!)
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -71,7 +71,7 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApiService: Au
                 val posts = arrayListOf<PassengerPost>()
                 response.data?.data?.forEach { posts.add(it) }
                 ResultWrapper.Success(posts)
-            } else ErrorWrapper.ResponseError(response.code, response.message)
+            } else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }

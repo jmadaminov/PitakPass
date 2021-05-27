@@ -29,5 +29,5 @@ data class PassengerPost(
     @SerializedName("offerCount") val offerCount: Int,
     @SerializedName("offer") val offer: OfferDTO? = null,
     @SerializedName("imageList") val imageList: List<PhotoBody>? = null,
-    @SerializedName("postType") val postType: EPostType = EPostType.PASSENGER_SM
+    @SerializedName("postType") val postType: EPostType
 )

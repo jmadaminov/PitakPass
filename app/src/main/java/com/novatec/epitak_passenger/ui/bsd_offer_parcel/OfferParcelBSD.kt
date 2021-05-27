@@ -12,19 +12,16 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import com.asksira.bsimagepicker.BSImagePicker
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.domain.model.PassengerPost
+import com.novatec.epitak_passenger.domain.model.PhotoBody
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.ARG_DRIVER_POST
-import com.novatec.epitak_passenger.ui.driver_post.jump_in.JumpInViewModel
 import com.novatec.epitak_passenger.ui.viewgroups.ActivePostItem
-import com.novatec.epitak_passenger.util.BSDExpanded
-import com.novatec.epitak_passenger.util.ErrorWrapper
-import com.novatec.epitak_passenger.util.ResultWrapper
-import com.novatec.epitak_passenger.util.exhaustive
+import com.novatec.epitak_passenger.util.*
 import com.novatec.epitak_passenger.viewobjects.DriverPostViewObj
 import com.novatec.epitak_passenger.viewobjects.UserOfferViewObj
 import com.xwray.groupie.GroupAdapter
@@ -43,7 +40,7 @@ class OfferParcelBSD : BSDExpanded(),
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
     private lateinit var driverPost: DriverPostViewObj
-    val viewModel: JumpInViewModel by viewModels()
+    val viewModel: OfferParcelViewModel by viewModels()
 
     override fun getTheme() = R.style.Theme_Dialog
 
@@ -90,6 +87,34 @@ class OfferParcelBSD : BSDExpanded(),
 
     private fun subscribeObservers() {
 
+        viewModel.parcelImageResp.observe(viewLifecycleOwner) {
+
+            val resp = it ?: return@observe
+
+            when (resp) {
+                is ErrorWrapper.ResponseError -> {
+                    progressImageAdding.isVisible = false
+                    Snackbar.make(scrollView, resp.message, Snackbar.LENGTH_SHORT).show()
+                }
+                is ErrorWrapper.SystemError -> {
+                    progressImageAdding.isVisible = false
+                    Snackbar.make(
+                        scrollView,
+                        resp.err.localizedMessage ?: getString(R.string.system_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                ResultWrapper.InProgress -> {
+                    progressImageAdding.isVisible = true
+                }
+                is ResultWrapper.Success -> {
+                    progressImageAdding.isVisible = false
+                    parcelImage.loadRounded(resp.value.link!!, 10)
+                    checkValues()
+                }
+            }
+        }
+
         viewModel.isOffering.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) btnSendOffer.startAnimation() else btnSendOffer.revertAnimation()
 
@@ -105,7 +130,7 @@ class OfferParcelBSD : BSDExpanded(),
                 is ErrorWrapper.ResponseError -> {
                     Snackbar.make(
                         scrollView,
-                        response.message ?: getString(R.string.response_error),
+                        response.message,
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
@@ -118,13 +143,19 @@ class OfferParcelBSD : BSDExpanded(),
                 }
                 is ResultWrapper.Success -> {
                     loadData(response.value.filter { myPost ->
-                        myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferable()
+                        myPost.postType == EPostType.PARCEL_SM && myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferableForParcel()
                     })
                 }
                 ResultWrapper.InProgress -> {
                 }
             }.exhaustive
         }
+    }
+
+    private fun checkValues() {
+
+        btnSendOffer.isEnabled =
+            (viewModel.parcelImageResp.value as? ResultWrapper.Success<PhotoBody>)?.value?.id != null && edtPrice.text.isNotBlank()
     }
 
     @ExperimentalSplittiesApi
@@ -144,7 +175,7 @@ class OfferParcelBSD : BSDExpanded(),
                 tvSelectedPost.visibility = View.VISIBLE
                 ivClearSelected.visibility = View.VISIBLE
                 tvSelectedPost.text = getString(R.string.offering_post_id, post.id)
-                viewModel.setOfferingPost(post.id)
+                viewModel.setOfferingPost(post.id!!)
 
             })
         }
@@ -154,11 +185,18 @@ class OfferParcelBSD : BSDExpanded(),
     private fun attachListeners() {
 
         imageContainer.setOnClickListener {
+            val singleSelectionPicker: BSImagePicker =
+                BSImagePicker.Builder("com.novatec.epitak_passenger.fileprovider")
+                    .setSpanCount(3) //Default: 3. This is the number of columns
+                    .setTag("")
+                    .build()
 
+            singleSelectionPicker.show(childFragmentManager, "picker")
         }
 
 
         edtPrice.doOnTextChanged { text, start, before, count ->
+            checkValues()
         }
 
         btnSendOffer.setOnClickListener {
@@ -172,7 +210,7 @@ class OfferParcelBSD : BSDExpanded(),
         }
 
         ivClearSelected.setOnClickListener {
-            viewModel.setOfferingPost(null)
+            viewModel.clearOfferingPost()
             lblSelectPost.visibility = View.VISIBLE
             tvSelectedPost.visibility = View.GONE
             ivClearSelected.visibility = View.GONE

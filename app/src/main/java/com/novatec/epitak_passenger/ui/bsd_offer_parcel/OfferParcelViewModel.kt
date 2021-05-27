@@ -3,10 +3,13 @@ package com.novatec.epitak_passenger.ui.bsd_offer_parcel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.novatec.epitak_passenger.core.enums.EPostStatus
-import com.novatec.epitak_passenger.domain.model.PassengerOffer
+import com.novatec.epitak_passenger.core.enums.EPostType
+import com.novatec.epitak_passenger.domain.model.Offer
 import com.novatec.epitak_passenger.domain.model.PassengerPost
+import com.novatec.epitak_passenger.domain.model.PhotoBody
 import com.novatec.epitak_passenger.domain.model.Place
 import com.novatec.epitak_passenger.domain.repository.DriverPostRepository
+import com.novatec.epitak_passenger.domain.repository.FileUploadRepository
 import com.novatec.epitak_passenger.domain.usecases.CreatePassengerPost
 import com.novatec.epitak_passenger.domain.usecases.GetActivePassengerPost
 import com.novatec.epitak_passenger.ui.BaseViewModel
@@ -22,6 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OfferParcelViewModel @Inject constructor(
     private val repository: DriverPostRepository,
+    private val fileUploadRepository: FileUploadRepository,
     private val createPassengerPost: CreatePassengerPost,
     private val getActivePassengerPost: GetActivePassengerPost
 ) :
@@ -31,17 +35,18 @@ class OfferParcelViewModel @Inject constructor(
     val hasFinished = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
 
-    val offeringPostId = MutableLiveData<Long>()
+    val offeringPostId = MutableLiveData<Long?>()
 
     fun offerParcel(
         postId: Long,
-        myPrice: Int?,
+        myPrice: Int,
         message: String,
         driverPost: DriverPostViewObj
     ) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            myPrice?.let { driverPost.price = myPrice }
+            myPrice.let { driverPost.price = myPrice }
+            driverPost.postType = EPostType.PARCEL_SM
             driverPost.seat = 0
             if (offeringPostId.value == null) createPost(driverPost)
             sendParcelOffer(postId, myPrice, message)
@@ -83,7 +88,8 @@ class OfferParcelViewModel @Inject constructor(
             null,
             EPostStatus.CREATED,
             driverPost.seat,
-            0
+            0,
+            postType = EPostType.PARCEL_SM
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
             is ErrorWrapper.ResponseError -> {
@@ -112,14 +118,14 @@ class OfferParcelViewModel @Inject constructor(
     }
 
 
-    private suspend fun sendParcelOffer(postId: Long, myPrice: Int?, message: String) {
+    private suspend fun sendParcelOffer(postId: Long, myPrice: Int, message: String) {
         viewModelScope.launch(Dispatchers.IO) {
             println("COBUG:  ${Thread.currentThread().name}")
             val responseOfferCreate =
-                repository.offerParcel(
-                    PassengerOffer(
+                repository.sendOffer(
+                    Offer(
                         postId, myPrice, message, 0,
-                        offeringPostId.valueNN
+                        offeringPostId.value!!
                     )
                 )
             withContext(Dispatchers.Main) {
@@ -152,9 +158,24 @@ class OfferParcelViewModel @Inject constructor(
         }
     }
 
-    fun setOfferingPost(id: Long?) {
+    fun setOfferingPost(id: Long) {
         offeringPostId.value = id
     }
 
+    fun clearOfferingPost() {
+        offeringPostId.value = null
+    }
+
+    var parcelImageResp = MutableLiveData<ResultWrapper<PhotoBody>>()
+
+    fun uploadParcelImage(byteArray: ByteArray) {
+        parcelImageResp.value = ResultWrapper.InProgress
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = fileUploadRepository.uploadPhoto(byteArray)
+            withContext(Dispatchers.Main) {
+                parcelImageResp.value = response
+            }
+        }
+    }
 
 }

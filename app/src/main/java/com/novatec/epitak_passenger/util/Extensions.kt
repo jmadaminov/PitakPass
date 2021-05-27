@@ -26,8 +26,7 @@ import kotlinx.coroutines.delay
 /**
  * Created by jahon on 22-May-20
  */
-val <T> LiveData<T>.valueNN
-    get() = this.value!!
+
 
 
 //**

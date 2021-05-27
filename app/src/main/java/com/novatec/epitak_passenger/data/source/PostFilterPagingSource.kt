@@ -6,7 +6,6 @@ import androidx.paging.PagingState
 import com.novatec.epitak_passenger.domain.model.DriverPost
 import com.novatec.epitak_passenger.domain.model.Filter
 import com.novatec.epitak_passenger.remote.AuthApiService
-import com.novatec.epitak_passenger.util.valueNN
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -21,7 +20,7 @@ class PostFilterPagingSource(
 
         return try {
             val response =
-                authApiService.filterDriverPost(filter.valueNN, position, params.loadSize)
+                authApiService.filterDriverPost(filter.value!!, position, params.loadSize)
             val posts = response.data?.data
             LoadResult.Page(
                 data = posts!!,

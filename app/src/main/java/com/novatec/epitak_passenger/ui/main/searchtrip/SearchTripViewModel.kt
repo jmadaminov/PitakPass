@@ -16,7 +16,6 @@ import com.novatec.epitak_passenger.domain.usecases.GetPlacesFeed
 import com.novatec.epitak_passenger.ui.BaseViewModel
 import com.novatec.epitak_passenger.util.ResultWrapper
 import com.novatec.epitak_passenger.util.SingleLiveEvent
-import com.novatec.epitak_passenger.util.valueNN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -88,29 +87,29 @@ class SearchTripViewModel @Inject constructor(
     }
 
     fun filterAC(isACChecked: Boolean) {
-        if (isACChecked) _filter.valueNN.airConditioner = true
-        else _filter.valueNN.airConditioner = null
+        if (isACChecked) _filter.value!!.airConditioner = true
+        else _filter.value!!.airConditioner = null
     }
 
     fun filterParcel(parcel: Boolean) {
-        if (parcel) _filter.valueNN.pkg = true
-        else _filter.valueNN.pkg = null
+        if (parcel) _filter.value!!.pkg = true
+        else _filter.value!!.pkg = null
     }
 
     fun setFilterPrices(minPrice: Int?, maxPrice: Int?) {
-        _filter.valueNN.minPrice = minPrice
-        _filter.valueNN.maxPrice = maxPrice
+        _filter.value!!.minPrice = minPrice
+        _filter.value!!.maxPrice = maxPrice
     }
 
     fun placeFromSelected(place: Place) {
-        _filter.valueNN.fromRegionId = place.regionId
-        _filter.valueNN.fromDistrictId = place.districtId
+        _filter.value!!.fromRegionId = place.regionId
+        _filter.value!!.fromDistrictId = place.districtId
         applyFilter()
     }
 
     fun placeToSelected(place: Place) {
-        _filter.valueNN.toRegionId = place.regionId
-        _filter.valueNN.toDistrictId = place.districtId
+        _filter.value!!.toRegionId = place.regionId
+        _filter.value!!.toDistrictId = place.districtId
         applyFilter()
     }
 
@@ -118,7 +117,7 @@ class SearchTripViewModel @Inject constructor(
         val properMonthIndex = month + 1
         val monthString =
             if (properMonthIndex.toString().length == 1) "0$properMonthIndex" else properMonthIndex.toString()
-        _filter.valueNN.departureDate = "$dayOfMonth.$monthString.$year"
+        _filter.value!!.departureDate = "$dayOfMonth.$monthString.$year"
         applyFilter()
     }
 
@@ -129,37 +128,37 @@ class SearchTripViewModel @Inject constructor(
         timeFourthPart: Boolean
     ) {
 
-        _filter.valueNN.timeFirstPart = timeFirstPart
-        _filter.valueNN.timeSecondPart = timeSecondPart
-        _filter.valueNN.timeThirdPart = timeThirdPart
-        _filter.valueNN.timeFourthPart = timeFourthPart
+        _filter.value!!.timeFirstPart = timeFirstPart
+        _filter.value!!.timeSecondPart = timeSecondPart
+        _filter.value!!.timeThirdPart = timeThirdPart
+        _filter.value!!.timeFourthPart = timeFourthPart
     }
 
     fun seatCountChanged(count: Int?) {
-        _filter.valueNN.seat = count
+        _filter.value!!.seat = count
     }
 
 
     private fun checkAppliedFiltersCount() {
         var appliedFilterCount = 0
-        if (_filter.valueNN.minPrice != null && _filter.valueNN.maxPrice != null && (_filter.valueNN.minPrice != MIN_PRICE || _filter.valueNN.maxPrice != MAX_PRICE)) {
+        if (_filter.value!!.minPrice != null && _filter.value!!.maxPrice != null && (_filter.value!!.minPrice != MIN_PRICE || _filter.value!!.maxPrice != MAX_PRICE)) {
             appliedFilterCount++
         }
-        if (_filter.valueNN.airConditioner == true) appliedFilterCount++
-        if (_filter.valueNN.seat != null) appliedFilterCount++
-        if (!_filter.valueNN.timeFirstPart || !_filter.valueNN.timeSecondPart || !_filter.valueNN.timeThirdPart || !_filter.valueNN.timeFourthPart) appliedFilterCount++
+        if (_filter.value!!.airConditioner == true) appliedFilterCount++
+        if (_filter.value!!.seat != null) appliedFilterCount++
+        if (!_filter.value!!.timeFirstPart || !_filter.value!!.timeSecondPart || !_filter.value!!.timeThirdPart || !_filter.value!!.timeFourthPart) appliedFilterCount++
         _count.value = appliedFilterCount
     }
 
     fun clearPlaceFromSelection() {
-        _filter.valueNN.fromRegionId = null
-        _filter.valueNN.fromDistrictId = null
+        _filter.value!!.fromRegionId = null
+        _filter.value!!.fromDistrictId = null
         applyFilter()
     }
 
     fun clearPlaceToSelection() {
-        _filter.valueNN.toRegionId = null
-        _filter.valueNN.toDistrictId = null
+        _filter.value!!.toRegionId = null
+        _filter.value!!.toDistrictId = null
         applyFilter()
     }
 

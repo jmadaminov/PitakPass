@@ -28,7 +28,7 @@ class PassengerPostViewModel @Inject constructor(val postRepository: PassengerPo
     BaseViewModel() {
 
     val postData = MutableLiveData<PassengerPost>()
-    val errorMessage = SingleLiveEvent<String>()
+    val errorMessage = SingleLiveEvent<String?>()
     val isLoading = SingleLiveEvent<Boolean>()
     val offerActionLoading = SingleLiveEvent<Boolean>()
 

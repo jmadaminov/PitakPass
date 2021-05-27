@@ -12,8 +12,10 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
-                                         private val authApiService: AuthApiService) :
+class UserRemoteImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val authApiService: AuthApiService
+) :
     UserRemote {
 
 
@@ -25,7 +27,7 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
         return try {
             val response = apiService.userRegister(user)
             if (response.code == 1) ResultWrapper.Success("")
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -35,7 +37,7 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
         return try {
             val response = apiService.smsConfirm(user)
             if (response.code == 1) ResultWrapper.Success(response.data!!)
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
@@ -44,15 +46,19 @@ class UserRemoteImpl @Inject constructor(private val apiService: ApiService,
     override suspend fun sendFeedback(feedback: String) =
         getFormattedResponseNullable { authApiService.sendFeedback(FeedbackBody(feedback)) }
 
-    override suspend fun updateUserInfo(name: String,
-                                        surName: String,
-                                        uploadedAvatarId: Long?) =
+    override suspend fun updateUserInfo(
+        name: String,
+        surName: String,
+        uploadedAvatarId: Long?
+    ) =
         getFormattedResponseNullable {
-            authApiService.updateUserInfo(ReqUpdateProfileInfo(name,
-                                                                     surName,
-                                                                     uploadedAvatarId?.let {
-                                                                         IdName(uploadedAvatarId)
-                                                                     }))
+            authApiService.updateUserInfo(
+                ReqUpdateProfileInfo(name,
+                    surName,
+                    uploadedAvatarId?.let {
+                        IdName(uploadedAvatarId)
+                    })
+            )
         }
 
     override suspend fun getActiveAppVersions(): ResponseWrapper<List<String>> {

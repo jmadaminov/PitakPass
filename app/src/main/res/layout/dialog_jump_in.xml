@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/rl_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -39,7 +39,7 @@
                     android:paddingEnd="12dp"
                     android:paddingBottom="5dp"
                     android:text="-"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp" />
 
 
                 <TextView
@@ -150,7 +150,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    app:drawableTopCompat="@drawable/ic_round_warning_24"
                     android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/select_your_trip_if_you_have_one" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -172,13 +174,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/my_last_offer"/>
+                    android:text="@string/my_last_offer" />
 
                 <TextView
                     android:id="@+id/tvLastOfferRepliedPostId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"/>
+                    android:gravity="center" />
 
 
                 <TextView
@@ -214,8 +216,8 @@
                 android:id="@+id/btnSendOffer"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/button_shape_orange_gradient_rounded"
                 android:elevation="3dp"
                 android:text="@string/send"

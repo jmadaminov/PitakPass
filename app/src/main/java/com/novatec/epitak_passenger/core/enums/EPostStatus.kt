@@ -9,8 +9,12 @@ enum class EPostStatus {
     CREATED,
     SYSTEM_REJECTED;
 
-    fun isOfferable(): Boolean {
+    fun isOfferableForPassenger(): Boolean {
         return this == CREATED
+    }
+
+    fun isOfferableForParcel(): Boolean {
+        return this == CREATED || this == WAITING_FOR_START
     }
 
 }

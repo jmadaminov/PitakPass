@@ -23,7 +23,7 @@ data class DriverPost(
     @SerializedName("myOffer") val myLastOffer: UserOffer? = null,
     @SerializedName("pkg") val pkg: Boolean = false,
     @SerializedName("passengerList") val passengerList: List<Passenger>? = null,
-    @SerializedName("postType") val postType: EPostType = EPostType.DRIVER_SM
+    @SerializedName("postType") val postType: EPostType
 )
 
 

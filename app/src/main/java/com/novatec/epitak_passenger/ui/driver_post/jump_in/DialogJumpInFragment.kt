@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
+
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.domain.model.PassengerPost
@@ -41,9 +41,11 @@ class DialogJoinARideFragment : DialogFragment() {
         driverPost = requireArguments().getParcelable(ARG_DRIVER_POST)!!
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.dialog_jump_in, container)
     }
 
@@ -90,18 +92,22 @@ class DialogJoinARideFragment : DialogFragment() {
             val response = it ?: return@observe
             when (response) {
                 is ErrorWrapper.ResponseError -> {
-                    Snackbar.make(rl_parent,
-                                  response.message ?: getString(R.string.response_error),
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        rl_parent,
+                        response.message ?: getString(R.string.response_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 is ErrorWrapper.SystemError -> {
-                    Snackbar.make(rl_parent,
-                                  response.err.localizedMessage ?: getString(R.string.system_error),
-                                  Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        rl_parent,
+                        response.err.localizedMessage ?: getString(R.string.system_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
                 is ResultWrapper.Success -> {
                     loadData(response.value.filter { myPost ->
-                        myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferable()
+                        myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferableForPassenger()
                     })
                 }
                 ResultWrapper.InProgress -> {
@@ -127,7 +133,11 @@ class DialogJoinARideFragment : DialogFragment() {
                 tvSelectedPost.visibility = View.VISIBLE
                 ivClearSelected.visibility = View.VISIBLE
                 tvSelectedPost.text = getString(R.string.offering_post_id, post.id)
-                viewModel.setOfferingPost(post.id)
+                post.id?.let {
+                    viewModel.setOfferingPost(it)
+                } ?: run {
+                    viewModel.clearOfferingPost()
+                }
 
             })
         }
@@ -140,12 +150,14 @@ class DialogJoinARideFragment : DialogFragment() {
         }
 
         btnSendOffer.setOnClickListener {
-            viewModel.joinARide( driverPost.id,
-                                if (edtPrice.text.isNullOrBlank()) driverPost.price else edtPrice.text.toString()
-                                    .toInt(),
-                                messageInput.text.toString(),
-                                tvSeats.text.toString().toInt(),
-                                driverPost)
+            viewModel.joinARide(
+                driverPost.id,
+                if (edtPrice.text.isNullOrBlank()) driverPost.price else edtPrice.text.toString()
+                    .toInt(),
+                messageInput.text.toString(),
+                tvSeats.text.toString().toInt(),
+                driverPost
+            )
         }
 
         tvSubtractSeat.setOnClickListener {
@@ -159,7 +171,7 @@ class DialogJoinARideFragment : DialogFragment() {
         }
 
         ivClearSelected.setOnClickListener {
-            viewModel.setOfferingPost(null)
+            viewModel.clearOfferingPost()
             lblSelectPost.visibility = View.VISIBLE
             tvSelectedPost.visibility = View.GONE
             ivClearSelected.visibility = View.GONE

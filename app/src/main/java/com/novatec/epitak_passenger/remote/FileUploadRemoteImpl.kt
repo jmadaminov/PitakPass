@@ -6,10 +6,7 @@ import com.novatec.epitak_passenger.util.ErrorWrapper
 import com.novatec.epitak_passenger.util.ResultWrapper
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 import javax.inject.Inject
 
 
@@ -37,12 +34,12 @@ class FileUploadRemoteImpl @Inject constructor(private val apiService: ApiServic
 //                val fileBody: RequestBody = bos.toByteArray().toRequestBody()
 //                map["file\"; filename=\"pp.JPG\""] = fileBody
 //            }
-            val requestFile =bytes.toRequestBody("image/jpg".toMediaType())
+            val requestFile = bytes.toRequestBody("image/jpg".toMediaType())
             val body = MultipartBody.Part.createFormData("file", "", requestFile)
             val response = apiService.uploadPhoto(body)
 //            val response = apiService.uploadPhoto(body)
             if (response.code == 1) ResultWrapper.Success(response.data!!)
-            else ErrorWrapper.ResponseError(response.code, response.message)
+            else ErrorWrapper.ResponseError(response.code, response.message ?: "")
         } catch (e: Exception) {
             ErrorWrapper.SystemError(e)
         }
