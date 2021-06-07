@@ -137,8 +137,8 @@ object AppModule {
     @Provides
 
     @Singleton
-    fun providePassengerPostRemote(authApiService: AuthApiService): PassengerPostRemote {
-        return PassengerPostRemoteImpl(authApiService)
+    fun providePassengerPostRemote(authApi: AuthApi): PassengerPostRemote {
+        return PassengerPostRemoteImpl(authApi)
     }
 
 
@@ -209,17 +209,17 @@ object AppModule {
     @Singleton
     fun providePlaceRemote(
         apiService: ApiService,
-        authApiService: AuthApiService
+        authApi: AuthApi
     ): PlaceRemote {
-        return PlaceRemoteImpl(apiService, authApiService)
+        return PlaceRemoteImpl(apiService, authApi)
     }
 
 
     @Provides
 
     @Singleton
-    fun provideDriverPostRemote(authApiService: AuthApiService): DriverPostRemote {
-        return DriverPostRemoteImpl(authApiService)
+    fun provideDriverPostRemote(authApi: AuthApi): DriverPostRemote {
+        return DriverPostRemoteImpl(authApi)
     }
 
 
@@ -269,9 +269,9 @@ object AppModule {
     @Singleton
     fun provideUserRemote(
         apiService: ApiService,
-        authApiService: AuthApiService
+        authApi: AuthApi
     ): UserRemote {
-        return UserRemoteImpl(apiService, authApiService)
+        return UserRemoteImpl(apiService, authApi)
     }
 
 

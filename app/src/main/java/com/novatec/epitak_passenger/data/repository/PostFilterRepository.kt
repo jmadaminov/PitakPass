@@ -6,12 +6,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.novatec.epitak_passenger.data.source.PostFilterPagingSource
 import com.novatec.epitak_passenger.domain.model.Filter
-import com.novatec.epitak_passenger.remote.AuthApiService
+import com.novatec.epitak_passenger.remote.AuthApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PostFilterRepository @Inject constructor(private val authApiService: AuthApiService) {
+class PostFilterRepository @Inject constructor(private val authApi: AuthApi) {
 
     fun getFilteredPosts(filter: LiveData<Filter>) =
         Pager(config = PagingConfig(
@@ -19,5 +19,5 @@ class PostFilterRepository @Inject constructor(private val authApiService: AuthA
             maxSize = 100,
             enablePlaceholders = false
         ),
-              pagingSourceFactory = { PostFilterPagingSource(authApiService, filter) }).liveData
+              pagingSourceFactory = { PostFilterPagingSource(authApi, filter) }).liveData
 }

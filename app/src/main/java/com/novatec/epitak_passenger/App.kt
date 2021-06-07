@@ -4,7 +4,6 @@ package com.novatec.epitak_passenger
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.util.Log
 import com.novatec.epitak_passenger.core.enums.ENotificationType
@@ -48,17 +47,17 @@ class App : Application() {
         // OneSignal Initialization
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
-        OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
+//        OneSignal.unsubscribeWhenNotificationsAreDisabled(true)
         OneSignal.setNotificationOpenedHandler { result ->
             val actionType = result.action.type
             val data = result.notification.additionalData
 
-            val notificationType =data["notificationType"]
+            val notificationType = data["notificationType"]
             val postId: Long? = data?.optLong("postId")
 
 
             if (postId != null && notificationType == ENotificationType.OFFER_CREATE.name) {
-                App.getInstance()
+                getInstance()
                     ?.startActivity(Intent(getInstance(), MainActivity::class.java).apply {
                         putExtra(PassengerPostActivity.EXTRA_POST_ID, postId)
                         addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
@@ -69,8 +68,8 @@ class App : Application() {
                 addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-        } */else {
-                App.getInstance()?.start<MainActivity> {
+        } */ else {
+                getInstance()?.start<MainActivity> {
                     addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
@@ -97,7 +96,7 @@ class App : Application() {
             Log.i("USERRR IDD ONE SIGNAL", "            ${it.userId}")
             uuid = it.userId ?: ""
         }
-        
+
         val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
         versionName = info.versionName
     }

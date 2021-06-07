@@ -3,7 +3,7 @@ package com.novatec.epitak_passenger.hilt
 import com.novatec.epitak_passenger.BuildConfig
 import com.novatec.epitak_passenger.remote.ApiService
 import com.novatec.epitak_passenger.remote.ApiServiceFactory
-import com.novatec.epitak_passenger.remote.AuthApiService
+import com.novatec.epitak_passenger.remote.AuthApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideAuthorizedApiService(): AuthApiService {
+    fun provideAuthorizedApiService(): AuthApi {
         return ApiServiceFactory.makeAuthorizedApiService(BuildConfig.DEBUG)
     }
 

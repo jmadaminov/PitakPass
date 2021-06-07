@@ -8,9 +8,9 @@ import com.novatec.epitak_passenger.domain.model.Place
 import com.novatec.epitak_passenger.domain.repository.FileUploadRepository
 import com.novatec.epitak_passenger.domain.usecases.CreatePassengerPost
 import com.novatec.epitak_passenger.ui.BaseViewModel
-import com.novatec.epitak_passenger.util.ResponseSuccess
 import com.novatec.epitak_passenger.util.ResultWrapper
 import com.novatec.epitak_passenger.util.SingleLiveEvent
+import com.novatec.epitak_passenger.viewobjects.ImageViewObj
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +30,7 @@ class AddPostViewModel @Inject constructor(
     BaseViewModel() {
 
 
+//    var parcelImage: ImageViewObj? = null
     val dateFormat = SimpleDateFormat("dd.MM.yyyy")
     val calendar = Calendar.getInstance()
 
@@ -38,12 +39,12 @@ class AddPostViewModel @Inject constructor(
     var placeFrom: Place? = null
     var placeTo: Place? = null
     var departureDate: String = dateFormat.format(calendar.time)
-    var timeFirstPart = false
-    var timeSecondPart = false
-    var timeThirdPart = false
-    var timeFourthPart = false
+    var timeFirstPart = true
+    var timeSecondPart = true
+    var timeThirdPart = true
+    var timeFourthPart = true
     var price: Int? = null
-    var seat: Int? = null
+    var seat: Int = 1
 //    var note: String? = null
 
     var pkgPhotoBody: PhotoBody? = null

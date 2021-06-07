@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
-import com.novatec.epitak_passenger.remote.AuthApiService
+import com.novatec.epitak_passenger.remote.AuthApi
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HistoryPostRepository @Inject constructor(private val authApiService: AuthApiService) {
+class HistoryPostRepository @Inject constructor(private val authApi: AuthApi) {
 
     fun getHistoryPosts() =
         Pager(config = PagingConfig(
@@ -19,6 +19,6 @@ class HistoryPostRepository @Inject constructor(private val authApiService: Auth
         ),
               pagingSourceFactory = {
                   Log.d("", "")
-                  HistoryPostPagingSource(authApiService)
+                  HistoryPostPagingSource(authApi)
               }).liveData
 }

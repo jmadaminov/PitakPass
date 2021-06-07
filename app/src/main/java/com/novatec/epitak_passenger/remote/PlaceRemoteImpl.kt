@@ -13,7 +13,7 @@ import javax.inject.Inject
  */
 class PlaceRemoteImpl @Inject constructor(
     private val apiService: ApiService,
-    private val authApiService: AuthApiService
+    private val authApi: AuthApi
 ) :
     PlaceRemote {
 
@@ -22,7 +22,7 @@ class PlaceRemoteImpl @Inject constructor(
         queryString: String
     ): ResultWrapper<List<Place>> {
         return try {
-            val response = authApiService.getPlacesFeed(queryString)
+            val response = authApi.getPlacesFeed(queryString)
             if (response.code == 1) {
                 val places = arrayListOf<Place>()
                 response.data!!.forEach {

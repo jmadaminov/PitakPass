@@ -32,7 +32,7 @@ object ApiServiceFactory {
     }
 
 
-    fun makeAuthorizedApiService(isDebug: Boolean): AuthApiService {
+    fun makeAuthorizedApiService(isDebug: Boolean): AuthApi {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(makeLoggingInterceptor(isDebug))
             .addInterceptor(AuthInterceptor())
@@ -46,7 +46,7 @@ object ApiServiceFactory {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(makeGson()))
             .build()
-        return retrofit.create(AuthApiService::class.java)
+        return retrofit.create(AuthApi::class.java)
     }
 
 

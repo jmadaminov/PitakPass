@@ -15,13 +15,13 @@ import javax.inject.Inject
  */
 class CarRemoteImpl @Inject constructor(
     private val apiService: ApiService,
-    private val authApiService: AuthApiService
+    private val authApi: AuthApi
 ) :
     CarRemote {
 
     override suspend fun getCarModels(): ResultWrapper<List<CarModel>> {
         return try {
-            val response = authApiService.getCarModels()
+            val response = authApi.getCarModels()
             if (response.code == 1) {
                 val newCarModels = ArrayList<CarModel>()
                 response.data!!.forEach {
@@ -36,7 +36,7 @@ class CarRemoteImpl @Inject constructor(
 
     override suspend fun getCarColors(): ResultWrapper<List<CarColor>> {
         return try {
-            val response = authApiService.getCarColors()
+            val response = authApi.getCarColors()
             if (response.code == 1) {
                 val newCarColors = ArrayList<CarColor>()
                 response.data!!.forEach {

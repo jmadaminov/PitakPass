@@ -1,7 +1,6 @@
 package com.novatec.epitak_passenger.ui.addpost.parcel
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,7 +18,6 @@ import com.novatec.epitak_passenger.util.ErrorWrapper
 import com.novatec.epitak_passenger.util.ResultWrapper
 import com.novatec.epitak_passenger.util.load
 import kotlinx.android.synthetic.main.fragment_parcel.*
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 
 class ParcelFragment : Fragment(R.layout.fragment_parcel),
@@ -32,8 +30,16 @@ class ParcelFragment : Fragment(R.layout.fragment_parcel),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews()
         attachListeners()
         subscribeObservers()
+    }
+
+    private fun setupViews() {
+
+        viewModel.pkgPhotoBody?.link?.let {
+            parcelImage.load(it)
+        }
     }
 
     private fun attachListeners() {

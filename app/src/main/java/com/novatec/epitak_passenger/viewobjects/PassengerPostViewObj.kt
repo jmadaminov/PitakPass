@@ -21,12 +21,14 @@ data class PassengerPostViewObj(
     val remark: String? = null,
     val seat: Int,
     val postStatus: EPostStatus,
+    val imageList: List<ImageViewObj> = listOf(),
     val postType: EPostType = EPostType.PASSENGER_SM
 ) : Parcelable {
 
     companion object {
 
         fun fromPassengerPost(post: PassengerPost): PassengerPostViewObj {
+            val imageList = post.imageList.map { ImageViewObj(it.id, it.link) }
             return PassengerPostViewObj(
                 post.id,
                 PlaceViewObj.fromPlace(post.from),
@@ -40,6 +42,7 @@ data class PassengerPostViewObj(
                 post.remark,
                 post.seat,
                 post.postStatus,
+                imageList,
                 post.postType
             )
         }

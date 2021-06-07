@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.CalendarView
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
@@ -60,44 +61,64 @@ class AddPostActivity : BaseActivity() {
 
     }
 
-    private fun checkIfEditing(passengerPostViewObj: PassengerPostViewObj?) {
-        if (passengerPostViewObj != null) {
-            viewModel.id = passengerPostViewObj.id
+    private fun checkIfEditing(editingPost: PassengerPostViewObj?) {
+        if (editingPost != null) {
+            postCreate.text = getString(R.string.update)
+            supportActionBar?.title = getString(R.string.edit)
+            viewModel.id = editingPost.id
 
             viewModel.isEditing = true
-            viewModel.price = passengerPostViewObj.price
-            viewModel.seat = passengerPostViewObj.seat
+            viewModel.price = editingPost.price
+            viewModel.seat = editingPost.seat
+            if (editingPost.imageList.isNotEmpty()) {
+                viewModel.pkgPhotoBody = editingPost.imageList[0].toImageBody()
+            }
             viewModel.placeFrom = Place(
-                passengerPostViewObj.from.districtId,
-                passengerPostViewObj.from.regionId,
-                passengerPostViewObj.from.lat,
-                passengerPostViewObj.from.lon,
-                passengerPostViewObj.from.regionName,
-                passengerPostViewObj.from.name
+                editingPost.from.districtId,
+                editingPost.from.regionId,
+                editingPost.from.lat,
+                editingPost.from.lon,
+                editingPost.from.regionName,
+                editingPost.from.name
             )
 
             viewModel.placeTo = Place(
-                passengerPostViewObj.to.districtId,
-                passengerPostViewObj.to.regionId,
-                passengerPostViewObj.to.lat,
-                passengerPostViewObj.to.lon,
-                passengerPostViewObj.to.regionName,
-                passengerPostViewObj.to.name
+                editingPost.to.districtId,
+                editingPost.to.regionId,
+                editingPost.to.lat,
+                editingPost.to.lon,
+                editingPost.to.regionName,
+                editingPost.to.name
             )
 
-            viewModel.timeFirstPart = passengerPostViewObj.timeFirstPart
-            viewModel.timeSecondPart = passengerPostViewObj.timeSecondPart
-            viewModel.timeThirdPart = passengerPostViewObj.timeThirdPart
-            viewModel.timeFourthPart = passengerPostViewObj.timeFourthPart
-            viewModel.departureDate = passengerPostViewObj.departureDate
+            viewModel.timeFirstPart = editingPost.timeFirstPart
+            viewModel.timeSecondPart = editingPost.timeSecondPart
+            viewModel.timeThirdPart = editingPost.timeThirdPart
+            viewModel.timeFourthPart = editingPost.timeFourthPart
+            viewModel.departureDate = editingPost.departureDate
 //            viewModel.note = passengerPostViewObj.remark
 
+            viewPager.isUserInputEnabled = false
+            if (editingPost.postType == EPostType.PASSENGER_PARCEL) {
+                viewPager.currentItem = 1
+            } else {
+                viewPager.currentItem = 0
+            }
 
-            noteInput.setText(passengerPostViewObj.remark)
-            priceInput.setText(passengerPostViewObj.price)
-            tvFrom.text = passengerPostViewObj.from.name
-            tvTo.text = passengerPostViewObj.to.name
-            tvDate.text = passengerPostViewObj.departureDate
+            tabLayout.isVisible = false
+
+            noteInput.setText(editingPost.remark)
+            priceInput.setText(editingPost.price.toString())
+            tvFrom.text = editingPost.from.name ?: editingPost.from.districtName
+                    ?: editingPost.from.regionName
+            tvTo.text = editingPost.to.name ?: editingPost.to.districtName
+                    ?: editingPost.to.regionName
+            tvDate.text = DateUtils.getFormattedDate(editingPost.departureDate, this)
+
+            checkFirstPartDay.isChecked = editingPost.timeFirstPart
+            checkSecondPartDay.isChecked = editingPost.timeSecondPart
+            checkThirdPartDay.isChecked = editingPost.timeThirdPart
+            checkFourthPartDay.isChecked = editingPost.timeFourthPart
 
 //            add_post_fragments_container.findNavController()
 //                .navigate(DestinationsFragmentDirections.actionDestinationsFragmentToPreviewFragmentClearBackstack())
@@ -203,11 +224,11 @@ class AddPostActivity : BaseActivity() {
                     null,
                     if (noteInput.text.isNullOrBlank()) null else noteInput.text.toString(),
                     EPostStatus.CREATED,
-                    if (viewPager.currentItem == 0) viewModel.seat ?: 0 else 0,
+                    if (viewPager.currentItem == 0) viewModel.seat else 0,
                     0,
                     null,
-                    if (viewPager.currentItem == 1) listOf(viewModel.pkgPhotoBody!!) else null,
-                    if (viewPager.currentItem == 0) EPostType.PASSENGER_SM else EPostType.PARCEL_SM
+                    if (viewPager.currentItem == 1) listOf(viewModel.pkgPhotoBody!!) else listOf(),
+                    if (viewPager.currentItem == 0) EPostType.PASSENGER_SM else EPostType.PASSENGER_PARCEL
                 )
             )
 
@@ -222,7 +243,7 @@ class AddPostActivity : BaseActivity() {
             when (response) {
                 is ErrorWrapper.ResponseError -> {
                     postCreate.revertAnimation()
-                    Snackbar.make(scrollView, response.message.toString(), Snackbar.LENGTH_SHORT)
+                    Snackbar.make(scrollView, response.message, Snackbar.LENGTH_SHORT)
                         .show()
                 }
                 is ErrorWrapper.SystemError -> {

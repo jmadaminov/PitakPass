@@ -116,7 +116,7 @@ class ActivePostItem(var post: PassengerPost, var onClick: () -> Unit) : Item() 
                 onClick()
             }
 
-            ivPkg.isVisible = post.postType == EPostType.PARCEL_SM
+            ivPkg.isVisible = post.postType == EPostType.PASSENGER_PARCEL
         }
     }
 

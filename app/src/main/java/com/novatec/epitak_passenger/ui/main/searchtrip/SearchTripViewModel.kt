@@ -92,8 +92,7 @@ class SearchTripViewModel @Inject constructor(
     }
 
     fun filterParcel(parcel: Boolean) {
-        if (parcel) _filter.value!!.pkg = true
-        else _filter.value!!.pkg = null
+        _filter.value!!.pkg = parcel
     }
 
     fun setFilterPrices(minPrice: Int?, maxPrice: Int?) {

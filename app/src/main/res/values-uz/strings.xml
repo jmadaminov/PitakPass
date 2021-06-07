@@ -95,8 +95,8 @@
     <string name="feedback">Fikr-mulohaza</string>
     <string name="send">Yuborish</string>
     <string name="do_you_want_to_accept_this_offer">Taklifni qabul qilasizmi?</string>
-    <string name="no">Ha</string>
-    <string name="yes">Yoq</string>
+    <string name="no">Yo\'q</string>
+    <string name="yes">Ha</string>
     <string name="sure_to_delete_post">Shu Sayohatni ochirmoqchimisiz?</string>
     <string name="have_you_completed_the_ride">Sayohatingiz tugadimi?</string>
     <string name="post">Sayohat: %1$d</string>

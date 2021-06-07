@@ -46,7 +46,6 @@ class OfferParcelViewModel @Inject constructor(
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
             myPrice.let { driverPost.price = myPrice }
-            driverPost.postType = EPostType.PARCEL_SM
             driverPost.seat = 0
             if (offeringPostId.value == null) createPost(driverPost)
             sendParcelOffer(postId, myPrice, message)
@@ -89,7 +88,7 @@ class OfferParcelViewModel @Inject constructor(
             EPostStatus.CREATED,
             driverPost.seat,
             0,
-            postType = EPostType.PARCEL_SM
+            postType = EPostType.PASSENGER_PARCEL
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
             is ErrorWrapper.ResponseError -> {

@@ -187,10 +187,10 @@ class PassengerPostActivity : BaseActivity() {
     private fun showPostData() {
         post?.let { postNonNull ->
 
-            if (postNonNull.postType == EPostType.PARCEL_SM) {
+            if (postNonNull.postType == EPostType.PASSENGER_PARCEL) {
                 lblPricePerSeat.text = getString(R.string.price)
                 cbTakeParcel.isVisible = true
-                parcelImage.isVisible = true
+                imageContainer.isVisible = true
                 llSeatsContainer.isVisible = false
                 lblPassengersCount.isVisible = false
                 postNonNull.imageList?.forEach {
@@ -199,7 +199,7 @@ class PassengerPostActivity : BaseActivity() {
             } else {
                 lblPricePerSeat.text = getString(R.string.price_for_one)
                 cbTakeParcel.isVisible = false
-                parcelImage.isVisible = false
+                imageContainer.isVisible = false
                 llSeatsContainer.isVisible = true
                 lblPassengersCount.isVisible = true
 

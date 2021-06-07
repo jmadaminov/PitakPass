@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EFuelType
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.domain.model.DriverPost
 import com.novatec.epitak_passenger.ui.driver_post.DriverPostActivity
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.ARG_DRIVER_POST
@@ -113,26 +114,30 @@ class PostFilterAdapter :
                     }
                 }
 
-                post.car?.carModel?.id?.let { id ->
-                    ivCarPhoto.setImageResource(
-                        when (id) {
-                            Constants.ID_GENTRA_LACETTI -> R.drawable.lacetti
-                            Constants.ID_COBALT -> R.drawable.cobalt
-                            Constants.ID_SPARK -> R.drawable.spark
-                            Constants.ID_MATIZ -> R.drawable.matiz
-                            Constants.ID_NEXIA_I -> R.drawable.nexia1
-                            Constants.ID_NEXIA_II -> R.drawable.nexia2
-                            Constants.ID_NEXIA_III -> R.drawable.nexia3
-                            Constants.ID_DAMAS -> R.drawable.damas
-                            Constants.ID_MALIBU_I -> R.drawable.malibu1
-                            Constants.ID_MALIBU_II -> R.drawable.malibu2
-                            Constants.ID_CAPTIVA -> R.drawable.captiva
-                            Constants.ID_OTHERS -> R.drawable.nocarphoto
-                            else -> R.drawable.lacetti
-                        }
-                    )
+                if (post.postType == EPostType.DRIVER_PARCEL) {
+                    ivCarPhoto.setImageResource(R.drawable.car_trunk)
+                    cbTakeParcel.isVisible = true
+                } else {
+                    post.car?.carModel?.id?.let { id ->
+                        ivCarPhoto.setImageResource(
+                            when (id) {
+                                Constants.ID_GENTRA_LACETTI -> R.drawable.lacetti
+                                Constants.ID_COBALT -> R.drawable.cobalt
+                                Constants.ID_SPARK -> R.drawable.spark
+                                Constants.ID_MATIZ -> R.drawable.matiz
+                                Constants.ID_NEXIA_I -> R.drawable.nexia1
+                                Constants.ID_NEXIA_II -> R.drawable.nexia2
+                                Constants.ID_NEXIA_III -> R.drawable.nexia3
+                                Constants.ID_DAMAS -> R.drawable.damas
+                                Constants.ID_MALIBU_I -> R.drawable.malibu1
+                                Constants.ID_MALIBU_II -> R.drawable.malibu2
+                                Constants.ID_CAPTIVA -> R.drawable.captiva
+                                Constants.ID_OTHERS -> R.drawable.nocarphoto
+                                else -> R.drawable.nocarphoto
+                            }
+                        )
+                    }
                 }
-
 
                 post.profile?.let { driverProfile ->
                     if (driverProfile.rating == null || driverProfile.rating == 0.0F) {

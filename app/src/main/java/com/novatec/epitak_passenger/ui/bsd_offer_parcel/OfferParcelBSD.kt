@@ -143,7 +143,7 @@ class OfferParcelBSD : BSDExpanded(),
                 }
                 is ResultWrapper.Success -> {
                     loadData(response.value.filter { myPost ->
-                        myPost.postType == EPostType.PARCEL_SM && myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferableForParcel()
+                        myPost.postType == EPostType.PASSENGER_PARCEL && myPost.departureDate == driverPost.departureDate && myPost.postStatus.isOfferableForParcel()
                     })
                 }
                 ResultWrapper.InProgress -> {

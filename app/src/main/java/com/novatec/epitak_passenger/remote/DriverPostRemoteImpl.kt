@@ -15,25 +15,25 @@ import javax.inject.Inject
  * [BufferooRemote] from the Data layer as it is that layers responsibility for defining the
  * operations in which data store implementation layers can carry out.
  */
-class DriverPostRemoteImpl @Inject constructor(private val authApiService: AuthApiService) :
+class DriverPostRemoteImpl @Inject constructor(private val authApi: AuthApi) :
     DriverPostRemote {
 
     override suspend fun filterDriverPost(filter: Filter) =
-        getFormattedResponse { authApiService.filterDriverPost(filter) }
+        getFormattedResponse { authApi.filterDriverPost(filter) }
 
 
     override suspend fun getPostById(id: Long): ResponseWrapper<DriverPost> =
-        getFormattedResponse { authApiService.getDriverPostById(id) }
+        getFormattedResponse { authApi.getDriverPostById(id) }
 
     override suspend fun sendOffer(myOffer: Offer) =
-        getFormattedResponse { authApiService.sendOffer(myOffer) }
+        getFormattedResponse { authApi.sendOffer(myOffer) }
 
     override suspend fun getMyRatingForDriver(id: Long) =
-        getFormattedResponseNullable { authApiService.getMyRatingForDriver(id) }
+        getFormattedResponseNullable { authApi.getMyRatingForDriver(id) }
 
     override suspend fun editMyRatingForDriver(ratingId: Long, id: Long, rating: Float) =
         getFormattedResponseNullable {
-            authApiService.editMyRatingForDriver(
+            authApi.editMyRatingForDriver(
                 ratingId,
                 ObjRating(
                     driverId = id,
@@ -45,7 +45,7 @@ class DriverPostRemoteImpl @Inject constructor(private val authApiService: AuthA
 
     override suspend fun postMyRatingForDriver(id: Long, rating: Float) =
         getFormattedResponse {
-            authApiService.postMyRatingForDriver(ObjRating(driverId = id, rating = rating))
+            authApi.postMyRatingForDriver(ObjRating(driverId = id, rating = rating))
         }
 
 

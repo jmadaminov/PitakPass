@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 class UserRemoteImpl @Inject constructor(
     private val apiService: ApiService,
-    private val authApiService: AuthApiService
+    private val authApi: AuthApi
 ) :
     UserRemote {
 
@@ -44,7 +44,7 @@ class UserRemoteImpl @Inject constructor(
     }
 
     override suspend fun sendFeedback(feedback: String) =
-        getFormattedResponseNullable { authApiService.sendFeedback(FeedbackBody(feedback)) }
+        getFormattedResponseNullable { authApi.sendFeedback(FeedbackBody(feedback)) }
 
     override suspend fun updateUserInfo(
         name: String,
@@ -52,7 +52,7 @@ class UserRemoteImpl @Inject constructor(
         uploadedAvatarId: Long?
     ) =
         getFormattedResponseNullable {
-            authApiService.updateUserInfo(
+            authApi.updateUserInfo(
                 ReqUpdateProfileInfo(name,
                     surName,
                     uploadedAvatarId?.let {

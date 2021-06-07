@@ -18,7 +18,7 @@ data class Filter(
     @SerializedName("minPrice") var minPrice: Int? = null,
     @SerializedName("priceOrder") var priceOrder: String? = null,
     @SerializedName("seat") var seat: Int? = null,
-    @SerializedName("pkg") var pkg: Boolean? = null,
+    @SerializedName("pkg") var pkg: Boolean = true,
     @SerializedName("timeFirstPart") var timeFirstPart: Boolean = true,
     @SerializedName("timeFourthPart") var timeFourthPart: Boolean = true,
     @SerializedName("timeSecondPart") var timeSecondPart: Boolean = true,
