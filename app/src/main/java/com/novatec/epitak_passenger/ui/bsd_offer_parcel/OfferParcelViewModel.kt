@@ -72,6 +72,8 @@ class OfferParcelViewModel @Inject constructor(
             driverPost.to.regionName,
             driverPost.to.name,
         )
+        val imageList =
+            (parcelImageResp.value as? ResultWrapper.Success)?.value.run { listOf(PhotoBody(this?.id)) }
         val passengerPost = PassengerPost(
             null, placeFrom, placeTo, driverPost.price,
             driverPost.departureDate,
@@ -88,6 +90,7 @@ class OfferParcelViewModel @Inject constructor(
             EPostStatus.CREATED,
             driverPost.seat,
             0,
+            imageList = imageList,
             postType = EPostType.PASSENGER_PARCEL
         )
         when (val response = createPassengerPost.execute(passengerPost)) {
