@@ -37,12 +37,7 @@ class OfferParcelViewModel @Inject constructor(
 
     val offeringPostId = MutableLiveData<Long?>()
 
-    fun offerParcel(
-        postId: Long,
-        myPrice: Int,
-        message: String,
-        driverPost: DriverPostViewObj
-    ) {
+    fun offerParcel(postId: Long, myPrice: Int, message: String, driverPost: DriverPostViewObj) {
         isOffering.value = true
         viewModelScope.launch(Dispatchers.IO) {
             myPrice.let { driverPost.price = myPrice }
