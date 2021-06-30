@@ -1,5 +1,6 @@
 package com.novatec.epitak_passenger.ui.auth.login
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -27,6 +28,8 @@ class LoginFragment @Inject constructor() : Fragment(R.layout.fragment_login) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.cancelActiveJobs()
+
+        Activity.RESULT_CANCELED
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

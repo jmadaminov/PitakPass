@@ -21,6 +21,8 @@ import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.remote.model.OfferDTO
 import com.novatec.epitak_passenger.ui.BaseActivity
 import com.novatec.epitak_passenger.ui.addpost.AddPostActivity
+import com.novatec.epitak_passenger.ui.dialogs.ARG_IMG
+import com.novatec.epitak_passenger.ui.dialogs.ImagePreviewDialog
 import com.novatec.epitak_passenger.ui.interfaces.IOnOfferActionListener
 import com.novatec.epitak_passenger.util.*
 import com.novatec.epitak_passenger.viewobjects.PassengerPostViewObj
@@ -193,8 +195,15 @@ class PassengerPostActivity : BaseActivity() {
                 imageContainer.isVisible = true
                 llSeatsContainer.isVisible = false
                 lblPassengersCount.isVisible = false
-                postNonNull.imageList?.forEach {
-                    parcelImage.loadRounded(it.link!!, 10)
+
+                postNonNull.imageList.forEach { photo ->
+                    parcelImage.loadRounded(photo.link!!, 10)
+
+                    imageContainer.setOnClickListener {
+                        ImagePreviewDialog().apply {
+                            arguments = Bundle().apply { putString(ARG_IMG, photo.link) }
+                        }.show(supportFragmentManager, "")
+                    }
                 }
             } else {
                 lblPricePerSeat.text = getString(R.string.price_for_one)
@@ -290,8 +299,13 @@ class PassengerPostActivity : BaseActivity() {
 
                 tvDriverName.text = driver.profile?.name + " " + driver.profile?.surname
 
-                driver.car?.image?.link?.let {
-                    ivCarPhoto.loadRounded(it, 10)
+                driver.car?.image?.link?.let { photo ->
+                    ivCarPhoto.loadRounded(photo, 10)
+                    ivCarPhoto.setOnClickListener {
+                        ImagePreviewDialog().apply {
+                            arguments = Bundle().apply { putString(ARG_IMG, photo) }
+                        }.show(supportFragmentManager, "")
+                    }
                 }
 
 

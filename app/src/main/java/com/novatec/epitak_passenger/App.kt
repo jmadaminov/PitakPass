@@ -41,9 +41,6 @@ class App : Application() {
         // Logging set to help debug issues, remove before releasing your app.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.NONE)
 
-        // Logging set to help debug issues, remove before releasing your app.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
-
         // OneSignal Initialization
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
@@ -58,7 +55,7 @@ class App : Application() {
 
             if (postId != null && notificationType == ENotificationType.OFFER_CREATE.name) {
                 getInstance()
-                    ?.startActivity(Intent(getInstance(), MainActivity::class.java).apply {
+                    .startActivity(Intent(getInstance(), MainActivity::class.java).apply {
                         putExtra(PassengerPostActivity.EXTRA_POST_ID, postId)
                         addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -69,32 +66,23 @@ class App : Application() {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         } */ else {
-                getInstance()?.start<MainActivity> {
+                getInstance().start<MainActivity> {
                     addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
             }
 
         }
+        OneSignal.addSubscriptionObserver { stateChanges ->
+            if (!stateChanges!!.from.isSubscribed &&
+                stateChanges.to.isSubscribed
+            ) {
 
-//
-//        OneSignal.startInit(this)
-//            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//            .unsubscribeWhenNotificationsAreDisabled(true)
-//            .setNotificationOpenedHandler( NotificationOpenHandler())
-//            .init()
-//
-//
-//        OneSignal.idsAvailable { userId, registrationId ->
-//            Log.i("USERRR IDD ONE SIGNAL", "            $userId")
-//            Log.i("USERRR IDD ONE SIGNAL", "            $userId")
-//            Log.i("USERRR IDD ONE SIGNAL", "            $userId")
-//            uuid = userId
-//        }
+                // get player ID
+                uuid = stateChanges.to.userId
+            }
 
-        OneSignal.getDeviceState()?.let {
-            Log.i("USERRR IDD ONE SIGNAL", "            ${it.userId}")
-            uuid = it.userId ?: ""
+            Log.i("Debug", "onOSPermissionChanged: $stateChanges")
         }
 
         val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)

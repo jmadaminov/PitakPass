@@ -16,6 +16,8 @@ import com.novatec.epitak_passenger.core.enums.EFuelType
 import com.novatec.epitak_passenger.domain.model.DriverPost
 import com.novatec.epitak_passenger.ui.BaseActivity
 import com.novatec.epitak_passenger.ui.bsd_offer_parcel.OfferParcelBSD
+import com.novatec.epitak_passenger.ui.dialogs.ARG_IMG
+import com.novatec.epitak_passenger.ui.dialogs.ImagePreviewDialog
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.ARG_DRIVER_POST
 import com.novatec.epitak_passenger.ui.driver_post.jump_in.DialogJoinARideFragment
 import com.novatec.epitak_passenger.util.*
@@ -130,8 +132,13 @@ class DriverPostActivity : BaseActivity() {
             note.text = post.remark
         }
 
-        post.car?.image?.link?.let {
-            ivCarPhoto.loadRounded(it, 10)
+        post.car?.image?.link?.let { photo ->
+            ivCarPhoto.loadRounded(photo, 10)
+            ivCarPhoto.setOnClickListener {
+                ImagePreviewDialog().apply {
+                    arguments = Bundle().apply { putString(ARG_IMG, photo) }
+                }.show(supportFragmentManager, "")
+            }
         }
 
         post.profile?.let { driverProfile ->

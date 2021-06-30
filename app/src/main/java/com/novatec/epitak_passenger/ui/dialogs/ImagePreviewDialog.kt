@@ -1,0 +1,34 @@
+package com.novatec.epitak_passenger.ui.dialogs
+
+import android.content.Context
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.DialogFragment
+import com.novatec.epitak_passenger.R
+import com.novatec.epitak_passenger.util.load
+import kotlinx.android.synthetic.main.dialog_image_preview.*
+
+
+const val ARG_IMG = "IMG"
+
+class ImagePreviewDialog : DialogFragment(R.layout.dialog_image_preview) {
+
+    override fun getTheme() = R.style.Theme_Dialog
+
+    private lateinit var imageUrl: String
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        imageUrl = requireArguments().getString(ARG_IMG)!!
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        image.load(imageUrl)
+
+        ivClose.setOnClickListener { dismiss() }
+    }
+}

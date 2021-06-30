@@ -7,7 +7,6 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 //repositories {
 //    maven { url 'https://maven.google.com' }
@@ -177,7 +176,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.0'
 
 
-    implementation 'com.onesignal:OneSignal:4.3.4'
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+
 
 
 
@@ -191,11 +191,13 @@ dependencies {
 //    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
 //    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
 //
+
+    implementation "com.google.firebase:firebase-iid"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
 
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
 }
 
 sourceCompatibility = "1.8"
