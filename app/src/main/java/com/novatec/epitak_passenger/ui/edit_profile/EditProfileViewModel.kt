@@ -44,7 +44,7 @@ class EditProfileViewModel @Inject constructor(private val userRepository: UserR
                         _errorMessage.value = response.message
                     }
                     is ResponseSuccess -> {
-                        AppPrefs.edit {
+                        UserPrefs.edit {
                             this.name = name
                             this.surname = surName
                             (uploadPhotoResp.value as? ResultWrapper.Success)?.value?.link?.let {

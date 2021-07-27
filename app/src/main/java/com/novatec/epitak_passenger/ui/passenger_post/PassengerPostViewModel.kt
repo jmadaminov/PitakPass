@@ -1,10 +1,7 @@
 package com.novatec.epitak_passenger.ui.passenger_post
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.novatec.epitak_passenger.data.repository.PostOffersRepository
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.domain.repository.PassengerPostRepository
@@ -18,13 +15,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
-
 import javax.inject.Inject
+
 @HiltViewModel
-class PassengerPostViewModel @Inject constructor(val postRepository: PassengerPostRepository,
-                                                          val postOffersRepository: PostOffersRepository,
-                                                          val deletePost: DeletePassengerPost,
-                                                          val finishPost: FinishPassengerPost) :
+class PassengerPostViewModel @Inject constructor(
+    val postRepository: PassengerPostRepository,
+    val postOffersRepository: PostOffersRepository,
+    val deletePost: DeletePassengerPost,
+    val finishPost: FinishPassengerPost
+) :
     BaseViewModel() {
 
     val postData = MutableLiveData<PassengerPost>()
@@ -49,9 +48,13 @@ class PassengerPostViewModel @Inject constructor(val postRepository: PassengerPo
         }
     }
 
-     var postOffers: LiveData<PagingData<OfferDTO>>?=null
+    var postOffers = MutableLiveData<ResultWrapper<List<OfferDTO>>>()
     fun getOffersForPost(id: Long) {
-        postOffers = postOffersRepository.getOffersForPost(id).cachedIn(viewModelScope)
+        postOffers.value = ResultWrapper.InProgress
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = postRepository.getDriverOffers(id)
+            postOffers.postValue(response)
+        }
     }
 
     val deletePostReponse = SingleLiveEvent<ResultWrapper<Unit>>()

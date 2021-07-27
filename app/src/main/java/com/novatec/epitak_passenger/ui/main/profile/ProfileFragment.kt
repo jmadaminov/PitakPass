@@ -12,7 +12,7 @@ import com.novatec.epitak_passenger.ui.feedback.FeedbackActivity
 import com.novatec.epitak_passenger.ui.interfaces.IOnSignOut
 import com.novatec.epitak_passenger.ui.main.MainActivity
 import com.novatec.epitak_passenger.ui.settings.SettingsActivity
-import com.novatec.epitak_passenger.util.AppPrefs
+import com.novatec.epitak_passenger.util.UserPrefs
 import com.novatec.epitak_passenger.util.loadRound
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -43,8 +43,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IOnSignOut {
     private fun setupViews() {
         (activity as MainActivity).hideTabLayout()
 //        cardProfile.setBackgroundResource(R.drawable.stroke_rounded_bottom_corners)
-        nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
-        phone.text = "+${AppPrefs.phone}"
+        nameSurname.text = "${UserPrefs.name} ${UserPrefs.surname}"
+        phone.text = "+${UserPrefs.phone}"
 
     }
 
@@ -85,14 +85,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IOnSignOut {
 
     override fun onSignOut() {
         requireActivity().finish()
-        AppPrefs.prefs.edit().clear().apply()
+        UserPrefs.prefs.edit().clear().apply()
         start<AuthActivity> {}
     }
 
     override fun onResume() {
         super.onResume()
-        if (AppPrefs.avatar.isNotBlank()) profilePhoto.loadRound(AppPrefs.avatar)
-        nameSurname.text = "${AppPrefs.name} ${AppPrefs.surname}"
+        if (UserPrefs.avatar.isNotBlank()) profilePhoto.loadRound(UserPrefs.avatar)
+        nameSurname.text = "${UserPrefs.name} ${UserPrefs.surname}"
     }
 }
 

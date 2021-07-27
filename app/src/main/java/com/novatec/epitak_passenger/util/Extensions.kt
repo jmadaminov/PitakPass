@@ -10,13 +10,11 @@ import android.provider.OpenableColumns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import androidx.lifecycle.LiveData
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.util.SizeUtils.dpToPx
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -28,7 +26,6 @@ import kotlinx.coroutines.delay
  */
 
 
-
 //**
 //* Creates new circular bitmap based on original one.
 //*/
@@ -38,7 +35,8 @@ fun Bitmap.getCircularBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): B
     val circleRadius = Math.max(width, height) / 2f
 
     // output bitmap
-    val outputBitmapPaint = Paint(circlePaint).apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN) }
+    val outputBitmapPaint =
+        Paint(circlePaint).apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN) }
     val outputBounds = Rect(0, 0, width, height)
     val output = Bitmap.createBitmap(width, height, config)
 
@@ -72,11 +70,16 @@ fun ImageView.load(url: String) {
     circularProgressDrawable.centerRadius = 30f
     circularProgressDrawable.start()
 
-    Glide.with(this.context).load(url).placeholder( circularProgressDrawable).into(this)
+    Glide.with(this.context).load(url).placeholder(circularProgressDrawable).into(this)
 }
 
 fun ImageView.loadRound(url: String) {
     Glide.with(this.context).load(url).apply(RequestOptions().circleCrop()).into(this)
+}
+
+fun ImageView.loadRound(url: String, placeHolder: Int) {
+    Glide.with(this.context).load(url).apply(RequestOptions().circleCrop()).placeholder(placeHolder)
+        .into(this)
 }
 
 fun ImageView.loadRounded(url: String, radius: Int = 10) {
@@ -87,6 +90,7 @@ fun ImageView.loadRounded(url: String, radius: Int = 10) {
 fun ImageView.load(bitmap: Bitmap) {
     Glide.with(this.context).load(bitmap).into(this)
 }
+
 fun ImageView.loadRound(bitmap: Bitmap) {
     Glide.with(this.context).load(bitmap).apply(RequestOptions().circleCrop()).into(this)
 }

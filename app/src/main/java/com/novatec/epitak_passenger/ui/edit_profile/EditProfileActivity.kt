@@ -137,9 +137,9 @@ class EditProfileActivity : BaseActivity(), BSImagePicker.OnSingleImageSelectedL
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        edtSurname.setText(AppPrefs.surname)
-        edtName.setText(AppPrefs.name)
-        if (AppPrefs.avatar.isNotBlank()) ivAvatar.loadRound(AppPrefs.avatar)
+        edtSurname.setText(UserPrefs.surname)
+        edtName.setText(UserPrefs.name)
+        if (UserPrefs.avatar.isNotBlank()) ivAvatar.loadRound(UserPrefs.avatar)
     }
 
     override fun onSingleImageSelected(uri: Uri, tag: String?) {

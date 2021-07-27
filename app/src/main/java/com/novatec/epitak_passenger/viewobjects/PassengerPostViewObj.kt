@@ -28,7 +28,12 @@ data class PassengerPostViewObj(
     companion object {
 
         fun fromPassengerPost(post: PassengerPost): PassengerPostViewObj {
-            val imageList = post.imageList.map { ImageViewObj(it.id, it.link) }
+            val imageList = if (post.imageList != null) post.imageList.map {
+                ImageViewObj(
+                    it.id,
+                    it.link
+                )
+            } else listOf()
             return PassengerPostViewObj(
                 post.id,
                 PlaceViewObj.fromPlace(post.from),

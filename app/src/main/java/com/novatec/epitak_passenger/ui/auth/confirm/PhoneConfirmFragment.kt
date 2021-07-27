@@ -166,7 +166,7 @@ class PhoneConfirmFragment @Inject constructor() : Fragment(R.layout.fragment_ph
 
     @ExperimentalSplittiesApi
     private fun saveCredentials(response: ResultWrapper.Success<AuthBody>) {
-        AppPrefs.edit {
+        UserPrefs.edit {
             userId = response.value.id!!
             token = response.value.jwt!!
             name = response.value.name!!

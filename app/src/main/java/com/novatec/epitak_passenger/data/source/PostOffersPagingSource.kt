@@ -18,7 +18,7 @@ class PostOffersPagingSource(
         val position = params.key ?: POST_OFFER_STARTING_PAGE_INDEX
 
         return try {
-            val response = authApi.getOffersForPost(id, position, params.loadSize)
+            val response = authApi.getOffersForPost(id/*, position, params.loadSize*/)
             var offers = response.data
             if (!offers.isNullOrEmpty()) {
                 offers = offers.filter {

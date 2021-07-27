@@ -83,6 +83,10 @@ class DialogJoinARideFragment : DialogFragment() {
             if (isLoading) btnSendOffer.startAnimation() else btnSendOffer.revertAnimation()
 
         }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+
+            Snackbar.make(rl_parent, errorMessage, Snackbar.LENGTH_SHORT).show()
+        }
 
         viewModel.hasFinished.observe(viewLifecycleOwner) { hasFinished ->
             if (hasFinished) dismiss()

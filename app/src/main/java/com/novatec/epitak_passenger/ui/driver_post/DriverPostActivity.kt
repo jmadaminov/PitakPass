@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.observe
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EFuelType
 import com.novatec.epitak_passenger.domain.model.DriverPost
@@ -23,6 +22,7 @@ import com.novatec.epitak_passenger.ui.driver_post.jump_in.DialogJoinARideFragme
 import com.novatec.epitak_passenger.util.*
 import com.novatec.epitak_passenger.viewobjects.DriverPostViewObj
 import kotlinx.android.synthetic.main.activity_driver_post.*
+import kotlinx.android.synthetic.main.view_directions.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -40,7 +40,6 @@ class DriverPostActivity : BaseActivity() {
 
         attachListeners()
         subscribeObservers()
-
 
     }
 
@@ -64,7 +63,7 @@ class DriverPostActivity : BaseActivity() {
         btnOfferParcel.isVisible = post.pkg
 
         post.passengerList?.forEach { passenger ->
-            if (passenger.profile!!.id == AppPrefs.userId) {
+            if (passenger.profile!!.id == UserPrefs.userId) {
                 btnJumpIn.isEnabled = false
                 btnJumpIn.text = getString(R.string.you_are_already_in)
                 btnJumpIn.backgroundTintList =

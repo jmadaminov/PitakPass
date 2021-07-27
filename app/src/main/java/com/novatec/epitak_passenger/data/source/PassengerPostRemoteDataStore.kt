@@ -4,6 +4,8 @@ import com.novatec.epitak_passenger.data.repository.PassengerPostDataStore
 import com.novatec.epitak_passenger.data.repository.PassengerPostRemote
 import com.novatec.epitak_passenger.data.repository.PlaceDataStore
 import com.novatec.epitak_passenger.domain.model.PassengerPost
+import com.novatec.epitak_passenger.remote.model.OfferDTO
+import com.novatec.epitak_passenger.util.ResultWrapper
 import javax.inject.Inject
 
 /**
@@ -38,5 +40,8 @@ open class PassengerPostRemoteDataStore @Inject constructor(private val passenge
 
     override suspend fun cancelMyOffer(id: Long) =
         passengerPostRemote.cancelMyOffer(id)
+
+    override suspend fun getDriverOffers(postId: Long) =
+        passengerPostRemote.getDriverOffers(postId)
 
 }

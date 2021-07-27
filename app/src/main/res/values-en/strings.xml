@@ -169,5 +169,7 @@
     <string name="add_parcel_photo">Add parcel image</string>
     <string name="price_for_parcel">Delivery price</string>
     <string name="offer_parcel">Offer parcel</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 
 </resources>

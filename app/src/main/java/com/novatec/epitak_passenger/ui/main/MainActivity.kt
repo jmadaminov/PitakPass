@@ -27,6 +27,7 @@ import com.novatec.epitak_passenger.ui.passenger_post.PassengerPostActivity
 import com.novatec.epitak_passenger.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.novatec.epitak_passenger.util.AppPrefs
 import com.novatec.epitak_passenger.util.ContextUtils.setLocale
+import com.novatec.epitak_passenger.util.UserPrefs
 import com.takusemba.spotlight.OnSpotlightListener
 import com.takusemba.spotlight.OnTargetListener
 import com.takusemba.spotlight.Spotlight
@@ -86,7 +87,7 @@ class MainActivity : BaseActivity() {
         viewModel.getActiveAppVersions()
 
 
-        if (AppPrefs.token.isNotBlank() && !AppPrefs.hasSeenTutorial) {
+        if (UserPrefs.token.isNotBlank() && !AppPrefs.hasSeenTutorial) {
             showAddBtnTutorial()
             AppPrefs.edit {
                 hasSeenTutorial = true
@@ -230,7 +231,7 @@ class MainActivity : BaseActivity() {
 
     @ExperimentalSplittiesApi
     private fun checkUserLogin() {
-        if (AppPrefs.token.isBlank()) {
+        if (UserPrefs.token.isBlank()) {
             finish()
             start<AuthActivity> { }
         }

@@ -171,5 +171,7 @@
     <string name="add_parcel_photo">Posilka rasmini qo\'shing</string>
     <string name="price_for_parcel">Po\'chta hizmat narxi</string>
     <string name="offer_parcel">Posilka taklif qilish</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 
 </resources>

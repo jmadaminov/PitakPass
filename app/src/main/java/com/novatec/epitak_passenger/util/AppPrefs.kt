@@ -8,15 +8,10 @@ package com.novatec.epitak_passenger.util
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.preferences.Preferences
 
-@ExperimentalSplittiesApi object AppPrefs : Preferences("myPrefs") {
+@ExperimentalSplittiesApi
+object AppPrefs : Preferences("appPrefs") {
 
-    var hasSeenTutorial by boolPref("hasSeenTutorial",false)
-    var isFirstTime by boolPref("isFirstTime",true)
-    var userId by StringPref("USER_ID", "")
-    var token by StringPref("TOKEN", "")
+    var hasSeenTutorial by boolPref("hasSeenTutorial", false)
+    var isFirstTime by boolPref("isFirstTime", true)
     var language by StringPref("LANGUAGE", "ru")
-    var name by StringPref("NAME", "")
-    var surname by StringPref("SURNAME", "")
-    var phone by StringPref("PHONE", "")
-    var avatar by StringPref("AVATAR", "")
 }

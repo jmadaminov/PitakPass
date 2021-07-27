@@ -14,12 +14,15 @@
         <!--        <item name="android:homeAsUpIndicator">@drawable/baseline_arrow_back_white_24dp</item>-->
         <item name="actionBarTheme">@style/ToolBarStyle</item>
         <item name="android:textColor">@color/text_color</item>
+<!--        <item name="android:windowBackground">@drawable/window_bg_gradient</item>-->
 
     </style>
     <!-- Base application theme. -->
     <style name="NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
+<!--        <item name="android:windowBackground">@drawable/window_bg_gradient</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--        <item name="android:windowBackground">@color/colorPrimary</item>-->

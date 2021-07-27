@@ -18,24 +18,10 @@
             android:id="@+id/ivAvatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_account_circle_24"
             app:layout_constraintEnd_toStartOf="@id/tvName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/tvStatus"-->
-        <!--        android:layout_width="150dp"-->
-        <!--        android:gravity="center"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:background="@color/colorAccent"-->
-        <!--        android:paddingTop="3dp"-->
-        <!--        android:paddingBottom="3dp"-->
-        <!--        tools:text="ACTIVE"-->
-        <!--        android:textColor="@color/white"-->
-        <!--        android:textStyle="bold"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/tvName"
@@ -43,103 +29,143 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            app:layout_constraintEnd_toStartOf="@id/ivAccept"
+            app:layout_constraintEnd_toStartOf="@id/tvOfferingPrice"
             app:layout_constraintStart_toEndOf="@id/ivAvatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name Surname" />
-
 
         <RatingBar
             android:id="@+id/ratingBarDriver"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-app:layout_constraintStart_toStartOf="@id/tvName"
+            app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="start"
-            app:layout_constraintEnd_toStartOf="@id/ivAccept"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="@id/tvName"
-            app:layout_constraintTop_toBottomOf="@id/ratingBarDriver"
-            tools:text="Description text that is sent from offer creator..." />
-
 
         <TextView
-            android:id="@+id/tvCarInfo"
-            android:layout_width="0dp"
+            android:id="@+id/tvCarModel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:gravity="start"
-            android:textColor="@color/dark_grey"
-            android:textSize="12dp"
-            app:layout_constraintEnd_toStartOf="@id/ivCarPhoto"
-            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage"
-            tools:text="Car Model 2 uz Qizil PETROL 2013 xa107u" />
+            app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+            tools:text="Malibu" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCarModel">
+
+            <TextView
+                android:id="@+id/ivAC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/selector_rounded_corners_ten_radius"
+                android:backgroundTint="@color/line_textColorGrey"
+                android:paddingStart="10dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="2dp"
+                android:text="@string/ac"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ivFuelType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_rounded_corners_ten_radius"
+                android:backgroundTint="@color/line_textColorGrey"
+                android:paddingStart="10dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="2dp"
+                android:text="@string/petrol"
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/ivAC"
+                app:layout_constraintTop_toTopOf="@id/ivAC" />
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/ivCarPhoto"
-            android:layout_width="0dp"
-            android:layout_height="?android:actionBarSize"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="130dp"
+            android:layout_height="70dp"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toStartOf="@id/ivDeny"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/tvCarInfo"
-            app:layout_constraintTop_toTopOf="@id/tvCarInfo" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOfferingPrice" />
 
         <TextView
             android:id="@+id/tvOfferingPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:drawableRight="@drawable/ic_baseline_money_24"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:padding="7dp"
-            app:drawableRightCompat="@drawable/ic_baseline_money_24"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="150,000 sum"
             tools:visibility="visible" />
 
 
-        <ImageView
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="start"
+            android:maxLines="3"
+            app:layout_constraintBottom_toTopOf="@id/ivAccept"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCarPhoto"
+            tools:text="Description text that is sent from  asdf dsfa asdf sdaf asdf asdf asdf asdf asdf asdf offer creator..." />
+
+
+        <Button
             android:id="@+id/ivAccept"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:selectableItemBackground"
-            android:padding="12dp"
-            android:src="@drawable/baseline_done_outline_black_24dp"
-            app:layout_constraintBottom_toTopOf="@id/ivDeny"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMessage"
             app:tint="@color/colorPrimary" />
 
-        <ImageView
+        <TextView
             android:id="@+id/ivDeny"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:padding="12dp"
-            android:src="@drawable/baseline_delete_outline_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivAccept"
-            app:tint="@color/error_red" />
+            android:text="@string/decline"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ivAccept"
+            app:layout_constraintEnd_toStartOf="@id/ivAccept"
+            app:layout_constraintTop_toTopOf="@id/ivAccept" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

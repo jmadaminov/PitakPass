@@ -21,5 +21,7 @@ interface PassengerPostRemote {
     suspend fun acceptOffer(id: Long): ResponseWrapper<String?>
     suspend fun rejectOffer(id: Long): ResponseWrapper<String?>
     suspend fun cancelMyOffer(id: Long): ResponseWrapper<String?>
+    suspend fun getDriverOffers(postId: Long): ResultWrapper<List<OfferDTO>>
+
 
 }

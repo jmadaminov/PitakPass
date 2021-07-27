@@ -12,7 +12,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.core.enums.EPostStatus
@@ -24,15 +23,20 @@ import com.novatec.epitak_passenger.ui.addpost.AddPostActivity
 import com.novatec.epitak_passenger.ui.dialogs.ARG_IMG
 import com.novatec.epitak_passenger.ui.dialogs.ImagePreviewDialog
 import com.novatec.epitak_passenger.ui.interfaces.IOnOfferActionListener
+import com.novatec.epitak_passenger.ui.viewgroups.ItemOffer
 import com.novatec.epitak_passenger.util.*
 import com.novatec.epitak_passenger.viewobjects.PassengerPostViewObj
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_passenger_post.*
+import kotlinx.android.synthetic.main.view_directions.*
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import kotlin.to
 
 @ExperimentalSplittiesApi
-class PassengerPostActivity : BaseActivity() {
+class PassengerPostActivity : BaseActivity(), IOnOfferActionListener {
 
     companion object {
         const val EXTRA_POST_ID = "EXTRA_POST_ID"
@@ -42,46 +46,13 @@ class PassengerPostActivity : BaseActivity() {
     var post: PassengerPost? = null
     var postId: Long = 0
     private val viewModel: PassengerPostViewModel by viewModels()
+    private val offersAdapter = GroupAdapter<GroupieViewHolder>()
 
-    lateinit var offersAdapter: PostOffersAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passenger_post)
         postId = intent.getLongExtra(EXTRA_POST_ID, 0)
         setupActionBar()
-        offersAdapter = PostOffersAdapter(object : IOnOfferActionListener {
-            override fun onCancelClick(offer: OfferDTO) {
-                val dialog = DialogCancelOffer()
-                dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
-                dialog.show(supportFragmentManager, "")
-            }
-
-            override fun onAcceptClick(offer: OfferDTO) {
-                val dialog = DialogAcceptOffer()
-                dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
-                dialog.show(supportFragmentManager, "")
-            }
-
-            override fun onPhoneCallClick(offer: OfferDTO) {
-            }
-
-        })
-        offersAdapter.addLoadStateListener { loadState ->
-            when (loadState.source.refresh) {
-                is LoadState.NotLoading -> {
-                    lblMyOffers.text =
-                        if (offersAdapter.itemCount < 1) getString(R.string.you_have_no_offers_yet_come_back_later)
-                        else getString(R.string.offers)
-                }
-                LoadState.Loading -> {
-
-                }
-                is LoadState.Error -> {
-
-                }
-            }
-        }
-        rvOffers.setHasFixedSize(true)
         rvOffers.adapter = offersAdapter
 
         viewModel.getPostById(postId)
@@ -124,6 +95,7 @@ class PassengerPostActivity : BaseActivity() {
             }
         }
 
+
         viewModel.offerActionError.observe(this) {
             Snackbar.make(swipeRefreshLayout, it ?: return@observe, Snackbar.LENGTH_SHORT).show()
         }
@@ -134,7 +106,7 @@ class PassengerPostActivity : BaseActivity() {
                 is ErrorWrapper.ResponseError -> {
                     Snackbar.make(
                         swipeRefreshLayout,
-                        response.message!!,
+                        response.message,
                         Snackbar.LENGTH_SHORT
                     ).show()
 
@@ -186,12 +158,22 @@ class PassengerPostActivity : BaseActivity() {
 
     }
 
+    private fun populateOffers(value: List<OfferDTO>) {
+        offersAdapter.clear()
+
+        offersAdapter.addAll(value.map {
+            ItemOffer(it, this@PassengerPostActivity)
+        })
+
+
+    }
+
     private fun showPostData() {
         post?.let { postNonNull ->
 
             if (postNonNull.postType == EPostType.PASSENGER_PARCEL) {
-                lblPricePerSeat.text = getString(R.string.price)
-                cbTakeParcel.isVisible = true
+                lblPrice.text = getString(R.string.price)
+                llParcel.isVisible = true
                 imageContainer.isVisible = true
                 llSeatsContainer.isVisible = false
                 lblPassengersCount.isVisible = false
@@ -206,8 +188,8 @@ class PassengerPostActivity : BaseActivity() {
                     }
                 }
             } else {
-                lblPricePerSeat.text = getString(R.string.price_for_one)
-                cbTakeParcel.isVisible = false
+                lblPrice.text = getString(R.string.price_for_one)
+                llParcel.isVisible = false
                 imageContainer.isVisible = false
                 llSeatsContainer.isVisible = true
                 lblPassengersCount.isVisible = true
@@ -228,13 +210,48 @@ class PassengerPostActivity : BaseActivity() {
             cancel.isVisible =
                 postNonNull.postStatus == EPostStatus.CREATED || postNonNull.postStatus == EPostStatus.WAITING_FOR_START
 
-            if (postNonNull.postStatus == EPostStatus.CREATED) {
-                viewModel.postOffers?.observe(this) {
-                    val value = it ?: return@observe
-                    offersAdapter.submitData(lifecycle, value)
-                    rvOffers.requestLayout()
+            when (postNonNull.postStatus) {
+                EPostStatus.WAITING_FOR_START -> {
+                    llOffersContainer.isVisible = false
+                }
+                EPostStatus.START -> {
+                    llOffersContainer.isVisible = false
+                }
+                EPostStatus.CANCELED -> {
+                    llOffersContainer.isVisible = false
+                }
+                EPostStatus.FINISHED -> {
+                    llOffersContainer.isVisible = false
+                }
+                EPostStatus.REJECTED -> {
+                    llOffersContainer.isVisible = false
+                }
+                EPostStatus.CREATED -> {
+                    llOffersContainer.isVisible = true
+                    viewModel.postOffers.observe(this) {
+                        when (it) {
+                            is ErrorWrapper.ResponseError -> {
+                                progressOfferAction.isVisible = false
+                            }
+                            is ErrorWrapper.SystemError -> {
+                                progressOfferAction.isVisible = false
+                            }
+                            ResultWrapper.InProgress -> {
+                                progressOfferAction.isVisible = true
+                            }
+                            is ResultWrapper.Success -> {
+                                progressOfferAction.isVisible = false
+                                populateOffers(it.value)
+                            }
+                        }
+                        rvOffers.requestLayout()
+                    }
+                }
+                EPostStatus.SYSTEM_REJECTED -> {
+                    llOffersContainer.isVisible = false
                 }
             }
+
             edit.isVisible = postNonNull.postStatus == EPostStatus.CREATED
             done.isVisible = postNonNull.postStatus == EPostStatus.START
 
@@ -392,7 +409,29 @@ class PassengerPostActivity : BaseActivity() {
 
     private fun refreshAll() {
         viewModel.getPostById(postId)
-        offersAdapter.refresh()
+        viewModel.getOffersForPost(postId)
+    }
+
+    override fun onCancelClick(offer: OfferDTO) {
+        val dialog = DialogCancelOffer()
+        dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
+        dialog.show(supportFragmentManager, "")
+    }
+
+    override fun onAcceptClick(offer: OfferDTO) {
+        val dialog = DialogAcceptOffer()
+        dialog.arguments = Bundle().apply { putParcelable(ARG_OFFER, offer) }
+        dialog.show(supportFragmentManager, "")
+    }
+
+    override fun onPhoneCallClick(offer: OfferDTO) {
+
+    }
+
+    override fun onShowCarImage(imageUrl: String) {
+        ImagePreviewDialog().apply {
+            arguments = Bundle().apply { putString(ARG_IMG, imageUrl) }
+        }.show(supportFragmentManager, "")
     }
 }
 

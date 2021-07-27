@@ -8,4 +8,5 @@ interface IOnOfferActionListener {
     fun onCancelClick(offer: OfferDTO)
     fun onAcceptClick(offer: OfferDTO)
     fun onPhoneCallClick(offer: OfferDTO)
+    fun onShowCarImage(imageUrl:String)
 }

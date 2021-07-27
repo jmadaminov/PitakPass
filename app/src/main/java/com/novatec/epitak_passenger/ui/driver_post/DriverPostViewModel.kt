@@ -1,5 +1,6 @@
 package com.novatec.epitak_passenger.ui.driver_post
 
+import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.novatec.epitak_passenger.domain.model.DriverPost
@@ -18,9 +19,9 @@ import kotlinx.coroutines.withContext
 class DriverPostViewModel @Inject constructor(val repository: DriverPostRepository) :
     BaseViewModel() {
 
-    val postData = SingleLiveEvent<DriverPost>()
-    val errorMessage = SingleLiveEvent<String>()
-    val isLoading = SingleLiveEvent<Boolean>()
+    val postData = MutableLiveData<DriverPost>()
+    val errorMessage = MutableLiveData<String>()
+    val isLoading = MutableLiveData<Boolean>()
 
     fun getPostById(id: Long) {
         isLoading.value = true

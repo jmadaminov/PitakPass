@@ -2,6 +2,7 @@ package com.novatec.epitak_passenger.remote
 
 import com.novatec.epitak_passenger.data.repository.PassengerPostRemote
 import com.novatec.epitak_passenger.domain.model.PassengerPost
+import com.novatec.epitak_passenger.remote.model.OfferDTO
 import com.novatec.epitak_passenger.util.*
 import javax.inject.Inject
 
@@ -88,6 +89,18 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApi: AuthApi) 
 
     override suspend fun cancelMyOffer(id: Long) =
         getFormattedResponseNullable { authApi.cancelMyOffer(id) }
+
+    override suspend fun getDriverOffers(postId: Long): ResultWrapper<List<OfferDTO>> {
+        val response = getFormattedResponse { authApi.getOffersForPost(postId) }
+        return when (response) {
+            is ResponseError -> {
+                ErrorWrapper.ResponseError(response.code, response.message)
+            }
+            is ResponseSuccess -> {
+                ResultWrapper.Success(response.value)
+            }
+        }
+    }
 
 
 }

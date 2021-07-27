@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -8,8 +9,8 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="center" />
-
+        android:scaleType="fitCenter"
+        tools:src="@drawable/bg" />
 
 
     <ImageView
@@ -21,7 +22,6 @@
         android:foreground="?android:selectableItemBackground"
         android:padding="14dp"
         android:src="@drawable/ic_round_close_24" />
-
 
 
 </RelativeLayout>

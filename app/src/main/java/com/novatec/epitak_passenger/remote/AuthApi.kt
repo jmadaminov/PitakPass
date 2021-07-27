@@ -81,9 +81,9 @@ interface AuthApi {
     @GET("offer/passenger/post/{id}")
     suspend fun getOffersForPost(
         @Path(value = "id", encoded = true) id: Long,
-        @Query("page") page: Int = 0,
-        @Query("size") size: Int = 10,
-        @Header("Accept-Language") lang: String = AppPrefs.language
+        /*  @Query("page") page: Int = 1,
+          @Query("size") size: Int = 99,*/
+//        @Header("Accept-Language") lang: String = AppPrefs.language
     ): RespFormatter<List<OfferDTO>>
 
 

@@ -73,16 +73,18 @@ class App : Application() {
             }
 
         }
-        OneSignal.addSubscriptionObserver { stateChanges ->
-            if (!stateChanges!!.from.isSubscribed &&
-                stateChanges.to.isSubscribed
-            ) {
-
-                // get player ID
-                uuid = stateChanges.to.userId
+        OneSignal.getDeviceState()?.userId?.let {
+            uuid = it
+        } ?: run {
+            OneSignal.addSubscriptionObserver { stateChanges ->
+                if (!stateChanges!!.from.isSubscribed &&
+                    stateChanges.to.isSubscribed
+                ) {
+                    // get player ID
+                    uuid = stateChanges.to.userId
+                }
+                Log.i("Debug", "onOSPermissionChanged: $stateChanges")
             }
-
-            Log.i("Debug", "onOSPermissionChanged: $stateChanges")
         }
 
         val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)

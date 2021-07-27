@@ -1,6 +1,8 @@
 package com.novatec.epitak_passenger.domain.repository
 
+import com.novatec.epitak_passenger.domain.model.Offer
 import com.novatec.epitak_passenger.domain.model.PassengerPost
+import com.novatec.epitak_passenger.remote.model.OfferDTO
 import com.novatec.epitak_passenger.util.ResponseWrapper
 import com.novatec.epitak_passenger.util.ResultWrapper
 
@@ -14,6 +16,7 @@ interface PassengerPostRepository {
         page: Int): ResultWrapper<List<PassengerPost>>
 
     suspend fun getPassengerPostById(id: Long): ResponseWrapper<PassengerPost>
+    suspend fun getDriverOffers(postId: Long): ResultWrapper<List<OfferDTO>>
 
     suspend fun acceptOffer(id: Long): ResponseWrapper<String?>
     suspend fun rejectOffer(id: Long): ResponseWrapper<String?>

@@ -4,7 +4,9 @@ import com.novatec.epitak_passenger.data.source.PassengerPostDataStoreFactory
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.domain.repository.PassengerPostRepository
 import com.novatec.epitak_passenger.domain.repository.PlaceRepository
+import com.novatec.epitak_passenger.remote.model.OfferDTO
 import com.novatec.epitak_passenger.util.ResponseWrapper
+import com.novatec.epitak_passenger.util.ResultWrapper
 import javax.inject.Inject
 
 /**
@@ -33,6 +35,9 @@ class PassengerPostRepositoryImpl @Inject constructor(private val factoryPasseng
 
     override suspend fun getPassengerPostById(id: Long) =
         factoryPassenger.retrieveDataStore(false).getPassengerPostById(id)
+
+    override suspend fun getDriverOffers(postId: Long) =
+        factoryPassenger.retrieveDataStore(false).getDriverOffers(postId)
 
     override suspend fun acceptOffer(id: Long) =
         factoryPassenger.retrieveDataStore(false).acceptOffer(id)

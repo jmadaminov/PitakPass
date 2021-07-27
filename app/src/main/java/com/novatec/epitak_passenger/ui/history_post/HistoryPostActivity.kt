@@ -13,13 +13,36 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.novatec.epitak_passenger.R
+import com.novatec.epitak_passenger.core.enums.EPostType
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.ui.BaseActivity
+import com.novatec.epitak_passenger.ui.dialogs.ARG_IMG
+import com.novatec.epitak_passenger.ui.dialogs.ImagePreviewDialog
 import com.novatec.epitak_passenger.ui.passenger_post.PassengerPostActivity.Companion.EXTRA_POST_ID
 import com.novatec.epitak_passenger.util.PostUtils
 import com.novatec.epitak_passenger.util.load
 import com.novatec.epitak_passenger.util.loadRound
 import kotlinx.android.synthetic.main.activity_history_post.*
+import kotlinx.android.synthetic.main.activity_history_post.carModel
+import kotlinx.android.synthetic.main.activity_history_post.date
+import kotlinx.android.synthetic.main.activity_history_post.fabCallDriver
+import kotlinx.android.synthetic.main.activity_history_post.imageContainer
+import kotlinx.android.synthetic.main.activity_history_post.ivCarPhoto
+import kotlinx.android.synthetic.main.activity_history_post.ivDriverAvatar
+import kotlinx.android.synthetic.main.activity_history_post.lblPrice
+import kotlinx.android.synthetic.main.activity_history_post.llParcel
+import kotlinx.android.synthetic.main.activity_history_post.llSeatsContainer
+import kotlinx.android.synthetic.main.activity_history_post.note
+import kotlinx.android.synthetic.main.activity_history_post.parcelImage
+import kotlinx.android.synthetic.main.activity_history_post.plateNumber
+import kotlinx.android.synthetic.main.activity_history_post.ratingBarDriver
+import kotlinx.android.synthetic.main.activity_history_post.swipeRefreshLayout
+import kotlinx.android.synthetic.main.activity_history_post.time
+import kotlinx.android.synthetic.main.activity_history_post.tvDriverName
+import kotlinx.android.synthetic.main.activity_history_post.tvMessage
+import kotlinx.android.synthetic.main.activity_history_post.tvOfferingPrice
+import kotlinx.android.synthetic.main.activity_passenger_post.*
+import kotlinx.android.synthetic.main.view_directions.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -68,8 +91,8 @@ class HistoryPostActivity : BaseActivity() {
 
         viewModel.isLoading.observe(this, {
             val value = it ?: return@observe
-            progress.isVisible = value
-            llContent.isVisible = !value
+            swipeRefreshLayout.isRefreshing = value
+            rl_parent.isVisible = !value
         })
 
         viewModel.errorMessage.observe(this, {
@@ -84,6 +107,28 @@ class HistoryPostActivity : BaseActivity() {
 
 
     private fun showPostData(post: PassengerPost) {
+
+        if (post.postType == EPostType.PASSENGER_PARCEL) {
+            llPassengers.isVisible = false
+            llParcel.isVisible = true
+            lblPrice.text = getString(R.string.price)
+            post.imageList.forEach { photo ->
+                parcelImage.load(photo.link!!)
+
+                imageContainer.setOnClickListener {
+                    ImagePreviewDialog().apply {
+                        arguments = Bundle().apply { putString(ARG_IMG, photo.link) }
+                    }.show(supportFragmentManager, "")
+                }
+                return@forEach
+            }
+        } else {
+            llPassengers.isVisible = true
+            llParcel.isVisible = false
+            lblPrice.text = getString(R.string.willing_price_for_one)
+
+        }
+
         viewModel.getMyRating(post.driverPost!!.profile!!.id.toLong())
 
         btnSubmitRating.setOnClickListener {
@@ -96,17 +141,23 @@ class HistoryPostActivity : BaseActivity() {
         for (i in 0 until post.seat) {
             val seat = ImageView(this)
             seat.layoutParams =
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                          ViewGroup.LayoutParams.WRAP_CONTENT)
+                LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
             seat.setImageResource(R.drawable.ic_round_emoji_people_24)
             llSeatsContainer.addView(seat)
         }
-        time.text = PostUtils.timeFromDayParts(post.timeFirstPart,
-                                               post.timeSecondPart,
-                                               post.timeThirdPart,
-                                               post.timeFourthPart)
-        date.text = DateFormat.format("dd MMMM",
-                                      SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+        time.text = PostUtils.timeFromDayParts(
+            post.timeFirstPart,
+            post.timeSecondPart,
+            post.timeThirdPart,
+            post.timeFourthPart
+        )
+        date.text = DateFormat.format(
+            "dd MMMM",
+            SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate)
+        )
             .toString()
         if (post.from.name == null && post.from.districtName == null) {
             fromDistrict.isVisible = false
@@ -126,9 +177,9 @@ class HistoryPostActivity : BaseActivity() {
             to.text = post.to.districtName
         }
 
-        if (post.remark.isNullOrBlank()){
+        if (post.remark.isNullOrBlank()) {
             note.visibility = View.GONE
-        }else{
+        } else {
             note.visibility = View.VISIBLE
             note.text = post.remark
         }
