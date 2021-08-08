@@ -17,6 +17,7 @@ interface PassengerPostRepository {
 
     suspend fun getPassengerPostById(id: Long): ResponseWrapper<PassengerPost>
     suspend fun getDriverOffers(postId: Long): ResultWrapper<List<OfferDTO>>
+    suspend fun getDriverOffersForParcel(postId: Long): ResultWrapper<List<OfferDTO>>
 
     suspend fun acceptOffer(id: Long): ResponseWrapper<String?>
     suspend fun rejectOffer(id: Long): ResponseWrapper<String?>

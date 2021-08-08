@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-
 import com.google.android.material.snackbar.Snackbar
 import com.novatec.epitak_passenger.R
 import com.novatec.epitak_passenger.domain.model.PassengerPost
 import com.novatec.epitak_passenger.ui.viewgroups.ActivePostItem
+import com.novatec.epitak_passenger.util.BSDExpanded
 import com.novatec.epitak_passenger.util.ErrorWrapper
 import com.novatec.epitak_passenger.util.ResultWrapper
 import com.novatec.epitak_passenger.util.exhaustive
@@ -28,7 +27,7 @@ import splitties.experimental.ExperimentalSplittiesApi
 const val ARG_DRIVER_POST = "DRIVER_POST"
 
 @AndroidEntryPoint
-class DialogJoinARideFragment : DialogFragment() {
+class DialogJoinARideFragment : BSDExpanded() {
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
     private lateinit var driverPost: DriverPostViewObj

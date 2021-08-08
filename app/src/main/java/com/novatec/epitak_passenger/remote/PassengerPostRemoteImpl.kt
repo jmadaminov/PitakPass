@@ -102,5 +102,17 @@ class PassengerPostRemoteImpl @Inject constructor(private val authApi: AuthApi) 
         }
     }
 
+    override suspend fun getDriverOffersForParcel(postId: Long): ResultWrapper<List<OfferDTO>> {
+        val response = getFormattedResponse { authApi.getOffersForPostParcel(postId) }
+        return when (response) {
+            is ResponseError -> {
+                ErrorWrapper.ResponseError(response.code, response.message)
+            }
+            is ResponseSuccess -> {
+                ResultWrapper.Success(response.value)
+            }
+        }
+    }
+
 
 }

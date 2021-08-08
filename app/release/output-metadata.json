@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 3,
-      "versionName": "1.0.1",
-      "outputFile": "PitakPass-release-1.0.1.apk"
+      "versionCode": 4,
+      "versionName": "1.0.2",
+      "outputFile": "PitakPass-release-1.0.2.apk"
     }
   ]
 }

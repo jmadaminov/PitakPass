@@ -56,6 +56,14 @@ class PassengerPostViewModel @Inject constructor(
             postOffers.postValue(response)
         }
     }
+    var parcelOffers = MutableLiveData<ResultWrapper<List<OfferDTO>>>()
+    fun getParcelOffersForPost(id: Long) {
+        parcelOffers.value = ResultWrapper.InProgress
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = postRepository.getDriverOffersForParcel(id)
+            parcelOffers.postValue(response)
+        }
+    }
 
     val deletePostReponse = SingleLiveEvent<ResultWrapper<Unit>>()
     val finishPostResponse = SingleLiveEvent<ResultWrapper<Unit>>()

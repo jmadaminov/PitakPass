@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.view_directions.*
 import splitties.experimental.ExperimentalSplittiesApi
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import kotlin.to
 
 @ExperimentalSplittiesApi
 class PassengerPostActivity : BaseActivity(), IOnOfferActionListener {
@@ -56,7 +55,7 @@ class PassengerPostActivity : BaseActivity(), IOnOfferActionListener {
         rvOffers.adapter = offersAdapter
 
         viewModel.getPostById(postId)
-        viewModel.getOffersForPost(postId)
+
 
 
         attachListeners()
@@ -188,6 +187,7 @@ class PassengerPostActivity : BaseActivity(), IOnOfferActionListener {
                     }
                 }
             } else {
+
                 lblPrice.text = getString(R.string.price_for_one)
                 llParcel.isVisible = false
                 imageContainer.isVisible = false
@@ -228,23 +228,46 @@ class PassengerPostActivity : BaseActivity(), IOnOfferActionListener {
                 }
                 EPostStatus.CREATED -> {
                     llOffersContainer.isVisible = true
-                    viewModel.postOffers.observe(this) {
-                        when (it) {
-                            is ErrorWrapper.ResponseError -> {
-                                progressOfferAction.isVisible = false
+                    if (postNonNull.postType == EPostType.PASSENGER_PARCEL) {
+                        viewModel.getParcelOffersForPost(postId)
+                        viewModel.parcelOffers.observe(this) {
+                            when (it) {
+                                is ErrorWrapper.ResponseError -> {
+                                    progressOfferAction.isVisible = false
+                                }
+                                is ErrorWrapper.SystemError -> {
+                                    progressOfferAction.isVisible = false
+                                }
+                                ResultWrapper.InProgress -> {
+                                    progressOfferAction.isVisible = true
+                                }
+                                is ResultWrapper.Success -> {
+                                    progressOfferAction.isVisible = false
+                                    populateOffers(it.value)
+                                }
                             }
-                            is ErrorWrapper.SystemError -> {
-                                progressOfferAction.isVisible = false
-                            }
-                            ResultWrapper.InProgress -> {
-                                progressOfferAction.isVisible = true
-                            }
-                            is ResultWrapper.Success -> {
-                                progressOfferAction.isVisible = false
-                                populateOffers(it.value)
-                            }
+                            rvOffers.requestLayout()
                         }
-                        rvOffers.requestLayout()
+                    } else {
+                        viewModel.getOffersForPost(postId)
+                        viewModel.postOffers.observe(this) {
+                            when (it) {
+                                is ErrorWrapper.ResponseError -> {
+                                    progressOfferAction.isVisible = false
+                                }
+                                is ErrorWrapper.SystemError -> {
+                                    progressOfferAction.isVisible = false
+                                }
+                                ResultWrapper.InProgress -> {
+                                    progressOfferAction.isVisible = true
+                                }
+                                is ResultWrapper.Success -> {
+                                    progressOfferAction.isVisible = false
+                                    populateOffers(it.value)
+                                }
+                            }
+                            rvOffers.requestLayout()
+                        }
                     }
                 }
                 EPostStatus.SYSTEM_REJECTED -> {

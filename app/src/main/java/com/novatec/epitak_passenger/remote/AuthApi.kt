@@ -88,6 +88,13 @@ interface AuthApi {
 
 
     @Headers("Content-Type:application/json", "Accept: application/json")
+    @GET("offer/passenger/post/{id}/parcel")
+    suspend fun getOffersForPostParcel(
+        @Path(value = "id", encoded = true) id: Long,
+    ): RespFormatter<List<OfferDTO>>
+
+
+    @Headers("Content-Type:application/json", "Accept: application/json")
     @PUT("passenger_post/action/cancel/{identifier}")
     suspend fun deletePost(
         @Path(

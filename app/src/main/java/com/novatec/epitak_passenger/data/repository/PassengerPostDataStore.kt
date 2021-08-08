@@ -21,5 +21,6 @@ interface PassengerPostDataStore {
     suspend fun rejectOffer(id: Long): ResponseWrapper<String?>
     suspend fun cancelMyOffer(id: Long): ResponseWrapper<String?>
     suspend fun getDriverOffers(postId: Long): ResultWrapper<List<OfferDTO>>
+    suspend fun getDriverOffersForParcel(postId: Long): ResultWrapper<List<OfferDTO>>
 
 }
