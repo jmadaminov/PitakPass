@@ -201,13 +201,12 @@
                 app:tabIndicatorHeight="0dp"
                 app:tabMaxWidth="0dp"
                 app:tabSelectedTextColor="@color/white" />
-            <!--app:tabMode="scrollable"-->
         </androidx.cardview.widget.CardView>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_ticket"
             app:layout_constraintVertical_weight="1" />

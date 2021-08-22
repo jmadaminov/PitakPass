@@ -120,8 +120,6 @@ class AddPostActivity : BaseActivity() {
             checkThirdPartDay.isChecked = editingPost.timeThirdPart
             checkFourthPartDay.isChecked = editingPost.timeFourthPart
 
-//            add_post_fragments_container.findNavController()
-//                .navigate(DestinationsFragmentDirections.actionDestinationsFragmentToPreviewFragmentClearBackstack())
         }
 
     }
@@ -130,9 +128,8 @@ class AddPostActivity : BaseActivity() {
     private fun attachListeners() {
 
         priceInput.doOnTextChanged { text, start, before, count ->
-            text?.let {
-                viewModel.price = text.toString().toInt()
-            }
+            if (text.isNullOrBlank()) return@doOnTextChanged
+            viewModel.price = text.toString().toInt()
             checkFields()
         }
 
