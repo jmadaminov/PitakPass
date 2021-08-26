@@ -21,7 +21,7 @@
     <string name="name">Ism</string>
     <string name="surname">Familiya</string>
     <string name="code">K\'od</string>
-    <string name="sms_containing_code_has_been_sent">Hozir sizga kod yubordik. Iltimos shu kodni kiriting.</string>
+    <string name="sms_containing_code_has_been_sent">Hozirgina sizga SMS orqali tasdiqlash kodi yuborildi.</string>
     <string name="passenger">Yo\'lovchi</string>
     <string name="driver">Haydovchi</string>
     <string name="title_profile">Profil</string>
@@ -164,15 +164,15 @@
     <string name="got_it">Tushunarli</string>
     <string name="no_notifications_yet">Xabarlar mavjud emas…</string>
 
-    <string name="no_destination_found">Yo\'nalish topilmadi...</string>
-    <string name="enter_search_location">Manzilni kiriting...</string>
+    <string name="no_destination_found">Yo\'nalish topilmadi…</string>
+    <string name="enter_search_location">Manzilni kiriting…</string>
     <string name="date">Sana</string>
     <string name="can_take_package">Po\'chta olaman</string>
-    <string name="parcel">Pochta</string>
-    <string name="add_parcel_photo">Posilka rasmini qo\'shing</string>
+    <string name="parcel">Po\'chta</string>
+    <string name="add_parcel_photo">Po\'chta rasmini qo\'shing</string>
     <string name="price_for_parcel">Po\'chta yetkazish narxi</string>
-    <string name="offer_parcel">Posilka taklif qilish</string>
-    <string name="accept">Accept</string>
-    <string name="decline">Decline</string>
+    <string name="offer_parcel">Po\'chta taklif qilish</string>
+    <string name="accept">Qabul qilish</string>
+    <string name="decline">Bekor qilish</string>
 
 </resources>
