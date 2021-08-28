@@ -20,7 +20,7 @@
     <string name="register">Ro\'yxatdan o\'tish</string>
     <string name="name">Ism</string>
     <string name="surname">Familiya</string>
-    <string name="code">K\'od</string>
+    <string name="code">Kod</string>
     <string name="sms_containing_code_has_been_sent">Hozirgina sizga SMS orqali tasdiqlash kodi yuborildi.</string>
     <string name="passenger">Yo\'lovchi</string>
     <string name="driver">Haydovchi</string>

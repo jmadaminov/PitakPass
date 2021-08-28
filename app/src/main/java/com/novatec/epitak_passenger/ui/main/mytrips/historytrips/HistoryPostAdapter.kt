@@ -17,7 +17,6 @@ import com.novatec.epitak_passenger.ui.passenger_post.PassengerPostActivity.Comp
 import com.novatec.epitak_passenger.util.PostUtils.timeFromDayParts
 import kotlinx.android.synthetic.main.item_history_post.view.*
 import splitties.activities.start
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class HistoryPostAdapter :
@@ -42,18 +41,24 @@ class HistoryPostAdapter :
                 for (i in 0 until post.seat) {
                     val seat = ImageView(context)
                     seat.layoutParams =
-                        LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                  ViewGroup.LayoutParams.WRAP_CONTENT)
+                        LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        )
                     seat.setImageResource(R.drawable.ic_round_emoji_people_24)
                     llSeatsContainer.addView(seat)
                 }
-                time.text = timeFromDayParts(post.timeFirstPart,
-                                             post.timeSecondPart,
-                                             post.timeThirdPart,
-                                             post.timeFourthPart)
+                time.text = timeFromDayParts(
+                    post.timeFirstPart,
+                    post.timeSecondPart,
+                    post.timeThirdPart,
+                    post.timeFourthPart
+                )
 
-                date.text = DateFormat.format("dd MMMM yyyy",
-                                              SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate))
+                date.text = DateFormat.format(
+                    "dd MMMM yyyy",
+                    SimpleDateFormat("dd.MM.yyyy").parse(post.departureDate)
+                )
                     .toString()
                 if (post.from.name == null && post.from.districtName == null) {
                     fromDistrict.isVisible = false
@@ -72,9 +77,10 @@ class HistoryPostAdapter :
                     toDistrict.text = post.to.regionName ?: post.to.name
                     to.text = post.to.districtName
                 }
-                price.text =
-                    DecimalFormat("#,###").format(post.price * post.seat) + " " + itemView.context.getString(
-                        R.string.sum)
+//                price.text =
+//                    DecimalFormat("#,###").format(post.offer!!.price!! * post.seat!!) + " " + itemView.context.getString(
+//                        R.string.sum
+//                    )
 
                 cardHistoryItem.setOnClickListener {
                     context.start<HistoryPostActivity> {

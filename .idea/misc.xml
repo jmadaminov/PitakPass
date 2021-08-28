@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_add_post.xml" value="0.19074074074074074" />
+        <entry key="app/src/main/res/layout/bsd_destination.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_parcel.xml" value="0.19074074074074074" />
         <entry key="app/src/main/res/layout/fragment_phone_confirm.xml" value="0.21458333333333332" />
+        <entry key="app/src/main/res/layout/item_history_post.xml" value="0.165" />
       </map>
     </option>
   </component>

@@ -184,8 +184,7 @@ class HistoryPostActivity : BaseActivity() {
             note.text = post.remark
         }
 
-
-        post.driverPost.price.also {
+        post.offer?.price.also {
             tvOfferingPrice.text =
                 getString(R.string.agreed_price, DecimalFormat("#,###").format(it))
         }
